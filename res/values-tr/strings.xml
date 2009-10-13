@@ -31,7 +31,7 @@
     <string name="auto_complete_dialog_title" msgid="2172048590607201920">"Otomatik tamamlama"</string>
     <string name="prediction_landscape" msgid="4874601565593216183">"Metin alanı boyutunu artır"</string>
     <string name="prediction_landscape_summary" msgid="6736551095997839472">"Yatay görünümde kelime önerilerini gizle"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Ot. olarak büyük harf yap"</string>
+    <string name="auto_cap" msgid="1719746674854628252">"Otomatik olarak büyük harf yap"</string>
     <string name="auto_cap_summary" msgid="3260681697600786825">"Cümlenin baş harfini büyük yap"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Otomatik noktalama"</string>
     <!-- no translation found for auto_punctuate_summary (6589441565817502132) -->
