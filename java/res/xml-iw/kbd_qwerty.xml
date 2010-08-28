@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* 
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="@dimen/key_height"
+    >
+
+    <Row>
+        <Key android:codes="\\u05E5" android:keyLabel="ץ" android:keyEdgeFlags="left"/>
+        <Key android:codes="\\u05E7" android:keyLabel="ק"/>
+        <Key android:codes="\\u05D0" android:keyLabel="ר"/>
+        <Key android:codes="\\u05E8" android:keyLabel="ר"/>
+        <Key android:codes="\\u05D0" android:keyLabel="א"/>
+        <Key android:codes="\\u05D8" android:keyLabel="ט"/>
+        <Key android:codes="\\u05D5" android:keyLabel="ו"/>
+        <Key android:codes="\\u05DF" android:keyLabel="ן"/>
+        <Key android:codes="\\u05DD" android:keyLabel="ם"/>
+        <Key android:codes="\\u05E4" android:keyLabel="פ" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="\\u05E9" android:keyLabel="ש" android:horizontalGap="5%p" 
+		     android:keyEdgeFlags="left"/>
+        <Key android:codes="\\u05D3" android:keyLabel="ד"/>
+        <Key android:codes="\\u05D2" android:keyLabel="ג"/>
+        <Key android:codes="\\u05DB" android:keyLabel="כ"/>
+        <Key android:codes="\\u05E2" android:keyLabel="ע"/>
+        <Key android:codes="\\u05D9" android:keyLabel="י"/>
+        <Key android:codes="\\u05D7" android:keyLabel="ח"/>
+        <Key android:codes="\\u05DC" android:keyLabel="ל"/>
+        <Key android:codes="\\u05E8" android:keyLabel="ך" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="\\u05D6" android:keyLabel="ז" android:keyEdgeFlags="left"/>
+        <Key android:codes="\\u05E1" android:keyLabel="ס"/>
+        <Key android:codes="\\u05D1" android:keyLabel="ב"/>
+        <Key android:codes="\\u05D4" android:keyLabel="ה"/>
+        <Key android:codes="\\u05E0" android:keyLabel="נ"/>
+        <Key android:codes="\\u05DE" android:keyLabel="מ"/>
+        <Key android:codes="\\u05E6" android:keyLabel="צ"/>
+        <Key android:codes="\\u05EA" android:keyLabel="ת"/>
+        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete"
+                android:keyWidth="15%p" android:keyEdgeFlags="right"
+                android:iconPreview="@drawable/sym_keyboard_feedback_delete"
+                android:isRepeatable="true"/>
+    </Row>
+
+    <Row android:keyboardMode="@+id/mode_normal" android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyLabel="@string/label_symbol_key" 
+                android:popupKeyboard="@xml/kbd_popup_template"
+                android:popupCharacters="_"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_f1" android:keyIcon="@drawable/sym_keyboard_mic"
+                android:iconPreview="@drawable/sym_keyboard_feedback_mic"
+                android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space"
+                android:iconPreview="@drawable/sym_keyboard_feedback_space"
+                android:keyWidth="40%p" android:isRepeatable="true"/>
+        <Key android:codes="46" android:keyLabel="." android:popupKeyboard="@xml/popup_punctuation" 
+                android:keyWidth="10%p"/>
+        <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return"
+                android:iconPreview="@drawable/sym_keyboard_feedback_return"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyboardMode="@+id/mode_url" android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyLabel="@string/label_symbol_key"
+                android:popupKeyboard="@xml/kbd_popup_template"
+                android:popupCharacters="_"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="/" android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space"
+                android:iconPreview="@drawable/sym_keyboard_feedback_space"
+                android:keyWidth="40%p" android:isRepeatable="true"/>
+        <!--Key android:keyLabel="@string/popular_domain_0"
+                android:keyOutputText="@string/popular_domain_0"
+                android:popupKeyboard="@xml/popup_domains"
+                android:keyWidth="20%p"/-->
+        <Key android:keyLabel="." android:popupKeyboard="@xml/popup_punctuation"
+                android:keyWidth="10%p"/>
+        <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return"
+                android:iconPreview="@drawable/sym_keyboard_feedback_return"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyboardMode="@+id/mode_email" android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyLabel="@string/label_symbol_key"
+                android:popupKeyboard="@xml/kbd_popup_template"
+                android:popupCharacters="_"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="\@"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space"
+                android:iconPreview="@drawable/sym_keyboard_feedback_space"
+                android:keyWidth="40%p" android:isRepeatable="true"/>
+        <!--Key android:keyLabel="@string/popular_domain_0"
+                android:keyOutputText="@string/popular_domain_0"
+                android:popupKeyboard="@xml/popup_domains"
+                android:keyWidth="20%p"/-->
+        <Key android:keyLabel="." android:popupKeyboard="@xml/popup_punctuation"/>
+        <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return"
+                android:iconPreview="@drawable/sym_keyboard_feedback_return"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyboardMode="@+id/mode_im" android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyLabel="@string/label_symbol_key"
+                android:popupKeyboard="@xml/kbd_popup_template"
+                android:popupCharacters="_"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_f1" android:keyIcon="@drawable/sym_keyboard_mic"
+                android:iconPreview="@drawable/sym_keyboard_feedback_mic"
+                android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space"
+                android:iconPreview="@drawable/sym_keyboard_feedback_space"
+                android:keyWidth="40%p" android:isRepeatable="true"/>
+        <Key android:codes="46" android:keyLabel="." android:popupKeyboard="@xml/popup_punctuation" 
+                android:keyWidth="10%p"/>
+        <Key android:keyLabel=":-)" android:keyOutputText=":-) "
+                android:popupKeyboard="@xml/popup_smileys"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyboardMode="@+id/mode_webentry" android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyLabel="@string/label_symbol_key"
+                android:popupKeyboard="@xml/kbd_popup_template"
+                android:popupCharacters="_"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_f1" android:keyIcon="@drawable/sym_keyboard_mic"
+                android:iconPreview="@drawable/sym_keyboard_feedback_mic"
+                android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space"
+                android:iconPreview="@drawable/sym_keyboard_feedback_space"
+                android:keyWidth="20%p" android:isRepeatable="true"/>
+        <Key android:codes="9" android:keyIcon="@drawable/sym_keyboard_tab"
+                android:iconPreview="@drawable/sym_keyboard_feedback_tab"
+                android:keyWidth="20%p"/>
+        <Key android:keyLabel="." android:popupKeyboard="@xml/popup_punctuation"/>
+        <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return"
+                android:iconPreview="@drawable/sym_keyboard_feedback_return"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+</Keyboard>
+
