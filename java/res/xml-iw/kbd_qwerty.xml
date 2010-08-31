@@ -38,8 +38,7 @@
     </Row>
     
     <Row>
-        <Key android:keyLabel="ש" android:horizontalGap="5%p" 
-		     android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="ש" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="ד"/>
         <Key android:keyLabel="ג"/>
         <Key android:keyLabel="כ"/>
@@ -47,11 +46,12 @@
         <Key android:keyLabel="י"/>
         <Key android:keyLabel="ח"/>
         <Key android:keyLabel="ל"/>
-        <Key android:keyLabel="ך" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel="ך"/>
+        <Key android:keyLabel="ף" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:keyLabel="ז" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="ז" android:horizontalGap="5%p" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="ס"/>
         <Key android:keyLabel="ב"/>
         <Key android:keyLabel="ה"/>
