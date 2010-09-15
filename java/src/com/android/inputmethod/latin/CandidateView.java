@@ -331,6 +331,20 @@ public class CandidateView extends View {
         requestLayout();
     }
 
+  public void showAddToDictionaryHint(CharSequence word) {
+        mWordToAddToDictionary = word;
+        ArrayList<CharSequence> suggestions = new ArrayList<CharSequence>();
+        suggestions.add(word);
+        suggestions.add(mAddToDictionaryHint);
+        setSuggestions(suggestions, false, false, false);
+        mShowingAddToDictionary = true;
+    }
+
+    public boolean dismissAddToDictionaryHint() {
+        if (!mShowingAddToDictionary) return false;
+        clear();
+        return true;
+    }
     public void scrollPrev() {
 //        int i = 0;
 //        final int count = mSuggestions.size();
@@ -522,20 +536,7 @@ public class CandidateView extends View {
     
 
 
-    public void showAddToDictionaryHint(CharSequence word) {
-        mWordToAddToDictionary = word;
-        ArrayList<CharSequence> suggestions = new ArrayList<CharSequence>();
-        suggestions.add(word);
-        suggestions.add(mAddToDictionaryHint);
-        setSuggestions(suggestions, false, false, false);
-        mShowingAddToDictionary = true;
-    }
-
-    public boolean dismissAddToDictionaryHint() {
-        if (!mShowingAddToDictionary) return false;
-        clear();
-        return true;
-    }
+  
 
     private void longPressFirstWord() {
     	CharSequence word = mSuggestions.get(0);
