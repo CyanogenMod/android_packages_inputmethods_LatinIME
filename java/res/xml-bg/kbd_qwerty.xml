@@ -76,7 +76,7 @@
                 android:isRepeatable="true"/>
     </Row>
 
-    <Row android:codes="@+id/mode_normal" android:rowEdgeFlags="bottom">
+    <Row android:keyboardMode="@+id/mode_normal" android:rowEdgeFlags="bottom">
         <Key android:codes="-2" android:keyLabel="@string/label_symbol_key" 
                 android:popupKeyboard="@xml/kbd_popup_template"
                 android:popupCharacters="_"
