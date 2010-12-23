@@ -29,7 +29,7 @@
         android:rowEdgeFlags="top"
     >
         <Key
-            android:keyLable="я"
+            android:keyLabel="я"
             android:keyEdgeFlags="left" />
         <Key
             android:keyLabel="в" />
@@ -50,7 +50,7 @@
         <Key
             android:keyLabel="п" />
         <Key
-            android:keyLable="ч"
+            android:keyLabel="ч"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>

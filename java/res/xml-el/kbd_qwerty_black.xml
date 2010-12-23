@@ -29,7 +29,7 @@
         android:rowEdgeFlags="top"
     >
         <Key
-            android:keyLable=";"
+            android:keyLabel=";"
             android:keyEdgeFlags="left" />
         <Key
             android:keyLabel="ς" />
