@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Title for Latin keyboard  -->
+    <string name="english_ime_name">Android billentyűzet</string>
+    <!-- Title for Latin keyboard settings activity / dialog -->
+    <string name="english_ime_settings">Android billentyűzet beállításai</string>
+
+    <!-- Option to provide vibrate/haptic feedback on keypress -->
+    <string name="vibrate_on_keypress">Rezgés gombnyomáskor</string>
+    <!-- Option to play back sound on keypress in soft keyboard -->
+    <string name="sound_on_keypress">Hang gombnyomáskor</string>
+    
+    <!-- Option to enable using nearby keys when correcting/predicting -->
+    <string name="hit_correction">Gépelési hibák javítása</string>
+    
+    <!-- Description for hit_correction  -->
+    <string name="hit_correction_summary">Hibajavítás engedélyezése</string>
+    
+    <!-- Option to enable using nearby keys when correcting/predicting in landscape-->
+    <string name="hit_correction_land">Hibajavítás fekvő nézetben</string>
+    
+    <!-- Description for hit_correction in landscape -->
+	<string name="hit_correction_land_summary">Gépelési hibák javítása</string>
+    
+    <!-- Option to automatically correct word on hitting space -->
+	<string name="auto_correction">Automatikus javítás</string> 
+    
+    <!-- Description for auto_correction -->
+	<string name="auto_correction_summary">Az előző szó automatikus javítása a szóköz leütésekor</string>
+	
+    <!-- Option to enable text prediction -->
+    <string name="prediction">Szó javaslatok</string>
+    <!-- Category title for text prediction -->
+    <string name="prediction_category">Szó javaslatok beállításai</string>
+    <!-- Description for text prediction -->
+    <string name="prediction_summary">A szavak automatikus kiegészítésének engedélyezése gépelés közben</string>
+	
+    <!-- Dialog title for auto complete choices -->
+    <string name="auto_complete_dialog_title">Automatikus kiegészítés</string>
+    
+    <!-- Option to enable text prediction in landscape -->
+    <string name="prediction_landscape">Szövegmező méretének növelése</string> 
+    <!-- Description for text prediction -->
+    <string name="prediction_landscape_summary">Szójavaslatok elrejtése fektetett nézetben</string>
+	
+    <!-- Option to enable auto capitalization of sentences -->
+    <string name="auto_cap">Automatikus nagybetű</string> 
+    <!-- Description for auto cap -->
+    <string name="auto_cap_summary">Automatikus nagybetű a mondatok elején</string>
+    <!-- Option to enable auto punctuate -->
+    <string name="auto_punctuate">Automatikus írásjelek</string> 
+    <!-- Description for auto punctuate -->
+    <string name="auto_punctuate_summary"/>
+    
+    <!-- Option to enable quick fixes -->
+    <string name="quick_fixes">Gyors javítások</string>
+    <!-- Description for quick fixes -->
+    <string name="quick_fixes_summary">Gyakori gépelési hibák javítása</string>
+    
+    <!-- Option to enable showing suggestions -->
+    <string name="show_suggestions">Javaslatok megjelenítése</string>
+    <!-- Description for show suggestions -->
+    <string name="show_suggestions_summary">Javasolt szavak kijelzése gépelés közben</string>
+    
+    <!-- Option to enable auto completion -->
+    <string name="auto_complete">Automatikus kiegészítés</string>
+    <!-- Description for auto completion -->
+    <string name="auto_complete_summary">Kiemelt szójavaslat esetén automatikus szóköz- és írásjel-beillesztés</string>
+    
+    <!-- Array of prediction modes -->
+    <string-array name="prediction_modes">
+    <item>Nincs</item>
+    <item>Alap</item>
+    <item>Haladó</item>
+  </string-array>
+    
+    <!-- Indicates that a word has been added to the dictionary -->
+	<string name="added_word">"<xliff:g id="word">%s</xliff:g>" mentve a szótárba</string>
+    <!-- Accented forms of "a" -->
+    <string name="alternates_for_a">áaâaäaa</string>
+    <!-- Accented forms of "e" -->
+    <string name="alternates_for_e">éeeë</string>
+    <!-- Accented forms of "i" -->
+    <string name="alternates_for_i">íiîi</string>
+    <!-- Accented forms of "o" -->
+    <string name="alternates_for_o">óöőoôoöoo</string>
+    <!-- Accented forms of "u" -->
+    <string name="alternates_for_u">úüűuu</string>
+    <!-- Letters associated with "s" -->
+    <string name="alternates_for_s">§ß</string>
+    <!-- Accented forms of "n" -->
+    <string name="alternates_for_n">n</string>
+    <!-- Accented forms of "c" -->
+    <string name="alternates_for_c">ç</string>
+    <!-- Accented forms of "y" -->
+    <string name="alternates_for_y">ýy</string>
+    
+    <!-- Tip to long press on keys -->
+    <string name="tip_long_press">Ékezetes betűk írásához tartson lenyomva egy gombot</string>
+    <!-- Tip to dismiss keyboard -->
+    <string name="tip_dismiss">Nyomja meg a vissza-gombot \u21B6 a virtuális billentyűzet bezárásához</string>
+    <!-- Tip to press ?123 to access numbers and symbols -->
+    <string name="tip_access_symbols">Számok és szimbólumok elérése</string>    
+    <!-- Tip to long press on typed word to add to dictionary -->
+    <string name="tip_add_to_dictionary">Nyomja meg és tartsa lenyomva a szót a szótárba való felvételhez</string>
+        
+    <!-- Instruction to touch the bubble to continue -->
+    <string name="touch_to_continue">Érintse meg ezt a tippet a folytatáshoz</string>
+    
+    <!-- Instruction to touch the bubble to start typing -->
+    <string name="touch_to_finish">Érintse meg a befejezéshez!</string>
+    
+    <!-- Tutorial tip 1 - The keyboard opens any time you touch a text field -->
+	<string name="tip_to_open_keyboard"><b>A billentyűzet előbukkan ha megérint egy szövegmezőt</b></string>
+    
+    <!-- Tutorial tip 2 - Touch and hold a key to view accents (examples) -->
+	<string name="tip_to_view_accents"><b>Nyomjon lenyomva egy billentyűt az ékezetes változataihoz\n(o, ó, ö, ő, stb.)</b>
+    </string>
+    
+    <!-- Tutorial tip 3 - How to switch to number/symbol keyboard -->
+	<string name="tip_to_open_symbols"><b>Ezzel a billentyűvel átválthat számok/szimbólumok írására</b></string>
+    
+    <!-- Tutorial tip 4 - How to switch back to alphabet keyboard -->
+	<string name="tip_to_close_symbols"><b>A billentyű újbóli megérintésése után újra betűket írhat</b></string>
+    
+    <!-- Tutorial tip 5 - How to launch keyboard settings -->
+	<string name="tip_to_launch_settings"><b>Tartsa nyomva ezt a billentyűt a billentyűzet beállításaink eléréséhez</b></string>
+    
+    <!-- Tutorial tip 6 - Done with the tutorial -->
+    <string name="tip_to_start_typing"><b>Try it!</b></string>
+    
+    
+    <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key! -->
+    <string name="label_go_key">Mehet</string>
+    <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key! -->
+    <string name="label_next_key">Tovább</string>
+    <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key! -->
+    <string name="label_done_key">Kész</string>
+    <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key! -->
+    <string name="label_send_key">Küldés</string>
+    <!-- Label for "switch to symbols" key.  Must be short to fit on key! -->
+    <string name="label_symbol_key">\?123</string>
+    <!-- Label for "switch to numeric" key.  Must be short to fit on key! -->
+    <string name="label_phone_key">123</string>
+    <!-- Label for "switch to alphabetic" key.  Must be short to fit on key! -->
+    <string name="label_alpha_key">ABC</string>
+    <!-- Label for ALT modifier key.  Must be short to fit on key! -->
+    <string name="label_alt_key">ALT</string>
+
+    <!-- Voice related labels -->
+
+    <!-- Title of the warning dialog that shows when a user initiates voice input for
+         the first time. -->
+    <string name="voice_warning_title">Hangfelismerés</string>
+    
+    <!-- Message that gets put at the top of the warning dialog if the user is attempting to use
+         voice input in a currently unsupported locale. Voice input will work for such a user,
+         but it will only recognize them in English. -->
+    <string name="voice_warning_locale_not_supported">A hangfelismerés nem támogatott az Ön nyelvén, de angolul működik.</string>
+    
+    <!-- Message of the warning dialog that shows when a user initiates voice input for
+         the first time, or turns it on in settings. -->
+    <string name="voice_warning_may_not_understand">A Hangfelismerés egy kísérleti szolgáltatás ami a Google hangfelismerőjét használja.</string>
+    
+    <!-- An additional part of the warning dialog for voice input that only shows when the user
+         actually initiates voice input, rather than just turning it on in settings. -->
+    <string name="voice_warning_how_to_turn_off">A hangfelismerést kikapcsolhatja a billentyűzet beállításoknál.</string>
+    
+    <!-- Message to show when user clicks the swiping hint (which says
+        "Swipe across keyboard to speak"). Also shown when enabling settings. -->
+    <string name="voice_hint_dialog_message">A hangfelismerés használatához érintse meg a mikrofon gombot.</string>
+    
+    <!-- Short message to tell the user the system is ready for them to speak. -->
+    <string name="voice_listening">Most beszéljen</string>
+
+    <!-- Short message shown after the user finishes speaking. -->
+    <string name="voice_working">Várjon...</string>
+
+    <!-- Short message shown before the user should speak. -->
+    <string name="voice_initializing"></string>
+
+    <!-- Short message shown when a generic error occurs. -->
+    <string name="voice_error">Hiba. Kérjük, próbálja újra.</string>
+
+    <!-- Short message shown for a network error. -->
+    <string name="voice_network_error">Kapcsolódás sikertelen</string>
+    
+    <!-- Short message shown for a network error where the utterance was really long,
+         in which case we should suggest that the user speak less. -->
+    <string name="voice_too_much_speech">Hiba, túl sok beszéd.</string>
+
+    <!-- Short message shown for an audio error. -->
+    <string name="voice_audio_error">Hang probléma</string>
+
+    <!-- Short message shown for an error with the voice server. -->
+    <string name="voice_server_error">Hiba a kiszolgálón</string>
+
+    <!-- Short message shown when no speech is heard. -->
+    <string name="voice_speech_timeout">Nem volt beszéd hallható</string>
+
+    <!-- Short message shown when the server couldn't parse any speech. -->
+    <string name="voice_no_match">Nincs találat</string>
+
+    <!-- Short message shown when the user initiates voice and voice
+	search is not installed. -->
+    <string name="voice_not_installed">Hangfelismerő keresés nincs telepítve</string>
+
+    <!-- Short hint shown in candidate view to explain voice input. -->
+	<string name="voice_swipe_hint"><b>Tipp:</b>Húzza átlósan az úját a billentyűzeten hogy beszélhessen</string>
+
+    <!-- Short hint shown in candidate view to explain that user can speak punctuation. -->
+    <string name="voice_punctuation_hint"><b>Tipp:</b>Legközelebb próbálja kimondani az írásjeleket. Pl. angolul \"comma\" vagy \"period\".</string>
+
+    <!-- Label on button to stop recognition. Must be short to fit on button. -->
+    <string name="cancel">Mégse</string>
+
+    <!-- Label on button when an error occurs -->
+    <string name="ok">OK</string>
+
+    <!-- Preferences item for enabling speech input -->
+    <string name="voice_input">Hangfelismerés</string>
+
+    <!-- Array of Voice Input modes -->
+    <string-array name="voice_input_modes">
+    <item>A fő billentyűzeten</item>
+    <item>A szimbólum billentyűzeten</item>
+    <item>Egyik helyen sem</item>
+  </string-array>
+
+    <!-- Array of Voice Input modes summary -->
+    <string-array name="voice_input_modes_summary">
+    <item>Mikrofon jel fő billentyűzeten</item>
+    <item>Mikrofon jel a szimbólum billentyűzeten</item>
+    <item>Hangfelismerés letiltva</item>
+  </string-array>
+
+    <!-- Press the "enter" key after the user speaks. Option on settings.-->
+    <string name="auto_submit">Automatikus küldés beszéd után</string>
+
+    <!-- Press the "enter" key after the user speaks. Summary of option in settings.-->
+    <string name="auto_submit_summary">Automatikusan nyomjon enter-t kereséskor vagy menjen tovább a következő mezőre.</string>
+
+    <!-- IME Tutorial screen (ROMAN) --><skip/>
+    <!-- appears above image showing the user to click on a TextView to show the IME -->
+	<string name="open_the_keyboard"><font size="17"><b>Billentyűzet megnyitása\n</b></font><font size="3">\n</font>Érintsen meg egy szövegmezőt.</string>
+
+    <!-- appears above the image showing the back button used to close the keyboard -->
+	<string name="close_the_keyboard"><font size="17"><b>Billentyűzet bezárása\n</b></font><font size="3">\n</font>Nyomja meg a Vissza gombot.</string>
+
+    <!-- appears above image showing how to use touch and hold -->
+	<string name="touch_and_hold"><font size="17"><b>Írásjelek és ékezetes betűk\n</b></font><font size="3">\n</font>Tartson lenyomva egy billentyűt</string>
+
+    <!-- appears above image showing how to access keyboard settings -->
+	<string name="keyboard_settings"><font size="17"><b>A billentyűzet beállításai\n</b></font><font size="3">\n</font>Tartsa lenyomva a <b>\123\</b> billentyűt</string>
+
+    <!-- popular web domains for the locale - most popular, displayed on the keyboard -->
+    <string name="popular_domain_0">".com"</string>
+    <!-- popular web domains for the locale - item 1, displayed in the popup -->
+    <string name="popular_domain_1">".hu"</string>
+    <!-- popular web domains for the locale - item 2, displayed in the popup -->
+    <string name="popular_domain_2">".net"</string>
+    <!-- popular web domains for the locale - item 3, displayed in the popup -->
+    <string name="popular_domain_3">".org"</string>
+    <!-- popular web domains for the locale - item 4, displayed in the popup -->
+    <string name="popular_domain_4">".eu"</string>
+
+    <!-- Menu item for launching Input method switcher -->
+    <string name="inputMethod">Beviteli mód</string>
+    
+    <!-- Title for input language selection screen -->
+    <string name="language_selection_title">Beviteli nyelvek</string>
+    <!-- Title summary for input language selection screen -->
+    <string name="language_selection_summary">A nyelv megváltoztatásához csúsztassa az ujját a szóközön</string>
+    
+    <!-- Add to dictionary hint -->
+    <string name="hint_add_to_dictionary">\u2190 mentéshez érintse meg ismét</string>
+    
+    <!-- Inform the user that a particular language has an available dictionary -->
+    <string name="has_dictionary">Szótár elérhető</string>
+</resources>
