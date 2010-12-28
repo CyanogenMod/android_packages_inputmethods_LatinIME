@@ -1993,6 +1993,9 @@ public class LatinIME extends InputMethodService
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             rememberReplacedWord(suggestion);
+            if (correcting) {
+                EditingUtil.deleteWordAtCursor(ic, mWordSeparators);
+            }
             ic.commitText(suggestion, 1);
         }
         saveWordInHistory(suggestion);
