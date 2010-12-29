@@ -56,7 +56,6 @@
     <Row>
         <Key
             android:keyLabel="а" android:keyWidth="8.75%p"
-            android:horizontalGap="5%p"
             android:keyEdgeFlags="left" />
         <Key
             android:keyLabel="с" />
