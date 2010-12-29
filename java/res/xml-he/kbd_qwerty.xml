@@ -233,7 +233,7 @@
             android:isModifier="true"
             android:keyEdgeFlags="left" />
         <Key
-            android:keyLabel="@integer/key_fi"
+            android:keyLabel="@integer/key_f1"
             android:isModifier="true" />
         <Key
             android:codes="@integer/key_space"
