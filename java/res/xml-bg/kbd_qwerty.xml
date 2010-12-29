@@ -20,7 +20,7 @@
 
 <Keyboard
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="10%p"
+    android:keyWidth="9.09%p"
     android:horizontalGap="0px"
     android:verticalGap="@dimen/key_bottom_gap"
     android:keyHeight="@dimen/key_height"
@@ -29,7 +29,7 @@
         android:rowEdgeFlags="top"
     >
         <Key
-            android:keyLabel="я"
+            android:keyLabel="я" android:keyWidth="8.75%p"
             android:keyEdgeFlags="left" />
         <Key
             android:keyLabel="в" />
@@ -50,12 +50,12 @@
         <Key
             android:keyLabel="п" />
         <Key
-            android:keyLabel="ч"
+            android:keyLabel="ч" android:keyWidth="8.75%p"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>
         <Key
-            android:keyLabel="а"
+            android:keyLabel="а" android:keyWidth="8.75%p"
             android:horizontalGap="5%p"
             android:keyEdgeFlags="left" />
         <Key
@@ -77,7 +77,7 @@
         <Key
             android:keyLabel="ш" />
         <Key
-            android:keyLabel="щ"
+            android:keyLabel="щ" android:keyWidth="8.75%p"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>
@@ -85,7 +85,7 @@
             android:codes="@integer/key_shift"
             android:keyIcon="@drawable/sym_keyboard_shift"
             android:iconPreview="@drawable/sym_keyboard_feedback_shift"
-            android:keyWidth="15%p"
+            android:keyWidth="13.5%p"
             android:isModifier="true"
             android:isSticky="true"
             android:keyEdgeFlags="left" />
@@ -109,7 +109,7 @@
             android:codes="@integer/key_delete"
             android:keyIcon="@drawable/sym_keyboard_delete"
             android:iconPreview="@drawable/sym_keyboard_feedback_delete"
-            android:keyWidth="15%p"
+            android:keyWidth="13.5%p"
             android:isModifier="true"
             android:isRepeatable="true"
             android:keyEdgeFlags="right" />
