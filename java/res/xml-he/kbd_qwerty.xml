@@ -56,7 +56,7 @@
         <Key
             android:keyLabel="ם"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="?" />
+            android:popupCharacters="\?" />
         <Key
             android:keyLabel="פ"
             android:popupKeyboard="@xml/kbd_popup_template"
