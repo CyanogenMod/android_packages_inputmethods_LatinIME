@@ -131,7 +131,7 @@
         <Key
             android:keyLabel="ה"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="&" />
+            android:popupCharacters="&amp;" />
         <Key
             android:keyLabel="נ"
             android:popupKeyboard="@xml/kbd_popup_template"
