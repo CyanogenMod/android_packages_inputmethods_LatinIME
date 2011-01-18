@@ -37,7 +37,7 @@ public class InputLanguageSelection extends PreferenceActivity {
     private String mSelectedLanguages;
     private ArrayList<Loc> mAvailableLanguages = new ArrayList<Loc>();
     private static final String[] BLACKLIST_LANGUAGES = {
-        "ko", "ja", "zh", "el"
+        "ko", "ja", "zh"
     };
 
     private static class Loc implements Comparable<Object> {
