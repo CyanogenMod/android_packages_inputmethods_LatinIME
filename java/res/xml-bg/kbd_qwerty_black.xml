@@ -103,14 +103,12 @@
             android:keyWidth="8.75%p"
             android:keyEdgeFlags="right" />
     </Row>
-    <Row
-        android:keyWidth="8.5%p"
-    >
+    <Row>
         <Key
             android:codes="@integer/key_shift"
             android:keyIcon="@drawable/sym_bkeyboard_shift"
             android:iconPreview="@drawable/sym_keyboard_feedback_shift"
-            android:keyWidth="13.75%p"
+            android:keyWidth="13.5%p"
             android:isModifier="true"
             android:isSticky="true"
             android:keyEdgeFlags="left" />
@@ -134,7 +132,7 @@
             android:codes="@integer/key_delete"
             android:keyIcon="@drawable/sym_bkeyboard_delete"
             android:iconPreview="@drawable/sym_keyboard_feedback_delete"
-            android:keyWidth="13.75%p"
+            android:keyWidth="13.5%p"
             android:isModifier="true"
             android:isRepeatable="true"
             android:keyEdgeFlags="right" />
