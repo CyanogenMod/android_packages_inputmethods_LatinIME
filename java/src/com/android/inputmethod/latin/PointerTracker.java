@@ -40,7 +40,7 @@ public class PointerTracker {
 
     // Timing constants
     private final int mDelayBeforeKeyRepeatStart;
-    private final int mLongPressKeyTimeout;
+    private int mLongPressKeyTimeout;
     private final int mMultiTapKeyTimeout;
 
     // Miscellaneous constants
@@ -164,7 +164,7 @@ public class PointerTracker {
     }
 
     public PointerTracker(int id, UIHandler handler, KeyDetector keyDetector, UIProxy proxy,
-            Resources res) {
+            Resources res, int longPressDelay) {
         if (proxy == null || handler == null || keyDetector == null)
             throw new NullPointerException();
         mPointerId = id;
@@ -174,7 +174,8 @@ public class PointerTracker {
         mKeyState = new KeyState(keyDetector);
         mHasDistinctMultitouch = proxy.hasDistinctMultitouch();
         mDelayBeforeKeyRepeatStart = res.getInteger(R.integer.config_delay_before_key_repeat_start);
-        mLongPressKeyTimeout = res.getInteger(R.integer.config_long_press_key_timeout);
+        mLongPressKeyTimeout = longPressDelay;
+        Log.d(TAG, "mLongPressKeyTimeout = " + mLongPressKeyTimeout);
         mMultiTapKeyTimeout = res.getInteger(R.integer.config_multi_tap_key_timeout);
         resetMultiTap();
     }
@@ -194,6 +195,11 @@ public class PointerTracker {
 
     private boolean isValidKeyIndex(int keyIndex) {
         return keyIndex >= 0 && keyIndex < mKeys.length;
+    }
+
+    public void setLongPressKeyTimeout(int longPressKeyTimeout) {
+        mLongPressKeyTimeout = longPressKeyTimeout;
+        Log.d(TAG, "mLongPressKeyTimeout = " + mLongPressKeyTimeout);
     }
 
     public Key getKey(int keyIndex) {
