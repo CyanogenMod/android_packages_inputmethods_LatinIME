@@ -90,6 +90,7 @@ public class LatinIME extends InputMethodService
     static final boolean ENABLE_VOICE_BUTTON = true;
 
     private static final String PREF_VIBRATE_ON = "vibrate_on";
+    private static final String PREF_OBEY_HAPTIC = "obey_haptic";
     private static final String PREF_SOUND_ON = "sound_on";
     private static final String PREF_POPUP_ON = "popup_on";
     private static final String PREF_AUTO_CAP = "auto_cap";
@@ -199,6 +200,7 @@ public class LatinIME extends InputMethodService
     private boolean mCapsLock;
     private boolean mPasswordText;
     private boolean mVibrateOn;
+    private boolean mObeyHapticFeedback;
     private boolean mSoundOn;
     private boolean mPopupOn;
     private boolean mAutoCap;
@@ -359,6 +361,7 @@ public class LatinIME extends InputMethodService
         }
         mReCorrectionEnabled = prefs.getBoolean(PREF_RECORRECTION_ENABLED,
                 getResources().getBoolean(R.bool.default_recorrection_enabled));
+        mObeyHapticFeedback = prefs.getBoolean(PREF_OBEY_HAPTIC, false);
 
         LatinIMEUtil.GCUtils.getInstance().reset();
         boolean tryGC = true;
@@ -2257,6 +2260,8 @@ public class LatinIME extends InputMethodService
         } else if (PREF_RECORRECTION_ENABLED.equals(key)) {
             mReCorrectionEnabled = sharedPreferences.getBoolean(PREF_RECORRECTION_ENABLED,
                     getResources().getBoolean(R.bool.default_recorrection_enabled));
+        } else if (PREF_OBEY_HAPTIC.equals(key)) {
+            mObeyHapticFeedback = sharedPreferences.getBoolean(PREF_OBEY_HAPTIC, false);
         }
     }
 
@@ -2386,7 +2391,7 @@ public class LatinIME extends InputMethodService
         if (mKeyboardSwitcher.getInputView() != null) {
             mKeyboardSwitcher.getInputView().performHapticFeedback(
                     HapticFeedbackConstants.KEYBOARD_TAP,
-                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+                    mObeyHapticFeedback ? 0 : HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
         }
     }
 

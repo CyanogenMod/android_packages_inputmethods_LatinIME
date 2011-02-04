@@ -28,6 +28,12 @@
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
 
+    <!-- Option to obey system haptic feedback setting -->
+    <string name="obey_haptic_feedback">Obey haptic feedback</string>
+
+    <!-- Description for obey_haptic_feedback -->
+    <string name="obey_haptic_feedback_summary">Don\'t vibrate if haptic feedback is disabled in system settings</string>
+
     <!-- Option to play back sound on keypress in soft keyboard -->
     <string name="sound_on_keypress">Sound on keypress</string>
 
