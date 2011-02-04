@@ -25,6 +25,13 @@
             />
 
     <CheckBoxPreference
+            android:key="obey_haptic"
+            android:title="@string/obey_haptic_feedback"
+            android:summary="@string/obey_haptic_feedback_summary"
+            android:persistent="true"
+            />
+
+    <CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on_keypress"
             android:persistent="true" 
