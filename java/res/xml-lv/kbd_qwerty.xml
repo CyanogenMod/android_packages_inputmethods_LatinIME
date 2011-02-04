@@ -95,9 +95,9 @@
         <Key
             android:keyLabel="j" />
         <Key
-            android:keyLabel="k" 
+            android:keyLabel="k"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="@string/alternates_for_l" />
+            android:popupCharacters="@string/alternates_for_k" />
         <Key
             android:keyLabel="l"
             android:popupKeyboard="@xml/kbd_popup_template"
