@@ -202,6 +202,7 @@ public class LatinIME extends InputMethodService
     private boolean mSoundOn;
     private boolean mPopupOn;
     private boolean mAutoCap;
+    private int     mLongPressDelay;
     private boolean mQuickFixes;
     private boolean mHasUsedVoiceInput;
     private boolean mHasUsedVoiceInputUnsupportedLocale;
@@ -675,6 +676,7 @@ public class LatinIME extends InputMethodService
         updateCorrectionMode();
 
         inputView.setPreviewEnabled(mPopupOn);
+        inputView.setLongPressDelay(mLongPressDelay);
         inputView.setProximityCorrectionEnabled(true);
         mPredictionOn = mPredictionOn && (mCorrectionMode > 0 || mShowSuggestions);
         // If we just entered a text field, maybe it has some old text that requires correction
@@ -2469,6 +2471,9 @@ public class LatinIME extends InputMethodService
         mPopupOn = sp.getBoolean(PREF_POPUP_ON,
                 mResources.getBoolean(R.bool.default_popup_preview));
         mAutoCap = sp.getBoolean(PREF_AUTO_CAP, true);
+        mLongPressDelay = sp.getInt(LatinIMESettings.PREF_LONG_PRESS_DELAY,
+                getResources().getInteger(R.integer.config_long_press_key_timeout));
+        Log.d(TAG, "mLongPressDelay = " + mLongPressDelay);
         mQuickFixes = sp.getBoolean(PREF_QUICK_FIXES, true);
         mHasUsedVoiceInput = sp.getBoolean(PREF_HAS_USED_VOICE_INPUT, false);
         mHasUsedVoiceInputUnsupportedLocale =

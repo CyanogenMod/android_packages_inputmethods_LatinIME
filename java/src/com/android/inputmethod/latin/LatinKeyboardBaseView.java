@@ -157,6 +157,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
 
     // Timing constants
     private final int mKeyRepeatInterval;
+    private int mLongPressDelay;
 
     // Miscellaneous constants
     /* package */ static final int NOT_A_KEY = -1;
@@ -664,6 +665,18 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
      */
     public boolean isPreviewEnabled() {
         return mShowPreview;
+    }
+
+    /**
+     * Sets the timeout for recognizing that a key has been long-pressed.
+     * @param longPressDelay long-press delay in milliseconds
+     */
+    public void setLongPressDelay(int longPressDelay) {
+        mLongPressDelay = longPressDelay;
+        Log.d(TAG, "mLongPressDelay = " + mLongPressDelay);
+        for (PointerTracker tracker : mPointerTrackers) {
+            tracker.setLongPressKeyTimeout(mLongPressDelay);
+        }
     }
 
     public int getSymbolColorScheme() {
@@ -1281,7 +1294,8 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         // Create pointer trackers until we can get 'id+1'-th tracker, if needed.
         for (int i = pointers.size(); i <= id; i++) {
             final PointerTracker tracker =
-                new PointerTracker(i, mHandler, mKeyDetector, this, getResources());
+                    new PointerTracker(i, mHandler, mKeyDetector, this, getResources(),
+                            mLongPressDelay);
             if (keys != null)
                 tracker.setKeyboard(keys, mKeyHysteresisDistance);
             if (listener != null)

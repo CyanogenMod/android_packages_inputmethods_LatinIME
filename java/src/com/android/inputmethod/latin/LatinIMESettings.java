@@ -44,6 +44,7 @@ public class LatinIMESettings extends PreferenceActivity
     private static final String PREDICTION_SETTINGS_KEY = "prediction_settings";
     private static final String VOICE_SETTINGS_KEY = "voice_mode";
     /* package */ static final String PREF_SETTINGS_KEY = "settings_key";
+    /* package */ static final String PREF_LONG_PRESS_DELAY = "long_press_delay";
 
     private static final String TAG = "LatinIMESettings";
 
@@ -53,6 +54,8 @@ public class LatinIMESettings extends PreferenceActivity
     private CheckBoxPreference mQuickFixes;
     private ListPreference mVoicePreference;
     private ListPreference mSettingsKeyPreference;
+    private DialogSeekBarPreference mLongPressDelayPreference;
+    private int mLongPressDelay;
     private boolean mVoiceOn;
 
     private VoiceInputLogger mLogger;
@@ -67,11 +70,14 @@ public class LatinIMESettings extends PreferenceActivity
         mQuickFixes = (CheckBoxPreference) findPreference(QUICK_FIXES_KEY);
         mVoicePreference = (ListPreference) findPreference(VOICE_SETTINGS_KEY);
         mSettingsKeyPreference = (ListPreference) findPreference(PREF_SETTINGS_KEY);
+        mLongPressDelayPreference = (DialogSeekBarPreference) findPreference(PREF_LONG_PRESS_DELAY);
         SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mVoiceModeOff = getString(R.string.voice_mode_off);
         mVoiceOn = !(prefs.getString(VOICE_SETTINGS_KEY, mVoiceModeOff).equals(mVoiceModeOff));
+        mLongPressDelay = prefs.getInt(PREF_LONG_PRESS_DELAY,
+                getResources().getInteger(R.integer.config_long_press_key_timeout));
         mLogger = VoiceInputLogger.getLogger(this);
     }
 
@@ -90,6 +96,7 @@ public class LatinIMESettings extends PreferenceActivity
             updateVoiceModeSummary();
         }
         updateSettingsKeySummary();
+        updateLongPressDelaySummary();
     }
 
     @Override
@@ -109,14 +116,23 @@ public class LatinIMESettings extends PreferenceActivity
             }
         }
         mVoiceOn = !(prefs.getString(VOICE_SETTINGS_KEY, mVoiceModeOff).equals(mVoiceModeOff));
+        mLongPressDelay = prefs.getInt(PREF_LONG_PRESS_DELAY,
+                getResources().getInteger(R.integer.config_long_press_key_timeout));
         updateVoiceModeSummary();
         updateSettingsKeySummary();
+        updateLongPressDelaySummary();
     }
 
     private void updateSettingsKeySummary() {
         mSettingsKeyPreference.setSummary(
                 getResources().getStringArray(R.array.settings_key_modes)
                 [mSettingsKeyPreference.findIndexOfValue(mSettingsKeyPreference.getValue())]);
+    }
+
+    private void updateLongPressDelaySummary() {
+        mLongPressDelayPreference.setSummary(String.format(
+                getResources().getString(R.string.long_press_delay_summary),
+                mLongPressDelay));
     }
 
     private void showVoiceConfirmation() {

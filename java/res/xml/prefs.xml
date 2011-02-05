@@ -61,6 +61,16 @@
             android:defaultValue="@string/settings_key_mode_auto"
             />
 
+	<com.android.inputmethod.latin.DialogSeekBarPreference
+            android:key="long_press_delay"
+            android:title="@string/long_press_delay"
+            android:persistent="true"
+            min="100"
+            max="1000"
+            step="25"
+            android:defaultValue="@integer/config_long_press_key_timeout"
+            />
+
     <ListPreference
             android:key="voice_mode"
             android:title="@string/voice_input"

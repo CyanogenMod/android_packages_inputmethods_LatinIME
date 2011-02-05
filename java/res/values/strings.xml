@@ -75,6 +75,11 @@
     <string name="auto_punctuate">Auto-punctuate</string> 
     <!-- Description for auto punctuate -->
     <string name="auto_punctuate_summary"></string>
+
+    <!-- Option to set long press delay -->
+    <string name="long_press_delay">Long press delay</string>
+    <!-- Description for long press delay -->
+    <string name="long_press_delay_summary">%d milliseconds</string>
     
     <!-- Option to enable quick fixes -->
     <string name="quick_fixes">Quick fixes</string>
