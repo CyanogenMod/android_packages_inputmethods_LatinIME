@@ -24,6 +24,13 @@
     <string name="english_ime_settings" msgid="6661589557206947774">"Impostazioni tastiera Android"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Opzioni inserimento"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrazione tasti"</string>
+
+    <!-- Option to obey system haptic feedback setting -->
+    <string name="obey_haptic_feedback">Segui feedback aptico</string>
+
+    <!-- Description for obey_haptic_feedback -->
+    <string name="obey_haptic_feedback_summary">Nessuna vibrazione se il feedback aptico non è attivo nelle impostazioni di sistema</string>
+
     <string name="sound_on_keypress" msgid="6093592297198243644">"Suono tasti"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Popup alla pressione di un tasto"</string>
     <string name="hit_correction" msgid="4855351009261318389">"Correggi errori di digitazione"</string>
@@ -42,6 +49,12 @@
     <string name="auto_cap_summary" msgid="3260681697600786825">"Rendi maiuscole le iniziali delle frasi"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Punteggiatura automat."</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
+
+    <!-- Option to set long press delay -->
+    <string name="long_press_delay">Ritardo pressione prolungata</string>
+    <!-- Description for long press delay -->
+    <string name="long_press_delay_summary">%d millisecondi</string>
+
     <string name="quick_fixes" msgid="5353213327680897927">"Correzioni veloci"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Corregge gli errori di digitazione più comuni"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Mostra suggerimenti"</string>
