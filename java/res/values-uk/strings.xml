@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="english_ime_name">Клавіатура Android</string>
+  <string name="english_ime_settings">Налаштування клавіатури Android</string>
+  <string name="english_ime_input_options">Параметри вводження</string>
+  <string name="vibrate_on_keypress">Тактильний звор. зв&rsquo;язок</string>
+  <string name="obey_haptic_feedback">Сист. налашт. тактильного звор. зв&rsquo;язку</string>
+  <string name="obey_haptic_feedback_summary">Не використовувати тактильний зворотній зв’язок, якщо він вимкнений у налаштуваннях системи</string>
+  <string name="sound_on_keypress">Звук натискання</string>
+  <string name="popup_on_keypress">Підсвічування натискання</string>
+  <string name="hit_correction">Виправлення друкарських помилок</string>
+  <string name="hit_correction_summary">Увімкнення виправлення помилок вводження</string>
+  <string name="hit_correction_land">Виправлення помилок за альбомної орієнтації</string>
+  <string name="hit_correction_land_summary">Увімкнення виправлення помилок вводження</string>
+  <string name="auto_correction">Пропонування слів</string>
+  <string name="auto_correction_summary">Автоматичне виправлення попереднього слова</string>
+  <string name="prediction">Пропонування слів</string>
+  <string name="prediction_category">Налаштування пропонування слів</string>
+  <string name="prediction_summary">Увімкнення автозавершення під час вводження тексту</string>
+  <string name="auto_complete_dialog_title">Автозавершення</string>
+  <string name="prediction_landscape">Збільшення розміру текстового поля</string>
+  <string name="prediction_landscape_summary">Приховання пропонування слів за альбомної орієнтації</string>
+  <string name="auto_cap">Автозмінення на велику літеру</string>
+  <string name="auto_cap_summary">Автоматично розпочинати речення з великої літери</string>
+  <string name="auto_punctuate">Автопунктуація</string>
+  <string name="auto_punctuate_summary">&lt;string name="auto_punctuate_summary"/&gt;</string>
+  <string name="long_press_delay">Тривалість довгого натискання</string>
+  <string name="long_press_delay_summary">%d мс</string>
+  <string name="quick_fixes">Швидке виправлення</string>
+  <string name="quick_fixes_summary">Виправлення типових друкарських помилок</string>
+  <string name="show_suggestions">Відображення запропонованих слів</string>
+  <string name="show_suggestions_summary">Пропонування слів під час вводженні тексту</string>
+  <string name="auto_complete">Автозавершення</string>
+  <string name="auto_complete_summary">Автовставлення виділеного слова за вводженням пробілу або знаку пунктуації</string>
+  <string name="prefs_settings_key">Відображення кнопки налаштування</string>
+  <string name="settings_key_mode_auto_name">Автоматичне</string>
+  <string name="settings_key_mode_always_show_name">Завжди відображати</string>
+  <string name="settings_key_mode_always_hide_name">Завжди приховувати</string>
+  <string name="bigram_suggestion">Біграмна підказка</string>
+  <string name="bigram_suggestion_summary">Використання попереднього слова з метою покращення прогнозування вводження</string>
+  <string name="prediction_none">0</string>
+  <string name="prediction_basic">1</string>
+  <string name="prediction_full">2</string>
+  <string name="added_word">&lt;xliff:g id="word"&gt;%s&lt;/xliff:g&gt; : збережене</string>
+  <string name="tip_long_press">Утримуйте клавішу, щоб побачити акценти (ø, ö тощо.)</string>
+  <string name="tip_dismiss">Натисніть клавішу &ldquo;Назад&rdquo; \u21B6, щоб закрити клавіатуру в будь-який момент</string>
+  <string name="tip_access_symbols">Вводження цифр і символів</string>
+  <string name="tip_add_to_dictionary">Натисніть і утримуйте слово ліворуч, щоб додати його в словник</string>
+  <string name="touch_to_continue">Натисніть цю підказку, щоб продовжити »</string>
+  <string name="touch_to_finish">Натисніть тут, щоб закрити цю підказку і почати вводження!</string>
+  <string name="tip_to_open_keyboard">&lt;b&gt;Клавіатура з&rsquo;явиться щоразу, коли ви торкнетеся текстового поля&lt;/b&gt;</string>
+  <string name="tip_to_view_accents">&lt;b&gt;Натисніть і утримуйте клавішу, щоб побачити акценти\n(ø, ö, ô, ó тощо)&lt;/b&gt;
+    </string>
+  <string name="tip_to_open_symbols">&lt;b&gt;Щоб ввести цифри та символи, натисніть цю клавішу&lt;/b&gt;</string>
+  <string name="tip_to_close_symbols">&lt;b&gt;Щоб повернутись до вводження літер, натисніть цю клавішу знову&lt;/b&gt;</string>
+  <string name="tip_to_launch_settings">&lt;b&gt;Натисніть і утримуйте цю клавішу, щоб змінити налаштування клавіатури&lt;/b&gt;</string>
+  <string name="tip_to_start_typing">&lt;b&gt;Спробуйте!&lt;/b&gt;</string>
+  <string name="label_go_key">Вперед</string>
+  <string name="label_next_key">Далі</string>
+  <string name="label_done_key">Готово</string>
+  <string name="label_send_key">Надіслати</string>
+  <string name="label_symbol_key">\?123</string>
+  <string name="label_phone_key">123</string>
+  <string name="label_alpha_key">АБВ</string>
+  <string name="label_alt_key">ALT</string>
+  <string name="voice_warning_title">Голосове вводження</string>
+  <string name="voice_warning_locale_not_supported">Голосове вводження вашою мовою не підтримується, але доступне англійською.</string>
+  <string name="voice_warning_may_not_understand">Голосове вводження – експериментальна функція, що використовує мережевий сервіс Google розпізнавання мови.</string>
+  <string name="voice_warning_how_to_turn_off">Вимкнути голосове вводження можливо перейшовши до налаштувань клавіатури.</string>
+  <string name="voice_hint_dialog_message">Для використання голосового вводження, натисніть кнопку зі зображенням мікрофона або протягніть пальцем упоперек екранної клавіатури.</string>
+  <string name="voice_listening">Говоріть</string>
+  <string name="voice_working">Обробка</string>
+  <string name="voice_initializing">&lt;string name="voice_initializing"/&gt;</string>
+  <string name="voice_error">Помилка. Будь ласка, спробуйте ще раз.</string>
+  <string name="voice_network_error">Помилка з&rsquo;єднання</string>
+  <string name="voice_too_much_speech">Помилка, занадто довга фраза.</string>
+  <string name="voice_audio_error">Проблеми зі звуком</string>
+  <string name="voice_server_error">Помилка сервера</string>
+  <string name="voice_speech_timeout">Нечути мовлення</string>
+  <string name="voice_no_match">Збігів не знайдено</string>
+  <string name="voice_not_installed">Голосовий пошук не встановлено</string>
+  <string name="voice_swipe_hint">&lt;b&gt;Підказка:&lt;/b&gt; Щоб увімкнути голосове вводження, протягніть пальцем упоперек екранної клавіатури</string>
+  <string name="voice_punctuation_hint">&lt;b&gt;Підказка:&lt;/b&gt; Наступного разу, спробуйте вимовляти знаки пунктуації, наприклад: \"period\", \"comma\", або \"question mark\".</string>
+  <string name="cancel">Скасувати</string>
+  <string name="ok">OK</string>
+  <string name="voice_input">Голосове вводження</string>
+  <string name="voice_mode_main">0</string>
+  <string name="voice_mode_symbols">1</string>
+  <string name="voice_mode_off">2</string>
+  <string name="auto_submit">Автовідправлення даних голосового вводження</string>
+  <string name="auto_submit_summary">Автоматичне натискання клавіші &ldquo;Enter&rdquo; під час пошуку або змінення поля.</string>
+  <string name="open_the_keyboard">&lt;font size="17"&gt;&lt;b&gt;Відкрийте клавіатуру.\n&lt;/b&gt;&lt;/font&gt;&lt;font size="3"&gt;\n&lt;/font&gt;Торкніться будь-якого текстового поля.</string>
+  <string name="close_the_keyboard">&lt;font size="17"&gt;&lt;b&gt;Закрийте клавіатуру.\n&lt;/b&gt;&lt;/font&gt;&lt;font size="3"&gt;\n&lt;/font&gt;Натисніть кнопку &ldquo;Назад&rdquo;.</string>
+  <string name="touch_and_hold">&lt;font size="17"&gt;&lt;b&gt;Натисніть і утримуйте клавішу, щоб перейти до налаштування\n&lt;/b&gt;&lt;/font&gt;&lt;font size="3"&gt;\n&lt;/font&gt;Доступ до розділових знаків й акцентів.</string>
+  <string name="keyboard_settings">&lt;font size="17"&gt;&lt;b&gt;Налаштування клавіатури\n&lt;/b&gt;&lt;/font&gt;&lt;font size="3"&gt;\n&lt;/font&gt;Натисніть і утримуйте клавішу &lt;b&gt;\?123\&lt;/b&gt;.</string>
+  <string name="popular_domain_0">".com"</string>
+  <string name="popular_domain_1">".net"</string>
+  <string name="popular_domain_2">".org"</string>
+  <string name="popular_domain_3">".gov"</string>
+  <string name="popular_domain_4">".edu"</string>
+  <string name="selectInputMethod">Метод вводження</string>
+  <string name="language_selection_title">Мови вводження</string>
+  <string name="language_selection_summary">Щоб змінити мову протягніть пальцем по клавіші &ldquo;Пробіл&rdquo;</string>
+  <string name="hint_add_to_dictionary">Щоб зберегти знову натисніть \u2190</string>
+  <string name="has_dictionary">Є словник</string>
+  <string name="prefs_enable_log">Увімкнення зворотнього зв&rsquo;язку</string>
+  <string name="prefs_description_log">Допоможіть покращити цей спосіб вводження, автоматично надсилаючи статистику використання та звіти про збої в Google.</string>
+  <string name="prefs_enable_recorrection">Виправлення натисканням</string>
+  <string name="prefs_enable_recorrection_summary">Натискання на введене слово виправить його</string>
+  <string name="keyboard_layout">Тема клавіатури</string>
+  <string name="subtype_mode_keyboard">клавіатура</string>
+  <string name="subtype_mode_voice">голосове вводження</string>
+  <string name="english_ime_debug_settings">Налаштування налагодження клавіатури Android</string>
+  <string name="prefs_debug_mode">Режим налагодження</string>
+  <string-array name="prediction_modes">
+    <item>Немає</item>
+    <item>Основний</item>
+    <item>Розширений</item>
+  </string-array>
+  <string-array name="voice_input_modes">
+    <item>На основній клавіатурі</item>
+    <item>На символьній клавіатурі</item>
+    <item>Вимкнено</item>
+  </string-array>
+  <string-array name="voice_input_modes_summary">
+    <item>Мікрофон на основній клавіатурі</item>
+    <item>Мікрофон на символьній клавіатурі</item>
+    <item>Голосове вводження вимкнено</item>
+  </string-array>
+</resources>
