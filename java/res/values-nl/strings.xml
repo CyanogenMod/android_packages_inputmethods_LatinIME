@@ -23,8 +23,8 @@
     <string name="english_ime_name" msgid="7252517407088836577">"Android-toetsenbord"</string>
     <string name="english_ime_settings" msgid="6661589557206947774">"Instellingen voor Android-toetsenbord"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Invoeropties"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Trillen bij druk op toets"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Geluid bij druk op een toets"</string>
+    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Trillen bij toetsaanslag"</string>
+    <string name="sound_on_keypress" msgid="6093592297198243644">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up bij toetsaanslag"</string>
     <string name="hit_correction" msgid="4855351009261318389">"Typefouten corrigeren"</string>
     <string name="hit_correction_summary" msgid="8761701873008070796">"Foutcorrectie tijdens invoer inschakelen"</string>
@@ -132,8 +132,8 @@
     <string name="has_dictionary" msgid="6071847973466625007">"Woordenboek beschikbaar"</string>
     <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen."</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Help deze invoermethode te verbeteren door automatisch gebruiksstatistieken en crashmeldingen naar Google te verzenden."</string>
-    <!-- outdated translation 5809974560359283818 -->     <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Raak aan om woorden opnieuw te corrigeren"</string>
-    <!-- outdated translation 5037231665897435902 -->     <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"U kunt woorden opnieuw corrigeren door woorden aan te raken die u heeft getypt"</string>
+    <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Raak aan om woorden te corrigeren"</string>
+    <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"Raak ingevoerde woorden aan om ze te corrigeren"</string>
     <string name="keyboard_layout" msgid="437433231038683666">"Toetsenbordthema"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"toetsenbord"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"spraak"</string>

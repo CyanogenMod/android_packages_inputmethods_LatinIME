@@ -227,7 +227,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
     protected KeyDetector mKeyDetector = new ProximityKeyDetector();
 
     // Swipe gesture detector
-    private final GestureDetector mGestureDetector;
+    private GestureDetector mGestureDetector;
     private final SwipeTracker mSwipeTracker = new SwipeTracker();
     private final int mSwipeThreshold;
     private final boolean mDisambiguateSwipe;
@@ -344,7 +344,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
             cancelPopupPreview();
             cancelDismissPreview();
         }
-    };
+    }
 
     static class PointerQueue {
         private LinkedList<PointerTracker> mQueue = new LinkedList<PointerTracker>();
@@ -391,6 +391,14 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
 
         public void remove(PointerTracker tracker) {
             mQueue.remove(tracker);
+        }
+
+        public boolean isInSlidingKeyInput() {
+            for (final PointerTracker tracker : mQueue) {
+                if (tracker.isInSlidingKeyInput())
+                    return true;
+            }
+            return false;
         }
     }
 
@@ -1099,6 +1107,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
             }
 
             public void onCancel() {
+                mKeyboardActionListener.onCancel();
                 dismissPopupKeyboard();
             }
 
@@ -1119,6 +1128,8 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         });
         // Override default ProximityKeyDetector.
         miniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
+        // Remove gesture detector on mini-keyboard
+        miniKeyboard.mGestureDetector = null;
 
         Keyboard keyboard;
         if (popupKey.popupCharacters != null) {
@@ -1306,23 +1317,38 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         return pointers.get(id);
     }
 
+    public boolean isInSlidingKeyInput() {
+        if (mMiniKeyboard != null) {
+            return mMiniKeyboard.isInSlidingKeyInput();
+        } else {
+            return mPointerQueue.isInSlidingKeyInput();
+        }
+    }
+
+    public int getPointerCount() {
+        return mOldPointerCount;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent me) {
-        final int pointerCount = me.getPointerCount();
         final int action = me.getActionMasked();
+        final int pointerCount = me.getPointerCount();
+        final int oldPointerCount = mOldPointerCount;
+        mOldPointerCount = pointerCount;
 
         // TODO: cleanup this code into a multi-touch to single-touch event converter class?
         // If the device does not have distinct multi-touch support panel, ignore all multi-touch
         // events except a transition from/to single-touch.
-        if (!mHasDistinctMultitouch && pointerCount > 1 && mOldPointerCount > 1) {
+        if (!mHasDistinctMultitouch && pointerCount > 1 && oldPointerCount > 1) {
             return true;
         }
 
         // Track the last few movements to look for spurious swipes.
         mSwipeTracker.addMovement(me);
 
-        // We must disable gesture detector while mini-keyboard is on the screen.
-        if (mMiniKeyboard == null && mGestureDetector.onTouchEvent(me)) {
+        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
+        if (mMiniKeyboard == null
+                && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
             dismissKeyPreview();
             mHandler.cancelKeyTimers();
             return true;
@@ -1369,7 +1395,6 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         if (!mHasDistinctMultitouch) {
             // Use only main (id=0) pointer tracker.
             PointerTracker tracker = getPointerTracker(0);
-            int oldPointerCount = mOldPointerCount;
             if (pointerCount == 1 && oldPointerCount == 2) {
                 // Multi-touch to single touch transition.
                 // Send a down event for the latest pointer.
@@ -1384,7 +1409,6 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
                 Log.w(TAG, "Unknown touch panel behavior: pointer count is " + pointerCount
                         + " (old " + oldPointerCount + ")");
             }
-            mOldPointerCount = pointerCount;
             return true;
         }
 

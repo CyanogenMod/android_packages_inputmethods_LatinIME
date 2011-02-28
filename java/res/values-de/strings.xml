@@ -98,7 +98,7 @@
     <string name="voice_server_error" msgid="7807129913977261644">"Serverfehler"</string>
     <string name="voice_speech_timeout" msgid="8461817525075498795">"Keine Sprache zu hören"</string>
     <string name="voice_no_match" msgid="4285117547030179174">"Keine Treffer gefunden"</string>
-    <string name="voice_not_installed" msgid="5552450909753842415">"Sprach-Suche nicht installiert"</string>
+    <string name="voice_not_installed" msgid="5552450909753842415">"Sprachsuche nicht installiert"</string>
     <string name="voice_swipe_hint" msgid="6943546180310682021"><b>"Hinweis:"</b>" Ziehen Sie zum Sprechen den Finger über die Tastatur."</string>
     <string name="voice_punctuation_hint" msgid="1611389463237317754"><b>"Hinweis:"</b>" Versuchen Sie beim nächsten Mal, Satzzeichen wie \"Punkt\", \"Komma\" oder \"Fragezeichen\" per Sprachbefehl einzugeben."</string>
     <string name="cancel" msgid="6830980399865683324">"Abbrechen"</string>
@@ -133,7 +133,7 @@
     <string name="prefs_enable_log" msgid="6620424505072963557">"Nutzer-Feedback aktivieren"</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Tragen Sie zur Verbesserung dieses Eingabemethodeneditors bei, indem Sie automatisch Nutzungsstatistiken und Absturzberichte an Google senden."</string>
     <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Wortkorrektur"</string>
-    <!-- outdated translation 5037231665897435902 -->     <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"Sie können Wörter korrigieren, indem Sie die eingegebenen Wörter berühren."</string>
+    <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"Zum Korrigieren auf eingegebene Wörter tippen"</string>
     <string name="keyboard_layout" msgid="437433231038683666">"Tastaturdesign"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"Tastatur"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"Sprache"</string>
