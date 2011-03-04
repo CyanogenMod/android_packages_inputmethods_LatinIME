@@ -24,6 +24,8 @@
     <string name="english_ime_settings" msgid="6661589557206947774">"Inställningar för Androids tangentbord"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Inmatningsalternativ"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrera vid tangenttryck"</string>
+    <string name="obey_haptic_feedback">Lyd haptisk återkoppling</string>
+    <string name="obey_haptic_feedback_summary">Vibrera inte om haptisk återkoppling är inaktiverat i systeminställningarna</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Knappljud"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Popup vid knapptryck"</string>
     <string name="hit_correction" msgid="4855351009261318389">"Rätta skrivfel"</string>
@@ -42,6 +44,8 @@
     <string name="auto_cap_summary" msgid="3260681697600786825">"Använd versal i början av mening"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Automatiska punkter"</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
+    <string name="long_press_delay">Fördröjning vid långt tryck</string>
+    <string name="long_press_delay_summary">%d millisekunder</string>
     <string name="quick_fixes" msgid="5353213327680897927">"Snabba lösningar"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Åtgärdar automatiskt vanliga misstag"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Visa förslag"</string>
