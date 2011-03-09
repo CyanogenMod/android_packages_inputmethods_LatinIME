@@ -137,4 +137,8 @@
     <string name="keyboard_layout" msgid="437433231038683666">"Tema do teclado"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"teclado"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"voz"</string>
+    <string name="obey_haptic_feedback">Obedecer vibração</string>
+    <string name="obey_haptic_feedback_summary">Não vibrar se a vibração está desativada nas configurações de sistema</string>
+    <string name="long_press_delay">Tempo para pressionamento longo</string>
+    <string name="long_press_delay_summary">%d milissegundos</string>
 </resources>
