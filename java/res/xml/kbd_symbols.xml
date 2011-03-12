@@ -80,7 +80,7 @@
             android:popupKeyboard="@xml/kbd_popup_template"
             android:popupCharacters="‰" />
         <Key
-            android:keyLabel="&amp;" />
+            android:keyLabel="\u0026" />
         <Key
             android:keyLabel="*"
             android:popupKeyboard="@xml/kbd_popup_template"
@@ -96,11 +96,11 @@
         <Key
             android:keyLabel="("
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="[{&lt;" />
+            android:popupCharacters="[{\u003C" />
         <Key
             android:keyLabel=")"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="]}&gt;"
+            android:popupCharacters="]}\u003E"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>
@@ -116,7 +116,7 @@
             android:popupKeyboard="@xml/kbd_popup_template"
             android:popupCharacters="¡" />
         <Key
-            android:keyLabel="&quot;"
+            android:keyLabel="\u0022"
             android:popupKeyboard="@xml/kbd_popup_template"
             android:popupCharacters="“”«»˝" />
         <Key

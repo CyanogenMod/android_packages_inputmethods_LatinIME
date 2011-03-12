@@ -105,11 +105,11 @@
         <Key
             android:keyLabel="\\" />
         <Key
-            android:keyLabel="&lt;"
+            android:keyLabel="\u003C"
             android:popupKeyboard="@xml/kbd_popup_template"
             android:popupCharacters="≤«‹" />
         <Key
-            android:keyLabel="&gt;"
+            android:keyLabel="\u003E"
             android:popupKeyboard="@xml/kbd_popup_template"
             android:popupCharacters="≥»›" />
         <Key
