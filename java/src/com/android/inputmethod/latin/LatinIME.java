@@ -45,6 +45,7 @@ import android.preference.PreferenceManager;
 import android.speech.SpeechRecognizer;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
+import android.text.AndroidCharacter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.PrintWriterPrinter;
@@ -1469,6 +1470,12 @@ public class LatinIME extends InputMethodService
         if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
             postUpdateSuggestions();
         }
+
+        // fix for parenthesis in RTL langauges:
+        // TODO: Add further RTL langauges which need parenthesis correction:
+        String iso3lang = mLanguageSwitcher.getInputLocale().getISO3Language();
+        if (primaryCode < 0x100 && iso3lang.equals("heb"))
+                primaryCode = AndroidCharacter.getMirror((char)primaryCode);
 
         boolean pickedDefault = false;
         // Handle separator
