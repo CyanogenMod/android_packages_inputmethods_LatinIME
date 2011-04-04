@@ -1471,12 +1471,6 @@ public class LatinIME extends InputMethodService
             postUpdateSuggestions();
         }
 
-        // fix for parenthesis in RTL langauges:
-        // TODO: Add further RTL langauges which need parenthesis correction:
-        String iso3lang = mLanguageSwitcher.getInputLocale().getISO3Language();
-        if (primaryCode < 0x100 && iso3lang.equals("heb"))
-                primaryCode = AndroidCharacter.getMirror((char)primaryCode);
-
         boolean pickedDefault = false;
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
