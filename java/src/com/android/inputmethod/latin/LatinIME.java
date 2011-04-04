@@ -243,6 +243,7 @@ public class LatinIME extends InputMethodService
 
     /* package */ String mWordSeparators;
     private String mSentenceSeparators;
+    private String mWordConnectors;
     private String mSuggestPuncs;
     private VoiceInput mVoiceInput;
     private VoiceResults mVoiceResults = new VoiceResults();
@@ -475,6 +476,9 @@ public class LatinIME extends InputMethodService
         mSuggest.setAutoDictionary(mAutoDictionary);
         updateCorrectionMode();
         mWordSeparators = mResources.getString(R.string.word_separators);
+        mWordConnectors = mResources.getString(R.string.word_connectors);
+        if (mWordConnectors == null)
+            mWordConnectors = "";
         mSentenceSeparators = mResources.getString(R.string.sentence_separators);
 
         conf.locale = saveLocale;
@@ -1075,13 +1079,18 @@ public class LatinIME extends InputMethodService
         if (ic == null) return;
         CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
         if (lastTwo != null && lastTwo.length() == 2
-                && lastTwo.charAt(0) == KEYCODE_SPACE && isSentenceSeparator(lastTwo.charAt(1))) {
+                && lastTwo.charAt(0) == KEYCODE_SPACE) {
             ic.beginBatchEdit();
-            ic.deleteSurroundingText(2, 0);
-            ic.commitText(lastTwo.charAt(1) + " ", 1);
+            if (isSentenceSeparator(lastTwo.charAt(1))) {
+                ic.deleteSurroundingText(2, 0);
+                ic.commitText(lastTwo.charAt(1) + " ", 1);
+                mJustAddedAutoSpace = true;
+            } else if (isWordConnector(lastTwo.charAt(1))) {
+                ic.deleteSurroundingText(2, 0);
+                ic.commitText(lastTwo.charAt(1) + "", 1);
+            }
             ic.endBatchEdit();
             updateShiftKeyState(getCurrentInputEditorInfo());
-            mJustAddedAutoSpace = true;
         }
     }
 
@@ -1095,7 +1104,7 @@ public class LatinIME extends InputMethodService
                 && lastThree.charAt(2) == KEYCODE_PERIOD) {
             ic.beginBatchEdit();
             ic.deleteSurroundingText(3, 0);
-            ic.commitText(" ..", 1);
+            ic.commitText("..", 1);
             ic.endBatchEdit();
             updateShiftKeyState(getCurrentInputEditorInfo());
         }
@@ -1509,7 +1518,7 @@ public class LatinIME extends InputMethodService
         }
         sendKeyChar((char)primaryCode);
 
-        // Handle the case of ". ." -> " .." with auto-space if necessary
+        // Handle the case of ". ." -> ".." without auto-space if necessary
         // before changing the TextEntryState.
         if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
                 && primaryCode == KEYCODE_PERIOD) {
@@ -2222,6 +2231,10 @@ public class LatinIME extends InputMethodService
 
     protected String getWordSeparators() {
         return mWordSeparators;
+    }
+
+    public boolean isWordConnector(int code) {
+        return mWordConnectors.contains(String.valueOf((char)code));
     }
 
     public boolean isWordSeparator(int code) {

@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2009, The Android Open Source Project
+** Copyright 2010, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,8 +17,23 @@
 ** limitations under the License.
 */
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <string name="word_separators">.\u0009\u0020,;:!?\'\n()[]*&amp;@{}/&lt;&gt;_+=|\u0022</string>
-    <string name="word_connectors">\'</string>
-</resources>
+
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="@dimen/popup_key_height"
+>
+    <Row
+        android:rowEdgeFlags="top|bottom"
+    >
+        <Key
+            android:codes="@integer/key_settings"
+            android:keyIcon="@drawable/sym_keyboard_settings"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:keyLabel="\'"
+            android:keyEdgeFlags="right" />
+    </Row>
+</Keyboard>
