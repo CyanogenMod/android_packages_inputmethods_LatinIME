@@ -79,8 +79,8 @@
     <string name="label_next_key" msgid="362972844525672568">"التالي"</string>
     <string name="label_done_key" msgid="2441578748772529288">"تم"</string>
     <string name="label_send_key" msgid="2815056534433717444">"إرسال"</string>
-    <string name="label_symbol_key" msgid="6175820506864489453">"?123"</string>
-    <string name="label_phone_key" msgid="4275497665515080551">"123"</string>
+    <string name="label_symbol_key" msgid="6175820506864489453">"٣٢١؟"</string>
+    <string name="label_phone_key" msgid="4275497665515080551">"٣٢١"</string>
     <string name="label_alpha_key" msgid="8864943487292437456">"ب ت ث"</string>
     <string name="label_alt_key" msgid="2846315350346694811">"ALT"</string>
     <string name="voice_warning_title" msgid="4419354150908395008">"الإدخال الصوتي"</string>
