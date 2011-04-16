@@ -1,33 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" msgid="7252517407088836577">"Android tipkovnica"</string>
-    <string name="english_ime_settings" msgid="6661589557206947774">"Postavke tipkovnice za Android"</string>
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Opcije ulaza"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibracija pri pritisku na tipku"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Povećanja na pritisak tipke"</string>
-    <string name="hit_correction" msgid="4855351009261318389">"Ispravi pogreške u pisanju"</string>
-    <string name="hit_correction_summary" msgid="8761701873008070796">"Omogućavanje ispravka pogreške pri unosu"</string>
+    <string name="english_ime_settings" msgid="6661589557206947774">"Postavke Android tipkovnice"</string>
+    <string name="english_ime_input_options" msgid="3909945612939668554">"Opcije unosa"</string>
+    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibracija pri pritisku"</string>
+    <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku"</string>
+    <string name="popup_on_keypress" msgid="123894815723512944">"Povećanje pri pritisku"</string>
+    <string name="hit_correction" msgid="4855351009261318389">"Ispravljanje grešaka"</string>
+    <string name="hit_correction_summary" msgid="8761701873008070796">"Ispravljanje grešaka pri unosu"</string>
     <string name="hit_correction_land" msgid="2567691684825205448">"Pogreške pri pejzažnom unosu"</string>
     <string name="hit_correction_land_summary" msgid="4076803842198368328">"Omogućavanje ispravka pogreške pri unosu"</string>
     <string name="auto_correction" msgid="7911639788808958255">"Prijedlozi riječi"</string>
@@ -38,7 +19,7 @@
     <string name="auto_complete_dialog_title" msgid="2172048590607201920">"Automatsko dovršavanje"</string>
     <string name="prediction_landscape" msgid="4874601565593216183">"Povećaj tekstualno polje"</string>
     <string name="prediction_landscape_summary" msgid="6736551095997839472">"Sakrij prijedloge riječi u pejzažnom prikazu"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Automatsko pisanje velikih slova"</string>
+    <string name="auto_cap" msgid="1719746674854628252">"Velika početna slova"</string>
     <string name="auto_cap_summary" msgid="3260681697600786825">"Stavi veliko slovo na početku rečenice"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Automatsko stavljanje interpunkcije"</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
@@ -58,8 +39,8 @@
     <string name="bigram_suggestion" msgid="1323347224043514969">"Bigram prijedlozi"</string>
     <string name="bigram_suggestion_summary" msgid="4383845146070101531">"Upotrijebi prethodnu riječ radi poboljšanja prijedloga"</string>
   <string-array name="prediction_modes">
-    <item msgid="4870266572388153286">"Nijedan"</item>
-    <item msgid="1669461741568287396">"Osnovni"</item>
+    <item msgid="4870266572388153286">"Isključeno"</item>
+    <item msgid="1669461741568287396">"Osnovno"</item>
     <item msgid="4894328801530136615">"Napredno"</item>
   </string-array>
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g> : Spremljeno"</string>
@@ -132,7 +113,7 @@
     <string name="has_dictionary" msgid="6071847973466625007">"Rječnik je dostupan"</string>
     <string name="prefs_enable_log" msgid="6620424505072963557">"Omogući korisničke povratne informacije"</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Pomozite u poboljšanju ovog urednika ulazne metode automatskim slanjem statistike upotrebe i padova Googleu."</string>
-    <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Dodirnite za ispravak riječi"</string>
+    <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Ispravak riječi dodirom"</string>
     <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"Dodirnite unesene riječi radi ispravka"</string>
     <string name="keyboard_layout" msgid="437433231038683666">"Tema tipkovnice"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"tipkovnica"</string>
