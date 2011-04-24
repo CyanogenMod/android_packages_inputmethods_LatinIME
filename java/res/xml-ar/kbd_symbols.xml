@@ -172,7 +172,7 @@
         <Key
             android:keyLabel="."
             android:keyIcon="@drawable/hint_popup"
-            android:popupKeyboard="@xml/ar_popup_punctuation"
+            android:popupKeyboard="@xml/popup_punctuation"
             android:isModifier="true" />
         <Key
             android:codes="@integer/key_return"
@@ -209,7 +209,7 @@
         <Key
             android:keyLabel="."
             android:keyIcon="@drawable/hint_popup"
-            android:popupKeyboard="@xml/ar_popup_punctuation"
+            android:popupKeyboard="@xml/popup_punctuation"
             android:isModifier="true" />
         <Key
             android:codes="@integer/key_return"

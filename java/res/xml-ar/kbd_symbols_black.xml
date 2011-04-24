@@ -168,7 +168,7 @@
         <Key
             android:keyLabel="."
             android:keyIcon="@drawable/hint_popup"
-            android:popupKeyboard="@xml/ar_popup_punctuation" />
+            android:popupKeyboard="@xml/popup_punctuation" />
         <Key
             android:codes="@integer/key_return"
             android:keyIcon="@drawable/sym_bkeyboard_return"
@@ -199,7 +199,7 @@
         <Key
             android:keyLabel="."
             android:keyIcon="@drawable/hint_popup"
-            android:popupKeyboard="@xml/ar_popup_punctuation" />
+            android:popupKeyboard="@xml/popup_punctuation" />
         <Key
             android:codes="@integer/key_return"
             android:keyIcon="@drawable/sym_bkeyboard_return"
