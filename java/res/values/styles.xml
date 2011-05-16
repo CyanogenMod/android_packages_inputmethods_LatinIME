@@ -28,7 +28,7 @@
         <item name="popupLayout">@layout/keyboard_popup</item>
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
         <item name="verticalCorrection">@dimen/keyboard_vertical_correction</item>
-        <item name="shadowColor">#BB000000</item>
+        <item name="shadowColor">@color/latinkeyboard_key_shadow_color</item>
         <item name="shadowRadius">2.75</item>
         <item name="backgroundDimAmount">0.5</item>
         <item name="symbolColorScheme">white</item>
