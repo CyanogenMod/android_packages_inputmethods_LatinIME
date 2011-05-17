@@ -24,6 +24,8 @@
     <string name="english_ime_settings" msgid="6661589557206947774">"Настройки клавиатуры Android"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Параметры ввода"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Виброотклик клавиш"</string>
+    <string name="obey_haptic_feedback">Наследование отклика</string>
+    <string name="obey_haptic_feedback_summary">Не вибрировать, если тактильный отклик отключен в настройках системы</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук клавиш"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Увеличение нажатых"</string>
     <string name="hit_correction" msgid="4855351009261318389">"Исправлять опечатки"</string>
@@ -42,6 +44,8 @@
     <string name="auto_cap_summary" msgid="3260681697600786825">"Делать заглавной первую букву предложения"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Автопунктуация"</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
+    <string name="long_press_delay">Задержка долгого нажатия</string>
+    <string name="long_press_delay_summary">%d миллисекунд</string>
     <string name="quick_fixes" msgid="5353213327680897927">"Быстрое исправление"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Исправлять распространенные опечатки"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Предлагать варианты"</string>
