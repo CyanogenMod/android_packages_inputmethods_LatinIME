@@ -128,6 +128,7 @@ public class LatinKeyboard extends Keyboard {
         mShiftLockIcon = res.getDrawable(R.drawable.sym_keyboard_shift_locked);
         mShiftLockPreviewIcon = res.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
         setDefaultBounds(mShiftLockPreviewIcon);
+        mOldShiftIcon = res.getDrawable(R.drawable.sym_keyboard_shift);
         mSpaceIcon = res.getDrawable(R.drawable.sym_keyboard_space);
         mSpaceAutoCompletionIndicator = res.getDrawable(R.drawable.sym_keyboard_space_led);
         mSpacePreviewIcon = res.getDrawable(R.drawable.sym_keyboard_feedback_space);
@@ -170,19 +171,34 @@ public class LatinKeyboard extends Keyboard {
             XmlResourceParser parser) {
         Key key = new LatinKey(res, parent, x, y, parser);
         switch (key.codes[0]) {
-        case LatinIME.KEYCODE_ENTER:
-            mEnterKey = key;
-            break;
-        case LatinKeyboardView.KEYCODE_F1:
-            mF1Key = key;
-            break;
-        case LatinIME.KEYCODE_SPACE:
-            mSpaceKey = key;
-            break;
-        case KEYCODE_MODE_CHANGE:
-            m123Key = key;
-            m123Label = key.label;
-            break;
+            case LatinIME.KEYCODE_ENTER:
+                mEnterKey = key;
+                break;
+            case LatinKeyboardView.KEYCODE_F1:
+                mF1Key = key;
+                break;
+            case LatinIME.KEYCODE_SPACE:
+                mSpaceKey = key;
+                break;
+            case -5:
+                key.icon = res.getDrawable(R.drawable.sym_keyboard_delete);
+                break;
+            case 9:
+                key.icon = res.getDrawable(R.drawable.sym_keyboard_tab);
+                break;
+            case -1:
+                key.icon = res.getDrawable(R.drawable.sym_keyboard_shift);
+                break;
+            case -100:
+                key.icon = res.getDrawable(R.drawable.sym_keyboard_settings);
+                break;
+            case -102:
+                key.icon = res.getDrawable(R.drawable.sym_keyboard_mic);
+                break;
+            case KEYCODE_MODE_CHANGE:
+                m123Key = key;
+                m123Label = key.label;
+                break;
         }
 
         // For number hints on the upper-right corner of key
@@ -270,7 +286,6 @@ public class LatinKeyboard extends Keyboard {
             if (mShiftKey instanceof LatinKey) {
                 ((LatinKey)mShiftKey).enableShiftLock();
             }
-            mOldShiftIcon = mShiftKey.icon;
         }
     }
 
@@ -628,7 +643,6 @@ public class LatinKeyboard extends Keyboard {
         }
         return mSpaceDragLastDiff > 0 ? 1 : -1;
     }
-
     public void setLanguageSwitcher(LanguageSwitcher switcher, boolean isAutoCompletion,
             boolean isBlackSym) {
         mLanguageSwitcher = switcher;
