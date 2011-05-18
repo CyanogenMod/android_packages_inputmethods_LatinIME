@@ -167,10 +167,12 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
     // XML attribute
     private int mKeyTextSize;
     private int mKeyTextColor;
+    private int mKeyDarkTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private int mLabelTextSize;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
+    private int mDarkShadowColor;
     private float mShadowRadius;
     private Drawable mKeyBackground;
     private float mBackgroundDimAmount;
@@ -422,64 +424,70 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
             int attr = a.getIndex(i);
 
             switch (attr) {
-            case R.styleable.LatinKeyboardBaseView_keyBackground:
-                mKeyBackground = a.getDrawable(attr);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyHysteresisDistance:
-                mKeyHysteresisDistance = a.getDimensionPixelOffset(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_verticalCorrection:
-                mVerticalCorrection = a.getDimensionPixelOffset(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyPreviewLayout:
-                previewLayout = a.getResourceId(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyPreviewOffset:
-                mPreviewOffset = a.getDimensionPixelOffset(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyPreviewHeight:
-                mPreviewHeight = a.getDimensionPixelSize(attr, 80);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyTextSize:
-                mKeyTextSize = a.getDimensionPixelSize(attr, 18);
-                break;
-            case R.styleable.LatinKeyboardBaseView_keyTextColor:
-                mKeyTextColor = a.getColor(attr, 0xFF000000);
-                break;
-            case R.styleable.LatinKeyboardBaseView_labelTextSize:
-                mLabelTextSize = a.getDimensionPixelSize(attr, 14);
-                break;
-            case R.styleable.LatinKeyboardBaseView_popupLayout:
-                mPopupLayout = a.getResourceId(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_shadowColor:
-                mShadowColor = a.getColor(attr, 0);
-                break;
-            case R.styleable.LatinKeyboardBaseView_shadowRadius:
-                mShadowRadius = a.getFloat(attr, 0f);
-                break;
-            // TODO: Use Theme (android.R.styleable.Theme_backgroundDimAmount)
-            case R.styleable.LatinKeyboardBaseView_backgroundDimAmount:
-                mBackgroundDimAmount = a.getFloat(attr, 0.5f);
-                break;
-            //case android.R.styleable.
-            case R.styleable.LatinKeyboardBaseView_keyTextStyle:
-                int textStyle = a.getInt(attr, 0);
-                switch (textStyle) {
-                    case 0:
-                        mKeyTextStyle = Typeface.DEFAULT;
-                        break;
-                    case 1:
-                        mKeyTextStyle = Typeface.DEFAULT_BOLD;
-                        break;
-                    default:
-                        mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
-                        break;
-                }
-                break;
-            case R.styleable.LatinKeyboardBaseView_symbolColorScheme:
-                mSymbolColorScheme = a.getInt(attr, 0);
-                break;
+                case R.styleable.LatinKeyboardBaseView_keyBackground:
+                    mKeyBackground = a.getDrawable(attr);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyHysteresisDistance:
+                    mKeyHysteresisDistance = a.getDimensionPixelOffset(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_verticalCorrection:
+                    mVerticalCorrection = a.getDimensionPixelOffset(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyPreviewLayout:
+                    previewLayout = a.getResourceId(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyPreviewOffset:
+                    mPreviewOffset = a.getDimensionPixelOffset(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyPreviewHeight:
+                    mPreviewHeight = a.getDimensionPixelSize(attr, 80);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyTextSize:
+                    mKeyTextSize = a.getDimensionPixelSize(attr, 18);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyTextColor:
+                    mKeyTextColor = a.getColor(attr, 0xFF000000);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_keyDarkTextColor:
+                    mKeyDarkTextColor = a.getColor(attr, 0xFF000000);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_labelTextSize:
+                    mLabelTextSize = a.getDimensionPixelSize(attr, 14);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_popupLayout:
+                    mPopupLayout = a.getResourceId(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_shadowColor:
+                    mShadowColor = a.getColor(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_darkShadowColor:
+                    mDarkShadowColor = a.getColor(attr, 0);
+                    break;
+                case R.styleable.LatinKeyboardBaseView_shadowRadius:
+                    mShadowRadius = a.getFloat(attr, 0f);
+                    break;
+                // TODO: Use Theme (android.R.styleable.Theme_backgroundDimAmount)
+                case R.styleable.LatinKeyboardBaseView_backgroundDimAmount:
+                    mBackgroundDimAmount = a.getFloat(attr, 0.5f);
+                    break;
+                //case android.R.styleable.
+                case R.styleable.LatinKeyboardBaseView_keyTextStyle:
+                    int textStyle = a.getInt(attr, 0);
+                    switch (textStyle) {
+                        case 0:
+                            mKeyTextStyle = Typeface.DEFAULT;
+                            break;
+                        case 1:
+                            mKeyTextStyle = Typeface.DEFAULT_BOLD;
+                            break;
+                        default:
+                            mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
+                            break;
+                    }
+                    break;
+                case R.styleable.LatinKeyboardBaseView_symbolColorScheme:
+                    mSymbolColorScheme = a.getInt(attr, 0);
+                    break;
             }
         }
 
@@ -805,7 +813,6 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         final Key[] keys = mKeys;
         final Key invalidKey = mInvalidatedKey;
 
-        paint.setColor(mKeyTextColor);
         boolean drawSingleKey = false;
         if (invalidKey != null && canvas.getClipBounds(clipRegion)) {
             // TODO we should use Rect.inset and Rect.contains here.
@@ -824,6 +831,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
             if (drawSingleKey && invalidKey != key) {
                 continue;
             }
+            paint.setColor(key.modifier ? mKeyDarkTextColor : mKeyTextColor);
             int[] drawableState = key.getCurrentDrawableState();
             keyBackground.setState(drawableState);
 
@@ -862,7 +870,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
                 }
 
                 // Draw a drop shadow for the text
-                paint.setShadowLayer(mShadowRadius, 0, 0, mShadowColor);
+                paint.setShadowLayer(mShadowRadius, 0, 0, key.modifier ? mDarkShadowColor : mShadowColor);
                 final int centerX = (key.width + padding.left - padding.right) / 2;
                 final int centerY = (key.height + padding.top - padding.bottom) / 2;
                 final float baseline = centerY

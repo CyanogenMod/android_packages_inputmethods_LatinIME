@@ -30,5 +30,7 @@
     <color name="latinkeyboard_key_color_white">#FFFFFFFF</color>
     <color name="latinkeyboard_key_color_black">#FF000000</color>
     <color name="latinkeyboard_key_text_color">#FFFFFFFF</color>
+    <color name="latinkeyboard_key_dark_text_color">#FFFFFFFF</color>
     <color name="latinkeyboard_key_shadow_color">#BB000000</color>
+    <color name="latinkeyboard_key_dark_shadow_color">#BB000000</color>
 </resources>
