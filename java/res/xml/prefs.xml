@@ -119,10 +119,19 @@
             android:key="auto_complete"
             android:title="@string/auto_complete"
             android:summary="@string/auto_complete_summary"
-            android:persistent="true" 
+            android:persistent="true"
             android:defaultValue="@bool/enable_autocorrect"
             android:dependency="show_suggestions"
             />
-    </PreferenceCategory>            
+
+        <CheckBoxPreference
+            android:key="auto_append_space"
+            android:title="@string/auto_append_space"
+            android:summary="@string/auto_append_space_summary"
+            android:persistent="true"
+            android:defaultValue="true"
+            android:dependency="show_suggestions"
+            />
+    </PreferenceCategory>
 
 </PreferenceScreen>

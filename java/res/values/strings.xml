@@ -82,6 +82,11 @@
     <!-- Description for auto punctuate -->
     <string name="auto_punctuate_summary"></string>
 
+    <!-- Option to automatically add a space when manually choosing a suggestion -->
+    <string name="auto_append_space">Append Space</string>
+    <!-- Description for auto_append_space -->
+    <string name="auto_append_space_summary">Automatically append a space when choosing a suggestion</string>
+    
     <!-- Option to set long press delay -->
     <string name="long_press_delay">Long press delay</string>
     <!-- Description for long press delay -->

@@ -98,6 +98,7 @@ public class LatinIME extends InputMethodService
     private static final String PREF_QUICK_FIXES = "quick_fixes";
     private static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     private static final String PREF_AUTO_COMPLETE = "auto_complete";
+    private static final String PREF_AUTO_APPEND_SPACE = "auto_append_space";
     //private static final String PREF_BIGRAM_SUGGESTIONS = "bigram_suggestion";
     private static final String PREF_VOICE_MODE = "voice_mode";
 
@@ -193,6 +194,7 @@ public class LatinIME extends InputMethodService
     private boolean mAutoSpace;
     private boolean mJustAddedAutoSpace;
     private boolean mAutoCorrectEnabled;
+    private boolean mAutoAppendSpaceEnabled;
     private boolean mReCorrectionEnabled;
     // Bigram Suggestion is disabled in this version.
     private final boolean mBigramSuggestionEnabled = false;
@@ -1930,7 +1932,7 @@ public class LatinIME extends InputMethodService
                 index, suggestions);
         TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
         // Follow it with a space
-        if (mAutoSpace && !correcting) {
+        if (mAutoAppendSpaceEnabled && mAutoSpace && !correcting) {
             sendSpace();
             mJustAddedAutoSpace = true;
         }
@@ -2523,6 +2525,8 @@ public class LatinIME extends InputMethodService
         }
         mAutoCorrectEnabled = sp.getBoolean(PREF_AUTO_COMPLETE,
                 mResources.getBoolean(R.bool.enable_autocorrect)) & mShowSuggestions;
+
+        mAutoAppendSpaceEnabled = sp.getBoolean(PREF_AUTO_APPEND_SPACE, true) & mShowSuggestions;
         //mBigramSuggestionEnabled = sp.getBoolean(
         //        PREF_BIGRAM_SUGGESTIONS, true) & mShowSuggestions;
         updateCorrectionMode();

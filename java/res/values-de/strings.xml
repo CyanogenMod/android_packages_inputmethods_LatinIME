@@ -42,6 +42,8 @@
     <string name="auto_cap_summary" msgid="3260681697600786825">"Sätze mit Großbuchstaben beginnen"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Autom. Zeichensetzung"</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
+    <string name="auto_append_space">Leerzeichen anhängen</string>
+    <string name="auto_append_space_summary">Autom. ein Leerzeichen anhängen wenn ein Vorschlag gewählt wurde</string>
     <string name="quick_fixes" msgid="5353213327680897927">"Quick Fixes"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Korrigiert gängige Tippfehler"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Vorschläge anzeigen"</string>
