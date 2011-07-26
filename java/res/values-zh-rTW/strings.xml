@@ -109,9 +109,7 @@
     <!-- skipping untranslatable /resources:0/string-array:name=settings_key_modes_values -->
     <!-- Option to automatically decide to show/hide the settings key -->
     <string name="settings_key_mode_auto_name" msgid="2993460277873684680">"自動"</string>
-    <!-- Option to always show the settings key -->
-    <string name="settings_key_mode_always_show_name" msgid="3047567041784760575">"永遠顯示"</string>
-    <!-- Option to always hide the settings key -->
+    <string name="settings_key_mode_always_show_name" msgid="3047567041784760575">"一律顯示"</string>
     <string name="settings_key_mode_always_hide_name" msgid="7833948046716923994">"永遠隱藏"</string>
     <!-- Array of the settings key modes -->
     <string-array name="settings_key_modes">

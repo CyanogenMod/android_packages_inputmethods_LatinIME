@@ -528,7 +528,7 @@ public class LatinKeyboard extends Keyboard {
         final Rect bounds = new Rect();
 
         // Estimate appropriate language name text size to fit in maxTextWidth.
-        String language = LanguageSwitcher.toTitleCase(locale.getDisplayLanguage(locale));
+        String language = LanguageSwitcher.toTitleCase(locale.getDisplayLanguage(locale), locale);
         int textWidth = getTextWidth(paint, language, origTextSize, bounds);
         // Assuming text width and text size are proportional to each other.
         float textSize = origTextSize * Math.min(maxTextWidth / textWidth, 1.0f);
@@ -544,7 +544,7 @@ public class LatinKeyboard extends Keyboard {
             textSize = origTextSize;
         }
         if (useShortName) {
-            language = LanguageSwitcher.toTitleCase(locale.getLanguage());
+            language = LanguageSwitcher.toTitleCase(locale.getLanguage(), locale);
             textWidth = getTextWidth(paint, language, origTextSize, bounds);
             textSize = origTextSize * Math.min(maxTextWidth / textWidth, 1.0f);
         }
@@ -659,6 +659,10 @@ public class LatinKeyboard extends Keyboard {
         }
         mLocale = locale;
         setColorOfSymbolIcons(isAutoCompletion, isBlackSym);
+    }
+
+    public Locale getInputLocale() {
+        return (mLocale != null) ? mLocale : mLanguageSwitcher.getSystemLocale();
     }
 
     boolean isCurrentlyInSpace() {
@@ -970,7 +974,7 @@ public class LatinKeyboard extends Keyboard {
         }
 
         private String getLanguageName(Locale locale) {
-            return LanguageSwitcher.toTitleCase(locale.getDisplayLanguage(locale));
+            return LanguageSwitcher.toTitleCase(locale.getDisplayLanguage(locale), locale);
         }
 
         @Override
