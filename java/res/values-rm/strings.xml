@@ -57,9 +57,6 @@
     <skip />
     <!-- no translation found for settings_key_mode_always_hide_name (7833948046716923994) -->
     <skip />
-    <!-- no translation found for settings_key_modes:0 (8549888726962891527) -->
-    <!-- no translation found for settings_key_modes:1 (881280041213210923) -->
-    <!-- no translation found for settings_key_modes:2 (7317310620171067848) -->
     <string name="bigram_suggestion" msgid="1323347224043514969">"Propostas da tip bigram"</string>
     <string name="bigram_suggestion_summary" msgid="4383845146070101531">"Meglierar la proposta cun agid dal pled precedent"</string>
   <string-array name="prediction_modes">

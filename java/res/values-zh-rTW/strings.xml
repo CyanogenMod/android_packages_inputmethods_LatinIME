@@ -111,12 +111,6 @@
     <string name="settings_key_mode_auto_name" msgid="2993460277873684680">"自動"</string>
     <string name="settings_key_mode_always_show_name" msgid="3047567041784760575">"一律顯示"</string>
     <string name="settings_key_mode_always_hide_name" msgid="7833948046716923994">"永遠隱藏"</string>
-    <!-- Array of the settings key modes -->
-    <string-array name="settings_key_modes">
-        <item>@string/settings_key_mode_auto_name</item>
-        <item>@string/settings_key_mode_always_show_name</item>
-        <item>@string/settings_key_mode_always_hide_name</item>
-    </string-array>
 
     <!-- Option to enable bigram completion -->
     <string name="bigram_suggestion" msgid="1323347224043514969">"雙連詞建議"</string>

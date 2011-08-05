@@ -117,7 +117,7 @@
     <!-- Option to always hide the settings key -->
     <string name="settings_key_mode_always_hide_name">Always hide</string>
     <!-- Array of the settings key modes -->
-    <string-array name="settings_key_modes">
+    <string-array name="settings_key_modes" translatable="false">
         <item>@string/settings_key_mode_auto_name</item>
         <item>@string/settings_key_mode_always_show_name</item>
         <item>@string/settings_key_mode_always_hide_name</item>
