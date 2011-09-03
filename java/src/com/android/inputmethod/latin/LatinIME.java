@@ -1285,6 +1285,46 @@ public class LatinIME extends InputMethodService
         mKeyboardSwitcher.onCancelInput();
     }
 
+    private void backspaceWord(InputConnection ic) {
+        CharSequence chars = ic.getTextBeforeCursor(256, 0);
+        if (chars == null || chars.length() == 0)
+            return;
+
+        Log.d(TAG, "Text (" + chars.length() + "): \"" + chars.toString() + "\"");
+
+        // Always delete at least one character.
+        int lastCharToDelete = chars.length() - 1;
+
+        // Delete consecutive separators at the end, eg. "text...".
+        if (isWordSeparator(chars.charAt(lastCharToDelete))) {
+            while (lastCharToDelete > 0) {
+                char c = chars.charAt(lastCharToDelete-1);
+                if (!isWordSeparator(c))
+                    break;
+                --lastCharToDelete;
+            }
+        }
+
+        // Delete all consecutive non-word-separators at the cursor.
+        while (lastCharToDelete > 0) {
+            char c = chars.charAt(lastCharToDelete-1);
+            if (isWordSeparator(c))
+                break;
+            --lastCharToDelete;
+        }
+
+        int charsToDelete = chars.length() - lastCharToDelete;
+
+        // If mEnteredText is set, always delete the entire string.
+        if (mEnteredText != null && sameAsTextBeforeCursor(ic, mEnteredText)) {
+            if (mEnteredText.length() > charsToDelete)
+                charsToDelete = mEnteredText.length();
+        }
+
+        Log.d(TAG, "Backspace " + charsToDelete + " chars");
+        ic.deleteSurroundingText(charsToDelete, 0);
+    }
+
     private void handleBackspace() {
         if (VOICE_INSTALLED && mVoiceInputHighlighted) {
             mVoiceInput.incrementTextModificationDeleteCount(
@@ -1310,7 +1350,25 @@ public class LatinIME extends InputMethodService
             }
         }
 
-        if (mPredicting) {
+        // On shift-backspace, delete a word.
+        if (mShiftKeyState.isMomentary()) {
+            // If we're composing, finalize it.
+            mComposing.setLength(0);
+            ic.finishComposingText();
+            mWord.reset();
+            mVoiceInputHighlighted = false;
+            mPredicting = false;
+
+            // In case we're in "touch again to save":
+            mCandidateView.clear();
+
+            TextEntryState.reset();
+
+            backspaceWord(ic);
+
+            // Make sure we don't delete mEnteredText again below.
+            mEnteredText = null;
+        } else if (mPredicting) {
             final int length = mComposing.length();
             if (length > 0) {
                 mComposing.delete(length - 1, length);
@@ -2309,8 +2367,8 @@ public class LatinIME extends InputMethodService
             mSymbolKeyState.onPress();
             mKeyboardSwitcher.setAutoModeSwitchStateMomentary();
         } else {
-            mShiftKeyState.onOtherKeyPressed();
-            mSymbolKeyState.onOtherKeyPressed();
+            mShiftKeyState.onOtherKeyPressed(primaryCode);
+            mSymbolKeyState.onOtherKeyPressed(primaryCode);
         }
     }
 
@@ -2320,7 +2378,7 @@ public class LatinIME extends InputMethodService
         //vibrate();
         final boolean distinctMultiTouch = mKeyboardSwitcher.hasDistinctMultitouch();
         if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_SHIFT) {
-            if (mShiftKeyState.isMomentary())
+            if (mShiftKeyState.isMomentary() && mShiftKeyState.getOtherKeyCode() != Keyboard.KEYCODE_DELETE)
                 resetShift();
             mShiftKeyState.onRelease();
         } else if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_MODE_CHANGE) {

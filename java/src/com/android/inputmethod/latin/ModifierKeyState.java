@@ -22,6 +22,7 @@ class ModifierKeyState {
     private static final int MOMENTARY = 2;
 
     private int mState = RELEASING;
+    private int mMomentaryOtherKeyCode;
 
     public void onPress() {
         mState = PRESSING;
@@ -31,12 +32,19 @@ class ModifierKeyState {
         mState = RELEASING;
     }
 
-    public void onOtherKeyPressed() {
+    public void onOtherKeyPressed(int primaryCode) {
         if (mState == PRESSING)
+	{
             mState = MOMENTARY;
+            mMomentaryOtherKeyCode = primaryCode;
+	}
     }
 
     public boolean isMomentary() {
         return mState == MOMENTARY;
+    }
+
+    public int getOtherKeyCode() {
+        return mMomentaryOtherKeyCode;
     }
 }
