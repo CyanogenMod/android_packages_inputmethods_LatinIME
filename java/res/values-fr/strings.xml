@@ -26,22 +26,8 @@
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrer à chaque touche"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Son à chaque touche"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Agrandir les caractères"</string>
-    <string name="hit_correction" msgid="4855351009261318389">"Corriger les fautes de frappe"</string>
-    <string name="hit_correction_summary" msgid="8761701873008070796">"Activer la correction des erreurs de saisie"</string>
-    <string name="hit_correction_land" msgid="2567691684825205448">"Erreurs de saisie en mode paysage"</string>
-    <string name="hit_correction_land_summary" msgid="4076803842198368328">"Activer la correction des erreurs de saisie"</string>
-    <string name="auto_correction" msgid="7911639788808958255">"Saisie prédictive"</string>
-    <string name="auto_correction_summary" msgid="6881047311475758267">"Corriger automatiquement le mot précédent"</string>
-    <string name="prediction" msgid="466220283138359837">"Saisie prédictive"</string>
     <string name="prediction_category" msgid="7027100625580696660">"Paramètres de la saisie prédictive"</string>
-    <string name="prediction_summary" msgid="459788228830873110">"Activer la saisie semi-automatique"</string>
-    <string name="auto_complete_dialog_title" msgid="2172048590607201920">"Saisie semi-automatique"</string>
-    <string name="prediction_landscape" msgid="4874601565593216183">"Agrandir le champ de texte"</string>
-    <string name="prediction_landscape_summary" msgid="6736551095997839472">"Masquer la saisie prédictive en mode paysage"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Majuscules auto"</string>
-    <string name="auto_cap_summary" msgid="3260681697600786825">"Mettre en majuscule la première lettre de chaque phrase"</string>
-    <string name="auto_punctuate" msgid="7276672334264521751">"Ponctuation automatique"</string>
-    <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
     <string name="quick_fixes" msgid="5353213327680897927">"Corrections rapides"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Corrige les fautes de frappe courantes"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Afficher les suggestions"</string>
@@ -55,18 +41,12 @@
     <!-- no translation found for settings_key_modes:0 (8549888726962891527) -->
     <!-- no translation found for settings_key_modes:1 (881280041213210923) -->
     <!-- no translation found for settings_key_modes:2 (7317310620171067848) -->
-    <string name="bigram_suggestion" msgid="1323347224043514969">"Suggestions de type bigramme"</string>
-    <string name="bigram_suggestion_summary" msgid="4383845146070101531">"Améliorer la suggestion en fonction du mot précédent"</string>
   <string-array name="prediction_modes">
     <item msgid="4870266572388153286">"Aucun"</item>
     <item msgid="1669461741568287396">"Simple"</item>
     <item msgid="4894328801530136615">"Avancé"</item>
   </string-array>
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g> : enregistré"</string>
-    <string name="tip_long_press" msgid="6101270866284343344">"Maintenir une touche enfoncée pour afficher les accents (à, é, etc.)"</string>
-    <string name="tip_dismiss" msgid="7585579046862204381">"Appuyez sur la touche Retour ↶ pour fermer le clavier à tout moment."</string>
-    <string name="tip_access_symbols" msgid="6344098517525531652">"Accéder aux chiffres et symboles"</string>
-    <string name="tip_add_to_dictionary" msgid="1487293888469227817">"Appuyer et maintenir le doigt sur le mot le plus à gauche pour l\'ajouter au dictionnaire"</string>
     <string name="touch_to_continue" msgid="7869803257948414531">"Touchez ce conseil pour continuer »"</string>
     <string name="touch_to_finish" msgid="7990196086480585789">"Touchez ici pour fermer ce conseil et commencer à saisir votre texte."</string>
     <string name="tip_to_open_keyboard" msgid="6821200275486950452"><b>"Le clavier s\'affiche à chaque fois que vous touchez une zone de texte."</b></string>
@@ -114,12 +94,6 @@
     <item msgid="6907837061058876770">"Micro sur le clavier des symboles"</item>
     <item msgid="3664304608587798036">"Saisie vocale désactivée"</item>
   </string-array>
-    <string name="auto_submit" msgid="9151008027068358518">"Envoi automatique après la saisie vocale"</string>
-    <string name="auto_submit_summary" msgid="4961875269610384226">"Appuyez automatiquement sur Entrée pour effectuer une recherche ou accéder au champ suivant."</string>
-    <string name="open_the_keyboard" msgid="2215920976029260466"><font size="17"><b>"Ouvrir le clavier"\n</b></font><font size="3">\n</font>"Appuyez sur un champ de texte."</string>
-    <string name="close_the_keyboard" msgid="6251022259044940103"><font size="17"><b>"Fermer le clavier"\n</b></font><font size="3">\n</font>"Appuyez sur la touche Retour."</string>
-    <string name="touch_and_hold" msgid="6154166367273010534"><font size="17"><b>"Appuyez sur une touche de manière prolongée pour accéder aux options"\n</b></font><font size="3">\n</font>"Accédez aux signes de ponctuation et aux accents."</string>
-    <string name="keyboard_settings" msgid="4585753477617374032"><font size="17"><b>"Paramètres du clavier"\n</b></font><font size="3">\n</font>"Appuyez sur la touche "<b>"?123"</b>" de manière prolongée."</string>
     <string name="popular_domain_0" msgid="3745279225122472969">".com"</string>
     <string name="popular_domain_1" msgid="1370572248164278467">".net"</string>
     <string name="popular_domain_2" msgid="3036812463748402878">".org"</string>
@@ -135,6 +109,4 @@
     <string name="prefs_enable_recorrection" msgid="4588408906649533582">"Appuyer pour corriger"</string>
     <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"Appuyer sur les mots saisis pour les corriger"</string>
     <string name="keyboard_layout" msgid="437433231038683666">"Thème du clavier"</string>
-    <string name="subtype_mode_keyboard" msgid="2242090416595003881">"clavier"</string>
-    <string name="subtype_mode_voice" msgid="4394113125441627771">"voix"</string>
 </resources>

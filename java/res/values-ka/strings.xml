@@ -42,6 +42,4 @@
     <string name="has_dictionary" msgid="6071847973466625007">სიტყვარი ხელმისაწვდომია</string>
     <string name="prefs_enable_recorrection" msgid="4588408906649533582">სიტყვების შესწორება</string>
     <string name="keyboard_layout" msgid="437433231038683666">კლავ. გაფორმება </string>
-    <string name="subtype_mode_keyboard" msgid="2242090416595003881">კლავიატურა</string>
-    <string name="subtype_mode_voice" msgid="4394113125441627771">ენა</string>
 </resources>
