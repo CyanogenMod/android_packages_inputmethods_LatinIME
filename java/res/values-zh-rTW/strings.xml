@@ -41,47 +41,11 @@
     <!-- Option to pop up the character with a larger font above soft keyboard -->
     <string name="popup_on_keypress" msgid="123894815723512944">"按鍵時顯示彈出式視窗"</string>
 
-    <!-- Option to enable using nearby keys when correcting/predicting -->
-    <string name="hit_correction" msgid="4855351009261318389">"修正輸入錯誤"</string>
-
-    <!-- Description for hit_correction  -->
-    <string name="hit_correction_summary" msgid="8761701873008070796">"啟用輸入錯誤修正功能"</string>
-
-    <!-- Option to enable using nearby keys when correcting/predicting in landscape-->
-    <string name="hit_correction_land" msgid="2567691684825205448">"橫向輸入錯誤"</string>
-
-    <!-- Description for hit_correction in landscape -->
-    <string name="hit_correction_land_summary" msgid="4076803842198368328">"啟用輸入錯誤修正功能"</string>
-
-    <!-- Option to automatically correct word on hitting space -->
-    <string name="auto_correction" msgid="7911639788808958255">"字詞建議"</string>
-
-    <!-- Description for auto_correction -->
-    <string name="auto_correction_summary" msgid="6881047311475758267">"自動修正前一個字詞"</string>
-
-    <!-- Option to enable text prediction -->
-    <string name="prediction" msgid="466220283138359837">"字詞建議"</string>
     <!-- Category title for text prediction -->
     <string name="prediction_category" msgid="7027100625580696660">"字詞建議設定"</string>
-    <!-- Description for text prediction -->
-    <string name="prediction_summary" msgid="459788228830873110">"輸入時啟用自動完成"</string>
-
-    <!-- Dialog title for auto complete choices -->
-    <string name="auto_complete_dialog_title" msgid="2172048590607201920">"自動完成"</string>
-
-    <!-- Option to enable text prediction in landscape -->
-    <string name="prediction_landscape" msgid="4874601565593216183">"放大文字欄位大小"</string>
-    <!-- Description for text prediction -->
-    <string name="prediction_landscape_summary" msgid="6736551095997839472">"在橫向檢視模式中隱藏字詞建議"</string>
 
     <!-- Option to enable auto capitalization of sentences -->
     <string name="auto_cap" msgid="1719746674854628252">"自動大寫"</string>
-    <!-- Description for auto cap -->
-    <string name="auto_cap_summary" msgid="3260681697600786825">"句首字母大寫"</string>
-    <!-- Option to enable auto punctuate -->
-    <string name="auto_punctuate" msgid="7276672334264521751">"自動標點"</string>
-    <!-- Description for auto punctuate -->
-    <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
 
     <!-- Option to set long press delay -->
     <string name="long_press_delay">長按延遲</string>
@@ -118,11 +82,6 @@
         <item>@string/settings_key_mode_always_hide_name</item>
     </string-array>
 
-    <!-- Option to enable bigram completion -->
-    <string name="bigram_suggestion" msgid="1323347224043514969">"雙連詞建議"</string>
-    <!-- Description for auto completion -->
-    <string name="bigram_suggestion_summary" msgid="4383845146070101531">"根據前一個字詞自動找出更適合的建議"</string>
-
     <!-- Array of prediction modes -->
     <string-array name="prediction_modes">
         <item msgid="4870266572388153286">"無"</item>
@@ -141,15 +100,6 @@
 
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g>：已儲存"</string>
-
-    <!-- Tip to long press on keys -->
-    <string name="tip_long_press" msgid="6101270866284343344">"按住按鍵可查看重音符號 (ø、ö 等)"</string>
-    <!-- Tip to dismiss keyboard -->
-    <string name="tip_dismiss" msgid="7585579046862204381">"隨時可以透過按後退鍵 ↶ 關閉鍵盤"</string>
-    <!-- Tip to press ?123 to access numbers and symbols -->
-    <string name="tip_access_symbols" msgid="6344098517525531652">"使用數字和符號"</string>
-    <!-- Tip to long press on typed word to add to dictionary -->
-    <string name="tip_add_to_dictionary" msgid="1487293888469227817">"按住最左邊的字詞，將其新增到字典中"</string>
 
     <!-- Instruction to touch the bubble to continue -->
     <string name="touch_to_continue" msgid="7869803257948414531">"輕觸此提示繼續 »"</string>
@@ -289,25 +239,6 @@
         <item msgid="3664304608587798036">"已停用語音輸入"</item>
     </string-array>
 
-    <!-- Press the "enter" key after the user speaks. Option on settings.-->
-    <string name="auto_submit" msgid="9151008027068358518">"說話後自動提交"</string>
-
-    <!-- Press the "enter" key after the user speaks. Summary of option in settings.-->
-    <string name="auto_submit_summary" msgid="4961875269610384226">"搜尋或前往下一個欄位時自動按下輸入。"</string>
-
-    <!-- IME Tutorial screen (ROMAN) --><skip />
-    <!-- appears above image showing the user to click on a TextView to show the IME -->
-    <string name="open_the_keyboard" msgid="2215920976029260466"><font size="17"><b>"開啟鍵盤"\n</b></font><font size="3">\n</font>"輕觸任何文字欄位。"</string>
-
-    <!-- appears above the image showing the back button used to close the keyboard -->
-    <string name="close_the_keyboard" msgid="6251022259044940103"><font size="17"><b>"關閉鍵盤"\n</b></font><font size="3">\n</font>"按下 Back 鍵。"</string>
-
-    <!-- appears above image showing how to use touch and hold -->
-    <string name="touch_and_hold" msgid="6154166367273010534"><font size="17"><b>\n"輕觸並按住按鍵開啟選項"</b></font><font size="3">\n</font>"輸入標點與輕重音。"</string>
-
-    <!-- appears above image showing how to access keyboard settings -->
-    <string name="keyboard_settings" msgid="4585753477617374032"><font size="17"><b>"鍵盤設定"\n</b></font><font size="3">\n</font>"輕觸並按住 "<b>"?123"</b>" 鍵。"</string>
-
     <!-- popular web domains for the locale - most popular, displayed on the keyboard -->
     <string name="popular_domain_0" msgid="3745279225122472969">".com"</string>
     <!-- popular web domains for the locale - item 1, displayed in the popup -->
@@ -354,8 +285,6 @@
 
     <!-- skipping untranslatable /resources:0/string-array:name=keyboard_layout_modes_values -->
 
-    <string name="subtype_mode_keyboard" msgid="2242090416595003881">"鍵盤"</string>
-    <string name="subtype_mode_voice" msgid="4394113125441627771">"語音"</string>
 
     <!-- Title for Latin keyboard debug settings activity / dialog -->
     <!-- skipping untranslatable /resources:0/string:name=english_ime_debug_settings -->

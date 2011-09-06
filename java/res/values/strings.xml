@@ -40,47 +40,11 @@
     <!-- Option to pop up the character with a larger font above soft keyboard -->
     <string name="popup_on_keypress">Popup on keypress</string>
 
-    <!-- Option to enable using nearby keys when correcting/predicting -->
-    <string name="hit_correction">Correct typing errors</string>
-    
-    <!-- Description for hit_correction  -->
-    <string name="hit_correction_summary">Enable input error correction</string>
-    
-    <!-- Option to enable using nearby keys when correcting/predicting in landscape-->
-    <string name="hit_correction_land">Landscape input errors</string>
-    
-    <!-- Description for hit_correction in landscape -->
-    <string name="hit_correction_land_summary">Enable input error correction</string>
-    
-    <!-- Option to automatically correct word on hitting space -->
-    <string name="auto_correction">Word suggestions</string> 
-    
-    <!-- Description for auto_correction -->
-    <string name="auto_correction_summary">Automatically correct the previous word</string>
-	
-    <!-- Option to enable text prediction -->
-    <string name="prediction">Word suggestions</string>
     <!-- Category title for text prediction -->
     <string name="prediction_category">Word suggestion settings</string>
-    <!-- Description for text prediction -->
-    <string name="prediction_summary">Enable auto completion while typing</string>
-	
-    <!-- Dialog title for auto complete choices -->
-    <string name="auto_complete_dialog_title">Auto completion</string>
-    
-    <!-- Option to enable text prediction in landscape -->
-    <string name="prediction_landscape">Increase text field size</string> 
-    <!-- Description for text prediction -->
-    <string name="prediction_landscape_summary">Hide word suggestions in landscape view</string>
 	
     <!-- Option to enable auto capitalization of sentences -->
     <string name="auto_cap">Auto-capitalization</string> 
-    <!-- Description for auto cap -->
-    <string name="auto_cap_summary">Capitalize the start of a sentence</string>
-    <!-- Option to enable auto punctuate -->
-    <string name="auto_punctuate">Auto-punctuate</string> 
-    <!-- Description for auto punctuate -->
-    <string name="auto_punctuate_summary"></string>
 
     <!-- Option to set long press delay -->
     <string name="long_press_delay">Long press delay</string>
@@ -123,11 +87,6 @@
         <item>@string/settings_key_mode_always_hide_name</item>
     </string-array>
 
-    <!-- Option to enable bigram completion -->
-    <string name="bigram_suggestion">Bigram Suggestions</string>
-    <!-- Description for auto completion -->
-    <string name="bigram_suggestion_summary">Use previous word to improve suggestion</string>
-
     <!-- Array of prediction modes -->
     <string-array name="prediction_modes">
         <item>None</item>
@@ -151,16 +110,6 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
     
-    <!-- Tip to long press on keys -->
-    <string name="tip_long_press">Hold a key down to see accents (ø, ö, etc.)</string>
-    <!-- Tip to dismiss keyboard -->
-    <string name="tip_dismiss">Press the back key \u21B6 to close the keyboard at any point</string>
-    <!-- Tip to press ?123 to access numbers and symbols -->
-    <string name="tip_access_symbols">Access numbers and symbols</string>    
-    <!-- Tip to long press on typed word to add to dictionary -->
-    <string name="tip_add_to_dictionary">Press and hold the left-most word to add it to the dictionary
-        </string>
-        
     <!-- Instruction to touch the bubble to continue -->
     <string name="touch_to_continue">Touch this hint to continue »</string>
     
@@ -304,27 +253,8 @@
         <item>Voice input is disabled</item>
     </string-array>
 
-    <!-- Press the "enter" key after the user speaks. Option on settings.-->
-    <string name="auto_submit">Auto submit after voice</string>
-
-    <!-- Press the "enter" key after the user speaks. Summary of option in settings.-->
-    <string name="auto_submit_summary">Automatically press enter when searching or going to the next field.</string>
-
-    <!-- IME Tutorial screen (ROMAN) --><skip />
-    <!-- appears above image showing the user to click on a TextView to show the IME -->
-    <string name="open_the_keyboard"><font size="17"><b>Open the keyboard\n</b></font><font size="3">\n</font>Touch any text field.</string>
-
-    <!-- appears above the image showing the back button used to close the keyboard -->
-    <string name="close_the_keyboard"><font size="17"><b>Close the keyboard\n</b></font><font size="3">\n</font>Press the Back key.</string>
-
-    <!-- appears above image showing how to use touch and hold -->
-    <string name="touch_and_hold"><font size="17"><b>Touch \u0026 hold a key for options\n</b></font><font size="3">\n</font>Access punctuation and accents.</string>
-
-    <!-- appears above image showing how to access keyboard settings -->
-    <string name="keyboard_settings"><font size="17"><b>Keyboard settings\n</b></font><font size="3">\n</font>Touch \u0026 hold the <b>\?123\</b> key.</string>
-
     <!-- popular web domains for the locale - most popular, displayed on the keyboard -->
-    <string name="popular_domain_0">".com"</string>
+    <string name="popular_domain_0">".com"</string> <!-- XXX where is that used? -->
     <!-- popular web domains for the locale - item 1, displayed in the popup -->
     <string name="popular_domain_1">".net"</string>
     <!-- popular web domains for the locale - item 2, displayed in the popup -->
@@ -380,9 +310,6 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-
-    <string name="subtype_mode_keyboard">keyboard</string>
-    <string name="subtype_mode_voice">voice</string>
 
     <!-- Title for Latin keyboard debug settings activity / dialog -->
     <string name="english_ime_debug_settings" translatable="false">Android keyboard Debug settings</string>

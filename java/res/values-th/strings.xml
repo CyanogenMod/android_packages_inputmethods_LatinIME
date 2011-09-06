@@ -26,22 +26,8 @@
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"สั่นเมื่อกดปุ่ม"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"ส่งเสียงเมื่อกดปุ่ม"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ป๊อปอัปเมื่อกดแป้น"</string>
-    <string name="hit_correction" msgid="4855351009261318389">"แก้ไขข้อผิดพลาดในการพิมพ์"</string>
-    <string name="hit_correction_summary" msgid="8761701873008070796">"เปิดการใช้งานการแก้ไขข้อผิดพลาดในการป้อนข้อมูล"</string>
-    <string name="hit_correction_land" msgid="2567691684825205448">"ข้อผิดพลาดในการป้อนข้อมูลแนวนอน"</string>
-    <string name="hit_correction_land_summary" msgid="4076803842198368328">"เปิดการใช้งานการแก้ไขข้อผิดพลาดในการป้อนข้อมูล"</string>
-    <string name="auto_correction" msgid="7911639788808958255">"การแนะนำคำ"</string>
-    <string name="auto_correction_summary" msgid="6881047311475758267">"แก้ไขคำก่อนหน้าอัตโนมัติ"</string>
-    <string name="prediction" msgid="466220283138359837">"การแนะนำคำ"</string>
     <string name="prediction_category" msgid="7027100625580696660">"การตั้งค่าการแนะนำคำ"</string>
-    <string name="prediction_summary" msgid="459788228830873110">"เปิดใช้งานการเติมคำอัตโนมัติขณะพิมพ์"</string>
-    <string name="auto_complete_dialog_title" msgid="2172048590607201920">"เติมคำอัตโนมัติ"</string>
-    <string name="prediction_landscape" msgid="4874601565593216183">"เพิ่มขนาดฟิลด์ข้อความ"</string>
-    <string name="prediction_landscape_summary" msgid="6736551095997839472">"ซ่อนการแนะนำคำในมุมมองแนวนอน"</string>
     <string name="auto_cap" msgid="1719746674854628252">"ปรับเป็นตัวพิมพ์ใหญ่อัตโนมัติ"</string>
-    <string name="auto_cap_summary" msgid="3260681697600786825">"ใช้ตัวพิมพ์ใหญ่เมื่อขึ้นต้นประโยค"</string>
-    <string name="auto_punctuate" msgid="7276672334264521751">"ใส่เครื่องหมายวรรคตอนอัตโนมัติ"</string>
-    <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
     <string name="quick_fixes" msgid="5353213327680897927">"แก้ไขด่วน"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"แก้ไขข้อผิดพลาดในการพิมพ์ที่พบบ่อย"</string>
     <string name="show_suggestions" msgid="507074425254289133">"แสดงคำแนะนำ"</string>
@@ -55,18 +41,12 @@
     <!-- no translation found for settings_key_modes:0 (8549888726962891527) -->
     <!-- no translation found for settings_key_modes:1 (881280041213210923) -->
     <!-- no translation found for settings_key_modes:2 (7317310620171067848) -->
-    <string name="bigram_suggestion" msgid="1323347224043514969">"คำแนะนำ Bigram"</string>
-    <string name="bigram_suggestion_summary" msgid="4383845146070101531">"ใช้คำก่อนหน้านี้เพื่อปรับปรุงคำแนะนำ"</string>
   <string-array name="prediction_modes">
     <item msgid="4870266572388153286">"ไม่มี"</item>
     <item msgid="1669461741568287396">"พื้นฐาน"</item>
     <item msgid="4894328801530136615">"ขั้นสูง"</item>
   </string-array>
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g> : บันทึกแล้ว"</string>
-    <string name="tip_long_press" msgid="6101270866284343344">"กดปุ่มค้างไว้เพื่อดูการออกเสียง (ø, ö, ฯลฯ)"</string>
-    <string name="tip_dismiss" msgid="7585579046862204381">"กดปุ่ม ย้อนกลับ เพื่อปิดแป้นพิมพ์เมื่อใดก็ได้"</string>
-    <string name="tip_access_symbols" msgid="6344098517525531652">"เข้าถึงหมายเลขและสัญลักษณ์"</string>
-    <string name="tip_add_to_dictionary" msgid="1487293888469227817">"กดคำซ้ายสุดค้างไว้เพื่อเพิ่มลงในพจนานุกรม"</string>
     <string name="touch_to_continue" msgid="7869803257948414531">"แตะคำแนะนำนี้เพื่อทำงานต่อ »"</string>
     <string name="touch_to_finish" msgid="7990196086480585789">"แตะที่นี่เพื่อปิดคำแนะนำนี้และเริ่มพิมพ์!"</string>
     <string name="tip_to_open_keyboard" msgid="6821200275486950452"><b>"แป้นพิมพ์จะเปิดขึ้นเมื่อคุณแตะฟิลด์ข้อความ"</b></string>
@@ -114,12 +94,6 @@
     <item msgid="6907837061058876770">"ไมโครโฟนบนแป้นพิมพ์สัญลักษณ์"</item>
     <item msgid="3664304608587798036">"การป้อนข้อมูลด้วยเสียงถูกปิดการใช้งาน"</item>
   </string-array>
-    <string name="auto_submit" msgid="9151008027068358518">"ส่งอัตโนมัติหลังบันทึกเสียง"</string>
-    <string name="auto_submit_summary" msgid="4961875269610384226">"กด Enter อัตโนมัติเมื่อค้นหาหรือไปที่ฟิลด์ถัดไป"</string>
-    <string name="open_the_keyboard" msgid="2215920976029260466"><font size="17"><b>"เปิดแป้นพิมพ์"\n</b></font><font size="3">\n</font>"แตะฟิลด์ข้อความใดก็ได้"</string>
-    <string name="close_the_keyboard" msgid="6251022259044940103"><font size="17"><b>"ปิดแป้นพิมพ์"\n</b></font><font size="3">\n</font>"กดปุ่ม ย้อนกลับ"</string>
-    <string name="touch_and_hold" msgid="6154166367273010534"><font size="17"><b>"แตะปุ่มค้างไว้เพื่อดูตัวเลือก "\n</b></font><font size="3">\n</font>"เข้าถึงเครื่องหมายวรรคตอนและการออกเสียง"</string>
-    <string name="keyboard_settings" msgid="4585753477617374032"><font size="17"><b>"การตั้งค่าแป้นพิมพ์"\n</b></font><font size="3">\n</font>"แตะปุ่ม "<b>"?123"</b>"ค้างไว้"</string>
     <string name="popular_domain_0" msgid="3745279225122472969">".com"</string>
     <string name="popular_domain_1" msgid="1370572248164278467">".net"</string>
     <string name="popular_domain_2" msgid="3036812463748402878">".org"</string>
@@ -135,6 +109,4 @@
     <string name="prefs_enable_recorrection" msgid="4588408906649533582">"แตะเพื่อแก้ไขคำ"</string>
     <string name="prefs_enable_recorrection_summary" msgid="1056068922330206170">"แตะคำที่ป้อนไว้เพื่อแก้ไข"</string>
     <string name="keyboard_layout" msgid="437433231038683666">"ชุดรูปแบบแป้นพิมพ์"</string>
-    <string name="subtype_mode_keyboard" msgid="2242090416595003881">"แป้นพิมพ์"</string>
-    <string name="subtype_mode_voice" msgid="4394113125441627771">"เสียง"</string>
 </resources>
