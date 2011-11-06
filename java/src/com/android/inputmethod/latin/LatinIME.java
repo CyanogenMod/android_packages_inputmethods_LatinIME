@@ -2339,10 +2339,17 @@ public class LatinIME extends InputMethodService
             if (!TextUtils.isEmpty(text)) {
                 mKeyboardSwitcher.getInputView().startPlaying(text.toString());
             }
+        } else {
+            changeKeyboardMode();
+            mSymbolKeyState.onPress();
+            mKeyboardSwitcher.setAutoModeSwitchStateMomentary();
         }
     }
 
     public void swipeLeft() {
+        changeKeyboardMode();
+        mSymbolKeyState.onPress();
+        mKeyboardSwitcher.setAutoModeSwitchStateMomentary();
     }
 
     public void swipeDown() {
@@ -2351,6 +2358,8 @@ public class LatinIME extends InputMethodService
 
     public void swipeUp() {
         //launchSettings();
+        mShiftKeyState.onPress();
+        handleShift();
     }
 
     public void onPress(int primaryCode) {
