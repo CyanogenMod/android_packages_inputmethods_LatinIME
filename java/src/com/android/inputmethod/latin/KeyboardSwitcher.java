@@ -21,6 +21,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.view.InflateException;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import java.lang.ref.SoftReference;
 import java.util.Arrays;
@@ -549,6 +551,10 @@ public class KeyboardSwitcher implements SharedPreferences.OnSharedPreferenceCha
         mInputMethodService.mHandler.post(new Runnable() {
             public void run() {
                 if (mInputView != null) {
+                    ViewParent p = mInputView.getParent();
+                    if (p != null && p instanceof ViewGroup) {
+                        ((ViewGroup)mInputView.getParent()).removeView(mInputView);
+                    }
                     mInputMethodService.setInputView(mInputView);
                 }
                 mInputMethodService.updateInputViewShown();
