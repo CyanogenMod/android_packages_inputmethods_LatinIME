@@ -40,7 +40,7 @@ public class InputLanguageSelection extends PreferenceActivity {
     private static final String[] WHITELIST_LANGUAGES = {
         "ar", "bg", "cs", "da", "de", "el", "en_GB", "en_US", "es", "es_US", "fa",
         "fi", "fr", "fr_CA", "fr_CH", "it", "iw", "hr", "hu", "ka", "lt", "lv", "nb",
-        "nl", "pl", "pt", "rm", "ro", "ru", "sk", "sr", "sv", "tr", "uk", "ur"
+        "nl", "nl_BE", "pl", "pt", "rm", "ro", "ru", "sk", "sr", "sv", "tr", "uk", "ur"
     };
 
     private static boolean isWhitelisted(String lang) {
