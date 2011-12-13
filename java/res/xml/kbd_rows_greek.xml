@@ -73,7 +73,8 @@
     >
         <Key
             latin:keyLabel="α"
-            latin:moreKeys="ά" />
+            latin:moreKeys="ά"
+            latin:keyXPos="5%p" />
         <Key
             latin:keyLabel="σ" />
         <Key
