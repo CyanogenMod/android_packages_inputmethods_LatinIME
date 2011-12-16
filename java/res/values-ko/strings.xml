@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"영어(영국)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"영어(미국)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"가용성 연구 모드"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"진동 시간 설정"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"키를 누를 때 진동 시간 설정"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"키를 누를 때 효과음 설정"</string>
 </resources>

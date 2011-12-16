@@ -35,6 +35,7 @@ import com.android.inputmethod.latin.DictionaryFactory;
 import com.android.inputmethod.latin.Flag;
 import com.android.inputmethod.latin.LocaleUtils;
 import com.android.inputmethod.latin.R;
+import com.android.inputmethod.latin.SynchronouslyLoadedContactsDictionary;
 import com.android.inputmethod.latin.SynchronouslyLoadedUserDictionary;
 import com.android.inputmethod.latin.Utils;
 import com.android.inputmethod.latin.WhitelistDictionary;
@@ -60,11 +61,6 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
     private static final int CAPITALIZE_ALL = 2; // All caps
 
     private final static String[] EMPTY_STRING_ARRAY = new String[0];
-    private final static SuggestionsInfo NOT_IN_DICT_EMPTY_SUGGESTIONS =
-            new SuggestionsInfo(0, EMPTY_STRING_ARRAY);
-    private final static SuggestionsInfo IN_DICT_EMPTY_SUGGESTIONS =
-            new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY,
-                    EMPTY_STRING_ARRAY);
     private final static Flag[] USE_FULL_EDIT_DISTANCE_FLAG_ARRAY;
     static {
         // See BinaryDictionary.java for an explanation of these flags
@@ -82,6 +78,7 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
             Collections.synchronizedMap(new TreeMap<String, Dictionary>());
     private Map<String, Dictionary> mWhitelistDictionaries =
             Collections.synchronizedMap(new TreeMap<String, Dictionary>());
+    private SynchronouslyLoadedContactsDictionary mContactsDictionary;
 
     // The threshold for a candidate to be offered as a suggestion.
     private double mSuggestionThreshold;
@@ -99,6 +96,15 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
     @Override
     public Session createSession() {
         return new AndroidSpellCheckerSession(this);
+    }
+
+    private static SuggestionsInfo getNotInDictEmptySuggestions() {
+        return new SuggestionsInfo(0, EMPTY_STRING_ARRAY);
+    }
+
+    private static SuggestionsInfo getInDictEmptySuggestions() {
+        return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY,
+                EMPTY_STRING_ARRAY);
     }
 
     private static class SuggestionsGatherer implements WordCallback {
@@ -267,6 +273,14 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
         for (Dictionary dict : oldWhitelistDictionaries.values()) {
             dict.close();
         }
+        if (null != mContactsDictionary) {
+            // The synchronously loaded contacts dictionary should have been in one
+            // or several pools, but it is shielded against multiple closing and it's
+            // safe to call it several times.
+            final SynchronouslyLoadedContactsDictionary dictToClose = mContactsDictionary;
+            mContactsDictionary = null;
+            dictToClose.close();
+        }
         return false;
     }
 
@@ -300,6 +314,11 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
             mWhitelistDictionaries.put(localeStr, whitelistDictionary);
         }
         dictionaryCollection.addDictionary(whitelistDictionary);
+        if (null == mContactsDictionary) {
+            mContactsDictionary = new SynchronouslyLoadedContactsDictionary(this);
+        }
+        // TODO: add a setting to use or not contacts when checking spelling
+        dictionaryCollection.addDictionary(mContactsDictionary);
         return new DictAndProximity(dictionaryCollection, proximityInfo);
     }
 
@@ -393,9 +412,9 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
                     DictAndProximity dictInfo = null;
                     try {
                         dictInfo = mDictionaryPool.takeOrGetNull();
-                        if (null == dictInfo) return NOT_IN_DICT_EMPTY_SUGGESTIONS;
-                        return dictInfo.mDictionary.isValidWord(text) ? IN_DICT_EMPTY_SUGGESTIONS
-                                : NOT_IN_DICT_EMPTY_SUGGESTIONS;
+                        if (null == dictInfo) return getNotInDictEmptySuggestions();
+                        return dictInfo.mDictionary.isValidWord(text) ? getInDictEmptySuggestions()
+                                : getNotInDictEmptySuggestions();
                     } finally {
                         if (null != dictInfo) {
                             if (!mDictionaryPool.offer(dictInfo)) {
@@ -430,7 +449,7 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
                 DictAndProximity dictInfo = null;
                 try {
                     dictInfo = mDictionaryPool.takeOrGetNull();
-                    if (null == dictInfo) return NOT_IN_DICT_EMPTY_SUGGESTIONS;
+                    if (null == dictInfo) return getNotInDictEmptySuggestions();
                     dictInfo.mDictionary.getWords(composer, suggestionsGatherer,
                             dictInfo.mProximityInfo);
                     isInDict = dictInfo.mDictionary.isValidWord(text);
@@ -475,7 +494,7 @@ public class AndroidSpellCheckerService extends SpellCheckerService {
                     throw e;
                 } else {
                     Log.e(TAG, "Exception while spellcheking: " + e);
-                    return NOT_IN_DICT_EMPTY_SUGGESTIONS;
+                    return getNotInDictEmptySuggestions();
                 }
             }
         }

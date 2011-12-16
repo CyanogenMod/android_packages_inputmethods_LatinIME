@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійська (Великобританія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійська (США)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Режим вивчення зручності у використанні"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Налаштування тривалості вібрації"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Налаштування тривалості вібрації під час натискання клавіші"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Налаштування гучності звуку під час натискання клавіші"</string>
 </resources>

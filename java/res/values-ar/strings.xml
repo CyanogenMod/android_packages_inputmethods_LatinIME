@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"وضع سهولة الاستخدام"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"إعدادات مدة الاهتزاز"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"إعدادات مدة اهتزاز الضغط على المفاتيح"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"إعدادات مستوى صوت الضغط على المفاتيح"</string>
 </resources>

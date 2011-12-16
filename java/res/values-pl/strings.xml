@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Angielska (Wielka Brytania)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Angielska (Stany Zjednoczone)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Tryb badania przydatności"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Ustawienia trwania wibracji"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Czas trwania wibracji przy naciśnięciu"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Głośność dźwięku przy naciśnięciu"</string>
 </resources>

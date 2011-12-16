@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Ingles (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Ingles (Estados Unidos)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Study mode ng pagiging kapaki-pakinabang"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Mga setting ng tagal ng vibration"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Mga setting ng tagal ng vibration ng keypress"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Mga setting ng volume ng tunog ng keypress"</string>
 </resources>

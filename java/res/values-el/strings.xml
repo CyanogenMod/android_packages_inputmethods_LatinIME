@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Αγγλικά (Η.Β.)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Αγγλικά (Η.Π.Α)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Λειτουργία μελέτης χρηστικότητας"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Ρυθμίσεις διάρκειας δόνησης"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Ρυθμίσεις διάρκειας δόνησης κατά το πάτημα πλήκτρων"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Ρυθμίσεις έντασης ήχου κατά το πάτημα πλήκτρων"</string>
 </resources>

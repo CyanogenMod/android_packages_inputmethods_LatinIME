@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Engelsk (Storbritannia)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engelsk (USA)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Nyttighetsmodus"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Innstillinger for vibrasjonsvarighet"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Innstillinger for vibrasjonsvarighet ved tastetrykk"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Innstillinger for lydstyrke ved tastetrykk"</string>
 </resources>

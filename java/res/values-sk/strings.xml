@@ -148,5 +148,6 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglická klávesnica (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Anglická klávesnica (US)"</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Režim štúdie použiteľnosti"</string>
-    <string name="prefs_vibration_duration_settings" msgid="3194657361314787870">"Nastavenia dĺžky vibrovania"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Nastavenia trvania vibrovania pri stlačení klávesu"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Nastavenia hlasitosti zvuku pri stlačení klávesu"</string>
 </resources>
