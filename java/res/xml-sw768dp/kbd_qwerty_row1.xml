@@ -30,33 +30,43 @@
             latin:keyWidth="7.969%p" />
         <Key
             latin:keyLabel="q"
+            latin:keyHintLabel="1"
             latin:moreKeys="@string/more_keys_for_q" />
         <Key
             latin:keyLabel="w"
+            latin:keyHintLabel="2"
             latin:moreKeys="@string/more_keys_for_w" />
         <Key
             latin:keyLabel="e"
+            latin:keyHintLabel="3"
             latin:moreKeys="@string/more_keys_for_e" />
         <Key
             latin:keyLabel="r"
+            latin:keyHintLabel="4"
             latin:moreKeys="@string/more_keys_for_r" />
         <Key
             latin:keyLabel="t"
+            latin:keyHintLabel="5"
             latin:moreKeys="@string/more_keys_for_t" />
         <Key
             latin:keyLabel="y"
+            latin:keyHintLabel="6"
             latin:moreKeys="@string/more_keys_for_y" />
         <Key
             latin:keyLabel="u"
+            latin:keyHintLabel="7"
             latin:moreKeys="@string/more_keys_for_u" />
         <Key
             latin:keyLabel="i"
+            latin:keyHintLabel="8"
             latin:moreKeys="@string/more_keys_for_i" />
         <Key
             latin:keyLabel="o"
+            latin:keyHintLabel="9"
             latin:moreKeys="@string/more_keys_for_o" />
         <Key
             latin:keyLabel="p"
+            latin:keyHintLabel="0"
             latin:moreKeys="@string/more_keys_for_p" />
         <Key
             latin:keyStyle="deleteKeyStyle"
