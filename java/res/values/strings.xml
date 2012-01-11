@@ -339,6 +339,8 @@
     <string name="subtype_en_GB">English (UK)</string>
     <!-- Description for English (United States) keyboard subtype [CHAR LIMIT=22] -->
     <string name="subtype_en_US">English (US)</string>
+    
+    <string name="subtype_es_US">Spanish (US)</string>
 
     <!-- Title of an option for usability study mode -->
     <string name="prefs_usability_study_mode">Usability study mode</string>
