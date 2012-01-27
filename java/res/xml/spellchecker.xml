@@ -42,4 +42,8 @@
             android:label="@string/subtype_generic"
             android:subtypeLocale="es"
     />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="el"
+    />
 </spell-checker>
