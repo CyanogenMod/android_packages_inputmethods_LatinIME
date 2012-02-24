@@ -56,6 +56,12 @@
             android:entryValues="@array/voice_input_modes_values"
             android:entries="@array/voice_input_modes"
             android:defaultValue="@string/voice_mode_main" />
+        <CheckBoxPreference
+            android:key="volume_cursor"
+            android:title="@string/prefs_volume_cursor"
+            android:summary="@string/prefs_volume_cursor_summary"
+            android:persistent="true"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/correction_category"
