@@ -97,6 +97,9 @@ public class Settings extends InputMethodSettingsActivity
 
     public static final String PREF_KEYPRESS_SOUND_VOLUME =
             "pref_keypress_sound_volume";
+
+    public static final String PREF_VOLUME_KEYS_AS_CURSOR = "volume_cursor";
+
     // Dialog ids
     private static final int VOICE_INPUT_CONFIRM_DIALOG = 0;
 
@@ -124,6 +127,7 @@ public class Settings extends InputMethodSettingsActivity
         public final boolean mBigramPredictionEnabled;
         public final boolean mUseContactsDict;
         public final boolean mEnableSuggestionSpanInsertion;
+        public final boolean mEnableVolumeCursor;
 
         private final boolean mShowSettingsKey;
         private final boolean mVoiceKeyEnabled;
@@ -187,6 +191,7 @@ public class Settings extends InputMethodSettingsActivity
             final String voiceMode = prefs.getString(PREF_VOICE_SETTINGS_KEY, voiceModeMain);
             mVoiceKeyEnabled = voiceMode != null && !voiceMode.equals(voiceModeOff);
             mVoiceKeyOnMain = voiceMode != null && voiceMode.equals(voiceModeMain);
+            mEnableVolumeCursor = prefs.getBoolean(Settings.PREF_VOLUME_KEYS_AS_CURSOR, false);
 
             LocaleUtils.setSystemLocale(res, savedLocale);
         }
