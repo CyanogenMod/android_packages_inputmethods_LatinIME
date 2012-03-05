@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2011, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
+>
+    <include
+        latin:keyboardLayout="@xml/kbd_key_styles" />
+    <Row
+        latin:keyWidth="8.0%p"
+    >
+        <Key
+            latin:keyLabel="q"
+            latin:keyXPos="2.15%p" />
+        <Key
+            latin:keyLabel="w" />
+        <Key
+            latin:keyLabel="e" />
+        <Key
+            latin:keyLabel="r" />
+        <Key
+            latin:keyLabel="t" />
+        <Key
+            latin:keyLabel="z" />
+        <Key
+            latin:keyLabel="u" />
+        <Key
+            latin:keyLabel="i" />
+        <Key
+            latin:keyLabel="o" />
+        <Key
+            latin:keyLabel="p" />
+        <Key
+            latin:keyLabel="š" />
+        <Key
+            latin:keyStyle="deleteKeyStyle"
+            latin:keyXPos="-10.0%p"
+            latin:keyWidth="fillBoth" />
+    </Row>
+    <Row
+        latin:keyWidth="7.9%p"
+    >
+        <Key
+            latin:keyLabel="a" />
+        <Key
+            latin:keyLabel="s" />
+        <Key
+            latin:keyLabel="d" />
+        <Key
+            latin:keyLabel="f" />
+        <Key
+            latin:keyLabel="g" />
+        <Key
+            latin:keyLabel="h" />
+        <Key
+            latin:keyLabel="j" />
+        <Key
+            latin:keyLabel="k" />
+        <Key
+            latin:keyLabel="l" />
+        <Key
+            latin:keyLabel="č" />
+        <Key
+            latin:keyLabel="ć" />
+        <Key
+            latin:keyStyle="returnKeyStyle"
+            latin:keyXPos="-14.6%p"
+            latin:keyWidth="fillBoth" />
+    </Row>
+    <Row
+        latin:keyWidth="7.5%p"
+    >
+        <Key
+            latin:keyStyle="shiftKeyStyle"
+            latin:keyWidth="8.0%p" />
+        <Key
+            latin:keyLabel="y" />
+        <Key
+            latin:keyLabel="x" />
+        <Key
+            latin:keyLabel="c" />
+        <Key
+            latin:keyLabel="v" />
+        <Key
+            latin:keyLabel="b" />
+        <Key
+            latin:keyLabel="n" />
+        <Key
+            latin:keyLabel="m" />
+        <Key
+            latin:keyLabel="đ" />
+        <Key
+            latin:keyLabel="ž" />
+        <include
+            latin:keyboardLayout="@xml/kbd_row3_comma_period" />
+        <include
+            latin:keyboardLayout="@xml/kbd_row3_smiley" />
+    </Row>
+    <include
+        latin:keyboardLayout="@xml/kbd_qwerty_row4" />
+</merge>
