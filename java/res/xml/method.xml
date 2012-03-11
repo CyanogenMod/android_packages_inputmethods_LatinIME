@@ -118,6 +118,12 @@
             android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection"
     />
     <subtype android:icon="@drawable/ic_subtype_keyboard"
+            android:label="@string/subtype_hr_alt"
+            android:imeSubtypeLocale="hr_AL"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection"
+    />
+    <subtype android:icon="@drawable/ic_subtype_keyboard"
             android:label="@string/subtype_generic"
             android:imeSubtypeLocale="hu"
             android:imeSubtypeMode="keyboard"
