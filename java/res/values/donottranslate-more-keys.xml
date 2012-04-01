@@ -46,6 +46,7 @@
     <string name="more_keys_for_cyrillic_i"></string>
     <string name="more_keys_for_cyrillic_soft_sign"></string>
     <string name="more_keys_for_cyrillic_ha"></string>
+    <string name="more_keys_for_cyrillic_g"></string>
     <string name="more_keys_for_currency_dollar">¢,£,€,¥,₱</string>
     <string name="more_keys_for_currency_euro">¢,£,$,¥,₱</string>
     <string name="more_keys_for_currency_pound">¢,$,€,¥,₱</string>
