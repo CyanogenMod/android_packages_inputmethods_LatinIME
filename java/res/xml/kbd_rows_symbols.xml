@@ -101,15 +101,13 @@
         <Key
             latin:keyLabel="!"
             latin:moreKeys="¡" />
-        <!-- Note: Neither DroidSans nor Roboto have a glyph for ‟ Double high-reversed-9 quotation mark U+201F. -->
-            <!-- latin:moreKeys="“,”,„,‟,«,»" -->
         <Key
             latin:keyLabel="&quot;"
-            latin:moreKeys="“,”,«,»"
+            latin:moreKeys="“,”,„,«,»"
             latin:maxMoreKeysColumn="6" />
         <Key
             latin:keyLabel="\'"
-            latin:moreKeys="‘,’,‚,‛" />
+            latin:moreKeys="‘,’,‚" />
         <Key
             latin:keyLabel=":" />
         <Key

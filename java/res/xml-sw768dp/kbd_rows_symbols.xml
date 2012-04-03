@@ -124,7 +124,7 @@
             >
                 <Key
                     latin:keyLabel="\'"
-                    latin:moreKeys="‘,’,‚,‛" />
+                    latin:moreKeys="‘,’,‚" />
             </case>
             <default>
                 <Key
@@ -171,11 +171,9 @@
             latin:keyStyle="spaceKeyStyle"
             latin:keyXPos="31.250%p"
             latin:keyWidth="37.500%p" />
-        <!-- Note: DroidSans doesn't have double-high-reversed-quotation '\u201f' glyph. -->
-        <!-- latin:moreKeys="“,”,„,‟,«,»,‘,’,‚,‛" -->
         <Key
             latin:keyLabel="&quot;"
-            latin:moreKeys="“,”,«,»,‘,’,‚,‛" />
+            latin:moreKeys="“,”,„,«,»,‘,’,‚" />
         <Key
             latin:keyLabel="_" />
         <switch>
