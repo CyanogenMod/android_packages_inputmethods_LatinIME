@@ -150,4 +150,6 @@
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Режим проверки удобства использования"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Настройки вибросигнала при нажатии клавиш"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Настройки громкости звука при нажатии клавиш"</string>
+    <string name="prefs_volume_cursor">Перемещение курсора</string>
+    <string name="prefs_volume_cursor_summary">Используйте кнопки громкости для перемещения курсора</string>
 </resources>
