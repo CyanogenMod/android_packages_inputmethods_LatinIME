@@ -131,6 +131,7 @@ public class LatinIME extends InputMethodService
 
     public static final String PREF_SELECTED_LANGUAGES = "selected_languages";
     public static final String PREF_INPUT_LANGUAGE = "input_language";
+    public static final String PREF_VOLUME_KEYS_AS_CURSOR = "volume_cursor";
     private static final String PREF_RECORRECTION_ENABLED = "recorrection_enabled";
 
     private static final int MSG_UPDATE_SUGGESTIONS = 0;
@@ -196,6 +197,7 @@ public class LatinIME extends InputMethodService
     private boolean mReCorrectionEnabled;
     // Bigram Suggestion is disabled in this version.
     private final boolean mBigramSuggestionEnabled = false;
+
     private boolean mAutoCorrectOn;
     // TODO move this state variable outside LatinIME
     private boolean mCapsLock;
@@ -205,6 +207,7 @@ public class LatinIME extends InputMethodService
     private boolean mSoundOn;
     private boolean mPopupOn;
     private boolean mAutoCap;
+    private boolean mEnableVolumeCursor;
     private int     mLongPressDelay;
     private boolean mQuickFixes;
     private boolean mHasUsedVoiceInput;
@@ -977,6 +980,16 @@ public class LatinIME extends InputMethodService
                     return true;
                 }
                 break;
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (mKeyboardSwitcher.getInputView() != null) {
+                    if (mKeyboardSwitcher.getInputView().isShown() && mEnableVolumeCursor) {
+                        sendDownUpKeyEvents((keyCode == KeyEvent.KEYCODE_VOLUME_UP ? KeyEvent.KEYCODE_DPAD_RIGHT
+                                : KeyEvent.KEYCODE_DPAD_LEFT));
+                        return true;
+                    }
+                }
+                break;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -1005,6 +1018,12 @@ public class LatinIME extends InputMethodService
                     return true;
                 }
                 break;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (mKeyboardSwitcher.getInputView() != null) {
+                    if (mKeyboardSwitcher.getInputView().isShown() && mEnableVolumeCursor)
+                        return true;
+                }
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -2556,6 +2575,7 @@ public class LatinIME extends InputMethodService
         mPopupOn = sp.getBoolean(PREF_POPUP_ON,
                 mResources.getBoolean(R.bool.default_popup_preview));
         mAutoCap = sp.getBoolean(PREF_AUTO_CAP, true);
+        mEnableVolumeCursor = sp.getBoolean(PREF_VOLUME_KEYS_AS_CURSOR, false);
         mLongPressDelay = sp.getInt(LatinIMESettings.PREF_LONG_PRESS_DELAY,
                 getResources().getInteger(R.integer.config_long_press_key_timeout));
         Log.d(TAG, "mLongPressDelay = " + mLongPressDelay);
@@ -2686,6 +2706,7 @@ public class LatinIME extends InputMethodService
         p.println("  mSoundOn=" + mSoundOn);
         p.println("  mVibrateOn=" + mVibrateOn);
         p.println("  mPopupOn=" + mPopupOn);
+        p.println("  mEnableVolumeCursor=" + mEnableVolumeCursor);
     }
 
     // Characters per second measurement

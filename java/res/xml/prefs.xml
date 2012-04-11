@@ -59,6 +59,14 @@
             android:defaultValue="true"
             />
 
+    <CheckBoxPreference
+            android:key="volume_cursor"
+            android:title="@string/prefs_volume_cursor"
+            android:summary="@string/prefs_volume_cursor_summary"
+            android:persistent="true"
+            android:defaultValue="false"
+            />
+
     <ListPreference
             android:key="settings_key"
             android:title="@string/prefs_settings_key"
