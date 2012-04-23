@@ -1,0 +1,11 @@
+Change-Id: I010f43f9c65ff0e33dbe307d40d22a20c2977307
+Code-Review+2: Diogo Ferreira <deovferreira@gmail.com>
+Verified+1: Diogo Ferreira <deovferreira@gmail.com>
+Code-Review+1: Arne Coucheron <arco68@gmail.com>
+Code-Review+1: Sean Donovan <swordrune10@gmail.com>
+Code-Review+1: Burag <piterownik@gmail.com>
+Submitted-by: Diogo Ferreira <deovferreira@gmail.com>
+Submitted-at: Mon, 23 Apr 2012 19:17:17 +0400
+Reviewed-on: http://review.cyanogenmod.com/15027
+Project: CyanogenMod/android_packages_inputmethods_LatinIME
+Branch: refs/heads/ics
