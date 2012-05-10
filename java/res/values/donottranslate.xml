@@ -152,12 +152,14 @@
         <item>en_US</item>
         <item>en_GB</item>
 	<item>hr_AL</item>
+	<item>hu_ZZ</item>
         <item>de_ZZ</item>
     </string-array>
     <string-array name="subtype_locale_exception_values">
         <item>English (US)</item>
         <item>English (UK)</item>
         <item>Hrvatski (Alt)</item>
+	<item>Hungarian (QWERTY)</item>
         <item>Deutsch (QWERTY)</item>
     </string-array>
 

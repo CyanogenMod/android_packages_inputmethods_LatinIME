@@ -17,11 +17,12 @@
 ** limitations under the License.
 */
 -->
-
-<Keyboard
-    xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
-    latin:keyboardLocale="hu"
->
-    <include
-        latin:keyboardLayout="@xml/kbd_rows_qwertz" />
-</Keyboard>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="more_keys_for_a">á</string>
+    <string name="more_keys_for_e">3,é</string>
+    <string name="more_keys_for_i">8,í</string>
+    <string name="more_keys_for_o">9,ó,ö,ő</string>
+    <string name="more_keys_for_u">7,ú,ü,ű</string>
+    <string name="more_keys_for_y">6</string>
+    <string name="more_keys_for_z"></string>
+</resources>

@@ -23,6 +23,6 @@
     <string name="more_keys_for_i">8,í</string>
     <string name="more_keys_for_o">9,ó,ö,ő</string>
     <string name="more_keys_for_u">7,ú,ü,ű</string>
-    <string name="more_keys_for_y">6</string>
-    <string name="more_keys_for_z"></string>
+    <string name="more_keys_for_y"></string>
+    <string name="more_keys_for_z">6</string>
 </resources>
