@@ -152,6 +152,7 @@
         <item>en_US</item>
         <item>en_GB</item>
 	<item>hr_AL</item>
+        <item>cs_ZZ</item>
 	<item>hu_ZZ</item>
         <item>de_ZZ</item>
     </string-array>
@@ -159,6 +160,7 @@
         <item>English (US)</item>
         <item>English (UK)</item>
         <item>Hrvatski (Alt)</item>
+        <item>Česky (QWERTY)</item>
 	<item>Hungarian (QWERTY)</item>
         <item>Deutsch (QWERTY)</item>
     </string-array>
