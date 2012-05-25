@@ -51,6 +51,7 @@
     mk: Macedonian/south_slavic
     nb: Norwegian Bokmål/nordic
     nl: Dutch/qwerty
+    nl_BE: Dutch/azerty
     pl: Polish/qwerty
     pt_BR: Portuguese Brazil/qwerty
     pt_PT: Portuguese Portugal/qwerty
@@ -244,6 +245,12 @@
     <subtype android:icon="@drawable/ic_subtype_keyboard"
             android:label="@string/subtype_generic"
             android:imeSubtypeLocale="nl"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection"
+    />
+    <subtype android:icon="@drawable/ic_subtype_keyboard"
+            android:label="@string/subtype_generic"
+            android:imeSubtypeLocale="nl_BE"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection"
     />
