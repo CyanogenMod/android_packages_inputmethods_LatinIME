@@ -144,10 +144,16 @@
     <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen."</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Help deze invoermethode te verbeteren door automatisch gebruiksstatistieken en crashmeldingen naar Google te verzenden."</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Toetsenbordthema"</string>
-    <string name="subtype_de_qwerty" msgid="3358900499589259491">"Duits QWERTY-toetsenbord"</string>
+    <string name="subtype_hr_alt">Kroatisch (alt.)</string>
+    <string name="subtype_cs_qwerty">Tsjechisch QWERTY</string>
+    <string name="subtype_hu_qwerty">Hongaars QWERTY</string>
+    <string name="subtype_de_qwerty" msgid="3358900499589259491">"Duits QWERTY"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engels (GB)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engels (VS)"</string>
+    <string name="subtype_es_US">Spaans (VS)</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Modus voor gebruiksvriendelijkheidsonderzoek"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Instellingen voor trillingsduur bij druk op een toets"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Instellingen voor geluidsvolume bij druk op een toets"</string>
+    <string name="prefs_volume_cursor">Volumecursor</string>
+    <string name="prefs_volume_cursor_summary">Gebruik de volumeknoppen om de cursor te bewegen</string>
 </resources>
