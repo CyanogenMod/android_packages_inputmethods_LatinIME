@@ -56,10 +56,22 @@
             android:entryValues="@array/voice_input_modes_values"
             android:entries="@array/voice_input_modes"
             android:defaultValue="@string/voice_mode_main" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/volume_cursor_category"
+        android:key="volume_cursor_settings">
         <CheckBoxPreference
             android:key="volume_cursor"
             android:title="@string/prefs_volume_cursor"
             android:summary="@string/prefs_volume_cursor_summary"
+            android:persistent="true"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="volume_cursor_reverse"
+            android:title="@string/prefs_volume_cursor_reverse"
+            android:summaryOff="@string/prefs_volume_cursor_reverse_summary_off"
+            android:summaryOn="@string/prefs_volume_cursor_reverse_summary_on"
+            android:dependency="volume_cursor"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
