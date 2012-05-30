@@ -100,6 +100,8 @@ public class Settings extends InputMethodSettingsActivity
 
     public static final String PREF_VOLUME_KEYS_AS_CURSOR = "volume_cursor";
 
+    public static final String PREF_VOLUME_KEYS_AS_CURSOR_REVERSE = "volume_cursor_reverse";
+
     // Dialog ids
     private static final int VOICE_INPUT_CONFIRM_DIALOG = 0;
 
@@ -128,6 +130,7 @@ public class Settings extends InputMethodSettingsActivity
         public final boolean mUseContactsDict;
         public final boolean mEnableSuggestionSpanInsertion;
         public final boolean mEnableVolumeCursor;
+        public final boolean mEnableVolumeCursorReverse;
 
         private final boolean mShowSettingsKey;
         private final boolean mVoiceKeyEnabled;
@@ -192,6 +195,7 @@ public class Settings extends InputMethodSettingsActivity
             mVoiceKeyEnabled = voiceMode != null && !voiceMode.equals(voiceModeOff);
             mVoiceKeyOnMain = voiceMode != null && voiceMode.equals(voiceModeMain);
             mEnableVolumeCursor = prefs.getBoolean(Settings.PREF_VOLUME_KEYS_AS_CURSOR, false);
+            mEnableVolumeCursorReverse = prefs.getBoolean(Settings.PREF_VOLUME_KEYS_AS_CURSOR_REVERSE, false);
 
             LocaleUtils.setSystemLocale(res, savedLocale);
         }
