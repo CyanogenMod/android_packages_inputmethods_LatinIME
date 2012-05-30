@@ -98,7 +98,7 @@ public class Settings extends InputMethodSettingsActivity
     public static final String PREF_KEYPRESS_SOUND_VOLUME =
             "pref_keypress_sound_volume";
 
-    public static final String PREF_VOLUME_KEYS_AS_CURSOR = "volume_cursor";
+    public static final String PREF_VOLUME_KEY_CURSOR = "volume_key_cursor";
 
     // Dialog ids
     private static final int VOICE_INPUT_CONFIRM_DIALOG = 0;
@@ -127,7 +127,7 @@ public class Settings extends InputMethodSettingsActivity
         public final boolean mBigramPredictionEnabled;
         public final boolean mUseContactsDict;
         public final boolean mEnableSuggestionSpanInsertion;
-        public final boolean mEnableVolumeCursor;
+        public final int mEnableVolumeCursor;
 
         private final boolean mShowSettingsKey;
         private final boolean mVoiceKeyEnabled;
@@ -191,7 +191,8 @@ public class Settings extends InputMethodSettingsActivity
             final String voiceMode = prefs.getString(PREF_VOICE_SETTINGS_KEY, voiceModeMain);
             mVoiceKeyEnabled = voiceMode != null && !voiceMode.equals(voiceModeOff);
             mVoiceKeyOnMain = voiceMode != null && voiceMode.equals(voiceModeMain);
-            mEnableVolumeCursor = prefs.getBoolean(Settings.PREF_VOLUME_KEYS_AS_CURSOR, false);
+            mEnableVolumeCursor = Integer.parseInt(
+                    prefs.getString(Settings.PREF_VOLUME_KEY_CURSOR, "0"));
 
             LocaleUtils.setSystemLocale(res, savedLocale);
         }
@@ -320,6 +321,7 @@ public class Settings extends InputMethodSettingsActivity
     private PreferenceScreen mKeypressVibrationDurationSettingsPref;
     private PreferenceScreen mKeypressSoundVolumeSettingsPref;
     private ListPreference mVoicePreference;
+    private ListPreference mVolumeCursorPref;
     private CheckBoxPreference mShowSettingsKeyPreference;
     private ListPreference mShowCorrectionSuggestionsPreference;
     private ListPreference mAutoCorrectionThresholdPreference;
@@ -371,6 +373,7 @@ public class Settings extends InputMethodSettingsActivity
         mInputLanguageSelection = (PreferenceScreen) findPreference(PREF_SUBTYPES);
         mInputLanguageSelection.setOnPreferenceClickListener(this);
         mVoicePreference = (ListPreference) findPreference(PREF_VOICE_SETTINGS_KEY);
+        mVolumeCursorPref = (ListPreference) findPreference(PREF_VOLUME_KEY_CURSOR);
         mShowSettingsKeyPreference = (CheckBoxPreference) findPreference(PREF_SHOW_SETTINGS_KEY);
         mShowCorrectionSuggestionsPreference =
                 (ListPreference) findPreference(PREF_SHOW_SUGGESTIONS_SETTING);
@@ -511,6 +514,7 @@ public class Settings extends InputMethodSettingsActivity
         } else {
             getPreferenceScreen().removePreference(mVoicePreference);
         }
+        updateVolumeCursorSummary();
         updateShowCorrectionSuggestionsSummary();
         updateKeyPreviewPopupDelaySummary();
     }
@@ -542,6 +546,7 @@ public class Settings extends InputMethodSettingsActivity
         mVoiceOn = !(prefs.getString(PREF_VOICE_SETTINGS_KEY, mVoiceModeOff)
                 .equals(mVoiceModeOff));
         updateVoiceModeSummary();
+        updateVolumeCursorSummary();
         updateShowCorrectionSuggestionsSummary();
         updateKeyPreviewPopupDelaySummary();
         refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, getResources());
@@ -587,6 +592,12 @@ public class Settings extends InputMethodSettingsActivity
         mVoicePreference.setSummary(
                 getResources().getStringArray(R.array.voice_input_modes_summary)
                 [mVoicePreference.findIndexOfValue(mVoicePreference.getValue())]);
+    }
+
+    private void updateVolumeCursorSummary() {
+        mVolumeCursorPref.setSummary(
+                getResources().getStringArray(R.array.volume_cursor_summary)
+                [mVolumeCursorPref.findIndexOfValue(mVolumeCursorPref.getValue())]);
     }
 
     @Override

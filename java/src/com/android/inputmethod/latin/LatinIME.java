@@ -137,6 +137,11 @@ public class LatinIME extends InputMethodServiceCompatWrapper implements Keyboar
 
     private static final int PENDING_IMS_CALLBACK_DURATION = 800;
 
+    // Must match values in /res/values/donottranslate.xml
+    private static final int VOLUME_CURSOR_OFF = 0;
+    private static final int VOLUME_CURSOR_ON = 1;
+    private static final int VOLUME_CURSOR_ON_REVERSE = 2;
+
     /**
      * The name of the scheme used by the Package Manager to warn of a new package installation,
      * replacement or removal.
@@ -1114,10 +1119,20 @@ public class LatinIME extends InputMethodServiceCompatWrapper implements Keyboar
             }
             break;
         case KeyEvent.KEYCODE_VOLUME_UP:
+            if (mKeyboardSwitcher.isInputViewShown()
+                    && (mSettingsValues.mEnableVolumeCursor != VOLUME_CURSOR_OFF)) {
+                sendDownUpKeyEvents(
+                        (mSettingsValues.mEnableVolumeCursor != VOLUME_CURSOR_ON_REVERSE)
+                        ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+                return true;
+            }
+            break;
         case KeyEvent.KEYCODE_VOLUME_DOWN:
-            if (mKeyboardSwitcher.isInputViewShown() && mSettingsValues.mEnableVolumeCursor) {
-                sendDownUpKeyEvents((keyCode == KeyEvent.KEYCODE_VOLUME_UP ? KeyEvent.KEYCODE_DPAD_RIGHT
-                        : KeyEvent.KEYCODE_DPAD_LEFT));
+            if (mKeyboardSwitcher.isInputViewShown()
+                    && (mSettingsValues.mEnableVolumeCursor != VOLUME_CURSOR_OFF)) {
+                sendDownUpKeyEvents(
+                        (mSettingsValues.mEnableVolumeCursor != VOLUME_CURSOR_ON_REVERSE)
+                        ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
                 return true;
             }
             break;
@@ -1147,7 +1162,8 @@ public class LatinIME extends InputMethodServiceCompatWrapper implements Keyboar
             break;
         case KeyEvent.KEYCODE_VOLUME_DOWN:
         case KeyEvent.KEYCODE_VOLUME_UP:
-            if (mKeyboardSwitcher.isInputViewShown() && mSettingsValues.mEnableVolumeCursor)
+            if (mKeyboardSwitcher.isInputViewShown()
+                    && (mSettingsValues.mEnableVolumeCursor != VOLUME_CURSOR_OFF))
                 return true;
         }
         return super.onKeyUp(keyCode, event);
