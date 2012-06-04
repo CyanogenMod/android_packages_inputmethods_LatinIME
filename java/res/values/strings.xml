@@ -387,4 +387,7 @@
     <!-- Title for Latin keyboard debug settings activity / dialog -->
     <string name="english_ime_debug_settings" translatable="false">Android keyboard Debug settings</string>
     <string name="prefs_debug_mode" translatable="false">Debug Mode</string>
+
+    <string name="prefs_volume_cursor">Volume cursor</string>
+    <string name="prefs_volume_cursor_summary">Use the volume keys to move the cursor</string>
 </resources>
