@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
 **
@@ -18,6 +18,7 @@
 */
 -->
 <!-- By Eyad Aboulouz -->
+<!-- Modified by Milad Kakoli -->
 <Keyboard
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
@@ -27,93 +28,87 @@
 >
     <Row>
         <Key
-            android:keyLabel="ض"
-            android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ًٌٍَُِّْ"
+            android:keyLabel="\u0636"
             android:keyEdgeFlags="left" />
         <Key
-            android:keyLabel="ص" />
+            android:keyLabel="\u0635" />
         <Key
-            android:keyLabel="ق" />
+            android:keyLabel="\u0642" />
         <Key
-            android:keyLabel="ف" />
+            android:keyLabel="\u0641" />
         <Key
-            android:keyLabel="غ" />
+            android:keyLabel="\u063A" />
         <Key
-            android:keyLabel="ع" />
+            android:keyLabel="\u0639" />
         <Key
-            android:keyLabel="ه"
+            android:keyLabel="\u0647"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ة" />
+            android:popupCharacters="\u0629" />
         <Key
-            android:keyLabel="خ" />
+            android:keyLabel="\u062E" />
         <Key
-            android:keyLabel="ح" />
+            android:keyLabel="\u062D" />
         <Key
-            android:keyLabel="ج"
+            android:keyLabel="\u062C"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="چ"
+            android:popupCharacters="\u0686"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>
         <Key
-            android:keyLabel="ش"
+            android:keyLabel="\u0634"
             android:keyEdgeFlags="left" />
         <Key
-            android:keyLabel="س" />
+            android:keyLabel="\u0633" />
         <Key
-            android:keyLabel="ي"
+            android:keyLabel="\u064A"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ىئ" />
+            android:popupCharacters="\u0626" />
         <Key
-            android:keyLabel="ب"
+            android:keyLabel="\u0628"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="پ" />
+            android:popupCharacters="\u067E" />
         <Key
-            android:keyLabel="ل"
+            android:keyLabel="\u0644" />
+        <Key
+            android:keyLabel="\u0627"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ﻵﻹﻷﻻ" />
+            android:popupCharacters="\u0622" />
         <Key
-            android:keyLabel="ا"
+            android:keyLabel="\u062A" />
+        <Key
+            android:keyLabel="\u0646" />
+        <Key
+            android:keyLabel="\u0645" />
+        <Key
+            android:keyLabel="\u0643"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="أإآء" />
-        <Key
-            android:keyLabel="ت" />
-        <Key
-            android:keyLabel="ن" />
-        <Key
-            android:keyLabel="م" />
-        <Key
-            android:keyLabel="ک"
-            android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="گ"
+            android:popupCharacters="\u06AF"
             android:keyEdgeFlags="right" />
     </Row>
     <Row>
         <Key
-            android:keyLabel="ظ"
-            android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="؟،؛"
+            android:keyLabel="\u0638"
             android:horizontalGap="2.5%p"
             android:keyEdgeFlags="left" />
         <Key
-            android:keyLabel="ط" />
+            android:keyLabel="\u0637" />
         <Key
-            android:keyLabel="ذ" />
-        <Key
-            android:keyLabel="د" />
-        <Key
-            android:keyLabel="ز"
+            android:keyLabel="\u0632"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ژ"  />
+            android:popupCharacters="\u0698"  />
         <Key
-            android:keyLabel="ر" />
+            android:keyLabel="\u0631" />
+		<Key
+            android:keyLabel="\u0630" />
         <Key
-            android:keyLabel="و"
+            android:keyLabel="\u062F" />
+        <Key
+            android:keyLabel="\u0648"
             android:popupKeyboard="@xml/kbd_popup_template"
-            android:popupCharacters="ؤ"  />
+            android:popupCharacters="\u0624"  />
         <Key
-            android:keyLabel="ث" />
+            android:keyLabel="\u062B" />
         <Key
             android:codes="@integer/key_delete"
             android:keyIcon="@drawable/sym_keyboard_delete"
