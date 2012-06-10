@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
 
-LOCAL_CFLAGS += -Werror -Wall
+LOCAL_CFLAGS += -Wall
 
 # To suppress compiler warnings for unused variables/functions used for debug features etc.
 LOCAL_CFLAGS += -Wno-unused-parameter -Wno-unused-function
