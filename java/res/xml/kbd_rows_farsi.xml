@@ -67,7 +67,7 @@
         <Key
             latin:keyLabel="ه"
             latin:keyHintLabel="7"
-            latin:moreKeys="7,٧,/u0629" />
+            latin:moreKeys="7,٧,\u0629" />
         <!-- \u062e: ARABIC LETTER KHAH -->
         <Key
             latin:keyLabel="خ"
