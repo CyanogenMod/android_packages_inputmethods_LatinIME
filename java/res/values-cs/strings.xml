@@ -140,4 +140,6 @@
     <string name="keyboard_layout" msgid="437433231038683666">"Motiv klávesnice"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"klávesnice"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"hlas"</string>
+    <string name="prefs_volume_cursor">Kurzor hlasitostí</string>
+    <string name="prefs_volume_cursor_summary">Pro pohyb kurzoru je možné použít ovládání hlasitosti</string>
 </resources>
