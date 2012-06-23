@@ -132,6 +132,7 @@ public class LatinIME extends InputMethodService
     public static final String PREF_SELECTED_LANGUAGES = "selected_languages";
     public static final String PREF_INPUT_LANGUAGE = "input_language";
     public static final String PREF_VOLUME_KEYS_AS_CURSOR = "volume_cursor";
+    public static final String PREF_VOLUME_KEYS_AS_CURSOR_REVERSE = "volume_cursor_reverse";
     private static final String PREF_RECORRECTION_ENABLED = "recorrection_enabled";
 
     private static final int MSG_UPDATE_SUGGESTIONS = 0;
@@ -208,6 +209,7 @@ public class LatinIME extends InputMethodService
     private boolean mPopupOn;
     private boolean mAutoCap;
     private boolean mEnableVolumeCursor;
+    private boolean mEnableVolumeCursorReverse;
     private int     mLongPressDelay;
     private boolean mQuickFixes;
     private boolean mHasUsedVoiceInput;
@@ -981,10 +983,15 @@ public class LatinIME extends InputMethodService
                 }
                 break;
             case KeyEvent.KEYCODE_VOLUME_UP:
+                if (mKeyboardSwitcher.getInputView().isShown() && mEnableVolumeCursor) {
+                    sendDownUpKeyEvents((mEnableVolumeCursorReverse ? KeyEvent.KEYCODE_DPAD_LEFT
+                            : KeyEvent.KEYCODE_DPAD_RIGHT));
+                    return true;
+                }
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (mKeyboardSwitcher.getInputView() != null) {
                     if (mKeyboardSwitcher.getInputView().isShown() && mEnableVolumeCursor) {
-                        sendDownUpKeyEvents((keyCode == KeyEvent.KEYCODE_VOLUME_UP ? KeyEvent.KEYCODE_DPAD_RIGHT
+                        sendDownUpKeyEvents((mEnableVolumeCursorReverse ? KeyEvent.KEYCODE_DPAD_RIGHT
                                 : KeyEvent.KEYCODE_DPAD_LEFT));
                         return true;
                     }
@@ -2576,6 +2583,7 @@ public class LatinIME extends InputMethodService
                 mResources.getBoolean(R.bool.default_popup_preview));
         mAutoCap = sp.getBoolean(PREF_AUTO_CAP, true);
         mEnableVolumeCursor = sp.getBoolean(PREF_VOLUME_KEYS_AS_CURSOR, false);
+        mEnableVolumeCursorReverse = sp.getBoolean(PREF_VOLUME_KEYS_AS_CURSOR_REVERSE, false);
         mLongPressDelay = sp.getInt(LatinIMESettings.PREF_LONG_PRESS_DELAY,
                 getResources().getInteger(R.integer.config_long_press_key_timeout));
         Log.d(TAG, "mLongPressDelay = " + mLongPressDelay);
@@ -2707,6 +2715,7 @@ public class LatinIME extends InputMethodService
         p.println("  mVibrateOn=" + mVibrateOn);
         p.println("  mPopupOn=" + mPopupOn);
         p.println("  mEnableVolumeCursor=" + mEnableVolumeCursor);
+        p.println("  mEnableVolumeCursorReverse=" + mEnableVolumeCursorReverse);
     }
 
     // Characters per second measurement
