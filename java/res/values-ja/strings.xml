@@ -137,6 +137,13 @@
     <string name="keyboard_layout" msgid="437433231038683666">"キーボードテーマ"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"キーボード"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"音声"</string>
-    <string name="prefs_volume_cursor">"音量キー カーソル"</string>
-    <string name="prefs_volume_cursor_summary">"音量キーでカーソルを移動させる"</string>
+
+    <string name="volume_cursor_category">音量キー カーソル制御</string>
+    <string name="prefs_volume_cursor_title">"音量キー カーソル"</string>
+    <string name="prefs_volume_cursor_off">"無効"</string>
+    <string name="prefs_volume_cursor_on">"有効"</string>
+    <string name="prefs_volume_cursor_on_reverse">"有効 (リバース)"</string>
+    <string name="prefs_volume_cursor_summary_off">"音量キーによるカーソル制御は無効"</string>
+    <string name="prefs_volume_cursor_summary_on">"音量アップでカーソルは左に移動"</string>
+    <string name="prefs_volume_cursor_summary_on_reverse">"音量ダウンでカーソルは左に移動"</string>
 </resources>
