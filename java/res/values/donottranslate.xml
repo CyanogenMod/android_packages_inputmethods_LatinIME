@@ -32,4 +32,23 @@
     <string name="settings_key_mode_always_show" translatable="false">1</string>
     <!-- Always hide the settings key -->
     <string name="settings_key_mode_always_hide" translatable="false">2</string>
+
+    <string name="volume_cursor_off">0</string>
+    <string name="volume_cursor_on">1</string>
+    <string name="volume_cursor_on_reverse">2</string>
+    <string-array name="volume_cursor_values">
+        <item>@string/volume_cursor_off</item>
+        <item>@string/volume_cursor_on</item>
+        <item>@string/volume_cursor_on_reverse</item>
+    </string-array>
+    <string-array name="volume_cursor_entries">
+        <item>@string/prefs_volume_cursor_off</item>
+        <item>@string/prefs_volume_cursor_on</item>
+        <item>@string/prefs_volume_cursor_on_reverse</item>
+    </string-array>
+    <string-array name="volume_cursor_summary">
+        <item>@string/prefs_volume_cursor_summary_off</item>
+        <item>@string/prefs_volume_cursor_summary_on</item>
+        <item>@string/prefs_volume_cursor_summary_on_reverse</item>
+    </string-array>
 </resources>
