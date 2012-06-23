@@ -388,6 +388,13 @@
     <string name="english_ime_debug_settings" translatable="false">Android keyboard Debug settings</string>
     <string name="prefs_debug_mode" translatable="false">Debug Mode</string>
 
-    <string name="prefs_volume_cursor">Volume cursor</string>
-    <string name="prefs_volume_cursor_summary">Use the volume keys to move the cursor</string>
+    <!-- Category title for volume key cursor control for Android keyboard -->
+    <string name="volume_cursor_category">Volume key cursor control</string>
+    <string name="prefs_volume_cursor_title">Volume key cursor</string>
+    <string name="prefs_volume_cursor_off">Disable</string>
+    <string name="prefs_volume_cursor_on">Enable</string>
+    <string name="prefs_volume_cursor_on_reverse">Enable (reverse)</string>
+    <string name="prefs_volume_cursor_summary_off">Controlling text cursor with volume keys is disabled</string>
+    <string name="prefs_volume_cursor_summary_on">Volume up moves text cursor left and vice versa</string>
+    <string name="prefs_volume_cursor_summary_on_reverse">Volume down moves text cursor left and vice versa</string>
 </resources>

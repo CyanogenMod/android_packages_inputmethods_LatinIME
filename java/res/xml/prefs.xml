@@ -59,14 +59,6 @@
             android:defaultValue="true"
             />
 
-    <CheckBoxPreference
-            android:key="volume_cursor"
-            android:title="@string/prefs_volume_cursor"
-            android:summary="@string/prefs_volume_cursor_summary"
-            android:persistent="true"
-            android:defaultValue="false"
-            />
-
     <ListPreference
             android:key="settings_key"
             android:title="@string/prefs_settings_key"
@@ -94,7 +86,6 @@
             android:entries="@array/voice_input_modes"
             android:defaultValue="@string/voice_mode_main"
             />
-
 
     <PreferenceScreen
             android:title="@string/language_selection_title"
@@ -132,5 +123,16 @@
             android:dependency="show_suggestions"
             />
     </PreferenceCategory>            
+    <PreferenceCategory
+            android:key="volume_cursor_settings"
+            android:title="@string/volume_cursor_category">
 
+    <ListPreference
+            android:key="volume_key_cursor"
+            android:title="@string/prefs_volume_cursor_title"
+            android:persistent="true"
+            android:entryValues="@array/volume_cursor_values"
+            android:entries="@array/volume_cursor_entries"
+            android:defaultValue="@string/volume_cursor_off" />
+    </PreferenceCategory>
 </PreferenceScreen>
