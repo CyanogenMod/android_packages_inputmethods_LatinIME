@@ -46,6 +46,8 @@ public class LatinIMESettings extends PreferenceActivity
     /* package */ static final String PREF_SETTINGS_KEY = "settings_key";
     /* package */ static final String PREF_LONG_PRESS_DELAY = "long_press_delay";
 
+    static final String PREF_VOLUME_KEY_CURSOR = "volume_key_cursor";
+
     private static final String TAG = "LatinIMESettings";
 
     // Dialog ids
@@ -54,6 +56,7 @@ public class LatinIMESettings extends PreferenceActivity
     private CheckBoxPreference mQuickFixes;
     private ListPreference mVoicePreference;
     private ListPreference mSettingsKeyPreference;
+    private ListPreference mVolumeCursorPref;
     private DialogSeekBarPreference mLongPressDelayPreference;
     private int mLongPressDelay;
     private boolean mVoiceOn;
@@ -69,6 +72,7 @@ public class LatinIMESettings extends PreferenceActivity
         addPreferencesFromResource(R.xml.prefs);
         mQuickFixes = (CheckBoxPreference) findPreference(QUICK_FIXES_KEY);
         mVoicePreference = (ListPreference) findPreference(VOICE_SETTINGS_KEY);
+        mVolumeCursorPref = (ListPreference) findPreference(PREF_VOLUME_KEY_CURSOR);
         mSettingsKeyPreference = (ListPreference) findPreference(PREF_SETTINGS_KEY);
         mLongPressDelayPreference = (DialogSeekBarPreference) findPreference(PREF_LONG_PRESS_DELAY);
         SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
@@ -95,6 +99,7 @@ public class LatinIMESettings extends PreferenceActivity
         } else {
             updateVoiceModeSummary();
         }
+        updateVolumeCursorSummary();
         updateSettingsKeySummary();
         updateLongPressDelaySummary();
     }
@@ -119,6 +124,7 @@ public class LatinIMESettings extends PreferenceActivity
         mLongPressDelay = prefs.getInt(PREF_LONG_PRESS_DELAY,
                 getResources().getInteger(R.integer.config_long_press_key_timeout));
         updateVoiceModeSummary();
+        updateVolumeCursorSummary();
         updateSettingsKeySummary();
         updateLongPressDelaySummary();
     }
@@ -216,5 +222,11 @@ public class LatinIMESettings extends PreferenceActivity
         } else {
             mLogger.voiceInputSettingDisabled();
         }
+    }
+
+    private void updateVolumeCursorSummary() {
+        mVolumeCursorPref.setSummary(
+                getResources().getStringArray(R.array.volume_cursor_summary)
+                [mVolumeCursorPref.findIndexOfValue(mVolumeCursorPref.getValue())]);
     }
 }
