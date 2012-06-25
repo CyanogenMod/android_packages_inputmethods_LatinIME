@@ -24,8 +24,7 @@
     <string name="english_ime_settings" msgid="6661589557206947774">"Instellingen voor Android-toetsenbord"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Invoeropties"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Trillen bij toetsaanslag"</string>
-    <string name="obey_haptic_feedback">Gehoorzaam haptische feedback</string>
-    <string name="obey_haptic_feedback_summary">Niet trillen als haptische feeddback is uitgeschakeld in systeem instellingen</string>
+
     <string name="sound_on_keypress" msgid="6093592297198243644">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up bij toetsaanslag"</string>
     <string name="hit_correction" msgid="4855351009261318389">"Typefouten corrigeren"</string>
@@ -44,10 +43,6 @@
     <string name="auto_cap_summary" msgid="3260681697600786825">"Hoofdletter gebruiken aan het begin van een zin"</string>
     <string name="auto_punctuate" msgid="7276672334264521751">"Automatische interpunctie"</string>
     <string name="auto_punctuate_summary" msgid="6589441565817502132"></string>
-
-    <string name="long_press_delay">Lang indrukken vertraging</string>
-    <string name="long_press_delay_summary">%d milliseconden</string>
-    
     <string name="quick_fixes" msgid="5353213327680897927">"Snelle oplossingen"</string>
     <string name="quick_fixes_summary" msgid="3405028402510332373">"Hiermee worden veelvoorkomende typefouten gecorrigeerd"</string>
     <string name="show_suggestions" msgid="507074425254289133">"Suggesties weergeven"</string>
@@ -56,11 +51,8 @@
     <string name="auto_complete_summary" msgid="6113149638718274624">"Gemarkeerd woord automatisch invoegen met spatiebalk en interpunctie"</string>
     <string name="prefs_settings_key" msgid="4623341240804046498">"Instellingscode weergeven"</string>
     <string name="settings_key_mode_auto_name" msgid="2993460277873684680">"Automatisch"</string>
-    <string name="settings_key_mode_always_show_name" msgid="3047567041784760575">"Altijd weergeven"</string>
+    <string name="settings_key_mode_always_show_name" msgid="3047567041784760575">"Altijd tonen"</string>
     <string name="settings_key_mode_always_hide_name" msgid="7833948046716923994">"Altijd verbergen"</string>
-    <!-- no translation found for settings_key_modes:0 (8549888726962891527) -->
-    <!-- no translation found for settings_key_modes:1 (881280041213210923) -->
-    <!-- no translation found for settings_key_modes:2 (7317310620171067848) -->
     <string name="bigram_suggestion" msgid="1323347224043514969">"Digram-suggesties"</string>
     <string name="bigram_suggestion_summary" msgid="4383845146070101531">"Vorig woord gebruiken om suggestie te verbeteren"</string>
   <string-array name="prediction_modes">
@@ -126,11 +118,6 @@
     <string name="close_the_keyboard" msgid="6251022259044940103"><font size="17"><b>"Het toetsenbord sluiten"\n</b></font><font size="3">\n</font>"Druk op de terugtoets."</string>
     <string name="touch_and_hold" msgid="6154166367273010534"><font size="17"><b>"Een toets blijven aanraken voor opties"\n</b></font><font size="3">\n</font>"Toegang tot interpunctie en diakritische tekens."</string>
     <string name="keyboard_settings" msgid="4585753477617374032"><font size="17"><b>"Toetsenbordinstellingen"\n</b></font><font size="3">\n</font>"Blijf de toets \'"<b>"?123"</b>"\' aanraken."</string>
-    <string name="popular_domain_0" msgid="3745279225122472969">".com"</string>
-    <string name="popular_domain_1" msgid="1370572248164278467">".net"</string>
-    <string name="popular_domain_2" msgid="3036812463748402878">".org"</string>
-    <string name="popular_domain_3" msgid="8718639560809452028">".gov"</string>
-    <string name="popular_domain_4" msgid="35359437471311470">".edu"</string>
     <string name="selectInputMethod" msgid="315076553378705821">"Invoermethode selecteren"</string>
     <string name="language_selection_title" msgid="1651299598555326750">"Invoertalen"</string>
     <string name="language_selection_summary" msgid="187110938289512256">"Schuif uw vinger over de spatiebalk om de taal te wijzigen"</string>
@@ -143,4 +130,16 @@
     <string name="keyboard_layout" msgid="437433231038683666">"Toetsenbordthema"</string>
     <string name="subtype_mode_keyboard" msgid="2242090416595003881">"toetsenbord"</string>
     <string name="subtype_mode_voice" msgid="4394113125441627771">"spraak"</string>
+
+    <string name="long_press_delay">Lang indrukken-vertraging</string>
+    <string name="long_press_delay_summary">%d milliseconden</string>
+    <string name="obey_haptic_feedback">Standaardinstelling voor trillen volgen</string>
+    <string name="obey_haptic_feedback_summary">Niet trillen indien uitgeschakeld in systeeminstellingen</string>
+    <string name="popular_domain_0">.nl</string>
+    <string name="popular_domain_1">.be</string>
+    <string name="popular_domain_2">.com</string>
+    <string name="popular_domain_3">.org</string>
+    <string name="popular_domain_4">.net</string>
+    <string name="prefs_volume_cursor">Volumeknoppen als cursor</string>
+    <string name="prefs_volume_cursor_summary">Volumeknoppen gebruiken om cursor te verplaatsen</string>
 </resources>
