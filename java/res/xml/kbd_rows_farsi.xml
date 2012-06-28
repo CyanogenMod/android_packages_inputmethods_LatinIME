@@ -100,8 +100,8 @@
              \u0626: ARABIC LETTER YEH WITH HAMZA ABOVE
              \u0649: ARABIC LETTER ALEF MAKSURA -->
         <Key
-            latin:keyLabel="ي"
-            latin:moreKeys="\u0626,\u0649" />
+            latin:keyLabel="\u06cc"
+            latin:moreKeys="\u0626,\u0649,\u064a" />
         <!-- \u0628: ARABIC LETTER BEH
              \u067e: ARABIC LETTER PEH -->
         <Key
@@ -142,9 +142,9 @@
              \u06af: ARABIC LETTER GAF
              \u06a9: ARABIC LETTER KEHEH -->
         <Key
-            latin:keyLabel="ك"
+            latin:keyLabel="\u06a9"
 			latin:keyHintLabel="\u06af"
-            latin:moreKeys="\u06af,\u06a9"
+            latin:moreKeys="\u06af"
             latin:keyWidth="fillRight" />
     </Row>
     <Row
