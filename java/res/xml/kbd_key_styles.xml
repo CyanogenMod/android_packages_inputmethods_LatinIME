@@ -126,7 +126,9 @@
                 latin:styleName="returnKeyStyle"
                 latin:code="@integer/key_return"
                 latin:keyLabel="@string/label_send_key"
-                latin:keyLabelOption="autoXScale"
+                latin:keyLabelOption="hasPopupHint"
+                latin:moreKeys="@string/more_keys_for_smiley"
+                latin:maxMoreKeysColumn="5"
                 latin:backgroundType="action" />
         </case>
         <case
@@ -143,6 +145,9 @@
                 latin:styleName="returnKeyStyle"
                 latin:code="@integer/key_return"
                 latin:keyIcon="iconReturnKey"
+                latin:keyLabelOption="hasPopupHint"
+                latin:moreKeys="@string/more_keys_for_smiley"
+                latin:maxMoreKeysColumn="5"
                 latin:backgroundType="functional" />
         </default>
     </switch>
