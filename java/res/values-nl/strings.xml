@@ -76,7 +76,7 @@
     <string name="label_go_key" msgid="1635148082137219148">"Start"</string>
     <string name="label_next_key" msgid="362972844525672568">"Volgende"</string>
     <string name="label_done_key" msgid="2441578748772529288">"Gereed"</string>
-    <string name="label_send_key" msgid="2815056534433717444">"Verzenden"</string>
+    <string name="label_send_key" msgid="2815056534433717444">"Sturen"</string>
     <string name="label_symbol_key" msgid="6175820506864489453">"?123"</string>
     <string name="label_phone_key" msgid="4275497665515080551">"123"</string>
     <string name="label_alpha_key" msgid="8864943487292437456">"ABC"</string>
