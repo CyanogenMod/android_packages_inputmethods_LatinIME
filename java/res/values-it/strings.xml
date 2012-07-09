@@ -145,9 +145,15 @@
     <string name="prefs_description_log" msgid="5827825607258246003">"Aiuta a migliorare l\'editor del metodo di inserimento inviando automaticamente a Google statistiche sull\'utilizzo e segnalazioni sugli arresti anomali."</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Tema della tastiera"</string>
     <string name="subtype_de_qwerty" msgid="3358900499589259491">"QWERTY tedesca"</string>
+    <string name="subtype_hr_alt">Croato (Alt)</string>
+    <string name="subtype_cs_qwerty">QWERTY Ceca</string>
+    <string name="subtype_hu_qwerty">QWERTY Ungherese</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Inglese (UK)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Inglese (USA)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Inglese (US)"</string>
+    <string name="subtype_es_US">Spagnolo (US)</string>
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Modalità Studio sull\'usabilità"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Impostazioni durata vibrazione alla pressione di un tasto"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Impostazioni volume audio alla pressione di un tasto"</string>
+    <string name="prefs_volume_cursor">Tasti volume</string>
+    <string name="prefs_volume_cursor_summary">Usa i tasti del volume per spostare il cursore</string>
 </resources>
