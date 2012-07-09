@@ -1,0 +1,10 @@
+Change-Id: Ie273b756be06dd7724ceb51be8d628ab4a11c4b7
+Code-Review+2: Steve Kondik <shade@chemlab.org>
+Verified+1: Steve Kondik <shade@chemlab.org>
+Code-Review+1: Eyad Aboulouz <eyad.aboulouz@gmail.com>
+Code-Review+1: milad kakoli <hellcrueldictator@yahoo.com>
+Submitted-by: Steve Kondik <shade@chemlab.org>
+Submitted-at: Mon, 09 Jul 2012 09:30:13 +0400
+Reviewed-on: http://review.cyanogenmod.com/18324
+Project: CyanogenMod/android_packages_inputmethods_LatinIME
+Branch: refs/heads/ics
