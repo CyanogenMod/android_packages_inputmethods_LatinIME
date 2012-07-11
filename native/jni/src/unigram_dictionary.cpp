@@ -213,6 +213,7 @@ int UnigramDictionary::getSuggestions(ProximityInfo *proximityInfo,
             queuePool->getMasterQueue()->outputSuggestions(
                     proximityInfo->getPrimaryInputWord(), codesSize, frequencies, outWords);
 
+#ifndef NDEBUG
     if (DEBUG_DICT) {
         float ns = queuePool->getMasterQueue()->getHighestNormalizedScore(
                 proximityInfo->getPrimaryInputWord(), codesSize, 0, 0, 0);
@@ -226,6 +227,7 @@ int UnigramDictionary::getSuggestions(ProximityInfo *proximityInfo,
             AKLOGI("%s %i", s, frequencies[j]);
         }
     }
+#endif
     PROF_END(20);
     PROF_CLOSE;
     return suggestedWordsCount;

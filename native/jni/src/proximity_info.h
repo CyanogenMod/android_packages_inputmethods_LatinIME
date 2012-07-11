@@ -22,14 +22,18 @@
 
 #include "defines.h"
 
+#if __cplusplus < 201103L && !defined(__GXX_EXPERIMENTAL_CXX0X__) && !defined(constexpr)
+#define constexpr const
+#endif
+
 namespace latinime {
 
 class Correction;
 
 class ProximityInfo {
  public:
-    static const int NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR_LOG_2 = 10;
-    static const int NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR =
+    static constexpr int NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR_LOG_2 = 10;
+    static constexpr int NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR =
             1 << NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR_LOG_2;
 
     // Used as a return value for character comparison
@@ -74,11 +78,11 @@ class ProximityInfo {
 
  private:
     // The max number of the keys in one keyboard layout
-    static const int MAX_KEY_COUNT_IN_A_KEYBOARD = 64;
+    static constexpr int MAX_KEY_COUNT_IN_A_KEYBOARD = 64;
     // The upper limit of the char code in mCodeToKeyIndex
-    static const int MAX_CHAR_CODE = 127;
-    static const float NOT_A_DISTANCE_FLOAT = -1.0f;
-    static const int NOT_A_CODE = -1;
+    static constexpr int MAX_CHAR_CODE = 127;
+    static constexpr float NOT_A_DISTANCE_FLOAT = -1.0f;
+    static constexpr int NOT_A_CODE = -1;
 
     int getStartIndexFromCoordinates(const int x, const int y) const;
     void initializeCodeToKeyIndex();

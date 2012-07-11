@@ -42,6 +42,7 @@ inline static void initEditDistance(int *editDistanceTable) {
 
 inline static void dumpEditDistance10ForDebug(int *editDistanceTable,
         const int editDistanceTableWidth, const int outputLength) {
+#ifndef NDEBUG
     if (DEBUG_DICT) {
         AKLOGI("EditDistanceTable");
         for (int i = 0; i <= 10; ++i) {
@@ -57,6 +58,7 @@ inline static void dumpEditDistance10ForDebug(int *editDistanceTable,
                     c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10]);
         }
     }
+#endif
 }
 
 inline static void calcEditDistanceOneStep(int *editDistanceTable, const unsigned short *input,

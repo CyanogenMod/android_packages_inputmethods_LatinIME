@@ -459,9 +459,9 @@ bool ProximityInfo::sameAsTyped(const unsigned short *word, int length) const {
     return true;
 }
 
-const int ProximityInfo::NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR_LOG_2;
-const int ProximityInfo::NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR;
-const int ProximityInfo::MAX_KEY_COUNT_IN_A_KEYBOARD;
-const int ProximityInfo::MAX_CHAR_CODE;
+constexpr int ProximityInfo::NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR_LOG_2;
+constexpr int ProximityInfo::NORMALIZED_SQUARED_DISTANCE_SCALING_FACTOR;
+constexpr int ProximityInfo::MAX_KEY_COUNT_IN_A_KEYBOARD;
+constexpr int ProximityInfo::MAX_CHAR_CODE;
 
 } // namespace latinime
