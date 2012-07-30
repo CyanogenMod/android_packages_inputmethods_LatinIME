@@ -1,23 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+     Copyright (C) 2012 The CyanogenMod Project
 
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" msgid="7252517407088836577">"Android-toetsenbord"</string>
@@ -28,13 +24,13 @@
     <string name="aosp_spell_checker_service_name" msgid="6985142605330377819">"Spellingcontrole van Android (AOSP)"</string>
     <string name="android_spell_checker_settings" msgid="5822324635435443689">"Instellingen voor spellingcontrole"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Contactnamen opzoeken"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"De spellingcontrole gebruikt items uit uw contactenlijst"</string>
+    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"De spellingcontrole gebruikt items uit uw contactlijst"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Trillen bij toetsaanslag"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up bij toetsaanslag"</string>
     <string name="general_category" msgid="1859088467017573195">"Algemeen"</string>
     <string name="correction_category" msgid="2236750915056607613">"Tekstcorrectie"</string>
-    <string name="misc_category" msgid="6894192814868233453">"Andere opties"</string>
+    <string name="misc_category" msgid="6894192814868233453">"Meer\u2026"</string>
     <string name="advanced_settings" msgid="362895144495591463">"Geavanceerde instellingen"</string>
     <string name="advanced_settings_summary" msgid="4487980456152830271">"Opties voor experts"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Invoermeth. overschakelen"</string>
@@ -50,12 +46,12 @@
     <string name="auto_cap" msgid="1719746674854628252">"Auto-hoofdlettergebruik"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Woordenboeken toevoegen"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"Algemeen woordenboek"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Correctievoorstellen weergeven"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Voorgestelde woorden weergeven tijdens typen"</string>
-    <string name="prefs_suggestion_visibility_show_name" msgid="3219916594067551303">"Altijd weergeven"</string>
-    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3551821800439659812">"Weergeven in staande modus"</string>
+    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Correctievoorstellen tonen"</string>
+    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Voorgestelde woorden tonen tijdens typen"</string>
+    <string name="prefs_suggestion_visibility_show_name" msgid="3219916594067551303">"Altijd tonen"</string>
+    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3551821800439659812">"Tonen in portretmodus"</string>
     <string name="prefs_suggestion_visibility_hide_name" msgid="6309143926422234673">"Altijd verbergen"</string>
-    <string name="auto_correction" msgid="4979925752001319458">"Autocorrectie"</string>
+    <string name="auto_correction" msgid="4979925752001319458">"Auto-correctie"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Met spatiebalk en interpunctie worden verkeerd gespelde woorden automatisch gecorrigeerd"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Uitgeschakeld"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Normaal"</string>
@@ -76,7 +72,7 @@
     <string name="label_to_symbol_with_microphone_key" msgid="9035925553010061906">"123"</string>
     <string name="label_pause_key" msgid="181098308428035340">"Pauze"</string>
     <string name="label_wait_key" msgid="6402152600878093134">"Wacht"</string>
-    <string name="spoken_use_headphones" msgid="896961781287283493">"Sluit een headset aan om wachtwoordtoetsen hardop te laten voorlezen."</string>
+    <string name="spoken_use_headphones" msgid="896961781287283493">"Sluit een headset aan om wachtwoordtoetsen hardop voor te laten lezen."</string>
     <string name="spoken_current_text_is" msgid="2485723011272583845">"Huidige tekst is %s"</string>
     <string name="spoken_no_text_entered" msgid="7479685225597344496">"Geen tekst ingevoerd"</string>
     <string name="spoken_description_unknown" msgid="3197434010402179157">"Toetscode %d"</string>
@@ -112,9 +108,9 @@
     <string name="configure_input_method" msgid="373356270290742459">"Invoermethoden configureren"</string>
     <string name="language_selection_title" msgid="1651299598555326750">"Invoertalen"</string>
     <string name="select_language" msgid="3693815588777926848">"Invoertalen"</string>
-    <string name="hint_add_to_dictionary" msgid="573678656946085380">"Raak nogmaals aan om op te slaan"</string>
+    <string name="hint_add_to_dictionary" msgid="573678656946085380">"Tik nogmaals om op te slaan"</string>
     <string name="has_dictionary" msgid="6071847973466625007">"Woordenboek beschikbaar"</string>
-    <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen."</string>
+    <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen"</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Help deze invoermethode te verbeteren door automatisch gebruiksstatistieken en crashmeldingen naar Google te verzenden."</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Toetsenbordthema"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engels (GB)"</string>
@@ -128,13 +124,13 @@
     <string name="subtype_no_language_dvorak" msgid="3122976737669823935">"Geen taal (Dvorak)"</string>
     <string name="subtype_no_language_colemak" msgid="4205992994906097244">"Geen taal (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="8840928374394180189">"Geen taal (PC)"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Aangep. invoerstijlen"</string>
-    <string name="add_style" msgid="6163126614514489951">"Stijl toev."</string>
+    <string name="custom_input_styles_title" msgid="8429952441821251512">"Aangepaste invoerstijlen"</string>
+    <string name="add_style" msgid="6163126614514489951">"Stijl toevoegen"</string>
     <string name="add" msgid="8299699805688017798">"Toevoegen"</string>
     <string name="remove" msgid="4486081658752944606">"Verwijderen"</string>
     <string name="save" msgid="7646738597196767214">"Opslaan"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Taal"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Lay-out"</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">"Indeling"</string>
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"U moet uw aangepaste invoerstijl inschakelen voor u deze kunt gebruiken. Wilt u de invoerstijl nu inschakelen?"</string>
     <string name="enable" msgid="5031294444630523247">"Inschakelen"</string>
     <string name="not_now" msgid="6172462888202790482">"Niet nu"</string>
