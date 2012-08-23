@@ -54,6 +54,7 @@ public class SettingsValues {
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     private final String mVoiceMode;
+    public final int mVolumeCursor;
     private final String mAutoCorrectionThresholdRawValue;
     public final String mShowSuggestionsSetting;
     @SuppressWarnings("unused") // TODO: Use this
@@ -140,6 +141,8 @@ public class SettingsValues {
         mVibrationDurationSettingsRawValue =
                 prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, -1);
         mKeypressSoundVolumeRawValue = prefs.getFloat(Settings.PREF_KEYPRESS_SOUND_VOLUME, -1.0f);
+        mVolumeCursor = Integer.parseInt(
+                prefs.getString(Settings.PREF_VOLUME_KEY_CURSOR, "0"));
 
         // Compute other readable settings
         mKeypressVibrationDuration = getCurrentVibrationDuration(prefs, res);

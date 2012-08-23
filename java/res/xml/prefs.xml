@@ -48,6 +48,13 @@
             android:entryValues="@array/voice_input_modes_values"
             android:entries="@array/voice_input_modes"
             android:defaultValue="@string/voice_mode_main" />
+        <ListPreference
+            android:key="volume_key_cursor"
+            android:title="@string/prefs_volume_cursor_title"
+            android:persistent="true"
+            android:entryValues="@array/volume_cursor_values"
+            android:entries="@array/volume_cursor_entries"
+            android:defaultValue="@string/volume_cursor_off" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/correction_category"

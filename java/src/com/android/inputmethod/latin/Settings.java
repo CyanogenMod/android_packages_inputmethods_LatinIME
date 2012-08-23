@@ -52,6 +52,7 @@ public class Settings extends InputMethodSettingsFragment
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_VOICE_MODE = "voice_mode";
+    public static final String PREF_VOLUME_KEY_CURSOR = "volume_key_cursor";
     public static final String PREF_CORRECTION_SETTINGS = "correction_settings";
     public static final String PREF_CONFIGURE_DICTIONARIES_KEY = "configure_dictionaries_key";
     public static final String PREF_AUTO_CORRECTION_THRESHOLD = "auto_correction_threshold";
@@ -84,6 +85,7 @@ public class Settings extends InputMethodSettingsFragment
     private PreferenceScreen mKeypressVibrationDurationSettingsPref;
     private PreferenceScreen mKeypressSoundVolumeSettingsPref;
     private ListPreference mVoicePreference;
+    private ListPreference mVolumeCursorPref;
     private ListPreference mShowCorrectionSuggestionsPreference;
     private ListPreference mAutoCorrectionThresholdPreference;
     private ListPreference mKeyPreviewPopupDismissDelay;
@@ -117,6 +119,7 @@ public class Settings extends InputMethodSettingsFragment
         final Context context = getActivity();
 
         mVoicePreference = (ListPreference) findPreference(PREF_VOICE_MODE);
+        mVolumeCursorPref = (ListPreference) findPreference(PREF_VOLUME_KEY_CURSOR);
         mShowCorrectionSuggestionsPreference =
                 (ListPreference) findPreference(PREF_SHOW_SUGGESTIONS_SETTING);
         SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
@@ -263,6 +266,7 @@ public class Settings extends InputMethodSettingsFragment
         } else {
             getPreferenceScreen().removePreference(mVoicePreference);
         }
+        updateVolumeCursorSummary();
         updateShowCorrectionSuggestionsSummary();
         updateKeyPreviewPopupDelaySummary();
         updateCustomInputStylesSummary();
@@ -293,6 +297,7 @@ public class Settings extends InputMethodSettingsFragment
         }
         ensureConsistencyOfAutoCorrectionSettings();
         updateVoiceModeSummary();
+        updateVolumeCursorSummary();
         updateShowCorrectionSuggestionsSummary();
         updateKeyPreviewPopupDelaySummary();
         refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, getResources());
@@ -330,6 +335,12 @@ public class Settings extends InputMethodSettingsFragment
         mVoicePreference.setSummary(
                 getResources().getStringArray(R.array.voice_input_modes_summary)
                 [mVoicePreference.findIndexOfValue(mVoicePreference.getValue())]);
+    }
+
+    private void updateVolumeCursorSummary() {
+        mVolumeCursorPref.setSummary(
+                getResources().getStringArray(R.array.volume_cursor_summary)
+                [mVolumeCursorPref.findIndexOfValue(mVolumeCursorPref.getValue())]);
     }
 
     private void refreshEnablingsOfKeypressSoundAndVibrationSettings(

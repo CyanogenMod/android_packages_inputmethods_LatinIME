@@ -306,4 +306,12 @@
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration settings</string>
     <!-- Title of the settings for keypress sound volume -->
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume settings</string>
+
+    <string name="prefs_volume_cursor_title">Volume key cursor control</string>
+    <string name="prefs_volume_cursor_off">Disable</string>
+    <string name="prefs_volume_cursor_on">Enable</string>
+    <string name="prefs_volume_cursor_on_reverse">Enable (reverse)</string>
+    <string name="prefs_volume_cursor_summary_off">Controlling text cursor with volume keys is disabled</string>
+    <string name="prefs_volume_cursor_summary_on">Volume up moves text cursor left and vice versa</string>
+    <string name="prefs_volume_cursor_summary_on_reverse">Volume down moves text cursor left and vice versa</string>
 </resources>

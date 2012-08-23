@@ -140,6 +140,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Phantom spaces happen when a user chooses a word from the suggestion strip.
     private static final int SPACE_STATE_PHANTOM = 4;
 
+    // Must match values in /res/values/donottranslate.xml
+    private static final int VOLUME_CURSOR_OFF = 0;
+    private static final int VOLUME_CURSOR_ON = 1;
+    private static final int VOLUME_CURSOR_ON_REVERSE = 2;
+
     // Current space state of the input method. This can be any of the above constants.
     private int mSpaceState;
 
@@ -1013,6 +1018,37 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // In fullscreen mode, no need to have extra space to show the key preview.
         // If not, we should have extra space above the keyboard to show the key preview.
         mKeyPreviewBackingView.setVisibility(isFullscreenMode() ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (isInputViewShown() && (mSettingsValues.mVolumeCursor != VOLUME_CURSOR_OFF)) {
+                sendDownUpKeyEvents(
+                        (mSettingsValues.mVolumeCursor != VOLUME_CURSOR_ON_REVERSE)
+                        ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+                return true;
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (isInputViewShown() && (mSettingsValues.mVolumeCursor != VOLUME_CURSOR_OFF)) {
+                sendDownUpKeyEvents(
+                        (mSettingsValues.mVolumeCursor != VOLUME_CURSOR_ON_REVERSE)
+                        ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
+                keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (isInputViewShown()
+                    && (mSettingsValues.mVolumeCursor != VOLUME_CURSOR_OFF))
+                return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
     // This will reset the whole input state to the starting state. It will clear
