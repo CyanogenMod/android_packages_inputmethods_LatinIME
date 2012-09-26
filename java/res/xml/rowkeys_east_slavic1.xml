@@ -58,7 +58,8 @@
     <Key
         latin:keyLabel="&#x0433;"
         latin:keyHintLabel="7"
-        latin:additionalMoreKeys="7" />
+        latin:additionalMoreKeys="7"
+        latin:moreKeys="!text/more_keys_for_cyrillic_g" />
     <!-- U+0448: "ш" CYRILLIC SMALL LETTER SHA -->
     <Key
         latin:keyLabel="&#x0448;"
