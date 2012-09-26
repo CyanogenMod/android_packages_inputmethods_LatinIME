@@ -227,6 +227,7 @@ public final class KeyboardTextsSet {
         /* 119 */ "keylabel_for_popular_domain",
         /* 120 */ "more_keys_for_popular_domain",
         /* 121 */ "more_keys_for_smiley",
+        /* 122 */ "keylabel_for_east_slavic_row2_2"
     };
 
     private static final String EMPTY = "";
@@ -525,6 +526,14 @@ public final class KeyboardTextsSet {
         /* 33 */ null,
         // U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN
         /* 34 */ "\u044A",
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        // U+044D: "э" CYRILLIC SMALL LETTER E
+        /* 122 */ "\u044D"
     };
 
     /* Language ca: Catalan */
@@ -1493,6 +1502,14 @@ public final class KeyboardTextsSet {
         /* 33 */ "\u04E9",
         // U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN
         /* 34 */ "\u044A",
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        // U+044D: "э" CYRILLIC SMALL LETTER E
+        /* 122 */ "\u044D"
     };
 
     /* Language lt: Lithuanian */
@@ -1983,6 +2000,14 @@ public final class KeyboardTextsSet {
         /* 33 */ null,
         // U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN
         /* 34 */ "\u044A",
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        // U+044D: "э" CYRILLIC SMALL LETTER E
+        /* 122 */ "\u044D"
     };
 
     /* Language sk: Slovak */
@@ -2240,6 +2265,14 @@ public final class KeyboardTextsSet {
         /* 33 */ null,
         // U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN
         /* 34 */ "\u044A",
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        // U+0454: "є" UKRAINIAN SMALL LETTER E
+        /* 122 */ "\u0454"
     };
 
     /* Language vi: Vietnamese */
