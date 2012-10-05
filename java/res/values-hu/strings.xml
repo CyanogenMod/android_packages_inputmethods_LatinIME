@@ -141,4 +141,6 @@
     <string name="long_press_delay_summary">%d milliszekundum</string>
     <string name="obey_haptic_feedback">Rezgő visszajelzés</string>
     <string name="obey_haptic_feedback_summary">Ne legyen rezgő visszajelzés ha a rendszerben is le van tiltva</string>
+    <string name="prefs_volume_cursor">Hangerő kurzor</string>
+    <string name="prefs_volume_cursor_summary">Használd a Hangerő gombokat a kurzor mozgatásához</string>
 </resources>
