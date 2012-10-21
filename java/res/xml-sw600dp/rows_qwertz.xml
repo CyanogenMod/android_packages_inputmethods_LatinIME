@@ -27,8 +27,7 @@
         latin:keyWidth="9.0%p"
     >
         <include
-            latin:keyboardLayout="@xml/rowkeys_qwertz1"
-            latin:keyLabelFlags="disableAdditionalMoreKeys|disableKeyHintLabel" />
+            latin:keyboardLayout="@xml/rowkeys_qwertz1" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight" />
@@ -37,7 +36,7 @@
         latin:keyWidth="9.0%p"
     >
         <include
-            latin:keyboardLayout="@xml/rowkeys_qwerty2"
+            latin:keyboardLayout="@xml/rowkeys_qwertz2"
             latin:keyXPos="4.5%p" />
         <Key
             latin:keyStyle="enterKeyStyle"
