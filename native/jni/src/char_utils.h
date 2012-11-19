@@ -17,21 +17,26 @@
 #ifndef LATINIME_CHAR_UTILS_H
 #define LATINIME_CHAR_UTILS_H
 
+#include <cctype>
+#include <stdint.h>
+
 namespace latinime {
 
-inline static int isAsciiUpper(unsigned short c) {
-    return c >= 'A' && c <= 'Z';
+inline static bool isAsciiUpper(unsigned short c) {
+    // Note: isupper(...) reports false positives for some Cyrillic characters, causing them to
+    // be incorrectly lower-cased using toAsciiLower(...) rather than latin_tolower(...).
+    return (c >= 'A' && c <= 'Z');
 }
 
 inline static unsigned short toAsciiLower(unsigned short c) {
     return c - 'A' + 'a';
 }
 
-inline static int isAscii(unsigned short c) {
-    return c <= 127;
+inline static bool isAscii(unsigned short c) {
+    return isascii(static_cast<int>(c)) != 0;
 }
 
-unsigned short latin_tolower(unsigned short c);
+unsigned short latin_tolower(const unsigned short c);
 
 /**
  * Table mapping most combined Latin, Greek, and Cyrillic characters
@@ -41,7 +46,7 @@ unsigned short latin_tolower(unsigned short c);
  */
 
 static const int BASE_CHARS_SIZE = 0x0500;
-extern const unsigned short BASE_CHARS[BASE_CHARS_SIZE];
+extern const uint16_t BASE_CHARS[BASE_CHARS_SIZE];
 
 inline static unsigned short toBaseChar(unsigned short c) {
     if (c < BASE_CHARS_SIZE) {
@@ -50,8 +55,7 @@ inline static unsigned short toBaseChar(unsigned short c) {
     return c;
 }
 
-inline static unsigned short toBaseLowerCase(unsigned short c) {
-    c = toBaseChar(c);
+inline static unsigned short toLowerCase(const unsigned short c) {
     if (isAsciiUpper(c)) {
         return toAsciiLower(c);
     } else if (isAscii(c)) {
@@ -60,6 +64,14 @@ inline static unsigned short toBaseLowerCase(unsigned short c) {
     return latin_tolower(c);
 }
 
-} // namespace latinime
+inline static unsigned short toBaseLowerCase(const unsigned short c) {
+    return toLowerCase(toBaseChar(c));
+}
 
+inline static bool isSkippableChar(const uint16_t character) {
+    // TODO: Do not hardcode here
+    return character == '\'' || character == '-';
+}
+
+} // namespace latinime
 #endif // LATINIME_CHAR_UTILS_H

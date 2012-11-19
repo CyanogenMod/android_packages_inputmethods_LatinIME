@@ -24,6 +24,7 @@
         <CheckBoxPreference
             android:key="auto_cap"
             android:title="@string/auto_cap"
+            android:summary="@string/auto_cap_summary"
             android:persistent="true"
             android:defaultValue="true" />
         <CheckBoxPreference
@@ -78,22 +79,51 @@
             android:defaultValue="@string/prefs_suggestion_visibility_default_value" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/gesture_typing_category"
+        android:key="gesture_typing_settings">
+        <CheckBoxPreference
+            android:key="gesture_input"
+            android:title="@string/gesture_input"
+            android:summary="@string/gesture_input_summary"
+            android:persistent="true"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="pref_gesture_floating_preview_text"
+            android:title="@string/gesture_floating_preview_text"
+            android:summary="@string/gesture_floating_preview_text_summary"
+            android:persistent="true"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="pref_gesture_preview_trail"
+            android:title="@string/gesture_preview_trail"
+            android:persistent="true"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/misc_category"
         android:key="misc_settings">
         <CheckBoxPreference
-            android:key="usability_study_mode"
-            android:title="@string/prefs_usability_study_mode"
+            android:key="next_word_prediction"
+            android:title="@string/bigram_prediction"
+            android:summary="@string/bigram_prediction_summary"
             android:persistent="true"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
         <PreferenceScreen
             android:key="pref_advanced_settings"
             android:title="@string/advanced_settings"
             android:summary="@string/advanced_settings_summary">
             <CheckBoxPreference
-                android:key="pref_suppress_language_switch_key"
-                android:title="@string/suppress_language_switch_key"
+                android:key="pref_key_use_contacts_dict"
+                android:title="@string/use_contacts_dict"
+                android:summary="@string/use_contacts_dict_summary"
                 android:persistent="true"
-                android:defaultValue="false" />
+                android:defaultValue="true" />
+            <CheckBoxPreference
+                android:key="pref_show_language_switch_key"
+                android:title="@string/show_language_switch_key"
+                android:summary="@string/show_language_switch_key_summary"
+                android:persistent="true"
+                android:defaultValue="true" />
             <CheckBoxPreference
                 android:key="pref_include_other_imes_in_language_switch_list"
                 android:title="@string/include_other_imes_in_language_switch_list"
@@ -108,30 +138,6 @@
             <ListPreference
                 android:key="pref_key_preview_popup_dismiss_delay"
                 android:title="@string/key_preview_popup_dismiss_delay" />
-            <CheckBoxPreference
-                android:key="pref_key_use_contacts_dict"
-                android:title="@string/use_contacts_dict"
-                android:summary="@string/use_contacts_dict_summary"
-                android:persistent="true"
-                android:defaultValue="true" />
-            <CheckBoxPreference
-                android:key="next_word_suggestion"
-                android:title="@string/bigram_suggestion"
-                android:summary="@string/bigram_suggestion_summary"
-                android:persistent="true"
-                android:defaultValue="true" />
-            <CheckBoxPreference
-                android:key="next_word_prediction"
-                android:title="@string/bigram_prediction"
-                android:summary="@string/bigram_prediction_summary"
-                android:persistent="true"
-                android:defaultValue="true" />
-            <CheckBoxPreference
-                android:key="enable_span_insert"
-                android:title="@string/enable_span_insert"
-                android:summary="@string/enable_span_insert_summary"
-                android:persistent="true"
-                android:defaultValue="true" />
             <PreferenceScreen
                 android:key="pref_vibration_duration_settings"
                 android:title="@string/prefs_keypress_vibration_duration_settings"/>
@@ -139,5 +145,10 @@
                 android:key="pref_keypress_sound_volume"
                 android:title="@string/prefs_keypress_sound_volume_settings" />
         </PreferenceScreen>
+        <PreferenceScreen
+            android:key="debug_settings"
+            android:title="Debug settings"
+            android:persistent="true"
+            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

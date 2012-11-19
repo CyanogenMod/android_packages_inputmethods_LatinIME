@@ -23,17 +23,18 @@ import android.view.inputmethod.EditorInfo;
 /**
  * Class to hold attributes of the input field.
  */
-public class InputAttributes {
+public final class InputAttributes {
     private final String TAG = InputAttributes.class.getSimpleName();
 
     final public boolean mInputTypeNoAutoCorrect;
     final public boolean mIsSettingsSuggestionStripOn;
     final public boolean mApplicationSpecifiedCompletionOn;
-    final public int mEditorAction;
+    final private int mInputType;
 
     public InputAttributes(final EditorInfo editorInfo, final boolean isFullscreenMode) {
         final int inputType = null != editorInfo ? editorInfo.inputType : 0;
         final int inputClass = inputType & InputType.TYPE_MASK_CLASS;
+        mInputType = inputType;
         if (inputClass != InputType.TYPE_CLASS_TEXT) {
             // If we are not looking at a TYPE_CLASS_TEXT field, the following strange
             // cases may arise, so we do a couple sanity checks for them. If it's a
@@ -64,7 +65,7 @@ public class InputAttributes {
             final boolean flagAutoComplete =
                     0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
-            // Make sure that passwords are not displayed in {@link SuggestionsView}.
+            // Make sure that passwords are not displayed in {@link SuggestionStripView}.
             if (InputTypeUtils.isPasswordInputType(inputType)
                     || InputTypeUtils.isVisiblePasswordInputType(inputType)
                     || InputTypeUtils.isEmailVariation(variation)
@@ -92,8 +93,10 @@ public class InputAttributes {
 
             mApplicationSpecifiedCompletionOn = flagAutoComplete && isFullscreenMode;
         }
-        mEditorAction = (editorInfo == null) ? EditorInfo.IME_ACTION_UNSPECIFIED
-                : editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION;
+    }
+
+    public boolean isSameInputType(final EditorInfo editorInfo) {
+        return editorInfo.inputType == mInputType;
     }
 
     @SuppressWarnings("unused")

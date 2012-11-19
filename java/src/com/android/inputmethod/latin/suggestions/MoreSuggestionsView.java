@@ -40,7 +40,7 @@ import com.android.inputmethod.latin.R;
  * A view that renders a virtual {@link MoreSuggestions}. It handles rendering of keys and detecting
  * key presses and touch movements.
  */
-public class MoreSuggestionsView extends KeyboardView implements MoreKeysPanel {
+public final class MoreSuggestionsView extends KeyboardView implements MoreKeysPanel {
     private final int[] mCoordinates = new int[2];
 
     final KeyDetector mModalPanelKeyDetector;
@@ -68,7 +68,7 @@ public class MoreSuggestionsView extends KeyboardView implements MoreKeysPanel {
         @Override
         public void onCodeInput(int primaryCode, int x, int y) {
             final int index = primaryCode - MoreSuggestions.SUGGESTION_CODE_BASE;
-            if (index >= 0 && index < SuggestionsView.MAX_SUGGESTIONS) {
+            if (index >= 0 && index < SuggestionStripView.MAX_SUGGESTIONS) {
                 mListener.onCustomRequest(index);
             }
         }
@@ -103,6 +103,10 @@ public class MoreSuggestionsView extends KeyboardView implements MoreKeysPanel {
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
+    }
+
+    public void updateKeyboardGeometry(final int keyHeight) {
+        mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
     }
 
     @Override

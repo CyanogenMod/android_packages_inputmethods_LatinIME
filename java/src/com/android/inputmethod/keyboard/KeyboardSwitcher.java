@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -38,32 +37,32 @@ import com.android.inputmethod.latin.LatinImeLogger;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.SettingsValues;
 import com.android.inputmethod.latin.SubtypeSwitcher;
-import com.android.inputmethod.latin.Utils;
+import com.android.inputmethod.latin.WordComposer;
 
-public class KeyboardSwitcher implements KeyboardState.SwitchActions {
+public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
 
     public static final String PREF_KEYBOARD_LAYOUT = "pref_keyboard_layout_20110916";
 
-    static class KeyboardTheme {
-        public final String mName;
+    static final class KeyboardTheme {
         public final int mThemeId;
         public final int mStyleId;
 
-        public KeyboardTheme(String name, int themeId, int styleId) {
-            mName = name;
+        // Note: The themeId should be aligned with "themeId" attribute of Keyboard style
+        // in values/style.xml.
+        public KeyboardTheme(int themeId, int styleId) {
             mThemeId = themeId;
             mStyleId = styleId;
         }
     }
 
     private static final KeyboardTheme[] KEYBOARD_THEMES = {
-        new KeyboardTheme("Basic",            0, R.style.KeyboardTheme),
-        new KeyboardTheme("HighContrast",     1, R.style.KeyboardTheme_HighContrast),
-        new KeyboardTheme("Stone",            6, R.style.KeyboardTheme_Stone),
-        new KeyboardTheme("Stne.Bold",        7, R.style.KeyboardTheme_Stone_Bold),
-        new KeyboardTheme("GingerBread",      8, R.style.KeyboardTheme_Gingerbread),
-        new KeyboardTheme("IceCreamSandwich", 5, R.style.KeyboardTheme_IceCreamSandwich),
+        new KeyboardTheme(0, R.style.KeyboardTheme),
+        new KeyboardTheme(1, R.style.KeyboardTheme_HighContrast),
+        new KeyboardTheme(6, R.style.KeyboardTheme_Stone),
+        new KeyboardTheme(7, R.style.KeyboardTheme_Stone_Bold),
+        new KeyboardTheme(8, R.style.KeyboardTheme_Gingerbread),
+        new KeyboardTheme(5, R.style.KeyboardTheme_IceCreamSandwich),
     };
 
     private SubtypeSwitcher mSubtypeSwitcher;
@@ -71,7 +70,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private boolean mForceNonDistinctMultitouch;
 
     private InputView mCurrentInputView;
-    private LatinKeyboardView mKeyboardView;
+    private MainKeyboardView mKeyboardView;
     private LatinIME mLatinIME;
     private Resources mResources;
 
@@ -137,8 +136,9 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void loadKeyboard(EditorInfo editorInfo, SettingsValues settingsValues) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
-        builder.setScreenGeometry(mThemeContext.getResources().getConfiguration().orientation,
-                mThemeContext.getResources().getDisplayMetrics().widthPixels);
+        final Resources res = mThemeContext.getResources();
+        builder.setScreenGeometry(res.getInteger(R.integer.config_device_form_factor),
+                res.getConfiguration().orientation, res.getDisplayMetrics().widthPixels);
         builder.setSubtype(mSubtypeSwitcher.getCurrentSubtype());
         builder.setOptions(
                 settingsValues.isVoiceKeyEnabled(editorInfo),
@@ -169,19 +169,20 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private void setKeyboard(final Keyboard keyboard) {
-        final Keyboard oldKeyboard = mKeyboardView.getKeyboard();
-        mKeyboardView.setKeyboard(keyboard);
+        final MainKeyboardView keyboardView = mKeyboardView;
+        final Keyboard oldKeyboard = keyboardView.getKeyboard();
+        keyboardView.setKeyboard(keyboard);
         mCurrentInputView.setKeyboardGeometry(keyboard.mTopPadding);
-        mKeyboardView.setKeyPreviewPopupEnabled(
+        keyboardView.setKeyPreviewPopupEnabled(
                 SettingsValues.isKeyPreviewPopupEnabled(mPrefs, mResources),
                 SettingsValues.getKeyPreviewPopupDismissDelay(mPrefs, mResources));
-        mKeyboardView.updateAutoCorrectionState(mIsAutoCorrectionActive);
-        mKeyboardView.updateShortcutKey(mSubtypeSwitcher.isShortcutImeReady());
+        keyboardView.updateAutoCorrectionState(mIsAutoCorrectionActive);
+        keyboardView.updateShortcutKey(mSubtypeSwitcher.isShortcutImeReady());
         final boolean subtypeChanged = (oldKeyboard == null)
                 || !keyboard.mId.mLocale.equals(oldKeyboard.mId.mLocale);
         final boolean needsToDisplayLanguage = mSubtypeSwitcher.needsToDisplayLanguage(
                 keyboard.mId.mLocale);
-        mKeyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, needsToDisplayLanguage,
+        keyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, needsToDisplayLanguage,
                 ImfUtils.hasMultipleEnabledIMEsOrSubtypes(mLatinIME, true));
     }
 
@@ -197,6 +198,12 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
      */
     public void updateShiftState() {
         mState.onUpdateShiftState(mLatinIME.getCurrentAutoCapsState());
+    }
+
+    // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
+    // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
+    public void resetKeyboardStateToAlphabet() {
+        mState.onResetKeyboardStateToAlphabet();
     }
 
     public void onPressKey(int code) {
@@ -265,7 +272,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void startDoubleTapTimer() {
-        final LatinKeyboardView keyboardView = getKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {
             final TimerProxy timer = keyboardView.getTimerProxy();
             timer.startDoubleTapTimer();
@@ -275,7 +282,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void cancelDoubleTapTimer() {
-        final LatinKeyboardView keyboardView = getKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {
             final TimerProxy timer = keyboardView.getTimerProxy();
             timer.cancelDoubleTapTimer();
@@ -285,7 +292,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public boolean isInDoubleTapTimeout() {
-        final LatinKeyboardView keyboardView = getKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         return (keyboardView != null)
                 ? keyboardView.getTimerProxy().isInDoubleTapTimeout() : false;
     }
@@ -293,7 +300,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void startLongPressTimer(int code) {
-        final LatinKeyboardView keyboardView = getKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {
             final TimerProxy timer = keyboardView.getTimerProxy();
             timer.startLongPressTimer(code);
@@ -303,7 +310,7 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void cancelLongPressTimer() {
-        final LatinKeyboardView keyboardView = getKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {
             final TimerProxy timer = keyboardView.getTimerProxy();
             timer.cancelLongPressTimer();
@@ -343,33 +350,24 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mState.onCodeInput(code, isSinglePointer(), mLatinIME.getCurrentAutoCapsState());
     }
 
-    public LatinKeyboardView getKeyboardView() {
+    public MainKeyboardView getMainKeyboardView() {
         return mKeyboardView;
     }
 
-    public View onCreateInputView() {
+    public View onCreateInputView(boolean isHardwareAcceleratedDrawingEnabled) {
         if (mKeyboardView != null) {
             mKeyboardView.closing();
         }
 
-        Utils.GCUtils.getInstance().reset();
-        boolean tryGC = true;
-        for (int i = 0; i < Utils.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
-            try {
-                setContextThemeWrapper(mLatinIME, mKeyboardTheme);
-                mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(
-                        R.layout.input_view, null);
-                tryGC = false;
-            } catch (OutOfMemoryError e) {
-                Log.w(TAG, "load keyboard failed: " + e);
-                tryGC = Utils.GCUtils.getInstance().tryGCOrWait(mKeyboardTheme.mName, e);
-            } catch (InflateException e) {
-                Log.w(TAG, "load keyboard failed: " + e);
-                tryGC = Utils.GCUtils.getInstance().tryGCOrWait(mKeyboardTheme.mName, e);
-            }
-        }
+        setContextThemeWrapper(mLatinIME, mKeyboardTheme);
+        mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(
+                R.layout.input_view, null);
 
-        mKeyboardView = (LatinKeyboardView) mCurrentInputView.findViewById(R.id.keyboard_view);
+        mKeyboardView = (MainKeyboardView) mCurrentInputView.findViewById(R.id.keyboard_view);
+        if (isHardwareAcceleratedDrawingEnabled) {
+            mKeyboardView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            // TODO: Should use LAYER_TYPE_SOFTWARE when hardware acceleration is off?
+        }
         mKeyboardView.setKeyboardActionListener(mLatinIME);
         if (mForceNonDistinctMultitouch) {
             mKeyboardView.setDistinctMultitouch(false);
@@ -394,6 +392,24 @@ public class KeyboardSwitcher implements KeyboardState.SwitchActions {
             if (mKeyboardView != null) {
                 mKeyboardView.updateAutoCorrectionState(isAutoCorrection);
             }
+        }
+    }
+
+    public int getKeyboardShiftMode() {
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return WordComposer.CAPS_MODE_OFF;
+        }
+        switch (keyboard.mId.mElementId) {
+        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED:
+        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
+            return WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
+        case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED:
+            return WordComposer.CAPS_MODE_MANUAL_SHIFTED;
+        case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
+            return WordComposer.CAPS_MODE_AUTO_SHIFTED;
+        default:
+            return WordComposer.CAPS_MODE_OFF;
         }
     }
 }

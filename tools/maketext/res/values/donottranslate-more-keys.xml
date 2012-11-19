@@ -44,14 +44,13 @@
     <string name="more_keys_for_nordic_row2_10"></string>
     <string name="more_keys_for_nordic_row2_11"></string>
     <string name="keylabel_for_east_slavic_row1_9"></string>
+    <string name="keylabel_for_east_slavic_row1_12"></string>
     <string name="keylabel_for_east_slavic_row2_1"></string>
-    <string name="keylabel_for_east_slavic_row2_2"></string>
+    <string name="keylabel_for_east_slavic_row2_11"></string>
     <string name="keylabel_for_east_slavic_row3_5"></string>
     <string name="more_keys_for_cyrillic_u"></string>
-    <string name="more_keys_for_cyrillic_ye"></string>
     <string name="more_keys_for_cyrillic_en"></string>
-    <string name="more_keys_for_cyrillic_g"></string>
-    <string name="more_keys_for_cyrillic_ha"></string>
+    <string name="more_keys_for_cyrillic_ghe"></string>
     <string name="more_keys_for_east_slavic_row2_1"></string>
     <string name="more_keys_for_cyrillic_o"></string>
     <string name="more_keys_for_cyrillic_soft_sign"></string>
@@ -161,7 +160,6 @@
     <string name="more_keys_for_symbols_0">&#x207F;,&#x2205;</string>
     <string name="keylabel_for_comma">,</string>
     <string name="more_keys_for_comma"></string>
-    <string name="keylabel_for_symbols_exclamation">!</string>
     <string name="keylabel_for_symbols_question">\?</string>
     <string name="keylabel_for_symbols_semicolon">;</string>
     <string name="keylabel_for_symbols_percent">%</string>
@@ -180,6 +178,14 @@
     <string name="keylabel_for_apostrophe">\'</string>
     <string name="keyhintlabel_for_apostrophe">\"</string>
     <string name="more_keys_for_apostrophe">\"</string>
+    <string name="more_keys_for_q"></string>
+    <string name="more_keys_for_x"></string>
+    <string name="keylabel_for_q">q</string>
+    <string name="keylabel_for_w">w</string>
+    <string name="keylabel_for_y">y</string>
+    <string name="keylabel_for_x">x</string>
+    <!-- U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE -->
+    <string name="keylabel_for_spanish_row2_10">&#x00F1;</string>
     <string name="more_keys_for_am_pm">!fixedColumnOrder!2,!hasLabels!,\@string/label_time_am,\@string/label_time_pm</string>
     <string name="settings_as_more_key">!icon/settings_key|!code/key_settings</string>
     <string name="shortcut_as_more_key">!icon/shortcut_key|!code/key_shortcut</string>

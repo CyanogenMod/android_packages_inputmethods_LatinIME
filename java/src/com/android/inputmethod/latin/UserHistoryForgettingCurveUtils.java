@@ -19,7 +19,7 @@ package com.android.inputmethod.latin;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-public class UserHistoryForgettingCurveUtils {
+public final class UserHistoryForgettingCurveUtils {
     private static final String TAG = UserHistoryForgettingCurveUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
     private static final int FC_FREQ_MAX = 127;
@@ -36,7 +36,7 @@ public class UserHistoryForgettingCurveUtils {
         // This utility class is not publicly instantiable.
     }
 
-    public static class ForgettingCurveParams {
+    public static final class ForgettingCurveParams {
         private byte mFc;
         long mLastTouchedTime = 0;
         private final boolean mIsValid;
@@ -50,7 +50,7 @@ public class UserHistoryForgettingCurveUtils {
         }
 
         private ForgettingCurveParams(long now, boolean isValid) {
-            this((int)pushCount((byte)0, isValid), now, now, isValid);
+            this(pushCount((byte)0, isValid), now, now, isValid);
         }
 
         /** This constructor is called when the user history bigram dictionary is being restored. */
@@ -195,24 +195,24 @@ public class UserHistoryForgettingCurveUtils {
         return (elapsedTime < ELAPSED_TIME_MAX - 1 || level > 0);
     }
 
-    private static class MathUtils {
+    private static final class MathUtils {
         public static final int[][] SCORE_TABLE = new int[FC_LEVEL_MAX][ELAPSED_TIME_MAX + 1];
         static {
             for (int i = 0; i < FC_LEVEL_MAX; ++i) {
-                final double initialFreq;
+                final float initialFreq;
                 if (i >= 2) {
-                    initialFreq = (double)FC_FREQ_MAX;
+                    initialFreq = FC_FREQ_MAX;
                 } else if (i == 1) {
-                    initialFreq = (double)FC_FREQ_MAX / 2;
+                    initialFreq = FC_FREQ_MAX / 2;
                 } else if (i == 0) {
-                    initialFreq = (double)FC_FREQ_MAX / 4;
+                    initialFreq = FC_FREQ_MAX / 4;
                 } else {
                     continue;
                 }
                 for (int j = 0; j < ELAPSED_TIME_MAX; ++j) {
-                    final double elapsedHour = j * ELAPSED_TIME_INTERVAL_HOURS;
-                    final double freq =
-                            initialFreq * Math.pow(initialFreq, elapsedHour / HALF_LIFE_HOURS);
+                    final float elapsedHours = j * ELAPSED_TIME_INTERVAL_HOURS;
+                    final float freq = initialFreq
+                            * (float)Math.pow(initialFreq, elapsedHours / HALF_LIFE_HOURS);
                     final int intFreq = Math.min(FC_FREQ_MAX, Math.max(0, (int)freq));
                     SCORE_TABLE[i][j] = intFreq;
                 }

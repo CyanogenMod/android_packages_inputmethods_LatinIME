@@ -34,13 +34,27 @@ import java.util.Arrays;
  */
 public class UserBinaryDictionary extends ExpandableBinaryDictionary {
 
-    // TODO: use Words.SHORTCUT when it's public in the SDK
+    // The user dictionary provider uses an empty string to mean "all languages".
+    private static final String USER_DICTIONARY_ALL_LANGUAGES = "";
+
+    // TODO: use Words.SHORTCUT when we target JellyBean or above
     final static String SHORTCUT = "shortcut";
-    private static final String[] PROJECTION_QUERY = {
-        Words.WORD,
-        SHORTCUT,
-        Words.FREQUENCY,
-    };
+    private static final String[] PROJECTION_QUERY;
+    static {
+        // 16 is JellyBean, but we want this to compile against ICS.
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
+            PROJECTION_QUERY = new String[] {
+                Words.WORD,
+                SHORTCUT,
+                Words.FREQUENCY,
+            };
+        } else {
+            PROJECTION_QUERY = new String[] {
+                Words.WORD,
+                Words.FREQUENCY,
+            };
+        }
+    }
 
     private static final String NAME = "userunigram";
 
@@ -58,9 +72,14 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
 
     public UserBinaryDictionary(final Context context, final String locale,
             final boolean alsoUseMoreRestrictiveLocales) {
-        super(context, getFilenameWithLocale(NAME, locale), Suggest.DIC_USER);
+        super(context, getFilenameWithLocale(NAME, locale), Dictionary.TYPE_USER);
         if (null == locale) throw new NullPointerException(); // Catch the error earlier
-        mLocale = locale;
+        if (SubtypeLocale.NO_LANGUAGE.equals(locale)) {
+            // If we don't have a locale, insert into the "all locales" user dictionary.
+            mLocale = USER_DICTIONARY_ALL_LANGUAGES;
+        } else {
+            mLocale = locale;
+        }
         mAlsoUseMoreRestrictiveLocales = alsoUseMoreRestrictiveLocales;
         // Perform a managed query. The Activity will handle closing and re-querying the cursor
         // when needed.
@@ -136,7 +155,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
             requestArguments = localeElements;
         }
         final Cursor cursor = mContext.getContentResolver().query(
-            Words.CONTENT_URI, PROJECTION_QUERY, request.toString(), requestArguments, null);
+                Words.CONTENT_URI, PROJECTION_QUERY, request.toString(), requestArguments, null);
         try {
             addWords(cursor);
         } finally {
@@ -182,16 +201,18 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     }
 
     private void addWords(Cursor cursor) {
+        // 16 is JellyBean, but we want this to compile against ICS.
+        final boolean hasShortcutColumn = android.os.Build.VERSION.SDK_INT >= 16;
         clearFusionDictionary();
         if (cursor == null) return;
         if (cursor.moveToFirst()) {
             final int indexWord = cursor.getColumnIndex(Words.WORD);
-            final int indexShortcut = cursor.getColumnIndex(SHORTCUT);
+            final int indexShortcut = hasShortcutColumn ? cursor.getColumnIndex(SHORTCUT) : 0;
             final int indexFrequency = cursor.getColumnIndex(Words.FREQUENCY);
             while (!cursor.isAfterLast()) {
-                String word = cursor.getString(indexWord);
-                String shortcut = cursor.getString(indexShortcut);
-                int frequency = cursor.getInt(indexFrequency);
+                final String word = cursor.getString(indexWord);
+                final String shortcut = hasShortcutColumn ? cursor.getString(indexShortcut) : null;
+                final int frequency = cursor.getInt(indexFrequency);
                 // Safeguard against adding really long words.
                 if (word.length() < MAX_WORD_LENGTH) {
                     super.addWord(word, null, frequency);

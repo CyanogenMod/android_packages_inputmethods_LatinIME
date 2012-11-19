@@ -16,20 +16,16 @@
 
 package com.android.inputmethod.latin;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -44,12 +40,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Utils {
+public final class Utils {
     private Utils() {
         // This utility class is not publicly instantiable.
     }
@@ -64,44 +57,6 @@ public class Utils {
     public static void cancelTask(AsyncTask<?, ?, ?> task, boolean mayInterruptIfRunning) {
         if (task != null && task.getStatus() != AsyncTask.Status.FINISHED) {
             task.cancel(mayInterruptIfRunning);
-        }
-    }
-
-    public static class GCUtils {
-        private static final String GC_TAG = GCUtils.class.getSimpleName();
-        public static final int GC_TRY_COUNT = 2;
-        // GC_TRY_LOOP_MAX is used for the hard limit of GC wait,
-        // GC_TRY_LOOP_MAX should be greater than GC_TRY_COUNT.
-        public static final int GC_TRY_LOOP_MAX = 5;
-        private static final long GC_INTERVAL = DateUtils.SECOND_IN_MILLIS;
-        private static GCUtils sInstance = new GCUtils();
-        private int mGCTryCount = 0;
-
-        public static GCUtils getInstance() {
-            return sInstance;
-        }
-
-        public void reset() {
-            mGCTryCount = 0;
-        }
-
-        public boolean tryGCOrWait(String metaData, Throwable t) {
-            if (mGCTryCount == 0) {
-                System.gc();
-            }
-            if (++mGCTryCount > GC_TRY_COUNT) {
-                LatinImeLogger.logOnException(metaData, t);
-                return false;
-            } else {
-                try {
-                    Thread.sleep(GC_INTERVAL);
-                    return true;
-                } catch (InterruptedException e) {
-                    Log.e(GC_TAG, "Sleep was interrupted.");
-                    LatinImeLogger.logOnException(metaData, t);
-                    return false;
-                }
-            }
         }
     }
 
@@ -206,19 +161,25 @@ public class Utils {
     }
 
     // Get the current stack trace
-    public static String getStackTrace() {
+    public static String getStackTrace(final int limit) {
         StringBuilder sb = new StringBuilder();
         try {
             throw new RuntimeException();
         } catch (RuntimeException e) {
             StackTraceElement[] frames = e.getStackTrace();
             // Start at 1 because the first frame is here and we don't care about it
-            for (int j = 1; j < frames.length; ++j) sb.append(frames[j].toString() + "\n");
+            for (int j = 1; j < frames.length && j < limit + 1; ++j) {
+                sb.append(frames[j].toString() + "\n");
+            }
         }
         return sb.toString();
     }
 
-    public static class UsabilityStudyLogUtils {
+    public static String getStackTrace() {
+        return getStackTrace(Integer.MAX_VALUE - 1);
+    }
+
+    public static final class UsabilityStudyLogUtils {
         // TODO: remove code duplication with ResearchLog class
         private static final String USABILITY_TAG = UsabilityStudyLogUtils.class.getSimpleName();
         private static final String FILENAME = "log.txt";
@@ -427,34 +388,48 @@ public class Utils {
         }
     }
 
-    public static float getDipScale(Context context) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return scale;
-    }
-
-    /** Convert pixel to DIP */
-    public static int dipToPixel(float scale, int dip) {
-        return (int) (dip * scale + 0.5);
-    }
-
-    public static class Stats {
+    public static final class Stats {
         public static void onNonSeparator(final char code, final int x,
                 final int y) {
             RingCharBuffer.getInstance().push(code, x, y);
             LatinImeLogger.logOnInputChar();
         }
 
-        public static void onSeparator(final int code, final int x,
-                final int y) {
-            // TODO: accept code points
-            RingCharBuffer.getInstance().push((char)code, x, y);
+        public static void onSeparator(final int code, final int x, final int y) {
+            // Helper method to log a single code point separator
+            // TODO: cache this mapping of a code point to a string in a sparse array in StringUtils
+            onSeparator(new String(new int[]{code}, 0, 1), x, y);
+        }
+
+        public static void onSeparator(final String separator, final int x, final int y) {
+            final int length = separator.length();
+            for (int i = 0; i < length; i = Character.offsetByCodePoints(separator, i, 1)) {
+                int codePoint = Character.codePointAt(separator, i);
+                // TODO: accept code points
+                RingCharBuffer.getInstance().push((char)codePoint, x, y);
+            }
             LatinImeLogger.logOnInputSeparator();
         }
 
         public static void onAutoCorrection(final String typedWord, final String correctedWord,
-                final int separatorCode) {
-            if (TextUtils.isEmpty(typedWord)) return;
-            LatinImeLogger.logOnAutoCorrection(typedWord, correctedWord, separatorCode);
+                final String separatorString, final WordComposer wordComposer) {
+            final boolean isBatchMode = wordComposer.isBatchMode();
+            if (!isBatchMode && TextUtils.isEmpty(typedWord)) return;
+            // TODO: this fails when the separator is more than 1 code point long, but
+            // the backend can't handle it yet. The only case when this happens is with
+            // smileys and other multi-character keys.
+            final int codePoint = TextUtils.isEmpty(separatorString) ? Constants.NOT_A_CODE
+                    : separatorString.codePointAt(0);
+            if (!isBatchMode) {
+                LatinImeLogger.logOnAutoCorrectionForTyping(typedWord, correctedWord, codePoint);
+            } else {
+                if (!TextUtils.isEmpty(correctedWord)) {
+                    // We must make sure that InputPointer contains only the relative timestamps,
+                    // not actual timestamps.
+                    LatinImeLogger.logOnAutoCorrectionForGeometric(
+                            "", correctedWord, codePoint, wordComposer.getInputPointers());
+                }
+            }
         }
 
         public static void onAutoCorrectionCancellation() {
@@ -469,61 +444,5 @@ public class Utils {
         final String info = wordInfo.getDebugString();
         if (TextUtils.isEmpty(info)) return null;
         return info;
-    }
-
-    private static final String HARDWARE_PREFIX = Build.HARDWARE + ",";
-    private static final HashMap<String, String> sDeviceOverrideValueMap =
-            new HashMap<String, String>();
-
-    public static String getDeviceOverrideValue(Resources res, int overrideResId, String defValue) {
-        final int orientation = res.getConfiguration().orientation;
-        final String key = overrideResId + "-" + orientation;
-        if (!sDeviceOverrideValueMap.containsKey(key)) {
-            String overrideValue = defValue;
-            for (final String element : res.getStringArray(overrideResId)) {
-                if (element.startsWith(HARDWARE_PREFIX)) {
-                    overrideValue = element.substring(HARDWARE_PREFIX.length());
-                    break;
-                }
-            }
-            sDeviceOverrideValueMap.put(key, overrideValue);
-        }
-        return sDeviceOverrideValueMap.get(key);
-    }
-
-    private static final HashMap<String, Long> EMPTY_LT_HASH_MAP = new HashMap<String, Long>();
-    private static final String LOCALE_AND_TIME_STR_SEPARATER = ",";
-    public static HashMap<String, Long> localeAndTimeStrToHashMap(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return EMPTY_LT_HASH_MAP;
-        }
-        final String[] ss = str.split(LOCALE_AND_TIME_STR_SEPARATER);
-        final int N = ss.length;
-        if (N < 2 || N % 2 != 0) {
-            return EMPTY_LT_HASH_MAP;
-        }
-        final HashMap<String, Long> retval = new HashMap<String, Long>();
-        for (int i = 0; i < N / 2; ++i) {
-            final String localeStr = ss[i * 2];
-            final long time = Long.valueOf(ss[i * 2 + 1]);
-            retval.put(localeStr, time);
-        }
-        return retval;
-    }
-
-    public static String localeAndTimeHashMapToStr(HashMap<String, Long> map) {
-        if (map == null || map.isEmpty()) {
-            return "";
-        }
-        final StringBuilder builder = new StringBuilder();
-        for (String localeStr : map.keySet()) {
-            if (builder.length() > 0) {
-                builder.append(LOCALE_AND_TIME_STR_SEPARATER);
-            }
-            final Long time = map.get(localeStr);
-            builder.append(localeStr).append(LOCALE_AND_TIME_STR_SEPARATER);
-            builder.append(String.valueOf(time));
-        }
-        return builder.toString();
     }
 }

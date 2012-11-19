@@ -17,6 +17,9 @@
 package com.android.inputmethod.latin;
 
 import android.test.AndroidTestCase;
+import android.text.TextUtils;
+
+import java.util.Locale;
 
 public class StringUtilsTests extends AndroidTestCase {
     public void testContainsInArray() {
@@ -89,14 +92,65 @@ public class StringUtilsTests extends AndroidTestCase {
                 StringUtils.removeFromCsvIfExists("key", "key1,key,key3,key,key5"));
     }
 
-    public void testHasUpperCase() {
-        assertTrue("single upper-case string", StringUtils.hasUpperCase("String"));
-        assertTrue("multi upper-case string", StringUtils.hasUpperCase("stRInG"));
-        assertTrue("all upper-case string", StringUtils.hasUpperCase("STRING"));
-        assertTrue("upper-case string with non-letters", StringUtils.hasUpperCase("He's"));
+    private void onePathForCaps(final CharSequence cs, final int expectedResult, final int mask,
+            final Locale l, final boolean hasSpaceBefore) {
+        int oneTimeResult = expectedResult & mask;
+        assertEquals("After >" + cs + "<", oneTimeResult,
+                StringUtils.getCapsMode(cs, mask, l, hasSpaceBefore));
+    }
 
-        assertFalse("empty string", StringUtils.hasUpperCase(""));
-        assertFalse("lower-case string", StringUtils.hasUpperCase("string"));
-        assertFalse("lower-case string with non-letters", StringUtils.hasUpperCase("he's"));
+    private void allPathsForCaps(final CharSequence cs, final int expectedResult, final Locale l,
+            final boolean hasSpaceBefore) {
+        final int c = TextUtils.CAP_MODE_CHARACTERS;
+        final int w = TextUtils.CAP_MODE_WORDS;
+        final int s = TextUtils.CAP_MODE_SENTENCES;
+        onePathForCaps(cs, expectedResult, c | w | s, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, w | s, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, c | s, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, c | w, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, c, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, w, l, hasSpaceBefore);
+        onePathForCaps(cs, expectedResult, s, l, hasSpaceBefore);
+    }
+
+    public void testGetCapsMode() {
+        final int c = TextUtils.CAP_MODE_CHARACTERS;
+        final int w = TextUtils.CAP_MODE_WORDS;
+        final int s = TextUtils.CAP_MODE_SENTENCES;
+        Locale l = Locale.ENGLISH;
+        allPathsForCaps("", c | w | s, l, false);
+        allPathsForCaps("Word", c, l, false);
+        allPathsForCaps("Word.", c, l, false);
+        allPathsForCaps("Word ", c | w, l, false);
+        allPathsForCaps("Word. ", c | w | s, l, false);
+        allPathsForCaps("Word..", c, l, false);
+        allPathsForCaps("Word.. ", c | w | s, l, false);
+        allPathsForCaps("Word... ", c | w | s, l, false);
+        allPathsForCaps("Word ... ", c | w | s, l, false);
+        allPathsForCaps("Word . ", c | w, l, false);
+        allPathsForCaps("In the U.S ", c | w, l, false);
+        allPathsForCaps("In the U.S. ", c | w, l, false);
+        allPathsForCaps("Some stuff (e.g. ", c | w, l, false);
+        allPathsForCaps("In the U.S.. ", c | w | s, l, false);
+        allPathsForCaps("\"Word.\" ", c | w | s, l, false);
+        allPathsForCaps("\"Word\". ", c | w | s, l, false);
+        allPathsForCaps("\"Word\" ", c | w, l, false);
+
+        // Test for phantom space
+        allPathsForCaps("Word", c | w, l, true);
+        allPathsForCaps("Word.", c | w | s, l, true);
+
+        // Tests after some whitespace
+        allPathsForCaps("Word\n", c | w | s, l, false);
+        allPathsForCaps("Word\n", c | w | s, l, true);
+        allPathsForCaps("Word\n ", c | w | s, l, true);
+        allPathsForCaps("Word.\n", c | w | s, l, false);
+        allPathsForCaps("Word.\n", c | w | s, l, true);
+        allPathsForCaps("Word.\n ", c | w | s, l, true);
+
+        l = Locale.FRENCH;
+        allPathsForCaps("\"Word.\" ", c | w, l, false);
+        allPathsForCaps("\"Word\". ", c | w | s, l, false);
+        allPathsForCaps("\"Word\" ", c | w, l, false);
     }
 }

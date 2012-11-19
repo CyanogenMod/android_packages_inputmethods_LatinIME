@@ -19,16 +19,18 @@ package com.android.inputmethod.accessibility;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.inputmethod.EditorInfo;
 
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.keyboard.Keyboard;
 import com.android.inputmethod.keyboard.KeyboardId;
+import com.android.inputmethod.latin.CollectionUtils;
 import com.android.inputmethod.latin.R;
 
 import java.util.HashMap;
 
-public class KeyCodeDescriptionMapper {
+public final class KeyCodeDescriptionMapper {
     private static final String TAG = KeyCodeDescriptionMapper.class.getSimpleName();
 
     // The resource ID of the string spoken for obscured keys
@@ -37,10 +39,10 @@ public class KeyCodeDescriptionMapper {
     private static KeyCodeDescriptionMapper sInstance = new KeyCodeDescriptionMapper();
 
     // Map of key labels to spoken description resource IDs
-    private final HashMap<CharSequence, Integer> mKeyLabelMap;
+    private final HashMap<CharSequence, Integer> mKeyLabelMap = CollectionUtils.newHashMap();
 
-    // Map of key codes to spoken description resource IDs
-    private final HashMap<Integer, Integer> mKeyCodeMap;
+    // Sparse array of spoken description resource IDs indexed by key codes
+    private final SparseIntArray mKeyCodeMap;
 
     public static void init() {
         sInstance.initInternal();
@@ -51,18 +53,15 @@ public class KeyCodeDescriptionMapper {
     }
 
     private KeyCodeDescriptionMapper() {
-        mKeyLabelMap = new HashMap<CharSequence, Integer>();
-        mKeyCodeMap = new HashMap<Integer, Integer>();
+        mKeyCodeMap = new SparseIntArray();
     }
 
     private void initInternal() {
         // Manual label substitutions for key labels with no string resource
         mKeyLabelMap.put(":-)", R.string.spoken_description_smiley);
 
-        // Symbols that most TTS engines can't speak
-        mKeyCodeMap.put((int) ' ', R.string.spoken_description_space);
-
         // Special non-character codes defined in Keyboard
+        mKeyCodeMap.put(Keyboard.CODE_SPACE, R.string.spoken_description_space);
         mKeyCodeMap.put(Keyboard.CODE_DELETE, R.string.spoken_description_delete);
         mKeyCodeMap.put(Keyboard.CODE_ENTER, R.string.spoken_description_return);
         mKeyCodeMap.put(Keyboard.CODE_SETTINGS, R.string.spoken_description_settings);
@@ -70,6 +69,9 @@ public class KeyCodeDescriptionMapper {
         mKeyCodeMap.put(Keyboard.CODE_SHORTCUT, R.string.spoken_description_mic);
         mKeyCodeMap.put(Keyboard.CODE_SWITCH_ALPHA_SYMBOL, R.string.spoken_description_to_symbol);
         mKeyCodeMap.put(Keyboard.CODE_TAB, R.string.spoken_description_tab);
+        mKeyCodeMap.put(Keyboard.CODE_LANGUAGE_SWITCH, R.string.spoken_description_language_switch);
+        mKeyCodeMap.put(Keyboard.CODE_ACTION_NEXT, R.string.spoken_description_action_next);
+        mKeyCodeMap.put(Keyboard.CODE_ACTION_PREVIOUS, R.string.spoken_description_action_previous);
     }
 
     /**
@@ -273,7 +275,7 @@ public class KeyCodeDescriptionMapper {
             return context.getString(OBSCURED_KEY_RES_ID);
         }
 
-        if (mKeyCodeMap.containsKey(code)) {
+        if (mKeyCodeMap.indexOfKey(code) >= 0) {
             return context.getString(mKeyCodeMap.get(code));
         } else if (isDefinedNonCtrl) {
             return Character.toString((char) code);

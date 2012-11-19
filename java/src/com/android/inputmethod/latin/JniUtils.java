@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.android.inputmethod.latin.define.JniLibName;
 
-public class JniUtils {
+public final class JniUtils {
     private static final String TAG = JniUtils.class.getSimpleName();
 
     private JniUtils() {
@@ -31,11 +31,7 @@ public class JniUtils {
         try {
             System.loadLibrary(JniLibName.JNI_LIB_NAME);
         } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME);
-            if (LatinImeLogger.sDBG) {
-                throw new RuntimeException(
-                        "Could not load native library " + JniLibName.JNI_LIB_NAME);
-            }
+            Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME, ule);
         }
     }
 }

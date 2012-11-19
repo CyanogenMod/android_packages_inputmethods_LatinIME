@@ -30,7 +30,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,14 +39,14 @@ import java.util.Locale;
  * Group class for static methods to help with creation and getting of the binary dictionary
  * file from the dictionary provider
  */
-public class BinaryDictionaryFileDumper {
+public final class BinaryDictionaryFileDumper {
     private static final String TAG = BinaryDictionaryFileDumper.class.getSimpleName();
     private static final boolean DEBUG = false;
 
     /**
      * The size of the temporary buffer to copy files.
      */
-    private static final int FILE_READ_BUFFER_SIZE = 1024;
+    private static final int FILE_READ_BUFFER_SIZE = 8192;
     // TODO: make the following data common with the native code
     private static final byte[] MAGIC_NUMBER_VERSION_1 =
             new byte[] { (byte)0x78, (byte)0xB1, (byte)0x00, (byte)0x00 };
@@ -99,7 +98,7 @@ public class BinaryDictionaryFileDumper {
         }
 
         try {
-            final List<WordListInfo> list = new ArrayList<WordListInfo>();
+            final List<WordListInfo> list = CollectionUtils.newArrayList();
             do {
                 final String wordListId = c.getString(0);
                 final String wordListLocale = c.getString(1);
@@ -149,7 +148,8 @@ public class BinaryDictionaryFileDumper {
         final int MODE_MAX = NONE;
 
         final Uri.Builder wordListUriBuilder = getProviderUriBuilder(id);
-        final String outputFileName = BinaryDictionaryGetter.getCacheFileName(id, locale, context);
+        final String finalFileName = BinaryDictionaryGetter.getCacheFileName(id, locale, context);
+        final String tempFileName = BinaryDictionaryGetter.getTempFileName(id, context);
 
         for (int mode = MODE_MIN; mode <= MODE_MAX; ++mode) {
             InputStream originalSourceStream = null;
@@ -165,7 +165,10 @@ public class BinaryDictionaryFileDumper {
                 if (null == afd) return null;
                 originalSourceStream = afd.createInputStream();
                 // Open output.
-                outputFile = new File(outputFileName);
+                outputFile = new File(tempFileName);
+                // Just to be sure, delete the file. This may fail silently, and return false: this
+                // is the right thing to do, as we just want to continue anyway.
+                outputFile.delete();
                 outputStream = new FileOutputStream(outputFile);
                 // Get the appropriate decryption method for this try
                 switch (mode) {
@@ -194,14 +197,21 @@ public class BinaryDictionaryFileDumper {
                         break;
                     }
                 checkMagicAndCopyFileTo(new BufferedInputStream(inputStream), outputStream);
+                outputStream.flush();
+                outputStream.close();
+                final File finalFile = new File(finalFileName);
+                finalFile.delete();
+                if (!outputFile.renameTo(finalFile)) {
+                    throw new IOException("Can't move the file to its final name");
+                }
                 wordListUriBuilder.appendQueryParameter(QUERY_PARAMETER_DELETE_RESULT,
                         QUERY_PARAMETER_SUCCESS);
                 if (0 >= resolver.delete(wordListUriBuilder.build(), null, null)) {
                     Log.e(TAG, "Could not have the dictionary pack delete a word list");
                 }
-                BinaryDictionaryGetter.removeFilesWithIdExcept(context, id, outputFile);
+                BinaryDictionaryGetter.removeFilesWithIdExcept(context, id, finalFile);
                 // Success! Close files (through the finally{} clause) and return.
-                return AssetFileAddress.makeFromFileName(outputFileName);
+                return AssetFileAddress.makeFromFileName(finalFileName);
             } catch (Exception e) {
                 if (DEBUG) {
                     Log.i(TAG, "Can't open word list in mode " + mode + " : " + e);
@@ -257,7 +267,7 @@ public class BinaryDictionaryFileDumper {
         final ContentResolver resolver = context.getContentResolver();
         final List<WordListInfo> idList = getWordListWordListInfos(locale, context,
                 hasDefaultWordList);
-        final List<AssetFileAddress> fileAddressList = new ArrayList<AssetFileAddress>();
+        final List<AssetFileAddress> fileAddressList = CollectionUtils.newArrayList();
         for (WordListInfo id : idList) {
             final AssetFileAddress afd = cacheWordList(id.mId, id.mLocale, resolver, context);
             if (null != afd) {
@@ -277,6 +287,7 @@ public class BinaryDictionaryFileDumper {
      * @param input the stream to be copied.
      * @param output an output stream to copy the data to.
      */
+    // TODO: make output a BufferedOutputStream
     private static void checkMagicAndCopyFileTo(final BufferedInputStream input,
             final FileOutputStream output) throws FileNotFoundException, IOException {
         // Check the magic number

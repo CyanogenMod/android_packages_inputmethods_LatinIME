@@ -18,22 +18,15 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title for Latin keyboard  -->
-    <string name="english_ime_name">Android keyboard</string>
     <!-- Application name for opensource Android keyboard. AOSP(Android Open Source Project) should not be translated. -->
     <string name="aosp_android_keyboard_ime_name">Android keyboard (AOSP)</string>
-    <!-- Title for Latin keyboard settings activity / dialog -->
-    <string name="english_ime_settings">Android keyboard settings</string>
     <!-- Title for Latin keyboard input options dialog [CHAR LIMIT=25] -->
     <string name="english_ime_input_options">Input options</string>
+    <!-- Title for Latin keyboard research log dialog, which contains special commands for users that contribute data for research. [CHAR LIMIT=33] -->
+    <string name="english_ime_research_log">Research Log Commands</string>
 
-    <!-- Name of Android spell checker service -->
-    <string name="spell_checker_service_name">Android spell checker</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated. -->
     <string name="aosp_spell_checker_service_name">Android spell checker (AOSP)</string>
-
-    <!-- Title for the spell checking service settings screen -->
-    <string name="android_spell_checker_settings">Spell checking settings</string>
 
     <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
     <string name="use_contacts_for_spellchecking_option_title">Look up contact names</string>
@@ -56,6 +49,9 @@
     <!-- Category title for text prediction -->
     <string name="correction_category">Text correction</string>
 
+    <!-- Category title for gesture typing -->
+    <string name="gesture_typing_category">Gesture typing</string>
+
     <!-- Category title for misc options  -->
     <string name="misc_category">Other options</string>
 
@@ -68,8 +64,10 @@
     <string name="include_other_imes_in_language_switch_list">Switch to other input methods</string>
     <!-- Option summary for including other IMEs in the language switch list [CHAR LIMIT=65] -->
     <string name="include_other_imes_in_language_switch_list_summary">Language switch key covers other input methods too</string>
-    <!-- Option to suppress language switch key [CHAR LIMIT=30] -->
-    <string name="suppress_language_switch_key">Suppress language switch key</string>
+    <!-- Option to show language switch key [CHAR LIMIT=30] -->
+    <string name="show_language_switch_key">Language switch key</string>
+    <!-- Option summary for showing language switch key [CHAR LIMIT=65] -->
+    <string name="show_language_switch_key_summary">Show when multiple input languages are enabled</string>
 
     <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
     <string name="key_preview_popup_dismiss_delay">Key popup dismiss delay</string>
@@ -83,13 +81,10 @@
     <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=65] -->
     <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
 
-    <!-- Option name for enabling insertion of suggestion spans (advanced option) [CHAR LIMIT=25] -->
-    <string name="enable_span_insert">Enable recorrections</string>
-    <!-- Option summary for enabling insertion of suggestion spans (advanced option) [CHAR LIMIT=65] -->
-    <string name="enable_span_insert_summary">Set suggestions for recorrections</string>
-
     <!-- Option to enable auto capitalization of sentences -->
     <string name="auto_cap">Auto-capitalization</string>
+    <!-- Description for option to enable auto capitalization of sentences -->
+    <string name="auto_cap_summary">Capitalize the first word of each sentence</string>
 
     <!-- Option to configure dictionaries -->
     <string name="configure_dictionaries_title">Add-on dictionaries</string>
@@ -101,12 +96,12 @@
     <!-- Description for show suggestions -->
     <string name="prefs_show_suggestions_summary">Display suggested words while typing</string>
     <string name="prefs_suggestion_visibility_show_name">Always show</string>
-    <string name="prefs_suggestion_visibility_show_only_portrait_name">Show on portrait mode</string>
+    <string name="prefs_suggestion_visibility_show_only_portrait_name">Show in portrait mode</string>
     <string name="prefs_suggestion_visibility_hide_name">Always hide</string>
 
     <!-- Option to decide the auto correction threshold score -->
     <!-- Option to enable auto correction [CHAR LIMIT=20]-->
-    <string name="auto_correction">Auto correction</string>
+    <string name="auto_correction">Auto-correction</string>
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
@@ -118,14 +113,21 @@
     <!-- Option to suggest auto correction suggestions very aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_very_aggeressive">Very aggressive</string>
 
-    <!-- Option to enable next word correction -->
-    <string name="bigram_suggestion">Next word suggestions</string>
-    <!-- Option to enable next word suggestion. This uses the previous word in an attempt to improve the suggestions quality -->
-    <string name="bigram_suggestion_summary">Use previous word to improve suggestions</string>
-    <!-- Option to enable using next word prediction -->
-    <string name="bigram_prediction">Next word prediction</string>
-    <!-- Description for "next word prediction" option. This displays suggestions even when there is no input, based on the previous word. -->
-    <string name="bigram_prediction_summary">Use previous word also for prediction</string>
+    <!-- Option to enable using next word suggestions. After the user types a space, with this option on, the keyboard will try to predict the next word. -->
+    <string name="bigram_prediction">Next-word suggestions</string>
+    <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
+    <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+
+    <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
+    <string name="gesture_input">Enable gesture typing</string>
+    <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
+    <string name="gesture_input_summary">Input a word by sliding through the letters</string>
+    <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
+    <string name="gesture_preview_trail">Show gesture trail</string>
+    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
+    <string name="gesture_floating_preview_text">Dynamic floating preview</string>
+    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->
+    <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
 
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
@@ -192,6 +194,12 @@
     <string name="spoken_description_search">Search</string>
     <!-- Spoken description for the "U+2022" (BULLET) keyboard key. -->
     <string name="spoken_description_dot">Dot</string>
+    <!-- Spoken description for the "Switch language" keyboard key. -->
+    <string name="spoken_description_language_switch">Switch language</string>
+    <!-- Spoken description for the "Next" action keyboard key. -->
+    <string name="spoken_description_action_next">Next</string>
+    <!-- Spoken description for the "Previous" action keyboard key. -->
+    <string name="spoken_description_action_previous">Previous</string>
 
     <!-- Spoken feedback after turning "Shift" mode on. -->
     <string name="spoken_description_shiftmode_on">Shift enabled</string>
@@ -233,6 +241,60 @@
     <!-- Title for input language selection screen -->
     <string name="language_selection_title">Input languages</string>
 
+    <!-- Title for dialog option to let users cancel logging and delete log for this session [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_do_not_log_this_session" translatable="false">Suspend logging</string>
+    <!-- Title for dialog option to let users reenable logging [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_enable_session_logging" translatable="false">Enable logging</string>
+    <!-- Toast notification that the system is processing the request to delete the log for this session [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_notify_session_log_deleting" translatable="false">Deleting session log</string>
+    <!-- Toast notification that the system has successfully deleted the log for this session [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_notify_logging_suspended" translatable="false">Logging temporarily suspended.  To disable permanently, go to Android Keyboard Settings</string>
+    <!-- Toast notification that the system has failed to delete the log for this session [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_notify_session_log_not_deleted" translatable="false">Session log NOT deleted</string>
+    <!-- Toast notification that the system is enabling logging [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_notify_session_logging_enabled" translatable="false">Session logging enabled</string>
+
+    <!-- Menu option that lets user send feedback for research purposes about the IME [CHAR LIMIT=38] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_feedback_menu_option" translatable="false">Send feedback</string>
+    <!-- Dialog box title that lets user send feedback for research purposes about the IME [CHAR LIMIT=38] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_feedback_dialog_title" translatable="false">Send feedback</string>
+    <!-- Text for checkbox option to include user data in feedback for research purposes [CHAR LIMIT=50] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <!-- TODO: handle multilingual plurals -->
+    <string name="research_feedback_include_history_label" translatable="false">Include last <xliff:g id="word">%d</xliff:g> words entered</string>
+    <!-- Hint to user about the text entry field where they should enter research feedback [CHAR LIMIT=40] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_feedback_hint" translatable="false">Enter your feedback here.</string>
+    <!-- Dialog button choice to send research feedback [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_feedback_send" translatable="false">Send</string>
+    <!-- Dialog button choice to cancel sending research feedback [CHAR LIMIT=35] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_feedback_cancel" translatable="false">Cancel</string>
+    <!-- Toast notification to ask user to quit the research feedback dialog to perform this operation [CHAR LIMIT=100] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_please_exit_feedback_form" translatable="false">Please exit the feedback dialog to access the research log menu</string>
+
+    <!-- Title of dialog shown at start informing users about contributing research usage data-->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_splash_title" translatable="false">Warning</string>
+
+    <!-- Toast message informing users that logging has been disabled -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_logging_disabled" translatable="false">Logging Disabled</string>
+
+    <!-- Name for the research uploading service to be displayed to users.  [CHAR LIMIT=50] -->
+    <!-- TODO: remove translatable=false attribute once text is stable -->
+    <string name="research_log_uploader_name" translatable="false">Research Uploader Service</string>
+
     <!-- Preference for input language selection -->
     <string name="select_language">Input languages</string>
 
@@ -262,6 +324,15 @@
     <!-- Description for English (United States) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_en_US aside from the trailing (%s). -->
     <string name="subtype_with_layout_en_US">English (US) (<xliff:g id="layout">%s</xliff:g>)</string>
+    <!-- TODO: Uncomment once we can handle IETF language tag with script name specified.
+         Description for Serbian Cyrillic keyboard subtype [CHAR LIMIT=25]
+    <string name="subtype_serbian_cyrillic">Serbian (Cyrillic)</string>
+         Description for Serbian Latin keyboard subtype [CHAR LIMIT=25]
+    <string name="subtype_serbian_latin">Serbian (Latin)</string>
+         Description for Serbian Latin keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         This should be identical to subtype_serbian_latin aside from the trailing (%s).
+    <string name="subtype_with_layout_sr-Latn">Serbian (Latin) (<xliff:g id="layout">%s</xliff:g>)</string>
+    -->
     <!-- Description for language agnostic keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_no_language">No language</string>
     <!-- Description for language agnostic QWERTY keyboard subtype [CHAR LIMIT=25] -->
@@ -291,7 +362,7 @@
     <string name="subtype_locale">Language</string>
     <!-- Title of the spinner for choosing a keyboard layout of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="keyboard_layout_set">Layout</string>
-    <!-- The message of the dialog to note that a custom input style needs to be enabled. [CHAR LIMIT=64] -->
+    <!-- The message of the dialog to note that a custom input style needs to be enabled. [CHAR LIMIT=130] -->
     <string name="custom_input_style_note_message">"Your custom input style needs to be enabled before you start using it. Do you want to enable it now?"</string>
     <!-- Title of the button to enable a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="enable">Enable</string>

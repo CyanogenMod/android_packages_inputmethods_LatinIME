@@ -16,6 +16,9 @@
 
 package com.android.inputmethod.latin;
 
+import com.android.inputmethod.latin.makedict.BinaryDictInputOutput;
+import com.android.inputmethod.latin.makedict.FormatSpec;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -23,6 +26,10 @@ import android.content.res.AssetFileDescriptor;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.BufferUnderflowException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,7 +37,7 @@ import java.util.Locale;
 /**
  * Helper class to get the address of a mmap'able dictionary file.
  */
-class BinaryDictionaryGetter {
+final class BinaryDictionaryGetter {
 
     /**
      * Used for Log actions from this class
@@ -50,6 +57,9 @@ class BinaryDictionaryGetter {
     // Name of the category for the main dictionary
     private static final String MAIN_DICTIONARY_CATEGORY = "main";
     public static final String ID_CATEGORY_SEPARATOR = ":";
+
+    // The key considered to read the version attribute in a dictionary file.
+    private static String VERSION_KEY = "version";
 
     // Prevents this from being instantiated
     private BinaryDictionaryGetter() {}
@@ -154,6 +164,18 @@ class BinaryDictionaryGetter {
     }
 
     /**
+     * Generates a unique temporary file name in the app cache directory.
+     *
+     * This is unique as long as it doesn't get called twice in the same millisecond by the same
+     * thread, which should be more than enough for our purposes.
+     */
+    public static String getTempFileName(String id, Context context) {
+        final String fileName = replaceFileNameDangerousCharacters(id);
+        return context.getCacheDir() + File.separator + fileName + "."
+                + Thread.currentThread().getId() + "." + System.currentTimeMillis();
+    }
+
+    /**
      * Returns a file address from a resource, or null if it cannot be opened.
      */
     private static AssetFileAddress loadFallbackResource(final Context context,
@@ -168,7 +190,7 @@ class BinaryDictionaryGetter {
                 context.getApplicationInfo().sourceDir, afd.getStartOffset(), afd.getLength());
     }
 
-    static private class DictPackSettings {
+    private static final class DictPackSettings {
         final SharedPreferences mDictPreferences;
         public DictPackSettings(final Context context) {
             Context dictPackContext = null;
@@ -227,7 +249,7 @@ class BinaryDictionaryGetter {
     /**
      * Utility class for the {@link #getCachedWordLists} method
      */
-    private static class FileAndMatchLevel {
+    private static final class FileAndMatchLevel {
         final File mFile;
         final int mMatchLevel;
         public FileAndMatchLevel(final File file, final int matchLevel) {
@@ -254,8 +276,7 @@ class BinaryDictionaryGetter {
             final Context context) {
         final File[] directoryList = getCachedDirectoryList(context);
         if (null == directoryList) return EMPTY_FILE_ARRAY;
-        final HashMap<String, FileAndMatchLevel> cacheFiles =
-                new HashMap<String, FileAndMatchLevel>();
+        final HashMap<String, FileAndMatchLevel> cacheFiles = CollectionUtils.newHashMap();
         for (File directory : directoryList) {
             if (!directory.isDirectory()) continue;
             final String dirLocale = getWordListIdFromFileName(directory.getName());
@@ -336,6 +357,57 @@ class BinaryDictionaryGetter {
         return MAIN_DICTIONARY_CATEGORY.equals(idArray[0]);
     }
 
+    // ## HACK ## we prevent usage of a dictionary before version 18 for English only. The reason
+    // for this is, since those do not include whitelist entries, the new code with an old version
+    // of the dictionary would lose whitelist functionality.
+    private static boolean hackCanUseDictionaryFile(final Locale locale, final File f) {
+        // Only for English - other languages didn't have a whitelist, hence this
+        // ad-hoc ## HACK ##
+        if (!Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) return true;
+
+        FileInputStream inStream = null;
+        try {
+            // Read the version of the file
+            inStream = new FileInputStream(f);
+            final BinaryDictInputOutput.ByteBufferWrapper buffer =
+                    new BinaryDictInputOutput.ByteBufferWrapper(inStream.getChannel().map(
+                            FileChannel.MapMode.READ_ONLY, 0, f.length()));
+            final int magic = buffer.readInt();
+            if (magic != FormatSpec.VERSION_2_MAGIC_NUMBER) {
+                return false;
+            }
+            final int formatVersion = buffer.readInt();
+            final int headerSize = buffer.readInt();
+            final HashMap<String, String> options = CollectionUtils.newHashMap();
+            BinaryDictInputOutput.populateOptions(buffer, headerSize, options);
+
+            final String version = options.get(VERSION_KEY);
+            if (null == version) {
+                // No version in the options : the format is unexpected
+                return false;
+            }
+            // Version 18 is the first one to include the whitelist
+            // Obviously this is a big ## HACK ##
+            return Integer.parseInt(version) >= 18;
+        } catch (java.io.FileNotFoundException e) {
+            return false;
+        } catch (java.io.IOException e) {
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (BufferUnderflowException e) {
+            return false;
+        } finally {
+            if (inStream != null) {
+                try {
+                    inStream.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
+        }
+    }
+
     /**
      * Returns a list of file addresses for a given locale, trying relevant methods in order.
      *
@@ -362,18 +434,19 @@ class BinaryDictionaryGetter {
         final DictPackSettings dictPackSettings = new DictPackSettings(context);
 
         boolean foundMainDict = false;
-        final ArrayList<AssetFileAddress> fileList = new ArrayList<AssetFileAddress>();
+        final ArrayList<AssetFileAddress> fileList = CollectionUtils.newArrayList();
         // cachedWordLists may not be null, see doc for getCachedDictionaryList
         for (final File f : cachedWordLists) {
             final String wordListId = getWordListIdFromFileName(f.getName());
-            if (isMainWordListId(wordListId)) {
+            final boolean canUse = f.canRead() && hackCanUseDictionaryFile(locale, f);
+            if (canUse && isMainWordListId(wordListId)) {
                 foundMainDict = true;
             }
             if (!dictPackSettings.isWordListActive(wordListId)) continue;
-            if (f.canRead()) {
+            if (canUse) {
                 fileList.add(AssetFileAddress.makeFromFileName(f.getPath()));
             } else {
-                Log.e(TAG, "Found a cached dictionary file but cannot read it");
+                Log.e(TAG, "Found a cached dictionary file but cannot read or use it");
             }
         }
 

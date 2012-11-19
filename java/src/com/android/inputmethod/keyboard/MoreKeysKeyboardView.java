@@ -25,13 +25,15 @@ import android.widget.PopupWindow;
 
 import com.android.inputmethod.keyboard.PointerTracker.DrawingProxy;
 import com.android.inputmethod.keyboard.PointerTracker.TimerProxy;
+import com.android.inputmethod.latin.Constants;
+import com.android.inputmethod.latin.InputPointers;
 import com.android.inputmethod.latin.R;
 
 /**
  * A view that renders a virtual {@link MoreKeysKeyboard}. It handles rendering of keys and
  * detecting key presses and touch movements.
  */
-public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel {
+public final class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel {
     private final int[] mCoordinates = new int[2];
 
     private final KeyDetector mKeyDetector;
@@ -49,12 +51,28 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
         public void onCodeInput(int primaryCode, int x, int y) {
             // Because a more keys keyboard doesn't need proximity characters correction, we don't
             // send touch event coordinates.
-            mListener.onCodeInput(primaryCode, NOT_A_TOUCH_COORDINATE, NOT_A_TOUCH_COORDINATE);
+            mListener.onCodeInput(
+                    primaryCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
         }
 
         @Override
         public void onTextInput(CharSequence text) {
             mListener.onTextInput(text);
+        }
+
+        @Override
+        public void onStartBatchInput() {
+            mListener.onStartBatchInput();
+        }
+
+        @Override
+        public void onUpdateBatchInput(InputPointers batchPointers) {
+            mListener.onUpdateBatchInput(batchPointers);
+        }
+
+        @Override
+        public void onEndBatchInput(InputPointers batchPointers) {
+            mListener.onEndBatchInput(batchPointers);
         }
 
         @Override

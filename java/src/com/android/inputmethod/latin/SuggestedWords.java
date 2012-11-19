@@ -23,29 +23,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class SuggestedWords {
+public final class SuggestedWords {
+    private static final ArrayList<SuggestedWordInfo> EMPTY_WORD_INFO_LIST =
+            CollectionUtils.newArrayList(0);
     public static final SuggestedWords EMPTY = new SuggestedWords(
-            new ArrayList<SuggestedWordInfo>(0), false, false, false, false, false, false);
+            EMPTY_WORD_INFO_LIST, false, false, false, false, false);
 
     public final boolean mTypedWordValid;
-    public final boolean mHasAutoCorrectionCandidate;
+    // Note: this INCLUDES cases where the word will auto-correct to itself. A good definition
+    // of what this flag means would be "the top suggestion is strong enough to auto-correct",
+    // whether this exactly matches the user entry or not.
+    public final boolean mWillAutoCorrect;
     public final boolean mIsPunctuationSuggestions;
-    public final boolean mAllowsToBeAutoCorrected;
     public final boolean mIsObsoleteSuggestions;
     public final boolean mIsPrediction;
     private final ArrayList<SuggestedWordInfo> mSuggestedWordInfoList;
 
     public SuggestedWords(final ArrayList<SuggestedWordInfo> suggestedWordInfoList,
             final boolean typedWordValid,
-            final boolean hasAutoCorrectionCandidate,
-            final boolean allowsToBeAutoCorrected,
+            final boolean willAutoCorrect,
             final boolean isPunctuationSuggestions,
             final boolean isObsoleteSuggestions,
             final boolean isPrediction) {
         mSuggestedWordInfoList = suggestedWordInfoList;
         mTypedWordValid = typedWordValid;
-        mHasAutoCorrectionCandidate = hasAutoCorrectionCandidate;
-        mAllowsToBeAutoCorrected = allowsToBeAutoCorrected;
+        mWillAutoCorrect = willAutoCorrect;
         mIsPunctuationSuggestions = isPunctuationSuggestions;
         mIsObsoleteSuggestions = isObsoleteSuggestions;
         mIsPrediction = isPrediction;
@@ -55,7 +57,7 @@ public class SuggestedWords {
         return mSuggestedWordInfoList.size();
     }
 
-    public CharSequence getWord(int pos) {
+    public String getWord(int pos) {
         return mSuggestedWordInfoList.get(pos).mWord;
     }
 
@@ -67,12 +69,8 @@ public class SuggestedWords {
         return mSuggestedWordInfoList.get(pos);
     }
 
-    public boolean hasAutoCorrectionWord() {
-        return mHasAutoCorrectionCandidate && size() > 1 && !mTypedWordValid;
-    }
-
     public boolean willAutoCorrect() {
-        return !mTypedWordValid && mHasAutoCorrectionCandidate;
+        return mWillAutoCorrect;
     }
 
     @Override
@@ -80,18 +78,18 @@ public class SuggestedWords {
         // Pretty-print method to help debug
         return "SuggestedWords:"
                 + " mTypedWordValid=" + mTypedWordValid
-                + " mHasAutoCorrectionCandidate=" + mHasAutoCorrectionCandidate
-                + " mAllowsToBeAutoCorrected=" + mAllowsToBeAutoCorrected
+                + " mWillAutoCorrect=" + mWillAutoCorrect
                 + " mIsPunctuationSuggestions=" + mIsPunctuationSuggestions
                 + " words=" + Arrays.toString(mSuggestedWordInfoList.toArray());
     }
 
     public static ArrayList<SuggestedWordInfo> getFromApplicationSpecifiedCompletions(
             final CompletionInfo[] infos) {
-        final ArrayList<SuggestedWordInfo> result = new ArrayList<SuggestedWordInfo>();
+        final ArrayList<SuggestedWordInfo> result = CollectionUtils.newArrayList();
         for (CompletionInfo info : infos) {
             if (null != info && info.getText() != null) {
-                result.add(new SuggestedWordInfo(info.getText(), SuggestedWordInfo.MAX_SCORE));
+                result.add(new SuggestedWordInfo(info.getText(), SuggestedWordInfo.MAX_SCORE,
+                        SuggestedWordInfo.KIND_APP_DEFINED, Dictionary.TYPE_APPLICATION_DEFINED));
             }
         }
         return result;
@@ -101,9 +99,10 @@ public class SuggestedWords {
     // and replace it with what the user currently typed.
     public static ArrayList<SuggestedWordInfo> getTypedWordAndPreviousSuggestions(
             final CharSequence typedWord, final SuggestedWords previousSuggestions) {
-        final ArrayList<SuggestedWordInfo> suggestionsList = new ArrayList<SuggestedWordInfo>();
-        final HashSet<String> alreadySeen = new HashSet<String>();
-        suggestionsList.add(new SuggestedWordInfo(typedWord, SuggestedWordInfo.MAX_SCORE));
+        final ArrayList<SuggestedWordInfo> suggestionsList = CollectionUtils.newArrayList();
+        final HashSet<String> alreadySeen = CollectionUtils.newHashSet();
+        suggestionsList.add(new SuggestedWordInfo(typedWord, SuggestedWordInfo.MAX_SCORE,
+                SuggestedWordInfo.KIND_TYPED, Dictionary.TYPE_USER_TYPED));
         alreadySeen.add(typedWord.toString());
         final int previousSize = previousSuggestions.size();
         for (int pos = 1; pos < previousSize; pos++) {
@@ -118,19 +117,31 @@ public class SuggestedWords {
         return suggestionsList;
     }
 
-    public static class SuggestedWordInfo {
+    public static final class SuggestedWordInfo {
         public static final int MAX_SCORE = Integer.MAX_VALUE;
-        private final String mWordStr;
-        public final CharSequence mWord;
+        public static final int KIND_TYPED = 0; // What user typed
+        public static final int KIND_CORRECTION = 1; // Simple correction/suggestion
+        public static final int KIND_COMPLETION = 2; // Completion (suggestion with appended chars)
+        public static final int KIND_WHITELIST = 3; // Whitelisted word
+        public static final int KIND_BLACKLIST = 4; // Blacklisted word
+        public static final int KIND_HARDCODED = 5; // Hardcoded suggestion, e.g. punctuation
+        public static final int KIND_APP_DEFINED = 6; // Suggested by the application
+        public static final int KIND_SHORTCUT = 7; // A shortcut
+        public static final int KIND_PREDICTION = 8; // A prediction (== a suggestion with no input)
+        public final String mWord;
         public final int mScore;
+        public final int mKind; // one of the KIND_* constants above
         public final int mCodePointCount;
+        public final String mSourceDict;
         private String mDebugString = "";
 
-        public SuggestedWordInfo(final CharSequence word, final int score) {
-            mWordStr = word.toString();
-            mWord = word;
+        public SuggestedWordInfo(final CharSequence word, final int score, final int kind,
+                final String sourceDict) {
+            mWord = word.toString();
             mScore = score;
-            mCodePointCount = mWordStr.codePointCount(0, mWordStr.length());
+            mKind = kind;
+            mSourceDict = sourceDict;
+            mCodePointCount = StringUtils.codePointCount(mWord);
         }
 
 
@@ -148,15 +159,15 @@ public class SuggestedWords {
         }
 
         public int codePointAt(int i) {
-            return mWordStr.codePointAt(i);
+            return mWord.codePointAt(i);
         }
 
         @Override
         public String toString() {
             if (TextUtils.isEmpty(mDebugString)) {
-                return mWordStr;
+                return mWord;
             } else {
-                return mWordStr + " (" + mDebugString.toString() + ")";
+                return mWord + " (" + mDebugString.toString() + ")";
             }
         }
 
@@ -166,11 +177,11 @@ public class SuggestedWords {
                 return;
             }
             int i = 1;
-            while(i < candidates.size()) {
+            while (i < candidates.size()) {
                 final SuggestedWordInfo cur = candidates.get(i);
                 for (int j = 0; j < i; ++j) {
                     final SuggestedWordInfo previous = candidates.get(j);
-                    if (TextUtils.equals(cur.mWord, previous.mWord)) {
+                    if (cur.mWord.equals(previous.mWord)) {
                         candidates.remove(cur.mScore < previous.mScore ? i : j);
                         --i;
                         break;

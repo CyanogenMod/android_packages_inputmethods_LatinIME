@@ -20,13 +20,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" msgid="7252517407088836577">"Клавиатура Android"</string>
     <string name="aosp_android_keyboard_ime_name" msgid="7877134937939182296">"Клавиатура Android (AOSP)"</string>
-    <string name="english_ime_settings" msgid="6661589557206947774">"Клавиатура Android"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Настройки"</string>
-    <string name="spell_checker_service_name" msgid="7338064335159755926">"Проверка правописания Android"</string>
+    <string name="english_ime_research_log" msgid="8492602295696577851">"Все команды"</string>
     <string name="aosp_spell_checker_service_name" msgid="6985142605330377819">"Проверка правописания Android (AOSP)"</string>
-    <string name="android_spell_checker_settings" msgid="5822324635435443689">"Настройка проверки правописания"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Поиск контактов"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Обращаться к списку контактов при проверке правописания"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Виброотклик клавиш"</string>
@@ -34,37 +31,41 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Увеличение нажатых"</string>
     <string name="general_category" msgid="1859088467017573195">"Общие"</string>
     <string name="correction_category" msgid="2236750915056607613">"Исправление текста"</string>
+    <string name="gesture_typing_category" msgid="497263612130532630">"Непрерывный ввод"</string>
     <string name="misc_category" msgid="6894192814868233453">"Другие варианты"</string>
     <string name="advanced_settings" msgid="362895144495591463">"Расширенные настройки"</string>
     <string name="advanced_settings_summary" msgid="4487980456152830271">"Для опытных пользователей"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Другой способ ввода"</string>
     <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Клавиша переключения языков также служит для смены способа ввода"</string>
-    <string name="suppress_language_switch_key" msgid="8003788410354806368">"Блок. кл. перекл. языков"</string>
+    <string name="show_language_switch_key" msgid="5915478828318774384">"Клавиша переключения языков"</string>
+    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Показывать, когда включено несколько раскладок"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Задержка закрытия"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Без задержки"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"По умолчанию"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Подсказывать имена"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Подсказывать исправления на основе имен из списка контактов"</string>
-    <string name="enable_span_insert" msgid="7204653105667167620">"Автоисправление"</string>
-    <string name="enable_span_insert_summary" msgid="2947317657871394467">"Показывать варианты исправления"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Заглавные автоматически"</string>
+    <string name="auto_cap_summary" msgid="7934452761022946874">"Писать первое слово предложения с прописной буквы"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Дополнительные словари"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"Основной словарь"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Показать варианты исправлений"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Предлагать варианты слов во время ввода"</string>
     <string name="prefs_suggestion_visibility_show_name" msgid="3219916594067551303">"Всегда показывать"</string>
-    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3551821800439659812">"Показать вертикально"</string>
+    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3859783767435239118">"Показать вертикально"</string>
     <string name="prefs_suggestion_visibility_hide_name" msgid="6309143926422234673">"Всегда скрывать"</string>
-    <string name="auto_correction" msgid="4979925752001319458">"Автоисправление"</string>
+    <string name="auto_correction" msgid="7630720885194996950">"Автоисправление"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Автоматическое исправление опечаток при вводе знака препинания или пробела"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Откл."</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Умеренное"</string>
     <string name="auto_correction_threshold_mode_aggeressive" msgid="3524029103734923819">"Активное"</string>
     <string name="auto_correction_threshold_mode_very_aggeressive" msgid="3386782235540547678">"Очень активно"</string>
-    <string name="bigram_suggestion" msgid="8169311444438922902">"Следующие варианты"</string>
-    <string name="bigram_suggestion_summary" msgid="6635527607242625713">"Использовать предыдущее слово, чтобы исправить предложенные варианты"</string>
-    <string name="bigram_prediction" msgid="3216364899483135294">"Следующая подсказка"</string>
-    <string name="bigram_prediction_summary" msgid="1747261921174300098">"Использовать предыдущее слово для прогнозирования"</string>
+    <string name="bigram_prediction" msgid="1084449187723948550">"Подсказка следующего слова"</string>
+    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Предлагать подсказки на основе предыдущего слова"</string>
+    <string name="gesture_input" msgid="826951152254563827">"Включить функцию"</string>
+    <string name="gesture_input_summary" msgid="9180350639305731231">"Вводите слова, не отрывая пальца от клавиатуры"</string>
+    <string name="gesture_preview_trail" msgid="3802333369335722221">"Рисовать линию"</string>
+    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Показывать подсказки"</string>
+    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показывать подсказки при вводе текста"</string>
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g>: сохранено"</string>
     <string name="label_go_key" msgid="1635148082137219148">"Поиск"</string>
     <string name="label_next_key" msgid="362972844525672568">"Далее"</string>
@@ -95,6 +96,9 @@
     <string name="spoken_description_return" msgid="8178083177238315647">"Клавиша \"Ввод\""</string>
     <string name="spoken_description_search" msgid="1247236163755920808">"Поиск"</string>
     <string name="spoken_description_dot" msgid="40711082435231673">"Точка"</string>
+    <string name="spoken_description_language_switch" msgid="5507091328222331316">"Сменить язык"</string>
+    <string name="spoken_description_action_next" msgid="8636078276664150324">"Далее"</string>
+    <string name="spoken_description_action_previous" msgid="800872415009336208">"Назад"</string>
     <string name="spoken_description_shiftmode_on" msgid="5700440798609574589">"Верхний регистр включен"</string>
     <string name="spoken_description_shiftmode_locked" msgid="593175803181701830">"Caps Lock включен"</string>
     <string name="spoken_description_shiftmode_off" msgid="657219998449174808">"Верхний регистр отключен"</string>

@@ -19,8 +19,11 @@ package com.android.inputmethod.latin;
 import android.content.Context;
 
 import com.android.inputmethod.keyboard.ProximityInfo;
+import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 
-public class SynchronouslyLoadedUserBinaryDictionary extends UserBinaryDictionary {
+import java.util.ArrayList;
+
+public final class SynchronouslyLoadedUserBinaryDictionary extends UserBinaryDictionary {
 
     public SynchronouslyLoadedUserBinaryDictionary(final Context context, final String locale) {
         this(context, locale, false);
@@ -32,11 +35,10 @@ public class SynchronouslyLoadedUserBinaryDictionary extends UserBinaryDictionar
     }
 
     @Override
-    public synchronized void getWords(final WordComposer codes,
-            final CharSequence prevWordForBigrams, final WordCallback callback,
-            final ProximityInfo proximityInfo) {
+    public synchronized ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer codes,
+            final CharSequence prevWordForBigrams, final ProximityInfo proximityInfo) {
         syncReloadDictionaryIfRequired();
-        getWordsInner(codes, prevWordForBigrams, callback, proximityInfo);
+        return super.getSuggestions(codes, prevWordForBigrams, proximityInfo);
     }
 
     @Override

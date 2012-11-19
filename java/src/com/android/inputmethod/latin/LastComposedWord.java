@@ -22,7 +22,7 @@ import android.text.TextUtils;
  * This class encapsulates data about a word previously composed, but that has been
  * committed already. This is used for resuming suggestion, and cancel auto-correction.
  */
-public class LastComposedWord {
+public final class LastComposedWord {
     // COMMIT_TYPE_USER_TYPED_WORD is used when the word committed is the exact typed word, with
     // no hinting from the IME. It happens when some external event happens (rotating the device,
     // for example) or when auto-correction is off by settings or editor attributes.
@@ -38,32 +38,32 @@ public class LastComposedWord {
     // an auto-correction.
     public static final int COMMIT_TYPE_CANCEL_AUTO_CORRECT = 3;
 
-    public static final int NOT_A_SEPARATOR = -1;
+    public static final String NOT_A_SEPARATOR = "";
 
     public final int[] mPrimaryKeyCodes;
-    public final int[] mXCoordinates;
-    public final int[] mYCoordinates;
     public final String mTypedWord;
     public final String mCommittedWord;
-    public final int mSeparatorCode;
+    public final String mSeparatorString;
     public final CharSequence mPrevWord;
+    public final InputPointers mInputPointers = new InputPointers(BinaryDictionary.MAX_WORD_LENGTH);
 
     private boolean mActive;
 
     public static final LastComposedWord NOT_A_COMPOSED_WORD =
-            new LastComposedWord(null, null, null, "", "", NOT_A_SEPARATOR, null);
+            new LastComposedWord(null, null, "", "", NOT_A_SEPARATOR, null);
 
     // Warning: this is using the passed objects as is and fully expects them to be
     // immutable. Do not fiddle with their contents after you passed them to this constructor.
-    public LastComposedWord(final int[] primaryKeyCodes, final int[] xCoordinates,
-            final int[] yCoordinates, final String typedWord, final String committedWord,
-            final int separatorCode, final CharSequence prevWord) {
+    public LastComposedWord(final int[] primaryKeyCodes, final InputPointers inputPointers,
+            final String typedWord, final String committedWord,
+            final String separatorString, final CharSequence prevWord) {
         mPrimaryKeyCodes = primaryKeyCodes;
-        mXCoordinates = xCoordinates;
-        mYCoordinates = yCoordinates;
+        if (inputPointers != null) {
+            mInputPointers.copy(inputPointers);
+        }
         mTypedWord = typedWord;
         mCommittedWord = committedWord;
-        mSeparatorCode = separatorCode;
+        mSeparatorString = separatorString;
         mActive = true;
         mPrevWord = prevWord;
     }
@@ -73,14 +73,14 @@ public class LastComposedWord {
     }
 
     public boolean canRevertCommit() {
-        return mActive && !TextUtils.isEmpty(mCommittedWord);
+        return mActive && !TextUtils.isEmpty(mCommittedWord) && !didCommitTypedWord();
     }
 
-    public boolean didCommitTypedWord() {
+    private boolean didCommitTypedWord() {
         return TextUtils.equals(mTypedWord, mCommittedWord);
     }
 
-    public static int getSeparatorLength(final int separatorCode) {
-        return NOT_A_SEPARATOR == separatorCode ? 0 : 1;
+    public static int getSeparatorLength(final String separatorString) {
+        return StringUtils.codePointCount(separatorString);
     }
 }

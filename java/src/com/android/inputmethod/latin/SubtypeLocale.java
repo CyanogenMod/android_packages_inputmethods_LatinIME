@@ -30,7 +30,7 @@ import com.android.inputmethod.latin.LocaleUtils.RunInLocale;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class SubtypeLocale {
+public final class SubtypeLocale {
     static final String TAG = SubtypeLocale.class.getSimpleName();
     // This class must be located in the same package as LatinIME.java.
     private static final String RESOURCE_PACKAGE_NAME =
@@ -41,16 +41,17 @@ public class SubtypeLocale {
     public static final String QWERTY = "qwerty";
     public static final int UNKNOWN_KEYBOARD_LAYOUT = R.string.subtype_generic;
 
+    private static boolean sInitialized = false;
     private static String[] sPredefinedKeyboardLayoutSet;
     // Keyboard layout to its display name map.
     private static final HashMap<String, String> sKeyboardLayoutToDisplayNameMap =
-            new HashMap<String, String>();
+            CollectionUtils.newHashMap();
     // Keyboard layout to subtype name resource id map.
     private static final HashMap<String, Integer> sKeyboardLayoutToNameIdsMap =
-            new HashMap<String, Integer>();
+            CollectionUtils.newHashMap();
     // Exceptional locale to subtype name resource id map.
     private static final HashMap<String, Integer> sExceptionalLocaleToWithLayoutNameIdsMap =
-            new HashMap<String, Integer>();
+            CollectionUtils.newHashMap();
     private static final String SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX =
             "string/subtype_generic_";
     private static final String SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX =
@@ -59,17 +60,20 @@ public class SubtypeLocale {
             "string/subtype_no_language_";
     // Exceptional locales to display name map.
     private static final HashMap<String, String> sExceptionalDisplayNamesMap =
-            new HashMap<String, String>();
+            CollectionUtils.newHashMap();
     // Keyboard layout set name for the subtypes that don't have a keyboardLayoutSet extra value.
     // This is for compatibility to keep the same subtype ids as pre-JellyBean.
     private static final HashMap<String,String> sLocaleAndExtraValueToKeyboardLayoutSetMap =
-            new HashMap<String,String>();
+            CollectionUtils.newHashMap();
 
     private SubtypeLocale() {
         // Intentional empty constructor for utility class.
     }
 
-    public static void init(Context context) {
+    // Note that this initialization method can be called multiple times.
+    public static synchronized void init(Context context) {
+        if (sInitialized) return;
+
         final Resources res = context.getResources();
 
         final String[] predefinedLayoutSet = res.getStringArray(R.array.predefined_layouts);
@@ -109,6 +113,8 @@ public class SubtypeLocale {
             final String keyboardLayoutSet = keyboardLayoutSetMap[i + 1];
             sLocaleAndExtraValueToKeyboardLayoutSetMap.put(key, keyboardLayoutSet);
         }
+
+        sInitialized = true;
     }
 
     public static String[] getPredefinedKeyboardLayoutSet() {

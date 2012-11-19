@@ -16,10 +16,6 @@
 
 package com.android.inputmethod.compat;
 
-import com.android.inputmethod.latin.LatinImeLogger;
-import com.android.inputmethod.latin.SuggestedWords;
-import com.android.inputmethod.latin.SuggestionSpanPickedNotificationReceiver;
-
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,12 +23,17 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.inputmethod.latin.CollectionUtils;
+import com.android.inputmethod.latin.LatinImeLogger;
+import com.android.inputmethod.latin.SuggestedWords;
+import com.android.inputmethod.latin.SuggestionSpanPickedNotificationReceiver;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class SuggestionSpanUtils {
+public final class SuggestionSpanUtils {
     private static final String TAG = SuggestionSpanUtils.class.getSimpleName();
     // TODO: Use reflection to get field values
     public static final String ACTION_SUGGESTION_PICKED =
@@ -119,8 +120,7 @@ public class SuggestionSpanUtils {
         } else {
             spannable = new SpannableString(pickedWord);
         }
-        final ArrayList<String> suggestionsList = new ArrayList<String>();
-        boolean sameAsTyped = false;
+        final ArrayList<String> suggestionsList = CollectionUtils.newArrayList();
         for (int i = 0; i < suggestedWords.size(); ++i) {
             if (suggestionsList.size() >= OBJ_SUGGESTIONS_MAX_SIZE) {
                 break;
@@ -128,8 +128,6 @@ public class SuggestionSpanUtils {
             final CharSequence word = suggestedWords.getWord(i);
             if (!TextUtils.equals(pickedWord, word)) {
                 suggestionsList.add(word.toString());
-            } else if (i == 0) {
-                sameAsTyped = true;
             }
         }
 

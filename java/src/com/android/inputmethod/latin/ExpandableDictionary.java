@@ -17,10 +17,11 @@
 package com.android.inputmethod.latin;
 
 import android.content.Context;
+import android.text.TextUtils;
 
-import com.android.inputmethod.keyboard.KeyDetector;
 import com.android.inputmethod.keyboard.Keyboard;
 import com.android.inputmethod.keyboard.ProximityInfo;
+import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import com.android.inputmethod.latin.UserHistoryForgettingCurveUtils.ForgettingCurveParams;
 
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ public class ExpandableDictionary extends Dictionary {
 
     private Context mContext;
     private char[] mWordBuilder = new char[BinaryDictionary.MAX_WORD_LENGTH];
-    private int mDicTypeId;
     private int mMaxDepth;
     private int mInputLength;
 
@@ -48,7 +48,7 @@ public class ExpandableDictionary extends Dictionary {
     // Use this lock before touching mUpdatingDictionary & mRequiresDownload
     private Object mUpdatingLock = new Object();
 
-    private static class Node {
+    private static final class Node {
         Node() {}
         char mCode;
         int mFrequency;
@@ -60,7 +60,7 @@ public class ExpandableDictionary extends Dictionary {
         LinkedList<NextWord> mNGrams; // Supports ngram
     }
 
-    private static class NodeArray {
+    private static final class NodeArray {
         Node[] mData;
         int mLength = 0;
         private static final int INCREMENT = 2;
@@ -88,7 +88,7 @@ public class ExpandableDictionary extends Dictionary {
         public int notifyTypedAgainAndGetFrequency();
     }
 
-    private static class NextStaticWord implements NextWord {
+    private static final class NextStaticWord implements NextWord {
         public final Node mWord;
         private final int mFrequency;
         public NextStaticWord(Node word, int frequency) {
@@ -117,7 +117,7 @@ public class ExpandableDictionary extends Dictionary {
         }
     }
 
-    private static class NextHistoryWord implements NextWord {
+    private static final class NextHistoryWord implements NextWord {
         public final Node mWord;
         public final ForgettingCurveParams mFcp;
 
@@ -151,11 +151,11 @@ public class ExpandableDictionary extends Dictionary {
 
     private int[][] mCodes;
 
-    public ExpandableDictionary(Context context, int dicTypeId) {
+    public ExpandableDictionary(final Context context, final String dictType) {
+        super(dictType);
         mContext = context;
         clearDictionary();
         mCodes = new int[BinaryDictionary.MAX_WORD_LENGTH][];
-        mDicTypeId = dicTypeId;
     }
 
     public void loadDictionary() {
@@ -230,7 +230,7 @@ public class ExpandableDictionary extends Dictionary {
             childNode.mTerminal = true;
             if (isShortcutOnly) {
                 if (null == childNode.mShortcutTargets) {
-                    childNode.mShortcutTargets = new ArrayList<char[]>();
+                    childNode.mShortcutTargets = CollectionUtils.newArrayList();
                 }
                 childNode.mShortcutTargets.add(shortcutTarget.toCharArray());
             } else {
@@ -247,27 +247,43 @@ public class ExpandableDictionary extends Dictionary {
     }
 
     @Override
-    public void getWords(final WordComposer codes, final CharSequence prevWordForBigrams,
-            final WordCallback callback, final ProximityInfo proximityInfo) {
+    public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
+            final CharSequence prevWord, final ProximityInfo proximityInfo) {
+        if (reloadDictionaryIfRequired()) return null;
+        if (composer.size() > 1) {
+            if (composer.size() >= BinaryDictionary.MAX_WORD_LENGTH) {
+                return null;
+            }
+            final ArrayList<SuggestedWordInfo> suggestions =
+                    getWordsInner(composer, prevWord, proximityInfo);
+            return suggestions;
+        } else {
+            if (TextUtils.isEmpty(prevWord)) return null;
+            final ArrayList<SuggestedWordInfo> suggestions = CollectionUtils.newArrayList();
+            runBigramReverseLookUp(prevWord, suggestions);
+            return suggestions;
+        }
+    }
+
+    // This reloads the dictionary if required, and returns whether it's currently updating its
+    // contents or not.
+    // @VisibleForTesting
+    boolean reloadDictionaryIfRequired() {
         synchronized (mUpdatingLock) {
             // If we need to update, start off a background task
             if (mRequiresReload) startDictionaryLoadingTaskLocked();
-            // Currently updating contacts, don't return any results.
-            if (mUpdatingDictionary) return;
+            return mUpdatingDictionary;
         }
-        if (codes.size() >= BinaryDictionary.MAX_WORD_LENGTH) {
-            return;
-        }
-        getWordsInner(codes, prevWordForBigrams, callback, proximityInfo);
     }
 
-    protected final void getWordsInner(final WordComposer codes,
-            final CharSequence prevWordForBigrams, final WordCallback callback,
-            final ProximityInfo proximityInfo) {
+    protected ArrayList<SuggestedWordInfo> getWordsInner(final WordComposer codes,
+            final CharSequence prevWordForBigrams, final ProximityInfo proximityInfo) {
+        final ArrayList<SuggestedWordInfo> suggestions = CollectionUtils.newArrayList();
         mInputLength = codes.size();
         if (mCodes.length < mInputLength) mCodes = new int[mInputLength][];
-        final int[] xCoordinates = codes.getXCoordinates();
-        final int[] yCoordinates = codes.getYCoordinates();
+        final InputPointers ips = codes.getInputPointers();
+        final int[] xCoordinates = ips.getXCoordinates();
+        final int[] yCoordinates = ips.getYCoordinates();
         // Cache the codes so that we don't have to lookup an array list
         for (int i = 0; i < mInputLength; i++) {
             // TODO: Calculate proximity info here.
@@ -275,16 +291,17 @@ public class ExpandableDictionary extends Dictionary {
                 mCodes[i] = new int[ProximityInfo.MAX_PROXIMITY_CHARS_SIZE];
             }
             final int x = xCoordinates != null && i < xCoordinates.length ?
-                    xCoordinates[i] : WordComposer.NOT_A_COORDINATE;
+                    xCoordinates[i] : Constants.NOT_A_COORDINATE;
             final int y = xCoordinates != null && i < yCoordinates.length ?
-                    yCoordinates[i] : WordComposer.NOT_A_COORDINATE;
+                    yCoordinates[i] : Constants.NOT_A_COORDINATE;
             proximityInfo.fillArrayWithNearestKeyCodes(x, y, codes.getCodeAt(i), mCodes[i]);
         }
         mMaxDepth = mInputLength * 3;
-        getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1, 0, -1, callback);
+        getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1, 0, -1, suggestions);
         for (int i = 0; i < mInputLength; i++) {
-            getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1, 0, i, callback);
+            getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1, 0, i, suggestions);
         }
+        return suggestions;
     }
 
     @Override
@@ -368,24 +385,27 @@ public class ExpandableDictionary extends Dictionary {
      * @param word the word to insert, as an array of code points
      * @param depth the depth of the node in the tree
      * @param finalFreq the frequency for this word
+     * @param suggestions the suggestion collection to add the suggestions to
      * @return whether there is still space for more words.
-     * @see Dictionary.WordCallback#addWord(char[], int, int, int, int, int)
      */
     private boolean addWordAndShortcutsFromNode(final Node node, final char[] word, final int depth,
-            final int finalFreq, final WordCallback callback) {
+            final int finalFreq, final ArrayList<SuggestedWordInfo> suggestions) {
         if (finalFreq > 0 && !node.mShortcutOnly) {
-            if (!callback.addWord(word, 0, depth + 1, finalFreq, mDicTypeId, Dictionary.UNIGRAM)) {
-                return false;
-            }
+            // Use KIND_CORRECTION always. This dictionary does not really have a notion of
+            // COMPLETION against CORRECTION; we could artificially add one by looking at
+            // the respective size of the typed word and the suggestion if it matters sometime
+            // in the future.
+            suggestions.add(new SuggestedWordInfo(new String(word, 0, depth + 1), finalFreq,
+                    SuggestedWordInfo.KIND_CORRECTION, mDictType));
+            if (suggestions.size() >= Suggest.MAX_SUGGESTIONS) return false;
         }
         if (null != node.mShortcutTargets) {
             final int length = node.mShortcutTargets.size();
             for (int shortcutIndex = 0; shortcutIndex < length; ++shortcutIndex) {
                 final char[] shortcut = node.mShortcutTargets.get(shortcutIndex);
-                if (!callback.addWord(shortcut, 0, shortcut.length, finalFreq, mDicTypeId,
-                        Dictionary.UNIGRAM)) {
-                    return false;
-                }
+                suggestions.add(new SuggestedWordInfo(new String(shortcut, 0, shortcut.length),
+                        finalFreq, SuggestedWordInfo.KIND_SHORTCUT, mDictType));
+                if (suggestions.size() > Suggest.MAX_SUGGESTIONS) return false;
             }
         }
         return true;
@@ -408,12 +428,12 @@ public class ExpandableDictionary extends Dictionary {
      * case we skip over some punctuations such as apostrophe in the traversal. That is, if you type
      * "wouldve", it could be matching "would've", so the depth will be one more than the
      * inputIndex
-     * @param callback the callback class for adding a word
+     * @param suggestions the list in which to add suggestions
      */
     // TODO: Share this routine with the native code for BinaryDictionary
     protected void getWordsRec(NodeArray roots, final WordComposer codes, final char[] word,
             final int depth, final boolean completion, int snr, int inputIndex, int skipPos,
-            WordCallback callback) {
+            final ArrayList<SuggestedWordInfo> suggestions) {
         final int count = roots.mLength;
         final int codeSize = mInputLength;
         // Optimization: Prune out words that are too long compared to how much was typed.
@@ -443,14 +463,14 @@ public class ExpandableDictionary extends Dictionary {
                     } else {
                         finalFreq = computeSkippedWordFinalFreq(freq, snr, mInputLength);
                     }
-                    if (!addWordAndShortcutsFromNode(node, word, depth, finalFreq, callback)) {
+                    if (!addWordAndShortcutsFromNode(node, word, depth, finalFreq, suggestions)) {
                         // No space left in the queue, bail out
                         return;
                     }
                 }
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, true, snr, inputIndex,
-                            skipPos, callback);
+                            skipPos, suggestions);
                 }
             } else if ((c == Keyboard.CODE_SINGLE_QUOTE
                     && currentChars[0] != Keyboard.CODE_SINGLE_QUOTE) || depth == skipPos) {
@@ -458,7 +478,7 @@ public class ExpandableDictionary extends Dictionary {
                 word[depth] = c;
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex,
-                            skipPos, callback);
+                            skipPos, suggestions);
                 }
             } else {
                 // Don't use alternatives if we're looking for missing characters
@@ -466,7 +486,7 @@ public class ExpandableDictionary extends Dictionary {
                 for (int j = 0; j < alternativesSize; j++) {
                     final int addedAttenuation = (j > 0 ? 1 : 2);
                     final int currentChar = currentChars[j];
-                    if (currentChar == KeyDetector.NOT_A_CODE) {
+                    if (currentChar == Constants.NOT_A_CODE) {
                         break;
                     }
                     if (currentChar == lowerC || currentChar == c) {
@@ -483,7 +503,7 @@ public class ExpandableDictionary extends Dictionary {
                                             snr * addedAttenuation, mInputLength);
                                 }
                                 if (!addWordAndShortcutsFromNode(node, word, depth, finalFreq,
-                                        callback)) {
+                                        suggestions)) {
                                     // No space left in the queue, bail out
                                     return;
                                 }
@@ -491,12 +511,12 @@ public class ExpandableDictionary extends Dictionary {
                             if (children != null) {
                                 getWordsRec(children, codes, word, depth + 1,
                                         true, snr * addedAttenuation, inputIndex + 1,
-                                        skipPos, callback);
+                                        skipPos, suggestions);
                             }
                         } else if (children != null) {
                             getWordsRec(children, codes, word, depth + 1,
                                     false, snr * addedAttenuation, inputIndex + 1,
-                                    skipPos, callback);
+                                    skipPos, suggestions);
                         }
                     }
                 }
@@ -514,8 +534,10 @@ public class ExpandableDictionary extends Dictionary {
 
     /**
      * Adds bigrams to the in-memory trie structure that is being used to retrieve any word
+     * @param word1 the first word of this bigram
+     * @param word2 the second word of this bigram
      * @param frequency frequency for this bigram
-     * @param addFrequency if true, it adds to current frequency, else it overwrites the old value
+     * @param fcp an instance of ForgettingCurveParams to use for decay policy
      * @return returns the final bigram frequency
      */
     private int setBigramAndGetFrequency(
@@ -528,7 +550,7 @@ public class ExpandableDictionary extends Dictionary {
         Node secondWord = searchWord(mRoots, word2, 0, null);
         LinkedList<NextWord> bigrams = firstWord.mNGrams;
         if (bigrams == null || bigrams.size() == 0) {
-            firstWord.mNGrams = new LinkedList<NextWord>();
+            firstWord.mNGrams = CollectionUtils.newLinkedList();
             bigrams = firstWord.mNGrams;
         } else {
             for (NextWord nw : bigrams) {
@@ -580,32 +602,14 @@ public class ExpandableDictionary extends Dictionary {
         return searchWord(childNode.mChildren, word, depth + 1, childNode);
     }
 
-    // @VisibleForTesting
-    boolean reloadDictionaryIfRequired() {
-        synchronized (mUpdatingLock) {
-            // If we need to update, start off a background task
-            if (mRequiresReload) startDictionaryLoadingTaskLocked();
-            // Currently updating contacts, don't return any results.
-            return mUpdatingDictionary;
-        }
-    }
-
     private void runBigramReverseLookUp(final CharSequence previousWord,
-            final WordCallback callback) {
+            final ArrayList<SuggestedWordInfo> suggestions) {
         // Search for the lowercase version of the word only, because that's where bigrams
         // store their sons.
         Node prevWord = searchNode(mRoots, previousWord.toString().toLowerCase(), 0,
                 previousWord.length());
         if (prevWord != null && prevWord.mNGrams != null) {
-            reverseLookUp(prevWord.mNGrams, callback);
-        }
-    }
-
-    @Override
-    public void getBigrams(final WordComposer codes, final CharSequence previousWord,
-            final WordCallback callback) {
-        if (!reloadDictionaryIfRequired()) {
-            runBigramReverseLookUp(previousWord, callback);
+            reverseLookUp(prevWord.mNGrams, suggestions);
         }
     }
 
@@ -633,11 +637,12 @@ public class ExpandableDictionary extends Dictionary {
 
     /**
      * reverseLookUp retrieves the full word given a list of terminal nodes and adds those words
-     * through callback.
+     * to the suggestions list passed as an argument.
      * @param terminalNodes list of terminal nodes we want to add
+     * @param suggestions the suggestion collection to add the word to
      */
     private void reverseLookUp(LinkedList<NextWord> terminalNodes,
-            final WordCallback callback) {
+            final ArrayList<SuggestedWordInfo> suggestions) {
         Node node;
         int freq;
         for (NextWord nextWord : terminalNodes) {
@@ -648,11 +653,15 @@ public class ExpandableDictionary extends Dictionary {
                 --index;
                 mLookedUpString[index] = node.mCode;
                 node = node.mParent;
-            } while (node != null);
+            } while (node != null && index > 0);
 
-            if (freq >= 0) {
-                callback.addWord(mLookedUpString, index, BinaryDictionary.MAX_WORD_LENGTH - index,
-                        freq, mDicTypeId, Dictionary.BIGRAM);
+            // If node is null, we have a word longer than MAX_WORD_LENGTH in the dictionary.
+            // It's a little unclear how this can happen, but just in case it does it's safer
+            // to ignore the word in this case.
+            if (freq >= 0 && node == null) {
+                suggestions.add(new SuggestedWordInfo(new String(mLookedUpString, index,
+                        BinaryDictionary.MAX_WORD_LENGTH - index),
+                        freq, SuggestedWordInfo.KIND_CORRECTION, mDictType));
             }
         }
     }
@@ -694,7 +703,7 @@ public class ExpandableDictionary extends Dictionary {
         mRoots = new NodeArray();
     }
 
-    private class LoadDictionaryTask extends Thread {
+    private final class LoadDictionaryTask extends Thread {
         LoadDictionaryTask() {}
         @Override
         public void run() {

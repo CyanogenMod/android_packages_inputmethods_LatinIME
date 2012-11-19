@@ -17,55 +17,63 @@
 #ifndef LATINIME_DICTIONARY_H
 #define LATINIME_DICTIONARY_H
 
-#include <map>
+#include <stdint.h>
 
-#include "bigram_dictionary.h"
-#include "char_utils.h"
-#include "correction.h"
 #include "defines.h"
-#include "proximity_info.h"
-#include "unigram_dictionary.h"
-#include "words_priority_queue_pool.h"
 
 namespace latinime {
 
+class BigramDictionary;
+class IncrementalDecoderInterface;
+class ProximityInfo;
+class UnigramDictionary;
+
 class Dictionary {
  public:
-    Dictionary(void *dict, int dictSize, int mmapFd, int dictBufAdjust, int typedLetterMultipler,
-            int fullWordMultiplier, int maxWordLength, int maxWords);
+    // Taken from SuggestedWords.java
+    const static int KIND_TYPED = 0; // What user typed
+    const static int KIND_CORRECTION = 1; // Simple correction/suggestion
+    const static int KIND_COMPLETION = 2; // Completion (suggestion with appended chars)
+    const static int KIND_WHITELIST = 3; // Whitelisted word
+    const static int KIND_BLACKLIST = 4; // Blacklisted word
+    const static int KIND_HARDCODED = 5; // Hardcoded suggestion, e.g. punctuation
+    const static int KIND_APP_DEFINED = 6; // Suggested by the application
+    const static int KIND_SHORTCUT = 7; // A shortcut
+    const static int KIND_PREDICTION = 8; // A prediction (== a suggestion with no input)
 
-    int getSuggestions(ProximityInfo *proximityInfo, int *xcoordinates, int *ycoordinates,
-            int *codes, int codesSize, const int32_t* prevWordChars, const int prevWordLength,
-            bool useFullEditDistance, unsigned short *outWords, int *frequencies) {
-        std::map<int, int> bigramMap;
-        uint8_t bigramFilter[BIGRAM_FILTER_BYTE_SIZE];
-        mBigramDictionary->fillBigramAddressToFrequencyMapAndFilter(prevWordChars,
-                prevWordLength, &bigramMap, bigramFilter);
-        return mUnigramDictionary->getSuggestions(proximityInfo, mWordsPriorityQueuePool,
-                mCorrection, xcoordinates, ycoordinates, codes, codesSize, &bigramMap,
-                bigramFilter, useFullEditDistance, outWords, frequencies);
-    }
+    Dictionary(void *dict, int dictSize, int mmapFd, int dictBufAdjust, int typedLetterMultipler,
+            int fullWordMultiplier, int maxWordLength, int maxWords, int maxPredictions);
+
+    int getSuggestions(ProximityInfo *proximityInfo, void *traverseSession, int *xcoordinates,
+            int *ycoordinates, int *times, int *pointerIds, int *codes, int codesSize,
+            int *prevWordChars, int prevWordLength, int commitPoint, bool isGesture,
+            bool useFullEditDistance, unsigned short *outWords,
+            int *frequencies, int *spaceIndices, int *outputTypes) const;
 
     int getBigrams(const int32_t *word, int length, int *codes, int codesSize,
-            unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams) {
-        return mBigramDictionary->getBigrams(word, length, codes, codesSize, outWords, frequencies,
-                maxWordLength, maxBigrams);
-    }
+            unsigned short *outWords, int *frequencies, int *outputTypes) const;
 
-    int getFrequency(const int32_t *word, int length);
-    bool isValidBigram(const int32_t *word1, int length1, const int32_t *word2, int length2);
-    void *getDict() { return (void *)mDict; }
-    int getDictSize() { return mDictSize; }
-    int getMmapFd() { return mMmapFd; }
-    int getDictBufAdjust() { return mDictBufAdjust; }
-    ~Dictionary();
+    int getFrequency(const int32_t *word, int length) const;
+    bool isValidBigram(const int32_t *word1, int length1, const int32_t *word2, int length2) const;
+    const uint8_t *getDict() const { // required to release dictionary buffer
+        return mDict;
+    }
+    const uint8_t *getOffsetDict() const {
+        return mOffsetDict;
+    }
+    int getDictSize() const { return mDictSize; }
+    int getMmapFd() const { return mMmapFd; }
+    int getDictBufAdjust() const { return mDictBufAdjust; }
+    virtual ~Dictionary();
 
     // public static utility methods
     // static inline methods should be defined in the header file
     static int wideStrLen(unsigned short *str);
 
  private:
-    const unsigned char *mDict;
+    DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);
+    const uint8_t *mDict;
+    const uint8_t *mOffsetDict;
 
     // Used only for the mmap version of dictionary loading, but we use these as dummy variables
     // also for the malloc version.
@@ -73,21 +81,21 @@ class Dictionary {
     const int mMmapFd;
     const int mDictBufAdjust;
 
-    UnigramDictionary *mUnigramDictionary;
-    BigramDictionary *mBigramDictionary;
-    WordsPriorityQueuePool *mWordsPriorityQueuePool;
-    Correction *mCorrection;
+    const UnigramDictionary *mUnigramDictionary;
+    const BigramDictionary *mBigramDictionary;
+    IncrementalDecoderInterface *mGestureDecoder;
 };
 
 // public static utility methods
 // static inline methods should be defined in the header file
 inline int Dictionary::wideStrLen(unsigned short *str) {
     if (!str) return 0;
-    unsigned short *end = str;
-    while (*end)
-        end++;
-    return end - str;
+    int length = 0;
+    while (*str) {
+        str++;
+        length++;
+    }
+    return length;
 }
 } // namespace latinime
-
 #endif // LATINIME_DICTIONARY_H

@@ -18,8 +18,9 @@
 #define LATINIME_WORDS_PRIORITY_QUEUE_H
 
 #include <cstring> // for memcpy()
-#include <iostream>
 #include <queue>
+
+#include "correction.h"
 #include "defines.h"
 
 namespace latinime {
@@ -32,31 +33,32 @@ class WordsPriorityQueue {
         unsigned short mWord[MAX_WORD_LENGTH_INTERNAL];
         int mWordLength;
         bool mUsed;
+        int mType;
 
-        void setParams(int score, unsigned short* word, int wordLength) {
+        void setParams(int score, unsigned short *word, int wordLength, int type) {
             mScore = score;
             mWordLength = wordLength;
             memcpy(mWord, word, sizeof(unsigned short) * wordLength);
             mUsed = true;
+            mType = type;
         }
     };
 
-    WordsPriorityQueue(int maxWords, int maxWordLength) :
-            MAX_WORDS((unsigned int) maxWords), MAX_WORD_LENGTH(
-                    (unsigned int) maxWordLength) {
-        mSuggestedWords = new SuggestedWord[maxWordLength];
+    WordsPriorityQueue(int maxWords, int maxWordLength)
+            : mSuggestions(), MAX_WORDS(static_cast<unsigned int>(maxWords)),
+              MAX_WORD_LENGTH(static_cast<unsigned int>(maxWordLength)),
+              mSuggestedWords(new SuggestedWord[maxWordLength]), mHighestSuggestedWord(0) {
         for (int i = 0; i < maxWordLength; ++i) {
             mSuggestedWords[i].mUsed = false;
         }
-        mHighestSuggestedWord = 0;
     }
 
-    ~WordsPriorityQueue() {
+    virtual ~WordsPriorityQueue() {
         delete[] mSuggestedWords;
     }
 
-    void push(int score, unsigned short* word, int wordLength) {
-        SuggestedWord* sw = 0;
+    void push(int score, unsigned short *word, int wordLength, int type) {
+        SuggestedWord *sw = 0;
         if (mSuggestions.size() >= MAX_WORDS) {
             sw = mSuggestions.top();
             const int minScore = sw->mScore;
@@ -68,9 +70,9 @@ class WordsPriorityQueue {
             }
         }
         if (sw == 0) {
-            sw = getFreeSuggestedWord(score, word, wordLength);
+            sw = getFreeSuggestedWord(score, word, wordLength, type);
         } else {
-            sw->setParams(score, word, wordLength);
+            sw->setParams(score, word, wordLength, type);
         }
         if (sw == 0) {
             AKLOGE("SuggestedWord is accidentally null.");
@@ -86,21 +88,21 @@ class WordsPriorityQueue {
         }
     }
 
-    SuggestedWord* top() {
+    SuggestedWord *top() {
         if (mSuggestions.empty()) return 0;
-        SuggestedWord* sw = mSuggestions.top();
+        SuggestedWord *sw = mSuggestions.top();
         return sw;
     }
 
-    int outputSuggestions(const unsigned short* before, const int beforeLength,
-            int *frequencies, unsigned short *outputChars) {
+    int outputSuggestions(const unsigned short *before, const int beforeLength,
+            int *frequencies, unsigned short *outputChars, int* outputTypes) {
         mHighestSuggestedWord = 0;
         const unsigned int size = min(
               MAX_WORDS, static_cast<unsigned int>(mSuggestions.size()));
-        SuggestedWord* swBuffer[size];
+        SuggestedWord *swBuffer[size];
         int index = size - 1;
         while (!mSuggestions.empty() && index >= 0) {
-            SuggestedWord* sw = mSuggestions.top();
+            SuggestedWord *sw = mSuggestions.top();
             if (DEBUG_WORDS_PRIORITY_QUEUE) {
                 AKLOGI("dump word. %d", sw->mScore);
                 DUMP_WORD(sw->mWord, sw->mWordLength);
@@ -110,11 +112,11 @@ class WordsPriorityQueue {
             --index;
         }
         if (size >= 2) {
-            SuggestedWord* nsMaxSw = 0;
+            SuggestedWord *nsMaxSw = 0;
             unsigned int maxIndex = 0;
             float maxNs = 0;
             for (unsigned int i = 0; i < size; ++i) {
-                SuggestedWord* tempSw = swBuffer[i];
+                SuggestedWord *tempSw = swBuffer[i];
                 if (!tempSw) {
                     continue;
                 }
@@ -126,22 +128,23 @@ class WordsPriorityQueue {
                 }
             }
             if (maxIndex > 0 && nsMaxSw) {
-                memmove(&swBuffer[1], &swBuffer[0], maxIndex * sizeof(SuggestedWord*));
+                memmove(&swBuffer[1], &swBuffer[0], maxIndex * sizeof(SuggestedWord *));
                 swBuffer[0] = nsMaxSw;
             }
         }
         for (unsigned int i = 0; i < size; ++i) {
-            SuggestedWord* sw = swBuffer[i];
+            SuggestedWord *sw = swBuffer[i];
             if (!sw) {
                 AKLOGE("SuggestedWord is null %d", i);
                 continue;
             }
             const unsigned int wordLength = sw->mWordLength;
-            char* targetAdr = (char*) outputChars + i * MAX_WORD_LENGTH * sizeof(short);
+            unsigned short *targetAddress = outputChars + i * MAX_WORD_LENGTH;
             frequencies[i] = sw->mScore;
-            memcpy(targetAdr, sw->mWord, (wordLength) * sizeof(short));
+            outputTypes[i] = sw->mType;
+            memcpy(targetAddress, sw->mWord, wordLength * sizeof(unsigned short));
             if (wordLength < MAX_WORD_LENGTH) {
-                ((unsigned short*) targetAdr)[wordLength] = 0;
+                targetAddress[wordLength] = 0;
             }
             sw->mUsed = false;
         }
@@ -155,7 +158,7 @@ class WordsPriorityQueue {
     void clear() {
         mHighestSuggestedWord = 0;
         while (!mSuggestions.empty()) {
-            SuggestedWord* sw = mSuggestions.top();
+            SuggestedWord *sw = mSuggestions.top();
             if (DEBUG_WORDS_PRIORITY_QUEUE) {
                 AKLOGI("Clear word. %d", sw->mScore);
                 DUMP_WORD(sw->mWord, sw->mWordLength);
@@ -172,8 +175,8 @@ class WordsPriorityQueue {
         DUMP_WORD(mHighestSuggestedWord->mWord, mHighestSuggestedWord->mWordLength);
     }
 
-    float getHighestNormalizedScore(const unsigned short* before, const int beforeLength,
-            unsigned short** outWord, int *outScore, int *outLength) {
+    float getHighestNormalizedScore(const unsigned short *before, const int beforeLength,
+            unsigned short **outWord, int *outScore, int *outLength) {
         if (!mHighestSuggestedWord) {
             return 0.0;
         }
@@ -182,27 +185,28 @@ class WordsPriorityQueue {
     }
 
  private:
+    DISALLOW_IMPLICIT_CONSTRUCTORS(WordsPriorityQueue);
     struct wordComparator {
         bool operator ()(SuggestedWord * left, SuggestedWord * right) {
             return left->mScore > right->mScore;
         }
     };
 
-    SuggestedWord* getFreeSuggestedWord(int score, unsigned short* word,
-            int wordLength) {
+    SuggestedWord *getFreeSuggestedWord(int score, unsigned short *word,
+            int wordLength, int type) {
         for (unsigned int i = 0; i < MAX_WORD_LENGTH; ++i) {
             if (!mSuggestedWords[i].mUsed) {
-                mSuggestedWords[i].setParams(score, word, wordLength);
+                mSuggestedWords[i].setParams(score, word, wordLength, type);
                 return &mSuggestedWords[i];
             }
         }
         return 0;
     }
 
-    static float getNormalizedScore(SuggestedWord* sw, const unsigned short* before,
-            const int beforeLength, unsigned short** outWord, int *outScore, int *outLength) {
+    static float getNormalizedScore(SuggestedWord *sw, const unsigned short *before,
+            const int beforeLength, unsigned short **outWord, int *outScore, int *outLength) {
         const int score = sw->mScore;
-        unsigned short* word = sw->mWord;
+        unsigned short *word = sw->mWord;
         const int wordLength = sw->mWordLength;
         if (outScore) {
             *outScore = score;
@@ -217,14 +221,13 @@ class WordsPriorityQueue {
                 before, beforeLength, word, wordLength, score);
     }
 
-    typedef std::priority_queue<SuggestedWord*, std::vector<SuggestedWord*>,
+    typedef std::priority_queue<SuggestedWord *, std::vector<SuggestedWord *>,
             wordComparator> Suggestions;
     Suggestions mSuggestions;
     const unsigned int MAX_WORDS;
     const unsigned int MAX_WORD_LENGTH;
-    SuggestedWord* mSuggestedWords;
-    SuggestedWord* mHighestSuggestedWord;
+    SuggestedWord *mSuggestedWords;
+    SuggestedWord *mHighestSuggestedWord;
 };
-}
-
+} // namespace latinime
 #endif // LATINIME_WORDS_PRIORITY_QUEUE_H

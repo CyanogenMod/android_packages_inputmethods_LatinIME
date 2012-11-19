@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Utility class for Input Method Framework
  */
-public class ImfUtils {
+public final class ImfUtils {
     private ImfUtils() {
         // This utility class is not publicly instantiable.
     }
@@ -88,6 +88,13 @@ public class ImfUtils {
             }
         }
         return false;
+    }
+
+    public static InputMethodSubtype getCurrentInputMethodSubtype(Context context,
+            InputMethodSubtype defaultSubtype) {
+        final InputMethodManager imm = getInputMethodManager(context);
+        final InputMethodSubtype currentSubtype = imm.getCurrentInputMethodSubtype();
+        return (currentSubtype != null) ? currentSubtype : defaultSubtype;
     }
 
     public static boolean hasMultipleEnabledIMEsOrSubtypes(Context context,

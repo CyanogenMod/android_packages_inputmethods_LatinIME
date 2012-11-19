@@ -35,6 +35,7 @@ import android.view.inputmethod.EditorInfo;
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.keyboard.Keyboard;
 import com.android.inputmethod.keyboard.KeyboardView;
+import com.android.inputmethod.latin.CollectionUtils;
 
 /**
  * Exposes a virtual view sub-tree for {@link KeyboardView} and generates
@@ -46,7 +47,7 @@ import com.android.inputmethod.keyboard.KeyboardView;
  * virtual views, thus conveying their logical structure.
  * </p>
  */
-public class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat {
+public final class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat {
     private static final String TAG = AccessibilityEntityProvider.class.getSimpleName();
     private static final int UNDEFINED = Integer.MIN_VALUE;
 
@@ -55,7 +56,7 @@ public class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat
     private final AccessibilityUtils mAccessibilityUtils;
 
     /** A map of integer IDs to {@link Key}s. */
-    private final SparseArray<Key> mVirtualViewIdToKey = new SparseArray<Key>();
+    private final SparseArray<Key> mVirtualViewIdToKey = CollectionUtils.newSparseArray();
 
     /** Temporary rect used to calculate in-screen bounds. */
     private final Rect mTempBoundsInScreen = new Rect();
@@ -195,8 +196,7 @@ public class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat
             info.setSource(mKeyboardView, virtualViewId);
             info.setBoundsInScreen(boundsInScreen);
             info.setEnabled(true);
-            info.setClickable(true);
-            info.addAction(AccessibilityNodeInfoCompat.ACTION_CLICK);
+            info.setVisibleToUser(true);
 
             if (mAccessibilityFocusedView == virtualViewId) {
                 info.addAction(AccessibilityNodeInfoCompat.ACTION_CLEAR_ACCESSIBILITY_FOCUS);
@@ -225,6 +225,9 @@ public class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat
 
         mKeyboardView.onTouchEvent(downEvent);
         mKeyboardView.onTouchEvent(upEvent);
+
+        downEvent.recycle();
+        upEvent.recycle();
     }
 
     @Override
@@ -251,9 +254,6 @@ public class AccessibilityEntityProvider extends AccessibilityNodeProviderCompat
         final int virtualViewId = generateVirtualViewIdForKey(key);
 
         switch (action) {
-        case AccessibilityNodeInfoCompat.ACTION_CLICK:
-            simulateKeyPress(key);
-            return true;
         case AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS:
             if (mAccessibilityFocusedView == virtualViewId) {
                 return false;

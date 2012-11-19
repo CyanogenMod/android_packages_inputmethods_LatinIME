@@ -16,31 +16,35 @@
 
 package com.android.inputmethod.keyboard.internal;
 
-import android.test.AndroidTestCase;
+import android.app.Instrumentation;
+import android.test.InstrumentationTestCase;
+
+import com.android.inputmethod.latin.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class KeySpecParserCsvTests extends AndroidTestCase {
+public class KeySpecParserCsvTests extends InstrumentationTestCase {
     private final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
 
+        final Instrumentation instrumentation = getInstrumentation();
         mTextsSet.setLanguage(Locale.ENGLISH.getLanguage());
-        mTextsSet.loadStringResources(getContext());
+        mTextsSet.loadStringResources(instrumentation.getTargetContext());
         final String[] testResourceNames = getAllResourceIdNames(
                 com.android.inputmethod.latin.tests.R.string.class);
-        mTextsSet.loadStringResourcesInternal(getTestContext(),
+        mTextsSet.loadStringResourcesInternal(instrumentation.getContext(),
                 testResourceNames,
                 com.android.inputmethod.latin.tests.R.string.empty_string);
     }
 
     private static String[] getAllResourceIdNames(final Class<?> resourceIdClass) {
-        final ArrayList<String> names = new ArrayList<String>();
+        final ArrayList<String> names = CollectionUtils.newArrayList();
         for (final Field field : resourceIdClass.getFields()) {
             if (field.getType() == Integer.TYPE) {
                 names.add(field.getName());

@@ -26,12 +26,11 @@ import java.util.Set;
  * All bigrams including stale ones in SQL DB should be stored in this class to avoid adding stale
  * bigrams when we write to the SQL DB.
  */
-public class UserHistoryDictionaryBigramList {
+public final class UserHistoryDictionaryBigramList {
     public static final byte FORGETTING_CURVE_INITIAL_VALUE = 0;
     private static final String TAG = UserHistoryDictionaryBigramList.class.getSimpleName();
-    private static final HashMap<String, Byte> EMPTY_BIGRAM_MAP = new HashMap<String, Byte>();
-    private final HashMap<String, HashMap<String, Byte>> mBigramMap =
-            new HashMap<String, HashMap<String, Byte>>();
+    private static final HashMap<String, Byte> EMPTY_BIGRAM_MAP = CollectionUtils.newHashMap();
+    private final HashMap<String, HashMap<String, Byte>> mBigramMap = CollectionUtils.newHashMap();
     private int mSize = 0;
 
     public void evictAll() {
@@ -57,7 +56,7 @@ public class UserHistoryDictionaryBigramList {
         if (mBigramMap.containsKey(word1)) {
             map = mBigramMap.get(word1);
         } else {
-            map = new HashMap<String, Byte>();
+            map = CollectionUtils.newHashMap();
             mBigramMap.put(word1, map);
         }
         if (!map.containsKey(word2)) {
@@ -98,11 +97,11 @@ public class UserHistoryDictionaryBigramList {
     }
 
     public HashMap<String, Byte> getBigrams(String word1) {
-        if (!mBigramMap.containsKey(word1)) {
-            return EMPTY_BIGRAM_MAP;
-        } else {
-            return mBigramMap.get(word1);
-        }
+        if (mBigramMap.containsKey(word1)) return mBigramMap.get(word1);
+        // TODO: lower case according to locale
+        final String lowerWord1 = word1.toLowerCase();
+        if (mBigramMap.containsKey(lowerWord1)) return mBigramMap.get(lowerWord1);
+        return EMPTY_BIGRAM_MAP;
     }
 
     public boolean removeBigram(String word1, String word2) {

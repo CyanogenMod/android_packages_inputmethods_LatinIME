@@ -17,9 +17,11 @@
 package com.android.inputmethod.latin;
 
 import com.android.inputmethod.keyboard.ProximityInfo;
+import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -27,40 +29,48 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Class for a collection of dictionaries that behave like one dictionary.
  */
-public class DictionaryCollection extends Dictionary {
+public final class DictionaryCollection extends Dictionary {
     private final String TAG = DictionaryCollection.class.getSimpleName();
     protected final CopyOnWriteArrayList<Dictionary> mDictionaries;
 
-    public DictionaryCollection() {
-        mDictionaries = new CopyOnWriteArrayList<Dictionary>();
+    public DictionaryCollection(final String dictType) {
+        super(dictType);
+        mDictionaries = CollectionUtils.newCopyOnWriteArrayList();
     }
 
-    public DictionaryCollection(Dictionary... dictionaries) {
+    public DictionaryCollection(final String dictType, Dictionary... dictionaries) {
+        super(dictType);
         if (null == dictionaries) {
-            mDictionaries = new CopyOnWriteArrayList<Dictionary>();
+            mDictionaries = CollectionUtils.newCopyOnWriteArrayList();
         } else {
-            mDictionaries = new CopyOnWriteArrayList<Dictionary>(dictionaries);
+            mDictionaries = CollectionUtils.newCopyOnWriteArrayList(dictionaries);
             mDictionaries.removeAll(Collections.singleton(null));
         }
     }
 
-    public DictionaryCollection(Collection<Dictionary> dictionaries) {
-        mDictionaries = new CopyOnWriteArrayList<Dictionary>(dictionaries);
+    public DictionaryCollection(final String dictType, Collection<Dictionary> dictionaries) {
+        super(dictType);
+        mDictionaries = CollectionUtils.newCopyOnWriteArrayList(dictionaries);
         mDictionaries.removeAll(Collections.singleton(null));
     }
 
     @Override
-    public void getWords(final WordComposer composer, final CharSequence prevWordForBigrams,
-            final WordCallback callback, final ProximityInfo proximityInfo) {
-        for (final Dictionary dict : mDictionaries)
-            dict.getWords(composer, prevWordForBigrams, callback, proximityInfo);
-    }
-
-    @Override
-    public void getBigrams(final WordComposer composer, final CharSequence previousWord,
-            final WordCallback callback) {
-        for (final Dictionary dict : mDictionaries)
-            dict.getBigrams(composer, previousWord, callback);
+    public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
+            final CharSequence prevWord, final ProximityInfo proximityInfo) {
+        final CopyOnWriteArrayList<Dictionary> dictionaries = mDictionaries;
+        if (dictionaries.isEmpty()) return null;
+        // To avoid creating unnecessary objects, we get the list out of the first
+        // dictionary and add the rest to it if not null, hence the get(0)
+        ArrayList<SuggestedWordInfo> suggestions = dictionaries.get(0).getSuggestions(composer,
+                prevWord, proximityInfo);
+        if (null == suggestions) suggestions = CollectionUtils.newArrayList();
+        final int length = dictionaries.size();
+        for (int i = 1; i < length; ++ i) {
+            final ArrayList<SuggestedWordInfo> sugg = dictionaries.get(i).getSuggestions(composer,
+                    prevWord, proximityInfo);
+            if (null != sugg) suggestions.addAll(sugg);
+        }
+        return suggestions;
     }
 
     @Override
@@ -82,8 +92,9 @@ public class DictionaryCollection extends Dictionary {
         return maxFreq;
     }
 
-    public boolean isEmpty() {
-        return mDictionaries.isEmpty();
+    @Override
+    public boolean isInitialized() {
+        return !mDictionaries.isEmpty();
     }
 
     @Override

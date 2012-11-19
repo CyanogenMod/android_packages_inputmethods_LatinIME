@@ -34,7 +34,7 @@
             latin:keyboardLayout="@xml/rowkeys_east_slavic1" />
         <!-- U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN -->
         <Key
-            latin:keyLabel="&#x044A;" />
+            latin:keyLabel="!text/keylabel_for_east_slavic_row1_12" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight" />

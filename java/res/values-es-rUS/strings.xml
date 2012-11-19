@@ -20,13 +20,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" msgid="7252517407088836577">"Teclado de Android"</string>
     <string name="aosp_android_keyboard_ime_name" msgid="7877134937939182296">"Teclado de Android (AOSP)"</string>
-    <string name="english_ime_settings" msgid="6661589557206947774">"Configuración de teclado de Android"</string>
     <string name="english_ime_input_options" msgid="3909945612939668554">"Opciones de entrada"</string>
-    <string name="spell_checker_service_name" msgid="7338064335159755926">"Corrector ortográfico de Android"</string>
+    <string name="english_ime_research_log" msgid="8492602295696577851">"Comandos registro invest."</string>
     <string name="aosp_spell_checker_service_name" msgid="6985142605330377819">"Corrector ortográfico de Android (AOSP)"</string>
-    <string name="android_spell_checker_settings" msgid="5822324635435443689">"Configuración del corrector ortográfico"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Buscar nombres contactos"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"El corrector ortográfico usa entradas de tu lista de contactos."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrar al pulsar teclas"</string>
@@ -34,42 +31,46 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Aviso emergente al pulsar tecla"</string>
     <string name="general_category" msgid="1859088467017573195">"General"</string>
     <string name="correction_category" msgid="2236750915056607613">"Corrección de texto"</string>
+    <string name="gesture_typing_category" msgid="497263612130532630">"Escritura gestual"</string>
     <string name="misc_category" msgid="6894192814868233453">"Otras opciones"</string>
     <string name="advanced_settings" msgid="362895144495591463">"Configuración avanzada"</string>
     <string name="advanced_settings_summary" msgid="4487980456152830271">"Opciones para expertos"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Otros métodos de entrada"</string>
     <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"La tecla de cambio de idioma abarca otros métodos de entrada."</string>
-    <string name="suppress_language_switch_key" msgid="8003788410354806368">"Elim. tecla cambio de idioma"</string>
+    <string name="show_language_switch_key" msgid="5915478828318774384">"Tecla de selección de idioma"</string>
+    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Mostrar cuando se habiliten varios idiomas de entrada"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Retraso en rechazo de alerta de tecla"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sin demora"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Predeterminada"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Sugerir nombres de contacto"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Usar nombres de los contactos para sugerencias y correcciones"</string>
-    <string name="enable_span_insert" msgid="7204653105667167620">"Activar correcciones"</string>
-    <string name="enable_span_insert_summary" msgid="2947317657871394467">"Establecer sugerencias para realizar correcciones"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Mayúsculas automáticas"</string>
+    <string name="auto_cap_summary" msgid="7934452761022946874">"Escribe con mayúscula la primera palabra de cada frase"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Diccionarios complementarios"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"Diccionario principal"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Mostrar sugerencias de correcciones"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Mostrar palabras sugeridas al escribir"</string>
     <string name="prefs_suggestion_visibility_show_name" msgid="3219916594067551303">"Mostrar siempre"</string>
-    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3551821800439659812">"Mostrar en modo retrato"</string>
+    <string name="prefs_suggestion_visibility_show_only_portrait_name" msgid="3859783767435239118">"Mostrar en modo de retrato"</string>
     <string name="prefs_suggestion_visibility_hide_name" msgid="6309143926422234673">"Ocultar siempre"</string>
-    <string name="auto_correction" msgid="4979925752001319458">"Corrección automática"</string>
+    <string name="auto_correction" msgid="7630720885194996950">"Corrección automática"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"La barra espaciadora y las teclas de puntuación insertan automáticamente la palabra corregida"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desactivado"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderado"</string>
     <string name="auto_correction_threshold_mode_aggeressive" msgid="3524029103734923819">"Total"</string>
     <string name="auto_correction_threshold_mode_very_aggeressive" msgid="3386782235540547678">"Muy agresivo"</string>
-    <string name="bigram_suggestion" msgid="8169311444438922902">"Sugerencias para la palabra siguiente"</string>
-    <string name="bigram_suggestion_summary" msgid="6635527607242625713">"Usar la palabra anterior para mejorar las sugerencias"</string>
-    <string name="bigram_prediction" msgid="3216364899483135294">"Predicción de la palabra siguiente"</string>
-    <string name="bigram_prediction_summary" msgid="1747261921174300098">"Usar la palabra anterior también para predicción."</string>
+    <string name="bigram_prediction" msgid="1084449187723948550">"Sugerencias para la palabra siguiente"</string>
+    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Usa la palabra anterior para hacer sugerencias"</string>
+    <string name="gesture_input" msgid="826951152254563827">"Habilitar escritura gestual"</string>
+    <string name="gesture_input_summary" msgid="9180350639305731231">"Ingresa una palabra al deslizarte sobre las letras."</string>
+    <string name="gesture_preview_trail" msgid="3802333369335722221">"Mostrar recorrido de gesto"</string>
+    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Vista previa dinámica flotante"</string>
+    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mira la palabra sugerida mientras haces gestos"</string>
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g>: guardada"</string>
     <string name="label_go_key" msgid="1635148082137219148">"Ir"</string>
     <string name="label_next_key" msgid="362972844525672568">"Siguiente"</string>
     <string name="label_previous_key" msgid="1211868118071386787">"Ant."</string>
-    <string name="label_done_key" msgid="2441578748772529288">"Hecho"</string>
+    <string name="label_done_key" msgid="2441578748772529288">"Listo"</string>
     <string name="label_send_key" msgid="2815056534433717444">"Enviar"</string>
     <string name="label_to_alpha_key" msgid="4793983863798817523">"ABC"</string>
     <string name="label_to_symbol_key" msgid="8516904117128967293">"?123"</string>
@@ -95,6 +96,9 @@
     <string name="spoken_description_return" msgid="8178083177238315647">"Volver"</string>
     <string name="spoken_description_search" msgid="1247236163755920808">"Buscar"</string>
     <string name="spoken_description_dot" msgid="40711082435231673">"Punto"</string>
+    <string name="spoken_description_language_switch" msgid="5507091328222331316">"Cambiar idioma"</string>
+    <string name="spoken_description_action_next" msgid="8636078276664150324">"Siguiente"</string>
+    <string name="spoken_description_action_previous" msgid="800872415009336208">"Anterior"</string>
     <string name="spoken_description_shiftmode_on" msgid="5700440798609574589">"Se activó el modo Mayúscula."</string>
     <string name="spoken_description_shiftmode_locked" msgid="593175803181701830">"Se activó el bloqueo de mayúsculas."</string>
     <string name="spoken_description_shiftmode_off" msgid="657219998449174808">"Se desactivó el modo Mayúscula"</string>

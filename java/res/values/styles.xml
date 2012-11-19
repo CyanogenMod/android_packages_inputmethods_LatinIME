@@ -14,12 +14,12 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Theme "Basic" -->
     <style name="Keyboard">
         <!-- This should be aligned with KeyboardSwitcher.KEYBOARD_THEMES[] -->
         <item name="themeId">0</item>
-        <item name="touchPositionCorrectionData">@array/touch_position_correction_data_empty</item>
+        <item name="touchPositionCorrectionData">@array/touch_position_correction_data_default</item>
         <item name="rowHeight">25%p</item>
         <item name="keyboardHeight">@dimen/keyboardHeight</item>
         <item name="maxKeyboardHeight">@fraction/maxKeyboardHeight</item>
@@ -35,14 +35,14 @@
     <style name="KeyboardView">
         <item name="android:background">@drawable/keyboard_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key</item>
-        <item name="keyLetterRatio">@fraction/key_letter_ratio</item>
+        <item name="keyLetterSize">@fraction/key_letter_ratio</item>
         <item name="keyLargeLetterRatio">@fraction/key_large_letter_ratio</item>
-        <item name="keyLabelRatio">@fraction/key_label_ratio</item>
+        <item name="keyLabelSize">@fraction/key_label_ratio</item>
         <item name="keyLargeLabelRatio">@fraction/key_large_label_ratio</item>
         <item name="keyHintLetterRatio">@fraction/key_hint_letter_ratio</item>
         <item name="keyHintLabelRatio">@fraction/key_hint_label_ratio</item>
         <item name="keyShiftedLetterHintRatio">@fraction/key_uppercase_letter_ratio</item>
-        <item name="keyTextStyle">normal</item>
+        <item name="keyTypeface">normal</item>
         <item name="keyTextColor">#FFFFFFFF</item>
         <item name="keyTextInactivatedColor">#FFFFFFFF</item>
         <item name="keyHintLetterColor">#80000000</item>
@@ -54,9 +54,6 @@
         <item name="keyPopupHintLetterPadding">@dimen/key_popup_hint_letter_padding</item>
         <item name="keyShiftedLetterHintPadding">@dimen/key_uppercase_letter_padding</item>
         <item name="keyPreviewLayout">@layout/key_preview</item>
-        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
-        <item name="keyPreviewLeftBackground">@null</item>
-        <item name="keyPreviewRightBackground">@null</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
         <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
         <item name="keyPreviewHeight">@dimen/key_preview_height</item>
@@ -64,11 +61,27 @@
         <item name="keyPreviewLingerTimeout">@integer/config_key_preview_linger_timeout</item>
         <item name="moreKeysLayout">@layout/more_keys_keyboard</item>
         <item name="verticalCorrection">@dimen/keyboard_vertical_correction</item>
-        <item name="shadowColor">#BB000000</item>
-        <item name="shadowRadius">2.75</item>
+        <item name="keyTextShadowColor">#BB000000</item>
+        <item name="keyTextShadowRadius">2.75</item>
         <item name="backgroundDimAlpha">128</item>
-        <!-- Common attributes of LatinKeyboardView -->
+        <!-- android:color/holo_blue_light=#FF33B5E5 -->
+        <item name="gestureFloatingPreviewTextSize">@dimen/gesture_floating_preview_text_size</item>
+        <item name="gestureFloatingPreviewTextColor">@android:color/holo_blue_light</item>
+        <item name="gestureFloatingPreviewTextOffset">@dimen/gesture_floating_preview_text_offset</item>
+        <item name="gestureFloatingPreviewColor">#C0000000</item>
+        <item name="gestureFloatingPreviewHorizontalPadding">@dimen/gesture_floating_preview_horizontal_padding</item>
+        <item name="gestureFloatingPreviewVerticalPadding">@dimen/gesture_floating_preview_vertical_padding</item>
+        <item name="gestureFloatingPreviewRoundRadius">@dimen/gesture_floating_preview_round_radius</item>
+        <item name="gestureFloatingPreviewTextLingerTimeout">@integer/config_gesture_floating_preview_text_linger_timeout</item>
+        <item name="gesturePreviewTrailFadeoutStartDelay">@integer/config_gesture_preview_trail_fadeout_start_delay</item>
+        <item name="gesturePreviewTrailFadeoutDuration">@integer/config_gesture_preview_trail_fadeout_duration</item>
+        <item name="gesturePreviewTrailUpdateInterval">@integer/config_gesture_preview_trail_update_interval</item>
+        <item name="gesturePreviewTrailColor">@android:color/holo_blue_light</item>
+        <item name="gesturePreviewTrailStartWidth">@dimen/gesture_preview_trail_start_width</item>
+        <item name="gesturePreviewTrailEndWidth">@dimen/gesture_preview_trail_end_width</item>
+        <!-- Common attributes of MainKeyboardView -->
         <item name="keyHysteresisDistance">@dimen/config_key_hysteresis_distance</item>
+        <item name="keyHysteresisDistanceForSlidingModifier">@dimen/config_key_hysteresis_distance_for_sliding_modifier</item>
         <item name="touchNoiseThresholdTime">@integer/config_touch_noise_threshold_time</item>
         <item name="touchNoiseThresholdDistance">@dimen/config_touch_noise_threshold_distance</item>
         <item name="slidingKeyInputEnable">@bool/config_sliding_key_input_enabled</item>
@@ -82,9 +95,21 @@
         <item name="languageOnSpacebarFadeoutAnimator">@anim/language_on_spacebar_fadeout</item>
         <item name="altCodeKeyWhileTypingFadeoutAnimator">@anim/alt_code_key_while_typing_fadeout</item>
         <item name="altCodeKeyWhileTypingFadeinAnimator">@anim/alt_code_key_while_typing_fadein</item>
+        <!-- Common attributes of MainKeyboardView for gesture typing detection and recognition -->
+        <item name="gestureStaticTimeThresholdAfterFastTyping">@integer/config_gesture_static_time_threshold_after_fast_typing</item>
+        <item name="gestureDetectFastMoveSpeedThreshold">@fraction/config_gesture_detect_fast_move_speed_threshold</item>
+        <item name="gestureDynamicThresholdDecayDuration">@integer/config_gesture_dynamic_threshold_decay_duration</item>
+        <item name="gestureDynamicTimeThresholdFrom">@integer/config_gesture_dynamic_time_threshold_from</item>
+        <item name="gestureDynamicTimeThresholdTo">@integer/config_gesture_dynamic_time_threshold_to</item>
+        <item name="gestureDynamicDistanceThresholdFrom">@fraction/config_gesture_dynamic_distance_threshold_from</item>
+        <item name="gestureDynamicDistanceThresholdTo">@fraction/config_gesture_dynamic_distance_threshold_to</item>
+        <item name="gestureSamplingMinimumDistance">@fraction/config_gesture_sampling_minimum_distance</item>
+        <item name="gestureRecognitionMinimumTime">@integer/config_gesture_recognition_minimum_time</item>
+        <item name="gestureRecognitionSpeedThreshold">@fraction/config_gesture_recognition_speed_threshold</item>
+        <item name="suppressKeyPreviewAfterBatchInputDuration">@integer/config_suppress_key_preview_after_batch_input_duration</item>
     </style>
     <style
-        name="LatinKeyboardView"
+        name="MainKeyboardView"
         parent="KeyboardView">
         <item name="autoCorrectionSpacebarLedEnabled">true</item>
         <item name="autoCorrectionSpacebarLedIcon">@drawable/sym_keyboard_space_led</item>
@@ -114,7 +139,7 @@
         <item name="android:background">@drawable/keyboard_suggest_strip</item>
     </style>
     <style
-        name="SuggestionsViewStyle"
+        name="SuggestionStripViewStyle"
         parent="SuggestionsStripBackgroundStyle"
     >
         <item name="suggestionStripOption">autoCorrectBold|validTypedWordBold</item>
@@ -122,9 +147,9 @@
         <item name="colorTypedWord">@android:color/white</item>
         <item name="colorAutoCorrect">#FFFCAE00</item>
         <item name="colorSuggested">#FFFCAE00</item>
-        <item name="alphaObsoleted">50</item>
+        <item name="alphaObsoleted">50%</item>
         <item name="suggestionsCountInStrip">@integer/suggestions_count_in_strip</item>
-        <item name="centerSuggestionPercentile">@integer/center_suggestion_percentile</item>
+        <item name="centerSuggestionPercentile">@fraction/center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/min_more_suggestions_width</item>
     </style>
@@ -155,7 +180,7 @@
         <item name="keyBackground">@drawable/btn_keyboard_key3</item>
     </style>
     <style
-        name="LatinKeyboardView.HighContrast"
+        name="MainKeyboardView.HighContrast"
         parent="KeyboardView.HighContrast"
     >
         <item name="autoCorrectionSpacebarLedEnabled">true</item>
@@ -187,10 +212,10 @@
         <item name="keyHintLabelColor">#E0000000</item>
         <item name="keyShiftedLetterHintInactivatedColor">#66000000</item>
         <item name="keyShiftedLetterHintActivatedColor">#CC000000</item>
-        <item name="shadowColor">#FFFFFFFF</item>
+        <item name="keyTextShadowColor">#FFFFFFFF</item>
     </style>
     <style
-        name="LatinKeyboardView.Stone"
+        name="MainKeyboardView.Stone"
         parent="KeyboardView.Stone"
     >
         <item name="autoCorrectionSpacebarLedEnabled">true</item>
@@ -213,7 +238,7 @@
     >
         <item name="keyBackground">@drawable/btn_keyboard_key_stone</item>
         <item name="keyTextColor">#FF000000</item>
-        <item name="shadowColor">#FFFFFFFF</item>
+        <item name="keyTextShadowColor">#FFFFFFFF</item>
     </style>
     <!-- Theme "Stone bold" -->
     <style
@@ -227,10 +252,10 @@
         name="KeyboardView.Stone.Bold"
         parent="KeyboardView.Stone"
     >
-        <item name="keyTextStyle">bold</item>
+        <item name="keyTypeface">bold</item>
     </style>
     <style
-        name="LatinKeyboardView.Stone.Bold"
+        name="MainKeyboardView.Stone.Bold"
         parent="KeyboardView.Stone.Bold"
     >
         <item name="autoCorrectionSpacebarLedEnabled">true</item>
@@ -256,10 +281,10 @@
     >
         <item name="android:background">@drawable/keyboard_dark_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
-        <item name="keyTextStyle">bold</item>
+        <item name="keyTypeface">bold</item>
     </style>
     <style
-        name="LatinKeyboardView.Gingerbread"
+        name="MainKeyboardView.Gingerbread"
         parent="KeyboardView.Gingerbread"
     >
         <item name="autoCorrectionSpacebarLedEnabled">true</item>
@@ -301,22 +326,20 @@
     >
         <item name="android:background">@drawable/keyboard_background_holo</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_ics</item>
-        <item name="keyTextStyle">bold</item>
+        <item name="keyTypeface">bold</item>
         <item name="keyTextInactivatedColor">#66E0E4E5</item>
         <item name="keyHintLetterColor">#80E0E4E5</item>
         <item name="keyHintLabelColor">#A0FFFFFF</item>
         <item name="keyShiftedLetterHintInactivatedColor">#66E0E4E5</item>
         <item name="keyShiftedLetterHintActivatedColor">#FFFFFFFF</item>
-        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_ics</item>
-        <item name="keyPreviewLeftBackground">@drawable/keyboard_key_feedback_left_ics</item>
-        <item name="keyPreviewRightBackground">@drawable/keyboard_key_feedback_right_ics</item>
+        <item name="keyPreviewLayout">@layout/key_preview_ics</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
         <item name="keyPreviewOffset">@dimen/key_preview_offset_ics</item>
-        <item name="shadowColor">#00000000</item>
-        <item name="shadowRadius">0.0</item>
+        <item name="keyTextShadowColor">#00000000</item>
+        <item name="keyTextShadowRadius">0.0</item>
     </style>
     <style
-        name="LatinKeyboardView.IceCreamSandwich"
+        name="MainKeyboardView.IceCreamSandwich"
         parent="KeyboardView.IceCreamSandwich"
     >
         <item name="autoCorrectionSpacebarLedEnabled">false</item>
@@ -348,7 +371,7 @@
         <item name="android:background">@drawable/keyboard_suggest_strip_holo</item>
     </style>
     <style
-        name="SuggestionsViewStyle.IceCreamSandwich"
+        name="SuggestionStripViewStyle.IceCreamSandwich"
         parent="SuggestionsStripBackgroundStyle.IceCreamSandwich"
     >
         <item name="suggestionStripOption">autoCorrectBold|validTypedWordBold</item>
@@ -357,12 +380,12 @@
         <item name="colorTypedWord">@android:color/holo_blue_light</item>
         <item name="colorAutoCorrect">@android:color/holo_blue_light</item>
         <item name="colorSuggested">@android:color/holo_blue_light</item>
-        <item name="alphaValidTypedWord">85</item>
-        <item name="alphaTypedWord">85</item>
-        <item name="alphaSuggested">70</item>
-        <item name="alphaObsoleted">70</item>
+        <item name="alphaValidTypedWord">85%</item>
+        <item name="alphaTypedWord">85%</item>
+        <item name="alphaSuggested">70%</item>
+        <item name="alphaObsoleted">70%</item>
         <item name="suggestionsCountInStrip">@integer/suggestions_count_in_strip</item>
-        <item name="centerSuggestionPercentile">@integer/center_suggestion_percentile</item>
+        <item name="centerSuggestionPercentile">@fraction/center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/min_more_suggestions_width</item>
     </style>

@@ -20,17 +20,13 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" msgid="7252517407088836577">"Tastatura Android"</string>
     <!-- no translation found for aosp_android_keyboard_ime_name (7877134937939182296) -->
     <skip />
-    <string name="english_ime_settings" msgid="6661589557206947774">"Parameters da la tastatura Android"</string>
     <!-- no translation found for english_ime_input_options (3909945612939668554) -->
     <skip />
-    <!-- no translation found for spell_checker_service_name (7338064335159755926) -->
+    <!-- no translation found for english_ime_research_log (8492602295696577851) -->
     <skip />
     <!-- no translation found for aosp_spell_checker_service_name (6985142605330377819) -->
-    <skip />
-    <!-- no translation found for android_spell_checker_settings (5822324635435443689) -->
     <skip />
     <!-- no translation found for use_contacts_for_spellchecking_option_title (5374120998125353898) -->
     <skip />
@@ -43,6 +39,8 @@
     <skip />
     <!-- no translation found for correction_category (2236750915056607613) -->
     <skip />
+    <!-- no translation found for gesture_typing_category (497263612130532630) -->
+    <skip />
     <!-- no translation found for misc_category (6894192814868233453) -->
     <skip />
     <!-- no translation found for advanced_settings (362895144495591463) -->
@@ -53,7 +51,9 @@
     <skip />
     <!-- no translation found for include_other_imes_in_language_switch_list_summary (840637129103317635) -->
     <skip />
-    <!-- no translation found for suppress_language_switch_key (8003788410354806368) -->
+    <!-- no translation found for show_language_switch_key (5915478828318774384) -->
+    <skip />
+    <!-- no translation found for show_language_switch_key_summary (7343403647474265713) -->
     <skip />
     <!-- no translation found for key_preview_popup_dismiss_delay (6213164897443068248) -->
     <skip />
@@ -65,11 +65,9 @@
     <skip />
     <!-- no translation found for use_contacts_dict_summary (6599983334507879959) -->
     <skip />
-    <!-- no translation found for enable_span_insert (7204653105667167620) -->
-    <skip />
-    <!-- no translation found for enable_span_insert_summary (2947317657871394467) -->
-    <skip />
     <string name="auto_cap" msgid="1719746674854628252">"Maiusclas automaticas"</string>
+    <!-- no translation found for auto_cap_summary (7934452761022946874) -->
+    <skip />
     <!-- no translation found for configure_dictionaries_title (4238652338556902049) -->
     <skip />
     <!-- no translation found for main_dictionary (4798763781818361168) -->
@@ -80,11 +78,11 @@
     <skip />
     <!-- no translation found for prefs_suggestion_visibility_show_name (3219916594067551303) -->
     <skip />
-    <!-- no translation found for prefs_suggestion_visibility_show_only_portrait_name (3551821800439659812) -->
+    <!-- no translation found for prefs_suggestion_visibility_show_only_portrait_name (3859783767435239118) -->
     <skip />
     <!-- no translation found for prefs_suggestion_visibility_hide_name (6309143926422234673) -->
     <skip />
-    <!-- no translation found for auto_correction (4979925752001319458) -->
+    <!-- no translation found for auto_correction (7630720885194996950) -->
     <skip />
     <!-- no translation found for auto_correction_summary (5625751551134658006) -->
     <skip />
@@ -96,13 +94,19 @@
     <skip />
     <!-- no translation found for auto_correction_threshold_mode_very_aggeressive (3386782235540547678) -->
     <skip />
-    <!-- no translation found for bigram_suggestion (8169311444438922902) -->
+    <!-- no translation found for bigram_prediction (1084449187723948550) -->
     <skip />
-    <!-- no translation found for bigram_suggestion_summary (6635527607242625713) -->
+    <!-- no translation found for bigram_prediction_summary (3896362682751109677) -->
     <skip />
-    <!-- no translation found for bigram_prediction (3216364899483135294) -->
+    <!-- no translation found for gesture_input (826951152254563827) -->
     <skip />
-    <!-- no translation found for bigram_prediction_summary (1747261921174300098) -->
+    <!-- no translation found for gesture_input_summary (9180350639305731231) -->
+    <skip />
+    <!-- no translation found for gesture_preview_trail (3802333369335722221) -->
+    <skip />
+    <!-- no translation found for gesture_floating_preview_text (4443240334739381053) -->
+    <skip />
+    <!-- no translation found for gesture_floating_preview_text_summary (4472696213996203533) -->
     <skip />
     <string name="added_word" msgid="8993883354622484372">"<xliff:g id="WORD">%s</xliff:g> : Memorisà"</string>
     <string name="label_go_key" msgid="1635148082137219148">"Dai"</string>
@@ -158,6 +162,12 @@
     <!-- no translation found for spoken_description_search (1247236163755920808) -->
     <skip />
     <!-- no translation found for spoken_description_dot (40711082435231673) -->
+    <skip />
+    <!-- no translation found for spoken_description_language_switch (5507091328222331316) -->
+    <skip />
+    <!-- no translation found for spoken_description_action_next (8636078276664150324) -->
+    <skip />
+    <!-- no translation found for spoken_description_action_previous (800872415009336208) -->
     <skip />
     <!-- no translation found for spoken_description_shiftmode_on (5700440798609574589) -->
     <skip />

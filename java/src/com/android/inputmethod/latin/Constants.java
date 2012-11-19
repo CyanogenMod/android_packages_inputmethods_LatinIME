@@ -16,9 +16,14 @@
 
 package com.android.inputmethod.latin;
 
-import android.view.inputmethod.EditorInfo;
-
 public final class Constants {
+    public static final class Color {
+        /**
+         * The alpha value for fully opaque.
+         */
+        public final static int ALPHA_OPAQUE = 255;
+    }
+
     public static final class ImeOption {
         /**
          * The private IME option used to indicate that no microphone should be shown for a given
@@ -47,7 +52,7 @@ public final class Constants {
          * The private IME option used to indicate that the given text field needs ASCII code points
          * input.
          *
-         * @deprecated Use {@link EditorInfo#IME_FLAG_FORCE_ASCII}.
+         * @deprecated Use EditorInfo#IME_FLAG_FORCE_ASCII.
          */
         @SuppressWarnings("dep-ann")
         public static final String FORCE_ASCII = "forceAscii";
@@ -120,6 +125,21 @@ public final class Constants {
             // This utility class is not publicly instantiable.
         }
     }
+
+    public static class Dictionary {
+        public static final int MAX_WORD_LENGTH = 48;
+
+        private Dictionary() {
+             // This utility class is no publicly instantiable.
+        }
+    }
+
+    public static final int NOT_A_CODE = -1;
+
+    // See {@link KeyboardActionListener.Adapter#isInvalidCoordinate(int)}.
+    public static final int NOT_A_COORDINATE = -1;
+    public static final int SUGGESTION_STRIP_COORDINATE = -2;
+    public static final int SPELL_CHECKER_COORDINATE = -3;
 
     private Constants() {
         // This utility class is not publicly instantiable.

@@ -17,7 +17,9 @@
 #include "additional_proximity_chars.h"
 
 namespace latinime {
-const std::string AdditionalProximityChars::LOCALE_EN_US("en");
+// TODO: Stop using hardcoded additional proximity characters.
+// TODO: Have proximity character informations in each language's binary dictionary.
+const char *AdditionalProximityChars::LOCALE_EN_US = "en";
 
 const int32_t AdditionalProximityChars::EN_US_ADDITIONAL_A[EN_US_ADDITIONAL_A_SIZE] = {
     'e', 'i', 'o', 'u'
@@ -38,4 +40,4 @@ const int32_t AdditionalProximityChars::EN_US_ADDITIONAL_O[EN_US_ADDITIONAL_O_SI
 const int32_t AdditionalProximityChars::EN_US_ADDITIONAL_U[EN_US_ADDITIONAL_U_SIZE] = {
     'a', 'e', 'i', 'o'
 };
-}
+} // namespace latinime

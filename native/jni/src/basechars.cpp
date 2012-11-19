@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
+#include <stdint.h>
+
 #include "char_utils.h"
 
 namespace latinime {
 
-/**
+/*
  * Table mapping most combined Latin, Greek, and Cyrillic characters
  * to their base characters.  If c is in range, BASE_CHARS[c] == c
  * if c is not a combined character, or the base character if it
  * is combined.
  */
-const unsigned short BASE_CHARS[BASE_CHARS_SIZE] = {
+const uint16_t BASE_CHARS[BASE_CHARS_SIZE] = {
     0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
     0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
     0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -187,8 +189,6 @@ const unsigned short BASE_CHARS[BASE_CHARS_SIZE] = {
     0x0423, 0x0443, 0x0423, 0x0443, 0x0427, 0x0447, 0x04f6, 0x04f7,
     0x042b, 0x044b, 0x04fa, 0x04fb, 0x04fc, 0x04fd, 0x04fe, 0x04ff,
 };
-
 // generated with:
 // cat UnicodeData.txt | perl -e 'while (<>) { @foo = split(/;/); $foo[5] =~ s/<.*> //; $base[hex($foo[0])] = hex($foo[5]);} for ($i = 0; $i < 0x500; $i += 8) { for ($j = $i; $j < $i + 8; $j++) { printf("0x%04x, ", $base[$j] ? $base[$j] : $j)}; print "\n"; }'
-
 } // namespace latinime

@@ -16,14 +16,15 @@
 
 package com.android.inputmethod.latin.spellcheck;
 
-import com.android.inputmethod.keyboard.KeyDetector;
 import com.android.inputmethod.keyboard.ProximityInfo;
+import com.android.inputmethod.latin.CollectionUtils;
+import com.android.inputmethod.latin.Constants;
 
 import java.util.TreeMap;
 
-public class SpellCheckerProximityInfo {
+public final class SpellCheckerProximityInfo {
     /* public for test */
-    final public static int NUL = KeyDetector.NOT_A_CODE;
+    final public static int NUL = Constants.NOT_A_CODE;
 
     // This must be the same as MAX_PROXIMITY_CHARS_SIZE else it will not work inside
     // native code - this value is passed at creation of the binary object and reused
@@ -52,14 +53,14 @@ public class SpellCheckerProximityInfo {
         return result;
     }
 
-    private static class Latin {
+    private static final class Latin {
         // This is a map from the code point to the index in the PROXIMITY array.
         // At the time the native code to read the binary dictionary needs the proximity info be
         // passed as a flat array spaced by MAX_PROXIMITY_CHARS_SIZE columns, one for each input
         // character.
         // Since we need to build such an array, we want to be able to search in our big proximity
         // data quickly by character, and a map is probably the best way to do this.
-        final private static TreeMap<Integer, Integer> INDICES = new TreeMap<Integer, Integer>();
+        final private static TreeMap<Integer, Integer> INDICES = CollectionUtils.newTreeMap();
 
         // The proximity here is the union of
         // - the proximity for a QWERTY keyboard.
@@ -111,6 +112,7 @@ public class SpellCheckerProximityInfo {
             NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
             NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
             NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
+            NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL, NUL,
         };
         static {
             buildProximityIndices(PROXIMITY, INDICES);
@@ -120,8 +122,8 @@ public class SpellCheckerProximityInfo {
         }
     }
 
-    private static class Cyrillic {
-        final private static TreeMap<Integer, Integer> INDICES = new TreeMap<Integer, Integer>();
+    private static final class Cyrillic {
+        final private static TreeMap<Integer, Integer> INDICES = CollectionUtils.newTreeMap();
         // TODO: The following table is solely based on the keyboard layout. Consult with Russian
         // speakers on commonly misspelled words/letters.
         final static int[] PROXIMITY = {

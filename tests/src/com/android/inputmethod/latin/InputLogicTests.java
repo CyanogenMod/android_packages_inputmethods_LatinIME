@@ -126,6 +126,26 @@ public class InputLogicTests extends InputTestsBase {
                 mTextView.getText().toString());
     }
 
+    public void testAutoCorrectWithSpaceThenRevert() {
+        final String STRING_TO_TYPE = "tgis ";
+        final String EXPECTED_RESULT = "tgis ";
+        type(STRING_TO_TYPE);
+        mLatinIME.onUpdateSelection(0, 0, STRING_TO_TYPE.length(), STRING_TO_TYPE.length(), -1, -1);
+        type(Keyboard.CODE_DELETE);
+        assertEquals("auto-correct with space then revert", EXPECTED_RESULT,
+                mTextView.getText().toString());
+    }
+
+    public void testAutoCorrectToSelfDoesNotRevert() {
+        final String STRING_TO_TYPE = "this ";
+        final String EXPECTED_RESULT = "this";
+        type(STRING_TO_TYPE);
+        mLatinIME.onUpdateSelection(0, 0, STRING_TO_TYPE.length(), STRING_TO_TYPE.length(), -1, -1);
+        type(Keyboard.CODE_DELETE);
+        assertEquals("auto-correct with space does not revert", EXPECTED_RESULT,
+                mTextView.getText().toString());
+    }
+
     public void testDoubleSpace() {
         final String STRING_TO_TYPE = "this  ";
         final String EXPECTED_RESULT = "this. ";
@@ -194,6 +214,19 @@ public class InputLogicTests extends InputTestsBase {
         pickSuggestionManually(0, WORD1_TO_TYPE);
         type(WORD2_TO_TYPE);
         assertEquals("manual pick then separator", EXPECTED_RESULT, mTextView.getText().toString());
+    }
+
+    public void testManualPickThenStripperThenPick() {
+        final String WORD_TO_TYPE = "this";
+        final String STRIPPER = "\n";
+        final String EXPECTED_RESULT = "this\nthis";
+        type(WORD_TO_TYPE);
+        pickSuggestionManually(0, WORD_TO_TYPE);
+        type(STRIPPER);
+        type(WORD_TO_TYPE);
+        pickSuggestionManually(0, WORD_TO_TYPE);
+        assertEquals("manual pick then \\n then manual pick", EXPECTED_RESULT,
+                mTextView.getText().toString());
     }
 
     public void testManualPickThenSpaceThenType() {

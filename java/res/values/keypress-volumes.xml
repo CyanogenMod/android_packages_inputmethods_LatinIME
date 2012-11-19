@@ -24,5 +24,7 @@
         <item>tuna,0.5</item>
         <item>stingray,0.4</item>
         <item>grouper,0.3</item>
+        <item>mako,0.3</item>
+        <item>manta,0.2</item>
     </string-array>
 </resources>

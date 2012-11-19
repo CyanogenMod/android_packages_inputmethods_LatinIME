@@ -17,13 +17,13 @@
 package com.android.inputmethod.keyboard.internal;
 
 import com.android.inputmethod.keyboard.Keyboard;
+import com.android.inputmethod.latin.CollectionUtils;
 
 import java.util.HashMap;
 
-public class KeyboardCodesSet {
-    private static final HashMap<String, int[]> sLanguageToCodesMap =
-            new HashMap<String, int[]>();
-    private static final HashMap<String, Integer> sNameToIdMap = new HashMap<String, Integer>();
+public final class KeyboardCodesSet {
+    private static final HashMap<String, int[]> sLanguageToCodesMap = CollectionUtils.newHashMap();
+    private static final HashMap<String, Integer> sNameToIdMap = CollectionUtils.newHashMap();
 
     private int[] mCodes = DEFAULT;
 
@@ -52,6 +52,7 @@ public class KeyboardCodesSet {
         "key_action_next",
         "key_action_previous",
         "key_language_switch",
+        "key_research",
         "key_unspecified",
         "key_left_parenthesis",
         "key_right_parenthesis",
@@ -86,6 +87,7 @@ public class KeyboardCodesSet {
         Keyboard.CODE_ACTION_NEXT,
         Keyboard.CODE_ACTION_PREVIOUS,
         Keyboard.CODE_LANGUAGE_SWITCH,
+        Keyboard.CODE_RESEARCH,
         Keyboard.CODE_UNSPECIFIED,
         CODE_LEFT_PARENTHESIS,
         CODE_RIGHT_PARENTHESIS,
@@ -112,6 +114,7 @@ public class KeyboardCodesSet {
         DEFAULT[11],
         DEFAULT[12],
         DEFAULT[13],
+        DEFAULT[14],
         CODE_RIGHT_PARENTHESIS,
         CODE_LEFT_PARENTHESIS,
         CODE_GREATER_THAN_SIGN,

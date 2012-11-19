@@ -21,8 +21,6 @@ import android.util.Log;
 
 import com.android.inputmethod.keyboard.Keyboard;
 import com.android.inputmethod.latin.Constants;
-import com.android.inputmethod.latin.ResearchLogger;
-import com.android.inputmethod.latin.define.ProductionFlag;
 
 /**
  * Keyboard state machine.
@@ -36,7 +34,7 @@ import com.android.inputmethod.latin.define.ProductionFlag;
  *
  * The actions are {@link SwitchActions}'s methods.
  */
-public class KeyboardState {
+public final class KeyboardState {
     private static final String TAG = KeyboardState.class.getSimpleName();
     private static final boolean DEBUG_EVENT = false;
     private static final boolean DEBUG_ACTION = false;
@@ -94,7 +92,7 @@ public class KeyboardState {
 
     private final SavedKeyboardState mSavedKeyboardState = new SavedKeyboardState();
 
-    static class SavedKeyboardState {
+    static final class SavedKeyboardState {
         public boolean mIsValid;
         public boolean mIsAlphabetMode;
         public boolean mIsAlphabetShiftLocked;
@@ -256,6 +254,22 @@ public class KeyboardState {
         }
     }
 
+    // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
+    // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
+    private void resetKeyboardStateToAlphabet() {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "resetKeyboardStateToAlphabet: " + this);
+        }
+        if (mIsAlphabetMode) return;
+
+        mPrevSymbolsKeyboardWasShifted = mIsSymbolShifted;
+        setAlphabetKeyboard();
+        if (mPrevMainKeyboardWasShiftLocked) {
+            setShiftLocked(true);
+        }
+        mPrevMainKeyboardWasShiftLocked = false;
+    }
+
     private void toggleShiftInSymbols() {
         if (mIsSymbolShifted) {
             setSymbolsKeyboard();
@@ -305,9 +319,6 @@ public class KeyboardState {
             Log.d(TAG, "onPressKey: code=" + Keyboard.printableCode(code)
                    + " single=" + isSinglePointer + " autoCaps=" + autoCaps + " " + this);
         }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.keyboardState_onPressKey(code, this);
-        }
         if (code == Keyboard.CODE_SHIFT) {
             onPressShift();
         } else if (code == Keyboard.CODE_SWITCH_ALPHA_SYMBOL) {
@@ -341,9 +352,6 @@ public class KeyboardState {
             Log.d(TAG, "onReleaseKey: code=" + Keyboard.printableCode(code)
                     + " sliding=" + withSliding + " " + this);
         }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.keyboardState_onReleaseKey(this, code, withSliding);
-        }
         if (code == Keyboard.CODE_SHIFT) {
             onReleaseShift(withSliding);
         } else if (code == Keyboard.CODE_SWITCH_ALPHA_SYMBOL) {
@@ -375,9 +383,6 @@ public class KeyboardState {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onLongPressTimeout: code=" + Keyboard.printableCode(code) + " " + this);
         }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.keyboardState_onLongPressTimeout(code, this);
-        }
         if (mIsAlphabetMode && code == Keyboard.CODE_SHIFT) {
             mLongPressShiftLockFired = true;
             mSwitchActions.hapticAndAudioFeedback(code);
@@ -389,6 +394,15 @@ public class KeyboardState {
             Log.d(TAG, "onUpdateShiftState: autoCaps=" + autoCaps + " " + this);
         }
         updateAlphabetShiftState(autoCaps);
+    }
+
+    // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
+    // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
+    public void onResetKeyboardStateToAlphabet() {
+        if (DEBUG_EVENT) {
+            Log.d(TAG, "onResetKeyboardStateToAlphabet: " + this);
+        }
+        resetKeyboardStateToAlphabet();
     }
 
     private void updateAlphabetShiftState(int autoCaps) {
@@ -509,9 +523,6 @@ public class KeyboardState {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onCancelInput: single=" + isSinglePointer + " " + this);
         }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.keyboardState_onCancelInput(isSinglePointer, this);
-        }
         // Switch back to the previous keyboard mode if the user cancels sliding input.
         if (isSinglePointer) {
             if (mSwitchState == SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL) {
@@ -542,9 +553,6 @@ public class KeyboardState {
             Log.d(TAG, "onCodeInput: code=" + Keyboard.printableCode(code)
                     + " single=" + isSinglePointer
                     + " autoCaps=" + autoCaps + " " + this);
-        }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.keyboardState_onCodeInput(code, isSinglePointer, autoCaps, this);
         }
 
         switch (mSwitchState) {
