@@ -116,6 +116,7 @@ public class AndroidSpellCheckerService extends SpellCheckerService
         mLanguageToScript.put("es", SCRIPT_LATIN);
         mLanguageToScript.put("it", SCRIPT_LATIN);
         mLanguageToScript.put("hr", SCRIPT_LATIN);
+        mLanguageToScript.put("hu", SCRIPT_LATIN);
         mLanguageToScript.put("pt", SCRIPT_LATIN);
         mLanguageToScript.put("ru", SCRIPT_CYRILLIC);
         // TODO: Make a persian proximity, and activate the Farsi subtype.
