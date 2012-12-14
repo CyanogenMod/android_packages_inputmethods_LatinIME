@@ -113,6 +113,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         mLanguageToScript.put("nl", SCRIPT_LATIN);
         mLanguageToScript.put("pt", SCRIPT_LATIN);
         mLanguageToScript.put("sl", SCRIPT_LATIN);
+        mLanguageToScript.put("sv", SCRIPT_LATIN);
         mLanguageToScript.put("ru", SCRIPT_CYRILLIC);
     }
 
