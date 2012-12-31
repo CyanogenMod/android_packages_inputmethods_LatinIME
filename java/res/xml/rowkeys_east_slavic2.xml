@@ -76,6 +76,4 @@
         latin:keyLabel="!text/keylabel_for_east_slavic_row2_11"
         latin:keyHintLabel=")"
         latin:additionalMoreKeys=")" />
-    <Key
-        latin:keyLabel="!text/keylabel_for_east_slavic_row2_11" />
 </merge>
