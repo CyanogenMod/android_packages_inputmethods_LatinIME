@@ -1,0 +1,9 @@
+Change-Id: I83ef5c80332f7e3b22a1d49d823221501519c7f8
+Code-Review+1: Pavel Volkov <marshmollow@gmail.com>
+Code-Review+2: Daniel Hillenbrand <codeworkx@cyanogenmod.org>
+Verified+1: Daniel Hillenbrand <codeworkx@cyanogenmod.org>
+Submitted-by: Daniel Hillenbrand <codeworkx@cyanogenmod.org>
+Submitted-at: Thu, 03 Jan 2013 00:58:36 -0800
+Reviewed-on: http://review.cyanogenmod.org/29408
+Project: CyanogenMod/android_packages_inputmethods_LatinIME
+Branch: refs/heads/cm-10.1
