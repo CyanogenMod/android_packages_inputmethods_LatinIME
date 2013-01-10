@@ -257,10 +257,11 @@ public final class KeyboardTextsSet {
         // U+20AC: "€" EURO SIGN
         // U+00A5: "¥" YEN SIGN
         // U+20B1: "₱" PESO SIGN
-        /* 45 */ "\u00A2,\u00A3,\u20AC,\u00A5,\u20B1",
-        /* 46 */ "\u00A2,\u00A3,$,\u00A5,\u20B1",
-        /* 47 */ "\u00A2,$,\u20AC,\u00A5,\u20B1",
-        /* 48 */ "\u00A2,$,\u20AC,\u00A3,\u00A5,\u20B1",
+        // U+20B9: "₹" RUPEE SIGN
+        /* 45 */ "\u00A2,\u00A3,\u20AC,\u00A5,\u20B1,\u20B9",
+        /* 46 */ "\u00A2,\u00A3,$,\u00A5,\u20B1,\u20B9",
+        /* 47 */ "\u00A2,$,\u20AC,\u00A5,\u20B1,\u20B9",
+        /* 48 */ "\u00A2,$,\u20AC,\u00A3,\u00A5,\u20B1,\u20B9",
         /* 49 */ "!fixedColumnOrder!8,\",\',#,-,:,!,\\,,?,@,&,\\%,+,;,/,(,)",
         // U+2020: "†" DAGGER
         // U+2021: "‡" DOUBLE DAGGER
@@ -1484,6 +1485,24 @@ public final class KeyboardTextsSet {
 
     /* Language hu: Hungarian */
     private static final String[] LANGUAGE_hu = {
+        // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
+        /* 0 */ "\u00E1",
+        // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
+        /* 1 */ "\u00E9",
+        // U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE
+        /* 2 */ "\u00ED",
+        // U+00F3: "ó" LATIN SMALL LETTER O WITH ACUTE
+        // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
+        // U+0151: "ő" LATIN SMALL LETTER O WITH DOUBLE ACUTE
+        /* 3 */ "\u00F3,\u00F6,\u0151",
+        // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
+        // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
+        // U+0171: "ű" LATIN SMALL LETTER U WITH DOUBLE ACUTE
+        /* 4 */ "\u00FA,\u00FC,\u0171",
+    };
+
+    /* Language hu_ZZ: hu_zz */
+    private static final String[] LANGUAGE_hu_ZZ = {
         // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
         // U+00E0: "à" LATIN SMALL LETTER A WITH GRAVE
         // U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX
@@ -2861,6 +2880,7 @@ public final class KeyboardTextsSet {
         "hi", LANGUAGE_hi, /* Hindi */
         "hr", LANGUAGE_hr, /* Croatian */
         "hu", LANGUAGE_hu, /* Hungarian */
+        "hu_ZZ", LANGUAGE_hu_ZZ, /* hu_zz */
         "is", LANGUAGE_is, /* Icelandic */
         "it", LANGUAGE_it, /* Italian */
         "iw", LANGUAGE_iw, /* Hebrew */

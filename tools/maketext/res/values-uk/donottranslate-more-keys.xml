@@ -34,4 +34,6 @@
     <string name="more_keys_for_cyrillic_ghe">&#x0491;</string>
     <!-- U+0457: "ї" CYRILLIC SMALL LETTER YI -->
     <string name="more_keys_for_east_slavic_row2_1">&#x0457;</string>
+    <!-- U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN -->
+    <string name="more_keys_for_cyrillic_soft_sign">&#x044A;</string>
 </resources>
