@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 /*
 **
@@ -123,15 +123,16 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Motiv klávesnice"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angličtina (Velká Británie)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angličtina (USA)"</string>
+    <string name="subtype_hu_ZZ">maďarštinan (QUERTY)</string>
     <string name="subtype_with_layout_en_GB" msgid="2179097748724725906">"angličtina (VB) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="1362581347576714579">"angličtina (USA) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_no_language" msgid="141420857808801746">"Žádný jazyk"</string>
-    <string name="subtype_no_language_qwerty" msgid="2956121451616633133">"Žádný jazyk (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="1177848172397202890">"Žádný jazyk (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8721460968141187394">"Žádný jazyk (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="3122976737669823935">"Žádný jazyk (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="4205992994906097244">"Žádný jazyk (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="8840928374394180189">"Žádný jazyk (PC)"</string>
+    <string name="subtype_no_language" msgid="141420857808801746">"žádný jazyk"</string>
+    <string name="subtype_no_language_qwerty" msgid="2956121451616633133">"žádný jazyk (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz" msgid="1177848172397202890">"žádný jazyk (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty" msgid="8721460968141187394">"žádný jazyk (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak" msgid="3122976737669823935">"žádný jazyk (Dvorak)"</string>
+    <string name="subtype_no_language_colemak" msgid="4205992994906097244">"žádný jazyk (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty" msgid="8840928374394180189">"žádný jazyk (PC)"</string>
     <string name="custom_input_styles_title" msgid="8429952441821251512">"Vlastní styl zadávání"</string>
     <string name="add_style" msgid="6163126614514489951">"Přidat styl"</string>
     <string name="add" msgid="8299699805688017798">"Přidat"</string>
