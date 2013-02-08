@@ -205,34 +205,35 @@ public final class KeyboardTextsSet {
         /* 98 */ "keylabel_for_tablet_comma",
         /* 99 */ "keyhintlabel_for_tablet_comma",
         /* 100 */ "more_keys_for_tablet_comma",
-        /* 101 */ "keyhintlabel_for_tablet_period",
-        /* 102 */ "more_keys_for_tablet_period",
-        /* 103 */ "keylabel_for_apostrophe",
-        /* 104 */ "keyhintlabel_for_apostrophe",
-        /* 105 */ "more_keys_for_apostrophe",
-        /* 106 */ "more_keys_for_q",
-        /* 107 */ "more_keys_for_x",
-        /* 108 */ "keylabel_for_q",
-        /* 109 */ "keylabel_for_w",
-        /* 110 */ "keylabel_for_y",
-        /* 111 */ "keylabel_for_x",
-        /* 112 */ "keylabel_for_spanish_row2_10",
-        /* 113 */ "more_keys_for_am_pm",
-        /* 114 */ "settings_as_more_key",
-        /* 115 */ "shortcut_as_more_key",
-        /* 116 */ "action_next_as_more_key",
-        /* 117 */ "action_previous_as_more_key",
-        /* 118 */ "label_to_more_symbol_key",
-        /* 119 */ "label_to_more_symbol_for_tablet_key",
-        /* 120 */ "label_tab_key",
-        /* 121 */ "label_to_phone_numeric_key",
-        /* 122 */ "label_to_phone_symbols_key",
-        /* 123 */ "label_time_am",
-        /* 124 */ "label_time_pm",
-        /* 125 */ "label_to_symbol_key_pcqwerty",
-        /* 126 */ "keylabel_for_popular_domain",
-        /* 127 */ "more_keys_for_popular_domain",
-        /* 128 */ "more_keys_for_smiley",
+        /* 101 */ "keylabel_for_tablet_period",
+        /* 102 */ "keyhintlabel_for_tablet_period",
+        /* 103 */ "more_keys_for_tablet_period",
+        /* 104 */ "keylabel_for_apostrophe",
+        /* 105 */ "keyhintlabel_for_apostrophe",
+        /* 106 */ "more_keys_for_apostrophe",
+        /* 107 */ "more_keys_for_q",
+        /* 108 */ "more_keys_for_x",
+        /* 109 */ "keylabel_for_q",
+        /* 110 */ "keylabel_for_w",
+        /* 111 */ "keylabel_for_y",
+        /* 112 */ "keylabel_for_x",
+        /* 113 */ "keylabel_for_spanish_row2_10",
+        /* 114 */ "more_keys_for_am_pm",
+        /* 115 */ "settings_as_more_key",
+        /* 116 */ "shortcut_as_more_key",
+        /* 117 */ "action_next_as_more_key",
+        /* 118 */ "action_previous_as_more_key",
+        /* 119 */ "label_to_more_symbol_key",
+        /* 120 */ "label_to_more_symbol_for_tablet_key",
+        /* 121 */ "label_tab_key",
+        /* 122 */ "label_to_phone_numeric_key",
+        /* 123 */ "label_to_phone_symbols_key",
+        /* 124 */ "label_time_am",
+        /* 125 */ "label_time_pm",
+        /* 126 */ "label_to_symbol_key_pcqwerty",
+        /* 127 */ "keylabel_for_popular_domain",
+        /* 128 */ "more_keys_for_popular_domain",
+        /* 129 */ "more_keys_for_smiley",
     };
 
     private static final String EMPTY = "";
@@ -351,46 +352,47 @@ public final class KeyboardTextsSet {
         /* 98 */ ",",
         /* 99 */ "!",
         /* 100 */ "!",
-        /* 101 */ "?",
+        /* 101 */ ".",
         /* 102 */ "?",
-        /* 103 */ "\'",
-        /* 104 */ "\"",
+        /* 103 */ "?",
+        /* 104 */ "\'",
         /* 105 */ "\"",
-        /* 106 */ EMPTY,
+        /* 106 */ "\"",
         /* 107 */ EMPTY,
-        /* 108 */ "q",
-        /* 109 */ "w",
-        /* 110 */ "y",
-        /* 111 */ "x",
+        /* 108 */ EMPTY,
+        /* 109 */ "q",
+        /* 110 */ "w",
+        /* 111 */ "y",
+        /* 112 */ "x",
         // U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE
-        /* 112 */ "\u00F1",
-        /* 113 */ "!fixedColumnOrder!2,!hasLabels!,!text/label_time_am,!text/label_time_pm",
-        /* 114 */ "!icon/settings_key|!code/key_settings",
-        /* 115 */ "!icon/shortcut_key|!code/key_shortcut",
-        /* 116 */ "!hasLabels!,!text/label_next_key|!code/key_action_next",
-        /* 117 */ "!hasLabels!,!text/label_previous_key|!code/key_action_previous",
+        /* 113 */ "\u00F1",
+        /* 114 */ "!fixedColumnOrder!2,!hasLabels!,!text/label_time_am,!text/label_time_pm",
+        /* 115 */ "!icon/settings_key|!code/key_settings",
+        /* 116 */ "!icon/shortcut_key|!code/key_shortcut",
+        /* 117 */ "!hasLabels!,!text/label_next_key|!code/key_action_next",
+        /* 118 */ "!hasLabels!,!text/label_previous_key|!code/key_action_previous",
         // Label for "switch to more symbol" modifier key.  Must be short to fit on key!
-        /* 118 */ "= \\ <",
+        /* 119 */ "= \\ <",
         // Label for "switch to more symbol" modifier key on tablets.  Must be short to fit on key!
-        /* 119 */ "~ \\ {",
+        /* 120 */ "~ \\ {",
         // Label for "Tab" key.  Must be short to fit on key!
-        /* 120 */ "Tab",
+        /* 121 */ "Tab",
         // Label for "switch to phone numeric" key.  Must be short to fit on key!
-        /* 121 */ "123",
+        /* 122 */ "123",
         // Label for "switch to phone symbols" key.  Must be short to fit on key!
         // U+FF0A: "＊" FULLWIDTH ASTERISK
         // U+FF03: "＃" FULLWIDTH NUMBER SIGN
-        /* 122 */ "\uFF0A\uFF03",
+        /* 123 */ "\uFF0A\uFF03",
         // Key label for "ante meridiem"
-        /* 123 */ "AM",
+        /* 124 */ "AM",
         // Key label for "post meridiem"
-        /* 124 */ "PM",
+        /* 125 */ "PM",
         // Label for "switch to symbols" key on PC QWERTY layout
-        /* 125 */ "Sym",
-        /* 126 */ ".com",
+        /* 126 */ "Sym",
+        /* 127 */ ".com",
         // popular web domains for the locale - most popular, displayed on the keyboard
-        /* 127 */ "!hasLabels!,.net,.org,.gov,.edu",
-        /* 128 */ "!fixedColumnOrder!5,!hasLabels!,=-O|=-O ,:-P|:-P ,;-)|;-) ,:-(|:-( ,:-)|:-) ,:-!|:-! ,:-$|:-$ ,B-)|B-) ,:O|:O ,:-*|:-* ,:-D|:-D ,:\'(|:\'( ,:-\\\\|:-\\\\ ,O:-)|O:-) ,:-[|:-[ ",
+        /* 128 */ "!hasLabels!,.net,.org,.gov,.edu",
+        /* 129 */ "!fixedColumnOrder!5,!hasLabels!,=-O|=-O ,:-P|:-P ,;-)|;-) ,:-(|:-( ,:-)|:-) ,:-!|:-! ,:-$|:-$ ,B-)|B-) ,:O|:O ,:-*|:-* ,:-D|:-D ,:\'(|:\'( ,:-\\\\|:-\\\\ ,O:-)|O:-) ,:-[|:-[ ",
     };
 
     /* Language af: Afrikaans */
@@ -560,14 +562,14 @@ public final class KeyboardTextsSet {
         // U+2030: "‰" PER MILLE SIGN
         /* 97 */ "\\%,\u2030",
         /* 98~ */
-        null, null, null, null, null,
-        /* ~102 */
+        null, null, null, null, null, null,
+        /* ~103 */
         // U+060C: "،" ARABIC COMMA
         // U+061B: "؛" ARABIC SEMICOLON
         // U+061F: "؟" ARABIC QUESTION MARK
-        /* 103 */ "\u060C",
-        /* 104 */ "\u061F",
-        /* 105 */ "\u061F,\u061B,!,:,-,/,\',\"",
+        /* 104 */ "\u060C",
+        /* 105 */ "\u061F",
+        /* 106 */ "\u061F,\u061B,!,:,-,/,\',\"",
     };
 
     /* Language be: Belarusian */
@@ -999,20 +1001,20 @@ public final class KeyboardTextsSet {
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null,
-        /* ~105 */
-        /* 106 */ "q",
-        /* 107 */ "x",
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        /* ~106 */
+        /* 107 */ "q",
+        /* 108 */ "x",
         // U+015D: "ŝ" LATIN SMALL LETTER S WITH CIRCUMFLEX
-        /* 108 */ "\u015D",
+        /* 109 */ "\u015D",
         // U+011D: "ĝ" LATIN SMALL LETTER G WITH CIRCUMFLEX
-        /* 109 */ "\u011D",
+        /* 110 */ "\u011D",
         // U+016D: "ŭ" LATIN SMALL LETTER U WITH BREVE
-        /* 110 */ "\u016D",
+        /* 111 */ "\u016D",
         // U+0109: "ĉ" LATIN SMALL LETTER C WITH CIRCUMFLEX
-        /* 111 */ "\u0109",
+        /* 112 */ "\u0109",
         // U+0135: "ĵ" LATIN SMALL LETTER J WITH CIRCUMFLEX
-        /* 112 */ "\u0135",
+        /* 113 */ "\u0135",
     };
 
     /* Language es: Spanish */
@@ -1084,8 +1086,9 @@ public final class KeyboardTextsSet {
         // U+00A1: "¡" INVERTED EXCLAMATION MARK
         /* 100 */ "!,\u00A1",
         /* 101 */ null,
+        /* 102 */ null,
         // U+00BF: "¿" INVERTED QUESTION MARK
-        /* 102 */ "?,\u00BF",
+        /* 103 */ "?,\u00BF",
     };
 
     /* Language et: Estonian */
@@ -1309,11 +1312,12 @@ public final class KeyboardTextsSet {
         /* 98 */ "\u060C",
         /* 99 */ "!",
         /* 100 */ "!,\\,",
-        /* 101 */ "\u061F",
-        /* 102 */ "\u061F,?",
-        /* 103 */ "\u060C",
-        /* 104 */ "\u061F",
-        /* 105 */ "!fixedColumnOrder!4,:,!,\u061F,\u061B,-,/,\u00AB|\u00BB,\u00BB|\u00AB",
+        /* 101 */ null,
+        /* 102 */ "\u061F",
+        /* 103 */ "\u061F,?",
+        /* 104 */ "\u060C",
+        /* 105 */ "\u061F",
+        /* 106 */ "!fixedColumnOrder!4,:,!,\u061F,\u061B,-,/,\u00AB|\u00BB,\u00BB|\u00AB",
     };
 
     /* Language fi: Finnish */
@@ -1544,6 +1548,58 @@ public final class KeyboardTextsSet {
         // U+00F9: "ù" LATIN SMALL LETTER U WITH GRAVE
         // U+016B: "ū" LATIN SMALL LETTER U WITH MACRON
         /* 4 */ "\u00FA,\u00FC,\u0171,\u00FB,\u00F9,\u016B",
+    };
+
+    /* Language hy: Armenian */
+    private static final String[] LANGUAGE_hy = {
+        /* 0~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null,
+        /* ~41 */
+        /* 42 */ ">",
+        /* 43 */ "<",
+        /* 44~ */
+        null, null, null, null, null,
+        /* ~48 */
+        // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+055E: "՞" ARMENIAN QUESTION MARK
+        // U+055D: "՝" ARMENIAN COMMA
+        // U+055C: "՜" ARMENIAN EXCLAMATION MARK
+        // U+055B: "՛" ARMENIAN EMPHASIS MARK
+        // U+058A: "֊" ARMENIAN HYPHEN
+        /* 49 */ "!fixedColumnOrder!8,\u00AB,\u00BB,\u058A,\\,,.,:,\u055D,\u055E,\u055B,\u055C,@,\\%,;,/,(,)",
+        /* 50~ */
+        null, null, null, null, null,
+        /* ~54 */
+        /* 55 */ "<",
+        /* 56 */ ">",
+        /* 57~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null,
+        /* ~93 */
+        // U+055C: "՜" ARMENIAN EXCLAMATION MARK
+        /* 94 */ "\u055C,!",
+        // U+055D: "՝" ARMENIAN COMMA
+        /* 95 */ "\u055D,?",
+        /* 96~ */
+        null, null, null,
+        /* ~98 */
+        // U+055D: "՝" ARMENIAN COMMA
+        /* 99 */ "\u055D",
+        /* 100 */ "\u055D",
+        // U+0589: "։" ARMENIAN FULL STOP
+        /* 101 */ "\u0589",
+        // U+055E: "՞" ARMENIAN QUESTION MARK
+        /* 102 */ "\u055E",
+        /* 103 */ "\u055E",
+        // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        /* 104 */ "\u00AB",
+        /* 105 */ "\u00BB",
+        /* 106 */ "\u00BB",
     };
 
     /* Language is: Icelandic */
@@ -2881,6 +2937,7 @@ public final class KeyboardTextsSet {
         "hr", LANGUAGE_hr, /* Croatian */
         "hu", LANGUAGE_hu, /* Hungarian */
         "hu_ZZ", LANGUAGE_hu_ZZ, /* hu_zz */
+        "hy", LANGUAGE_hy, /* Armenian */
         "is", LANGUAGE_is, /* Icelandic */
         "it", LANGUAGE_it, /* Italian */
         "iw", LANGUAGE_iw, /* Hebrew */
