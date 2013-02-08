@@ -21,9 +21,23 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
 >
-    <Key
-        latin:keyLabel="!"
-        latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
+    <switch>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+055B: "՛" ARMENIAN EMPHASIS MARK
+                 U+055C: "՜" ARMENIAN EXCLAMATION MARK -->
+            <Key
+                latin:keyLabel="&#x55b;"
+                latin:keyHintLabel="&#x55c;"
+                latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
+        </case>
+        <default>
+            <Key
+                latin:keyLabel="!"
+                latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
+        </default>
+    </switch>
     <switch>
         <case
             latin:languageCode="fa"
@@ -39,6 +53,18 @@
                 latin:code="0x00AB"
                 latin:moreKeys="!text/more_keys_for_single_quote" />
         </case>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+                 U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+            <Key
+                latin:keyLabel="&#x00AB;"
+                latin:moreKeys="!text/more_keys_for_double_quote" />
+            <Key
+                latin:keyLabel="&#x00BB;"
+                latin:moreKeys="!text/more_keys_for_single_quote" />
+        </case>
         <default>
             <Key
                 latin:keyLabel="&quot;"
@@ -48,14 +74,38 @@
                 latin:moreKeys="!text/more_keys_for_single_quote" />
         </default>
     </switch>
-    <Key
-        latin:keyLabel=":" />
+    <switch>
+        <case
+            latin:languageCode="hy"
+        >
+            <Key
+                latin:keyLabel="." />
+        </case>
+        <default>
+            <Key
+                latin:keyLabel=":" />
+        </default>
+    </switch>
     <Key
         latin:keyLabel="!text/keylabel_for_symbols_semicolon"
         latin:moreKeys="!text/more_keys_for_symbols_semicolon" />
     <Key
         latin:keyLabel="/" />
-    <Key
-        latin:keyLabel="!text/keylabel_for_symbols_question"
-        latin:moreKeys="!text/more_keys_for_symbols_question" />
+    <switch>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+055E: "՞" ARMENIAN QUESTION MARK
+                 U+055D: "՝" ARMENIAN COMMA  -->
+            <Key
+                latin:keyLabel="&#x55e;"
+                latin:keyHintLabel="&#x55d;"
+                latin:moreKeys="!text/more_keys_for_symbols_question" />
+        </case>
+        <default>
+            <Key
+                latin:keyLabel="!text/keylabel_for_symbols_question"
+                latin:moreKeys="!text/more_keys_for_symbols_question" />
+        </default>
+    </switch>
 </merge>
