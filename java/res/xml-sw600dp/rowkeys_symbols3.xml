@@ -48,10 +48,38 @@
         latin:moreKeys="!text/more_keys_for_comma" />
     <Key
         latin:keyLabel="." />
-    <Key
-        latin:keyLabel="!"
-        latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
-    <Key
-        latin:keyLabel="!text/keylabel_for_symbols_question"
-        latin:moreKeys="!text/more_keys_for_symbols_question" />
+    <switch>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+055B: "՛" ARMENIAN EMPHASIS MARK
+                 U+055C: "՜" ARMENIAN EXCLAMATION MARK -->
+            <Key
+                latin:keyLabel="&#x55b;"
+                latin:keyHintLabel="&#x55c;"
+                latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
+        </case>
+        <default>
+            <Key
+                latin:keyLabel="!"
+                latin:moreKeys="!text/more_keys_for_symbols_exclamation" />
+        </default>
+    </switch>
+    <switch>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+055E: "՞" ARMENIAN QUESTION MARK
+                 U+055D: "՝" ARMENIAN COMMA  -->
+            <Key
+                latin:keyLabel="&#x55e;"
+                latin:keyHintLabel="&#x55d;"
+                latin:moreKeys="!text/more_keys_for_symbols_question" />
+        </case>
+        <default>
+            <Key
+                latin:keyLabel="!text/keylabel_for_symbols_question"
+                latin:moreKeys="!text/more_keys_for_symbols_question" />
+        </default>
+    </switch>
 </merge>
