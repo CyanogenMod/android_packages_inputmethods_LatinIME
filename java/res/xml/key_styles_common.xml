@@ -180,10 +180,25 @@
         latin:keyLabel="!text/label_to_symbol_key"
         latin:keyActionFlags="noKeyPreview"
         latin:backgroundType="functional" />
-    <key-style
-        latin:styleName="punctuationKeyStyle"
-        latin:keyLabel="."
-        latin:keyLabelFlags="hasPopupHint"
-        latin:moreKeys="!text/more_keys_for_punctuation"
-        latin:backgroundType="functional" />
+    <switch>
+        <case
+        latin:languageCode="hy"
+        >
+        <!-- U+0589: "։" ARMENIAN FULL STOP -->
+            <key-style
+                latin:styleName="punctuationKeyStyle"
+                latin:keyLabel="&#x589;"
+                latin:keyLabelFlags="hasPopupHint"
+                latin:moreKeys="!text/more_keys_for_punctuation"
+                latin:backgroundType="functional" />
+        </case>
+        <default>
+            <key-style
+                latin:styleName="punctuationKeyStyle"
+                latin:keyLabel="."
+                latin:keyLabelFlags="hasPopupHint"
+                latin:moreKeys="!text/more_keys_for_punctuation"
+                latin:backgroundType="functional" />
+        </default>
+    </switch>
 </merge>

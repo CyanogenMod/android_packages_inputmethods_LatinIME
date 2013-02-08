@@ -36,6 +36,18 @@
                 latin:code="0x00AB"
                 latin:moreKeys="!text/more_keys_for_greater_than" />
         </case>
+        <case
+            latin:languageCode="hy"
+        >
+            <!-- U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+                 U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+            <Key
+                latin:keyLabel="&#x00AB;"
+                latin:moreKeys="!text/more_keys_for_less_than" />
+            <Key
+                latin:keyLabel="&#x00BB;"
+                latin:moreKeys="!text/more_keys_for_greater_than" />
+        </case>
         <default>
             <Key
                 latin:keyLabel="&lt;"

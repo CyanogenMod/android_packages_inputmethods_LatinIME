@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
+>
+    <!-- U+056D: "խ" ARMENIAN SMALL LETTER XEH
+         U+0572: "ղ" ARMENIAN SMALL LETTER GHAD -->
+    <Key
+        latin:keyLabel="&#x56d;"
+        latin:moreKeys="1"
+        latin:keyHintLabel="&#x572;"
+        latin:additionalMoreKeys="&#x572;" />
+    <!-- U+0582: "ւ" ARMENIAN SMALL LETTER YIWN
+         U+0587: "և" ARMENIAN SMALL LIGATURE ECH YIWN -->
+    <Key
+        latin:keyLabel="&#x582;"
+        latin:moreKeys="2"
+        latin:keyHintLabel="&#x587;"
+        latin:additionalMoreKeys="&#x587;" />
+    <!-- U+0567: "է" ARMENIAN SMALL LETTER EH -->
+    <Key
+        latin:keyLabel="&#x567;"
+        latin:keyHintLabel="3"
+        latin:additionalMoreKeys="3" />
+    <!-- U+0580: "ր" ARMENIAN SMALL LETTER REH
+         U+057C: "ռ" ARMENIAN SMALL LETTER RA -->
+    <Key
+        latin:keyLabel="&#x580;"
+        latin:moreKeys="4"
+        latin:keyHintLabel="&#x57c;"
+        latin:additionalMoreKeys="&#x57c;" />
+    <!-- U+057F: "տ" ARMENIAN SMALL LETTER TIWN -->
+    <Key
+        latin:keyLabel="&#x57f;"
+        latin:keyHintLabel="5"
+        latin:additionalMoreKeys="5" />
+    <!-- U+0565: "ե" ARMENIAN SMALL LETTER ECH
+         U+0575: "յ" ARMENIAN SMALL LETTER YI -->
+    <Key
+        latin:keyLabel="&#x565;"
+        latin:moreKeys="6"
+        latin:keyHintLabel="&#x575;"
+        latin:additionalMoreKeys="&#x575;" />
+    <!-- U+0568: "ը" ARMENIAN SMALL LETTER ET -->
+    <Key
+        latin:keyLabel="&#x568;"
+        latin:keyHintLabel="7"
+        latin:additionalMoreKeys="7" />
+    <!-- U+056B: "ի" ARMENIAN SMALL LETTER INI -->
+    <Key
+        latin:keyLabel="&#x56b;"
+        latin:keyHintLabel="8"
+        latin:additionalMoreKeys="8" />
+    <!-- U+0578: "ո" ARMENIAN SMALL LETTER VO
+         U+0585: "օ" ARMENIAN SMALL LETTER OH  -->
+    <Key
+        latin:keyLabel="&#x578;"
+        latin:moreKeys="9"
+        latin:keyHintLabel="&#x585;"
+        latin:additionalMoreKeys="&#x585;" />
+    <!-- U+057A: "պ" ARMENIAN SMALL LETTER PEH -->
+    <Key
+        latin:keyLabel="&#x57a;"
+        latin:keyHintLabel="0"
+        latin:additionalMoreKeys="0" />
+    <!-- U+0579: "չ" ARMENIAN SMALL LETTER CHA
+         U+057B: "ջ" ARMENIAN SMALL LETTER JHEH -->
+    <Key
+        latin:keyLabel="&#x579;"
+        latin:moreKeys="&#x57b;"
+        latin:keyHintLabel="&#x57b;" />
+</merge>

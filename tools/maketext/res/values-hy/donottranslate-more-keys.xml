@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- U+0589: "։" ARMENIAN FULL STOP -->
+    <string name="keylabel_for_tablet_period">"&#x589;"</string>
+    <!-- U+055E: "՞" ARMENIAN QUESTION MARK  -->
+    <string name="keyhintlabel_for_tablet_period">"&#x55e;"</string>
+    <string name="more_keys_for_tablet_period">"&#x55e;"</string>
+    <!-- U+055D: "՝" ARMENIAN COMMA -->
+    <string name="keyhintlabel_for_tablet_comma">"&#x55d;"</string>
+    <string name="more_keys_for_tablet_comma">"&#x55d;"</string>
+    <!-- U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+         U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+         U+055E: "՞" ARMENIAN QUESTION MARK
+         U+055D: "՝" ARMENIAN COMMA
+         U+055C: "՜" ARMENIAN EXCLAMATION MARK
+         U+055B: "՛" ARMENIAN EMPHASIS MARK
+         U+058A: "֊" ARMENIAN HYPHEN -->
+    <string name="more_keys_for_punctuation">"!fixedColumnOrder!8,&#x00AB;,&#x00BB;,&#x58a;,\\,,.,:,&#x55d;,&#x55e;,&#x55b;,&#x55c;,\@,\\%,;,/,(,)"</string>
+    <!-- U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+         U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+    <string name="keylabel_for_apostrophe">"&#x00AB;"</string>
+    <string name="keyhintlabel_for_apostrophe">"&#x00BB;"</string>
+    <string name="more_keys_for_apostrophe">"&#x00BB;"</string>
+    <!-- U+055C: "՜" ARMENIAN EXCLAMATION MARK -->
+    <string name="more_keys_for_symbols_exclamation">"&#x55c;,!"</string>
+    <!-- U+055D: "՝" ARMENIAN COMMA -->
+    <string name="more_keys_for_symbols_question">"&#x55d;,\?"</string>
+    <string name="more_keys_for_double_quote">"&lt;"</string>
+    <string name="more_keys_for_less_than">"&lt;"</string>
+    <string name="more_keys_for_single_quote">"&gt;"</string>
+    <string name="more_keys_for_greater_than">"&gt;"</string>
+</resources>
