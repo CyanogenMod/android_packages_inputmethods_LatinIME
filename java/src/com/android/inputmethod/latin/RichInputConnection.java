@@ -145,7 +145,8 @@ public final class RichInputConnection {
         mCurrentCursorPosition = newCursorPosition;
         mComposingText.setLength(0);
         mCommittedTextBeforeComposingText.setLength(0);
-        mCommittedTextBeforeComposingText.append(getTextBeforeCursor(DEFAULT_TEXT_CACHE_SIZE, 0));
+        final CharSequence textBeforeCursor = getTextBeforeCursor(DEFAULT_TEXT_CACHE_SIZE, 0);
+        if (null != textBeforeCursor) mCommittedTextBeforeComposingText.append(textBeforeCursor);
         mCharAfterTheCursor = getTextAfterCursor(1, 0);
         if (null != mIC) {
             mIC.finishComposingText();
@@ -335,6 +336,24 @@ public final class RichInputConnection {
             if (ProductionFlag.IS_EXPERIMENTAL) {
                 ResearchLogger.richInputConnection_sendKeyEvent(keyEvent);
             }
+        }
+    }
+
+    public void setComposingRegion(final int start, final int end) {
+        if (DEBUG_BATCH_NESTING) checkBatchEdit();
+        if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        mCurrentCursorPosition = end;
+        final CharSequence textBeforeCursor =
+                getTextBeforeCursor(DEFAULT_TEXT_CACHE_SIZE + (end - start), 0);
+        final int indexOfStartOfComposingText =
+                Math.max(textBeforeCursor.length() - (end - start), 0);
+        mComposingText.append(textBeforeCursor.subSequence(indexOfStartOfComposingText,
+                textBeforeCursor.length()));
+        mCommittedTextBeforeComposingText.setLength(0);
+        mCommittedTextBeforeComposingText.append(
+                textBeforeCursor.subSequence(0, indexOfStartOfComposingText));
+        if (null != mIC) {
+            mIC.setComposingRegion(start, end);
         }
     }
 
