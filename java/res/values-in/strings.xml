@@ -146,4 +146,7 @@
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Mode studi daya guna"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Setelan durasi getaran saat tombol ditekan"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Setelan volume suara saat tombol ditekan"</string>
+
+    <!-- CYANOGENMOD ADDITONS -->
+    <string name="subtype_hu_ZZ">Hongaria (QUERTY)</string>
 </resources>
