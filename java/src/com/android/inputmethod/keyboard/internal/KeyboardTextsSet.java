@@ -738,7 +738,9 @@ public final class KeyboardTextsSet {
         // U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX
         // U+00E3: "ã" LATIN SMALL LETTER A WITH TILDE
         // U+0101: "ā" LATIN SMALL LETTER A WITH MACRON
-        /* 0 */ "\u00E1,\u00E4,\u00E0,\u00E2,\u00E3,\u0101",
+        // U+00E5: "å" LATIN SMALL LETTER A WITH RING ABOVE
+        // U+00E6: "æ" LATIN SMALL LETTER AE
+        /* 0 */ "\u00E1,\u00E4,\u00E0,\u00E2,\u00E3,\u0101,\u00E5,\u00E6",
         // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
         // U+00EB: "ë" LATIN SMALL LETTER E WITH DIAERESIS
         /* 1 */ "\u00E9,\u00EB",
@@ -751,7 +753,8 @@ public final class KeyboardTextsSet {
         // U+00F5: "õ" LATIN SMALL LETTER O WITH TILDE
         // U+0153: "œ" LATIN SMALL LIGATURE OE
         // U+014D: "ō" LATIN SMALL LETTER O WITH MACRON
-        /* 3 */ "\u00F3,\u00F4,\u00F2,\u00F5,\u0153,\u014D",
+        // U+00F8: "ø" LATIN SMALL LETTER O WITH STROKE
+        /* 3 */ "\u00F3,\u00F4,\u00F2,\u00F5,\u0153,\u014D,\u00F8",
         // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
         // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
         // U+00FB: "û" LATIN SMALL LETTER U WITH CIRCUMFLEX
