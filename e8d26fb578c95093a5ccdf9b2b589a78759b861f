@@ -1,0 +1,8 @@
+Change-Id: Ie8d26fb578c95093a5ccdf9b2b589a78759b861f
+Code-Review+2: Jef Oliver <jeagoss@cyanogenmod.org>
+Verified+1: Jef Oliver <jeagoss@cyanogenmod.org>
+Submitted-by: Jef Oliver <jeagoss@cyanogenmod.org>
+Submitted-at: Mon, 11 Mar 2013 18:18:35 -0700
+Reviewed-on: http://review.cyanogenmod.org/9571
+Project: CyanogenMod/android_packages_inputmethods_LatinIME
+Branch: refs/heads/gingerbread
