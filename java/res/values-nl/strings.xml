@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
-     Copyright (C) 2012 The CyanogenMod Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+ -->
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="aosp_android_keyboard_ime_name" msgid="7877134937939182296">"Android-toetsenbord (AOSP)"</string>
@@ -21,7 +25,7 @@
     <string name="english_ime_research_log" msgid="8492602295696577851">"Opdrachten in onderzoekslogbestand"</string>
     <string name="aosp_spell_checker_service_name" msgid="6985142605330377819">"Spellingcontrole van Android (AOSP)"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Contactnamen opzoeken"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"De spellingcontrole gebruikt items uit uw contactlijst"</string>
+    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"De spellingcontrole gebruikt items uit uw contactenlijst"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Trillen bij toetsaanslag"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up bij toetsaanslag"</string>
@@ -73,7 +77,7 @@
     <string name="label_to_symbol_with_microphone_key" msgid="9035925553010061906">"123"</string>
     <string name="label_pause_key" msgid="181098308428035340">"Pauze"</string>
     <string name="label_wait_key" msgid="6402152600878093134">"Wacht"</string>
-    <string name="spoken_use_headphones" msgid="896961781287283493">"Sluit een headset aan om wachtwoordtoetsen hardop voor te laten lezen."</string>
+    <string name="spoken_use_headphones" msgid="896961781287283493">"Sluit een headset aan om wachtwoordtoetsen hardop te laten voorlezen."</string>
     <string name="spoken_current_text_is" msgid="2485723011272583845">"Huidige tekst is %s"</string>
     <string name="spoken_no_text_entered" msgid="7479685225597344496">"Geen tekst ingevoerd"</string>
     <string name="spoken_description_unknown" msgid="3197434010402179157">"Toetscode %d"</string>
@@ -88,7 +92,7 @@
     <string name="spoken_description_tab" msgid="2667716002663482248">"Tab"</string>
     <string name="spoken_description_space" msgid="2582521050049860859">"Spatie"</string>
     <string name="spoken_description_mic" msgid="615536748882611950">"Spraakinvoer"</string>
-    <string name="spoken_description_smiley" msgid="2256309826200113918">"Smiley"</string>
+    <string name="spoken_description_smiley" msgid="2256309826200113918">"Smiley-gezichtje"</string>
     <string name="spoken_description_return" msgid="8178083177238315647">"Return"</string>
     <string name="spoken_description_search" msgid="1247236163755920808">"Zoeken"</string>
     <string name="spoken_description_dot" msgid="40711082435231673">"Stip"</string>
@@ -102,19 +106,19 @@
     <string name="spoken_description_mode_alpha" msgid="3528307674390156956">"Alfanumeriek toetsenbord"</string>
     <string name="spoken_description_mode_phone" msgid="6520207943132026264">"Toetsenbord telefoon"</string>
     <string name="spoken_description_mode_phone_shift" msgid="5499629753962641227">"Telefoonsymbolen"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Knop voor spraakinvoer"</string>
+    <string name="voice_input" msgid="3583258583521397548">"Sleutel voor spraakinvoer"</string>
     <string name="voice_input_modes_main_keyboard" msgid="3360660341121083174">"Op hoofdtoetsenbord"</string>
     <string name="voice_input_modes_symbols_keyboard" msgid="7203213240786084067">"Op symbooltoetsenb."</string>
     <string name="voice_input_modes_off" msgid="3745699748218082014">"Uitgeschakeld"</string>
-    <string name="voice_input_modes_summary_main_keyboard" msgid="6586544292900314339">"Micr. op hoofdtoetsb."</string>
-    <string name="voice_input_modes_summary_symbols_keyboard" msgid="5233725927281932391">"Micr. op symb.toetsb."</string>
+    <string name="voice_input_modes_summary_main_keyboard" msgid="6586544292900314339">"Mic op hoofdtoetsb."</string>
+    <string name="voice_input_modes_summary_symbols_keyboard" msgid="5233725927281932391">"Mic op symb.toetsb."</string>
     <string name="voice_input_modes_summary_off" msgid="63875609591897607">"Spraakinvoer is uit"</string>
     <string name="configure_input_method" msgid="373356270290742459">"Invoermethoden configureren"</string>
     <string name="language_selection_title" msgid="1651299598555326750">"Invoertalen"</string>
     <string name="select_language" msgid="3693815588777926848">"Invoertalen"</string>
-    <string name="hint_add_to_dictionary" msgid="573678656946085380">"Tik nogmaals om op te slaan"</string>
+    <string name="hint_add_to_dictionary" msgid="573678656946085380">"Raak nogmaals aan om op te slaan"</string>
     <string name="has_dictionary" msgid="6071847973466625007">"Woordenboek beschikbaar"</string>
-    <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen"</string>
+    <string name="prefs_enable_log" msgid="6620424505072963557">"Gebruikersfeedback inschakelen."</string>
     <string name="prefs_description_log" msgid="5827825607258246003">"Help deze invoermethode te verbeteren door automatisch gebruiksstatistieken en crashmeldingen naar Google te verzenden."</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Toetsenbordthema"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engels (GB)"</string>
@@ -128,13 +132,13 @@
     <string name="subtype_no_language_dvorak" msgid="3122976737669823935">"Geen taal (Dvorak)"</string>
     <string name="subtype_no_language_colemak" msgid="4205992994906097244">"Geen taal (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="8840928374394180189">"Geen taal (PC)"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Aangepaste invoerstijlen"</string>
-    <string name="add_style" msgid="6163126614514489951">"Stijl toevoegen"</string>
+    <string name="custom_input_styles_title" msgid="8429952441821251512">"Aangep. invoerstijlen"</string>
+    <string name="add_style" msgid="6163126614514489951">"Stijl toev."</string>
     <string name="add" msgid="8299699805688017798">"Toevoegen"</string>
     <string name="remove" msgid="4486081658752944606">"Verwijderen"</string>
     <string name="save" msgid="7646738597196767214">"Opslaan"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Taal"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Indeling"</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">"Lay-out"</string>
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"U moet uw aangepaste invoerstijl inschakelen voor u deze kunt gebruiken. Wilt u de invoerstijl nu inschakelen?"</string>
     <string name="enable" msgid="5031294444630523247">"Inschakelen"</string>
     <string name="not_now" msgid="6172462888202790482">"Niet nu"</string>
@@ -142,7 +146,4 @@
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Modus voor gebruiksvriendelijkheidsonderzoek"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Instellingen voor trillingsduur bij druk op een toets"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Instellingen voor geluidsvolume bij druk op een toets"</string>
-
-    <!-- CYANOGENMOD EDITS -->
-    <string name="subtype_hu_ZZ">Hongaars (QUERTY)</string>
 </resources>
