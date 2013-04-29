@@ -123,7 +123,6 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Billentyűzettéma"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angol (brit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angol (amerikai)"</string>
-    <string name="subtype_hu_ZZ">"magyar (QWERTY)"</string>
     <string name="subtype_with_layout_en_GB" msgid="2179097748724725906">"angol (brit) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="1362581347576714579">"angol (amerikai) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_no_language" msgid="141420857808801746">"Nincs nyelv"</string>
