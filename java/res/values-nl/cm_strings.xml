@@ -14,5 +14,5 @@
      limitations under the License.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="subftype_hu_ZZ">Hongaars (QUERTY)</string>
+    <string name="subtype_hu_ZZ">Hongaars (QUERTY)</string>
 </resources>
