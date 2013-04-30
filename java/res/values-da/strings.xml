@@ -146,7 +146,4 @@
     <string name="prefs_usability_study_mode" msgid="1261130555134595254">"Tilstand for brugsstudie"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="1829950405285211668">"Indstillinger for varighed af vibration ved tastetryk"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="5875933757082305040">"Indstillinger for lydstyrke ved tastetryk"</string>
-    <!-- CM10 additions -->
-    <string name="subtype_hu_ZZ">Ungarsk (QUERTY)</string>
-    <!-- CM10 additions end -->
 </resources>

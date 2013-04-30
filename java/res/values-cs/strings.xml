@@ -123,7 +123,6 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Motiv klávesnice"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angličtina (Velká Británie)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angličtina (USA)"</string>
-    <string name="subtype_hu_ZZ">maďarština (QUERTY)</string>
     <string name="subtype_with_layout_en_GB" msgid="2179097748724725906">"angličtina (VB) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="1362581347576714579">"angličtina (USA) (<xliff:g id="LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_no_language" msgid="141420857808801746">"žádný jazyk"</string>
