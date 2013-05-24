@@ -22,23 +22,21 @@
     xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
 >
     <Key
-        latin:keyLabel="~" />
+        latin:keyLabel="~" 
+	latin:moreKeys="®,©" />
     <Key
         latin:keyLabel="`" />
     <Key
         latin:keyLabel="|" />
-    <!-- U+2022: "•" BULLET -->
-    <Key
-        latin:keyLabel="&#x2022;"
-        latin:moreKeys="!text/more_keys_for_bullet" />
     <!-- U+221A: "√" SQUARE ROOT -->
     <Key
         latin:keyLabel="&#x221A;" />
-    <!-- U+03C0: "π" GREEK SMALL LETTER PI
-         U+03A0: "Π" GREEK CAPITAL LETTER PI  -->
-    <Key
-        latin:keyLabel="&#x03C0;"
-        latin:moreKeys="&#x03A0;" />
+    <Key 
+	latin:keyLabel="π" 
+	latin:moreKeys="γ,δ,β,ε,α,θ,ι,η,κ,ζ,ν,ξ,μ,o,λ,ς,τ,σ,υ,ρ,,ψ,ω,χ,φ" />
+    <Key 
+	latin:keyLabel="Δ" 
+	latin:moreKeys="Γ,Ε,Β,Ζ,Α,Ι,Κ,Θ,Λ,Η,Ξ,Ο,Ν,Π,Μ,Τ,Υ,Σ,Φ,Ρ,Χ,Ψ" />
     <!-- U+00F7: "÷" DIVISION SIGN -->
     <Key
         latin:keyLabel="&#x00F7;" />
