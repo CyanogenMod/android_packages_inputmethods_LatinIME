@@ -1,25 +1,28 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
+import com.android.inputmethod.annotations.UsedForTesting;
+import com.android.inputmethod.keyboard.internal.KeyPreviewDrawParams;
 import com.android.inputmethod.keyboard.internal.KeyboardBuilder;
 import com.android.inputmethod.keyboard.internal.KeyboardIconsSet;
 import com.android.inputmethod.keyboard.internal.KeyboardParams;
@@ -39,7 +42,7 @@ public final class MoreKeysKeyboard extends Keyboard {
         return mDefaultKeyCoordX;
     }
 
-    /* package for test */
+    @UsedForTesting
     static class MoreKeysKeyboardParams extends KeyboardParams {
         public boolean mIsFixedOrder;
         /* package */int mTopRowAdjustment;
@@ -71,10 +74,11 @@ public final class MoreKeysKeyboard extends Keyboard {
                 final int rowHeight, final int coordXInParent, final int parentKeyboardWidth,
                 final boolean isFixedColumnOrder, final int dividerWidth) {
             mIsFixedOrder = isFixedColumnOrder;
-            if (parentKeyboardWidth / keyWidth < maxColumns) {
+            if (parentKeyboardWidth / keyWidth < Math.min(numKeys, maxColumns)) {
                 throw new IllegalArgumentException(
                         "Keyboard is too small to hold more keys keyboard: "
-                                + parentKeyboardWidth + " " + keyWidth + " " + maxColumns);
+                                + parentKeyboardWidth + " " + keyWidth + " "
+                                + numKeys + " " + maxColumns);
             }
             mDefaultKeyWidth = keyWidth;
             mDefaultRowHeight = rowHeight;
@@ -255,16 +259,17 @@ public final class MoreKeysKeyboard extends Keyboard {
         private static final float LABEL_PADDING_RATIO = 0.2f;
         private static final float DIVIDER_RATIO = 0.2f;
 
-
         /**
          * The builder of MoreKeysKeyboard.
-         * @param containerView the container of {@link MoreKeysKeyboardView}.
+         * @param context the context of {@link MoreKeysKeyboardView}.
          * @param parentKey the {@link Key} that invokes more keys keyboard.
          * @param parentKeyboardView the {@link KeyboardView} that contains the parentKey.
+         * @param keyPreviewDrawParams the parameter to place key preview.
          */
-        public Builder(final View containerView, final Key parentKey,
-                final KeyboardView parentKeyboardView) {
-            super(containerView.getContext(), new MoreKeysKeyboardParams());
+        public Builder(final Context context, final Key parentKey,
+                final MainKeyboardView parentKeyboardView,
+                final KeyPreviewDrawParams keyPreviewDrawParams) {
+            super(context, new MoreKeysKeyboardParams());
             final Keyboard parentKeyboard = parentKeyboardView.getKeyboard();
             load(parentKeyboard.mMoreKeysTemplate, parentKeyboard.mId);
 
@@ -284,12 +289,24 @@ public final class MoreKeysKeyboard extends Keyboard {
                 // left/right/top paddings. The bottom paddings of both backgrounds don't need to
                 // be considered because the vertical positions of both backgrounds were already
                 // adjusted with their bottom paddings deducted.
-                width = parentKeyboardView.mKeyPreviewDrawParams.mPreviewVisibleWidth;
-                height = parentKeyboardView.mKeyPreviewDrawParams.mPreviewVisibleHeight
-                        + mParams.mVerticalGap;
+                width = keyPreviewDrawParams.mPreviewVisibleWidth;
+                height = keyPreviewDrawParams.mPreviewVisibleHeight + mParams.mVerticalGap;
+                // TODO: Remove this check.
+                if (width == 0) {
+                    throw new IllegalArgumentException(
+                            "Zero width key detected: " + parentKey + " in " + parentKeyboard.mId);
+                }
             } else {
-                width = getMaxKeyWidth(parentKeyboardView, parentKey, mParams.mDefaultKeyWidth);
+                width = getMaxKeyWidth(parentKeyboardView, parentKey, mParams.mDefaultKeyWidth,
+                        context.getResources());
                 height = parentKeyboard.mMostCommonKeyHeight;
+                // TODO: Remove this check.
+                if (width == 0) {
+                    throw new IllegalArgumentException(
+                            "Zero width calculated: " + parentKey
+                            + " moreKeys=" + java.util.Arrays.toString(parentKey.mMoreKeys)
+                            + " in " + parentKeyboard.mId);
+                }
             }
             final int dividerWidth;
             if (parentKey.needsDividersInMoreKeys()) {
@@ -306,22 +323,18 @@ public final class MoreKeysKeyboard extends Keyboard {
         }
 
         private static int getMaxKeyWidth(final KeyboardView view, final Key parentKey,
-                final int minKeyWidth) {
-            final int padding = (int)(view.getResources()
-                    .getDimension(R.dimen.more_keys_keyboard_key_horizontal_padding)
-                    + (parentKey.hasLabelsInMoreKeys() ? minKeyWidth * LABEL_PADDING_RATIO : 0));
-            final Paint paint = view.newDefaultLabelPaint();
-            paint.setTypeface(parentKey.selectTypeface(view.mKeyDrawParams));
-            paint.setTextSize(parentKey.selectMoreKeyTextSize(view.mKeyDrawParams));
+                final int minKeyWidth, final Resources res) {
+            final float padding =
+                    res.getDimension(R.dimen.more_keys_keyboard_key_horizontal_padding)
+                    + (parentKey.hasLabelsInMoreKeys() ? minKeyWidth * LABEL_PADDING_RATIO : 0.0f);
+            final Paint paint = view.newLabelPaint(parentKey);
             int maxWidth = minKeyWidth;
             for (final MoreKeySpec spec : parentKey.mMoreKeys) {
                 final String label = spec.mLabel;
                 // If the label is single letter, minKeyWidth is enough to hold the label.
                 if (label != null && StringUtils.codePointCount(label) > 1) {
-                    final int width = (int)view.getLabelWidth(label, paint) + padding;
-                    if (maxWidth < width) {
-                        maxWidth = width;
-                    }
+                    maxWidth = Math.max(maxWidth,
+                            (int)(TypefaceUtils.getLabelWidth(label, paint) + padding));
                 }
             }
             return maxWidth;

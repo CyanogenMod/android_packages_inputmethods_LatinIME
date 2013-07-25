@@ -18,40 +18,42 @@ package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
 
-import com.android.inputmethod.keyboard.Keyboard; // For character constants
-
 import java.util.ArrayList;
 import java.util.Locale;
 
 public final class StringUtils {
+    public static final int CAPITALIZE_NONE = 0;  // No caps, or mixed case
+    public static final int CAPITALIZE_FIRST = 1; // First only
+    public static final int CAPITALIZE_ALL = 2;   // All caps
+
     private StringUtils() {
         // This utility class is not publicly instantiable.
     }
 
-    public static int codePointCount(String text) {
+    public static int codePointCount(final String text) {
         if (TextUtils.isEmpty(text)) return 0;
         return text.codePointCount(0, text.length());
     }
 
-    public static boolean containsInArray(String key, String[] array) {
+    public static boolean containsInArray(final String key, final String[] array) {
         for (final String element : array) {
             if (key.equals(element)) return true;
         }
         return false;
     }
 
-    public static boolean containsInCsv(String key, String csv) {
+    public static boolean containsInCsv(final String key, final String csv) {
         if (TextUtils.isEmpty(csv)) return false;
         return containsInArray(key, csv.split(","));
     }
 
-    public static String appendToCsvIfNotExists(String key, String csv) {
+    public static String appendToCsvIfNotExists(final String key, final String csv) {
         if (TextUtils.isEmpty(csv)) return key;
         if (containsInCsv(key, csv)) return csv;
         return csv + "," + key;
     }
 
-    public static String removeFromCsvIfExists(String key, String csv) {
+    public static String removeFromCsvIfExists(final String key, final String csv) {
         if (TextUtils.isEmpty(csv)) return "";
         final String[] elements = csv.split(",");
         if (!containsInArray(key, elements)) return csv;
@@ -63,82 +65,20 @@ public final class StringUtils {
     }
 
     /**
-     * Returns true if a and b are equal ignoring the case of the character.
-     * @param a first character to check
-     * @param b second character to check
-     * @return {@code true} if a and b are equal, {@code false} otherwise.
-     */
-    public static boolean equalsIgnoreCase(char a, char b) {
-        // Some language, such as Turkish, need testing both cases.
-        return a == b
-                || Character.toLowerCase(a) == Character.toLowerCase(b)
-                || Character.toUpperCase(a) == Character.toUpperCase(b);
-    }
-
-    /**
-     * Returns true if a and b are equal ignoring the case of the characters, including if they are
-     * both null.
-     * @param a first CharSequence to check
-     * @param b second CharSequence to check
-     * @return {@code true} if a and b are equal, {@code false} otherwise.
-     */
-    public static boolean equalsIgnoreCase(CharSequence a, CharSequence b) {
-        if (a == b)
-            return true;  // including both a and b are null.
-        if (a == null || b == null)
-            return false;
-        final int length = a.length();
-        if (length != b.length())
-            return false;
-        for (int i = 0; i < length; i++) {
-            if (!equalsIgnoreCase(a.charAt(i), b.charAt(i)))
-                return false;
-        }
-        return true;
-    }
-
-    /**
-     * Returns true if a and b are equal ignoring the case of the characters, including if a is null
-     * and b is zero length.
-     * @param a CharSequence to check
-     * @param b character array to check
-     * @param offset start offset of array b
-     * @param length length of characters in array b
-     * @return {@code true} if a and b are equal, {@code false} otherwise.
-     * @throws IndexOutOfBoundsException
-     *   if {@code offset < 0 || length < 0 || offset + length > data.length}.
-     * @throws NullPointerException if {@code b == null}.
-     */
-    public static boolean equalsIgnoreCase(CharSequence a, char[] b, int offset, int length) {
-        if (offset < 0 || length < 0 || length > b.length - offset)
-            throw new IndexOutOfBoundsException("array.length=" + b.length + " offset=" + offset
-                    + " length=" + length);
-        if (a == null)
-            return length == 0;  // including a is null and b is zero length.
-        if (a.length() != length)
-            return false;
-        for (int i = 0; i < length; i++) {
-            if (!equalsIgnoreCase(a.charAt(i), b[offset + i]))
-                return false;
-        }
-        return true;
-    }
-
-    /**
      * Remove duplicates from an array of strings.
      *
      * This method will always keep the first occurrence of all strings at their position
      * in the array, removing the subsequent ones.
      */
-    public static void removeDupes(final ArrayList<CharSequence> suggestions) {
+    public static void removeDupes(final ArrayList<String> suggestions) {
         if (suggestions.size() < 2) return;
         int i = 1;
         // Don't cache suggestions.size(), since we may be removing items
         while (i < suggestions.size()) {
-            final CharSequence cur = suggestions.get(i);
+            final String cur = suggestions.get(i);
             // Compare each suggestion with each previous suggestion
             for (int j = 0; j < i; j++) {
-                CharSequence previous = suggestions.get(j);
+                final String previous = suggestions.get(j);
                 if (TextUtils.equals(cur, previous)) {
                     suggestions.remove(i);
                     i--;
@@ -149,279 +89,245 @@ public final class StringUtils {
         }
     }
 
-    public static String toTitleCase(String s, Locale locale) {
+    public static String capitalizeFirstCodePoint(final String s, final Locale locale) {
         if (s.length() <= 1) {
-            // TODO: is this really correct? Shouldn't this be s.toUpperCase()?
-            return s;
+            return s.toUpperCase(locale);
+        }
+        // Please refer to the comment below in
+        // {@link #capitalizeFirstAndDowncaseRest(String,Locale)} as this has the same shortcomings
+        final int cutoff = s.offsetByCodePoints(0, 1);
+        return s.substring(0, cutoff).toUpperCase(locale) + s.substring(cutoff);
+    }
+
+    public static String capitalizeFirstAndDowncaseRest(final String s, final Locale locale) {
+        if (s.length() <= 1) {
+            return s.toUpperCase(locale);
         }
         // TODO: fix the bugs below
         // - This does not work for Greek, because it returns upper case instead of title case.
         // - It does not work for Serbian, because it fails to account for the "lj" character,
         // which should be "Lj" in title case and "LJ" in upper case.
-        // - It does not work for Dutch, because it fails to account for the "ij" digraph, which
-        // are two different characters but both should be capitalized as "IJ" as if they were
-        // a single letter.
-        // - It also does not work with unicode surrogate code points.
-        return s.toUpperCase(locale).charAt(0) + s.substring(1);
+        // - It does not work for Dutch, because it fails to account for the "ij" digraph when it's
+        // written as two separate code points. They are two different characters but both should
+        // be capitalized as "IJ" as if they were a single letter in most words (not all). If the
+        // unicode char for the ligature is used however, it works.
+        final int cutoff = s.offsetByCodePoints(0, 1);
+        return s.substring(0, cutoff).toUpperCase(locale) + s.substring(cutoff).toLowerCase(locale);
     }
 
+    private static final int[] EMPTY_CODEPOINTS = {};
+
     public static int[] toCodePointArray(final String string) {
-        final char[] characters = string.toCharArray();
-        final int length = characters.length;
-        final int[] codePoints = new int[Character.codePointCount(characters, 0, length)];
+        final int length = string.length();
         if (length <= 0) {
-            return new int[0];
+            return EMPTY_CODEPOINTS;
         }
-        int codePoint = Character.codePointAt(characters, 0);
-        int dsti = 0;
-        for (int srci = Character.charCount(codePoint);
-                srci < length; srci += Character.charCount(codePoint), ++dsti) {
-            codePoints[dsti] = codePoint;
-            codePoint = Character.codePointAt(characters, srci);
+        final int[] codePoints = new int[string.codePointCount(0, length)];
+        int destIndex = 0;
+        for (int index = 0; index < length; index = string.offsetByCodePoints(index, 1)) {
+            codePoints[destIndex] = string.codePointAt(index);
+            destIndex++;
         }
-        codePoints[dsti] = codePoint;
         return codePoints;
     }
 
-    /**
-     * Determine what caps mode should be in effect at the current offset in
-     * the text. Only the mode bits set in <var>reqModes</var> will be
-     * checked. Note that the caps mode flags here are explicitly defined
-     * to match those in {@link InputType}.
-     *
-     * This code is a straight copy of TextUtils.getCapsMode (modulo namespace and formatting
-     * issues). This will change in the future as we simplify the code for our use and fix bugs.
-     *
-     * @param cs The text that should be checked for caps modes.
-     * @param reqModes The modes to be checked: may be any combination of
-     * {@link TextUtils#CAP_MODE_CHARACTERS}, {@link TextUtils#CAP_MODE_WORDS}, and
-     * {@link TextUtils#CAP_MODE_SENTENCES}.
-     * @param locale The locale to consider for capitalization rules
-     * @param hasSpaceBefore Whether we should consider there is a space inserted at the end of cs
-     *
-     * @return Returns the actual capitalization modes that can be in effect
-     * at the current position, which is any combination of
-     * {@link TextUtils#CAP_MODE_CHARACTERS}, {@link TextUtils#CAP_MODE_WORDS}, and
-     * {@link TextUtils#CAP_MODE_SENTENCES}.
-     */
-    public static int getCapsMode(final CharSequence cs, final int reqModes, final Locale locale,
-            final boolean hasSpaceBefore) {
-        // Quick description of what we want to do:
-        // CAP_MODE_CHARACTERS is always on.
-        // CAP_MODE_WORDS is on if there is some whitespace before the cursor.
-        // CAP_MODE_SENTENCES is on if there is some whitespace before the cursor, and the end
-        //   of a sentence just before that.
-        // We ignore opening parentheses and the like just before the cursor for purposes of
-        // finding whitespace for WORDS and SENTENCES modes.
-        // The end of a sentence ends with a period, question mark or exclamation mark. If it's
-        // a period, it also needs not to be an abbreviation, which means it also needs to either
-        // be immediately preceded by punctuation, or by a string of only letters with single
-        // periods interleaved.
-
-        // Step 1 : check for cap MODE_CHARACTERS. If it's looked for, it's always on.
-        if ((reqModes & (TextUtils.CAP_MODE_WORDS | TextUtils.CAP_MODE_SENTENCES)) == 0) {
-            // Here we are not looking for MODE_WORDS or MODE_SENTENCES, so since we already
-            // evaluated MODE_CHARACTERS, we can return.
-            return TextUtils.CAP_MODE_CHARACTERS & reqModes;
+    public static String[] parseCsvString(final String text) {
+        final int size = text.length();
+        if (size == 0) {
+            return null;
+        }
+        if (codePointCount(text) == 1) {
+            return text.codePointAt(0) == Constants.CSV_SEPARATOR ? null : new String[] { text };
         }
 
-        // Step 2 : Skip (ignore at the end of input) any opening punctuation. This includes
-        // opening parentheses, brackets, opening quotes, everything that *opens* a span of
-        // text in the linguistic sense. In RTL languages, this is still an opening sign, although
-        // it may look like a right parenthesis for example. We also include single quote, 
-        // double quote and left double angle quote since they aren't start punctuation in the 
-        // unicode sense, but should still be skipped for English. 
-        // TODO: does this depend on the language?
-
-        final int CODE_LEFT_DOUBLE_ANGLE_QUOTE = 0xAB;
-
-        int i;
-        if (hasSpaceBefore) {
-            i = cs.length() + 1;
-        } else {
-            for (i = cs.length(); i > 0; i--) {
-                final char c = cs.charAt(i - 1);
-                if (c != Keyboard.CODE_DOUBLE_QUOTE && c != Keyboard.CODE_SINGLE_QUOTE
-                        && c != CODE_LEFT_DOUBLE_ANGLE_QUOTE
-                        && Character.getType(c) != Character.START_PUNCTUATION) {
-                    break;
-                }
-            }
-        }
-
-        // We are now on the character that precedes any starting punctuation, so in the most
-        // frequent case this will be whitespace or a letter, although it may occasionally be a
-        // start of line, or some symbol.
-
-        // Step 3 : Search for the start of a paragraph. From the starting point computed in step 2,
-        // we go back over any space or tab char sitting there. We find the start of a paragraph
-        // if the first char that's not a space or tab is a start of line (as in \n, start of text,
-        // or some other similar characters).
-        int j = i;
-        char prevChar = Keyboard.CODE_SPACE;
-        if (hasSpaceBefore) --j;
-        while (j > 0) {
-            prevChar = cs.charAt(j - 1);
-            if (!Character.isSpaceChar(prevChar) && prevChar != Keyboard.CODE_TAB) break;
-            j--;
-        }
-        if (j <= 0 || Character.isWhitespace(prevChar)) {
-            // There are only spacing chars between the start of the paragraph and the cursor,
-            // defined as a isWhitespace() char that is neither a isSpaceChar() nor a tab. Both
-            // MODE_WORDS and MODE_SENTENCES should be active.
-            return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS
-                    | TextUtils.CAP_MODE_SENTENCES) & reqModes;
-        }
-        if (i == j) {
-            // If we don't have whitespace before index i, it means neither MODE_WORDS
-            // nor mode sentences should be on so we can return right away.
-            return TextUtils.CAP_MODE_CHARACTERS & reqModes;
-        }
-        if ((reqModes & TextUtils.CAP_MODE_SENTENCES) == 0) {
-            // Here we know we have whitespace before the cursor (if not, we returned in the above
-            // if i == j clause), so we need MODE_WORDS to be on. And we don't need to evaluate
-            // MODE_SENTENCES so we can return right away.
-            return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
-        }
-        // Please note that because of the reqModes & CAP_MODE_SENTENCES test a few lines above,
-        // we know that MODE_SENTENCES is being requested.
-
-        // Step 4 : Search for MODE_SENTENCES.
-        // English is a special case in that "American typography" rules, which are the most common
-        // in English, state that a sentence terminator immediately following a quotation mark
-        // should be swapped with it and de-duplicated (included in the quotation mark),
-        // e.g. <<Did he say, "let's go home?">>
-        // No other language has such a rule as far as I know, instead putting inside the quotation
-        // mark as the exact thing quoted and handling the surrounding punctuation independently,
-        // e.g. <<Did he say, "let's go home"?>>
-        // Hence, specifically for English, we treat this special case here.
-        if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) {
-            for (; j > 0; j--) {
-                // Here we look to go over any closing punctuation. This is because in dominant
-                // variants of English, the final period is placed within double quotes and maybe
-                // other closing punctuation signs. This is generally not true in other languages.
-                final char c = cs.charAt(j - 1);
-                if (c != Keyboard.CODE_DOUBLE_QUOTE && c != Keyboard.CODE_SINGLE_QUOTE
-                        && Character.getType(c) != Character.END_PUNCTUATION) {
-                    break;
-                }
-            }
-        }
-
-        if (j <= 0) return TextUtils.CAP_MODE_CHARACTERS & reqModes;
-        char c = cs.charAt(--j);
-
-        // We found the next interesting chunk of text ; next we need to determine if it's the
-        // end of a sentence. If we have a question mark or an exclamation mark, it's the end of
-        // a sentence. If it's neither, the only remaining case is the period so we get the opposite
-        // case out of the way.
-        if (c == Keyboard.CODE_QUESTION_MARK || c == Keyboard.CODE_EXCLAMATION_MARK) {
-            return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_SENTENCES) & reqModes;
-        }
-
-        // In Armenian a sentence ends by an Armenian full stop ( like a colon ) and not by a period.
-        // It also can end by three dots. Occasionally two dots can be used instead of three.
-        // Thus allow a sentence to end by two or more dots.
-        // Armenian full stop: U+0589 - '։'.
-        // Also allow a sentence to end by a question mark or an exclamation mark ( the code above ).
-        // Don't allow a sentence to end by a single dot.
-
-        final int CODE_ARMENIAN_FULL_STOP = 0x589;
-
-        if (locale.getLanguage().equals("hy")) {
-            if (c == Keyboard.CODE_COLON || c == CODE_ARMENIAN_FULL_STOP) {
-                return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_SENTENCES) & reqModes;
-            } else if (c == Keyboard.CODE_PERIOD) {
-                if (j <= 0) {
-                    return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
-                }
-                else {
-                    c = cs.charAt(--j);
-                    if (c == Keyboard.CODE_PERIOD) {
-                        return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_SENTENCES) & reqModes;
-                    } else {
-                        return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
+        ArrayList<String> list = null;
+        int start = 0;
+        for (int pos = 0; pos < size; pos++) {
+            final char c = text.charAt(pos);
+            if (c == Constants.CSV_SEPARATOR) {
+                // Skip empty entry.
+                if (pos - start > 0) {
+                    if (list == null) {
+                        list = CollectionUtils.newArrayList();
                     }
+                    list.add(text.substring(start, pos));
+                }
+                // Skip comma
+                start = pos + 1;
+            } else if (c == Constants.CSV_ESCAPE) {
+                // Skip escape character and escaped character.
+                pos++;
+            }
+        }
+        final String remain = (size - start > 0) ? text.substring(start) : null;
+        if (list == null) {
+            return remain != null ? new String[] { remain } : null;
+        }
+        if (remain != null) {
+            list.add(remain);
+        }
+        return list.toArray(new String[list.size()]);
+    }
+
+    // This method assumes the text is not null. For the empty string, it returns CAPITALIZE_NONE.
+    public static int getCapitalizationType(final String text) {
+        // If the first char is not uppercase, then the word is either all lower case or
+        // camel case, and in either case we return CAPITALIZE_NONE.
+        final int len = text.length();
+        int index = 0;
+        for (; index < len; index = text.offsetByCodePoints(index, 1)) {
+            if (Character.isLetter(text.codePointAt(index))) {
+                break;
+            }
+        }
+        if (index == len) return CAPITALIZE_NONE;
+        if (!Character.isUpperCase(text.codePointAt(index))) {
+            return CAPITALIZE_NONE;
+        }
+        int capsCount = 1;
+        int letterCount = 1;
+        for (index = text.offsetByCodePoints(index, 1); index < len;
+                index = text.offsetByCodePoints(index, 1)) {
+            if (1 != capsCount && letterCount != capsCount) break;
+            final int codePoint = text.codePointAt(index);
+            if (Character.isUpperCase(codePoint)) {
+                ++capsCount;
+                ++letterCount;
+            } else if (Character.isLetter(codePoint)) {
+                // We need to discount non-letters since they may not be upper-case, but may
+                // still be part of a word (e.g. single quote or dash, as in "IT'S" or "FULL-TIME")
+                ++letterCount;
+            }
+        }
+        // We know the first char is upper case. So we want to test if either every letter other
+        // than the first is lower case, or if they are all upper case. If the string is exactly
+        // one char long, then we will arrive here with letterCount 1, and this is correct, too.
+        if (1 == capsCount) return CAPITALIZE_FIRST;
+        return (letterCount == capsCount ? CAPITALIZE_ALL : CAPITALIZE_NONE);
+    }
+
+    public static boolean isIdenticalAfterUpcase(final String text) {
+        final int len = text.length();
+        for (int i = 0; i < len; i = text.offsetByCodePoints(i, 1)) {
+            final int codePoint = text.codePointAt(i);
+            if (Character.isLetter(codePoint) && !Character.isUpperCase(codePoint)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isIdenticalAfterDowncase(final String text) {
+        final int len = text.length();
+        for (int i = 0; i < len; i = text.offsetByCodePoints(i, 1)) {
+            final int codePoint = text.codePointAt(i);
+            if (Character.isLetter(codePoint) && !Character.isLowerCase(codePoint)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isIdenticalAfterCapitalizeEachWord(final String text,
+            final String separators) {
+        boolean needCapsNext = true;
+        final int len = text.length();
+        for (int i = 0; i < len; i = text.offsetByCodePoints(i, 1)) {
+            final int codePoint = text.codePointAt(i);
+            if (Character.isLetter(codePoint)) {
+                if ((needCapsNext && !Character.isUpperCase(codePoint))
+                        || (!needCapsNext && !Character.isLowerCase(codePoint))) {
+                    return false;
+                }
+            }
+            // We need a capital letter next if this is a separator.
+            needCapsNext = (-1 != separators.indexOf(codePoint));
+        }
+        return true;
+    }
+
+    // TODO: like capitalizeFirst*, this does not work perfectly for Dutch because of the IJ digraph
+    // which should be capitalized together in *some* cases.
+    public static String capitalizeEachWord(final String text, final String separators,
+            final Locale locale) {
+        final StringBuilder builder = new StringBuilder();
+        boolean needCapsNext = true;
+        final int len = text.length();
+        for (int i = 0; i < len; i = text.offsetByCodePoints(i, 1)) {
+            final String nextChar = text.substring(i, text.offsetByCodePoints(i, 1));
+            if (needCapsNext) {
+                builder.append(nextChar.toUpperCase(locale));
+            } else {
+                builder.append(nextChar.toLowerCase(locale));
+            }
+            // We need a capital letter next if this is a separator.
+            needCapsNext = (-1 != separators.indexOf(nextChar.codePointAt(0)));
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Approximates whether the text before the cursor looks like a URL.
+     *
+     * This is not foolproof, but it should work well in the practice.
+     * Essentially it walks backward from the cursor until it finds something that's not a letter,
+     * digit, or common URL symbol like underscore. If it hasn't found a period yet, then it
+     * does not look like a URL.
+     * If the text:
+     * - starts with www and contains a period
+     * - starts with a slash preceded by either a slash, whitespace, or start-of-string
+     * Then it looks like a URL and we return true. Otherwise, we return false.
+     *
+     * Note: this method is called quite often, and should be fast.
+     *
+     * TODO: This will return that "abc./def" and ".abc/def" look like URLs to keep down the
+     * code complexity, but ideally it should not. It's acceptable for now.
+     */
+    public static boolean lastPartLooksLikeURL(final CharSequence text) {
+        int i = text.length();
+        if (0 == i) return false;
+        int wCount = 0;
+        int slashCount = 0;
+        boolean hasSlash = false;
+        boolean hasPeriod = false;
+        int codePoint = 0;
+        while (i > 0) {
+            codePoint =  Character.codePointBefore(text, i);
+            if (codePoint < Constants.CODE_PERIOD || codePoint > 'z') {
+                // Handwavy heuristic to see if that's a URL character. Anything between period
+                // and z. This includes all lower- and upper-case ascii letters, period,
+                // underscore, arrobase, question mark, equal sign. It excludes spaces, exclamation
+                // marks, double quotes...
+                // Anything that's not a URL-like character causes us to break from here and
+                // evaluate normally.
+                break;
+            }
+            if (Constants.CODE_PERIOD == codePoint) {
+                hasPeriod = true;
+            }
+            if (Constants.CODE_SLASH == codePoint) {
+                hasSlash = true;
+                if (2 == ++slashCount) {
+                    return true;
                 }
             } else {
-                return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
+                slashCount = 0;
             }
-        }
-
-        if (c != Keyboard.CODE_PERIOD || j <= 0) {
-            return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
-        }
-
-        // We found out that we have a period. We need to determine if this is a full stop or
-        // otherwise sentence-ending period, or an abbreviation like "e.g.". An abbreviation
-        // looks like (\w\.){2,}
-        // To find out, we will have a simple state machine with the following states :
-        // START, WORD, PERIOD, ABBREVIATION
-        // On START : (just before the first period)
-        //           letter => WORD
-        //           whitespace => end with no caps (it was a stand-alone period)
-        //           otherwise => end with caps (several periods/symbols in a row)
-        // On WORD : (within the word just before the first period)
-        //           letter => WORD
-        //           period => PERIOD
-        //           otherwise => end with caps (it was a word with a full stop at the end)
-        // On PERIOD : (period within a potential abbreviation)
-        //           letter => LETTER
-        //           otherwise => end with caps (it was not an abbreviation)
-        // On LETTER : (letter within a potential abbreviation)
-        //           letter => LETTER
-        //           period => PERIOD
-        //           otherwise => end with no caps (it was an abbreviation)
-        // "Not an abbreviation" in the above chart essentially covers cases like "...yes.". This
-        // should capitalize.
-
-        final int START = 0;
-        final int WORD = 1;
-        final int PERIOD = 2;
-        final int LETTER = 3;
-        final int caps = (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS
-                | TextUtils.CAP_MODE_SENTENCES) & reqModes;
-        final int noCaps = (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
-        int state = START;
-        while (j > 0) {
-            c = cs.charAt(--j);
-            switch (state) {
-            case START:
-                if (Character.isLetter(c)) {
-                    state = WORD;
-                } else if (Character.isWhitespace(c)) {
-                    return noCaps;
-                } else {
-                    return caps;
-                }
-                break;
-            case WORD:
-                if (Character.isLetter(c)) {
-                    state = WORD;
-                } else if (c == Keyboard.CODE_PERIOD) {
-                    state = PERIOD;
-                } else {
-                    return caps;
-                }
-                break;
-            case PERIOD:
-                if (Character.isLetter(c)) {
-                    state = LETTER;
-                } else {
-                    return caps;
-                }
-                break;
-            case LETTER:
-                if (Character.isLetter(c)) {
-                    state = LETTER;
-                } else if (c == Keyboard.CODE_PERIOD) {
-                    state = PERIOD;
-                } else {
-                    return noCaps;
-                }
+            if ('w' == codePoint) {
+                ++wCount;
+            } else {
+                wCount = 0;
             }
+            i = Character.offsetByCodePoints(text, i, -1);
         }
-        // Here we arrived at the start of the line. This should behave exactly like whitespace.
-        return (START == state || LETTER == state) ? noCaps : caps;
+        // End of the text run.
+        // If it starts with www and includes a period, then it looks like a URL.
+        if (wCount >= 3 && hasPeriod) return true;
+        // If it starts with a slash, and the code point before is whitespace, it looks like an URL.
+        if (1 == slashCount && (0 == i || Character.isWhitespace(codePoint))) return true;
+        // If it has both a period and a slash, it looks like an URL.
+        if (hasPeriod && hasSlash) return true;
+        // Otherwise, it doesn't look like an URL.
+        return false;
     }
 }

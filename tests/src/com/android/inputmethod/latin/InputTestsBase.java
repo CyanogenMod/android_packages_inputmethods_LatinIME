@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -19,7 +19,6 @@ package com.android.inputmethod.latin;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Looper;
-import android.os.MessageQueue;
 import android.preference.PreferenceManager;
 import android.test.ServiceTestCase;
 import android.text.InputType;
@@ -31,19 +30,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodSubtype;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.keyboard.Keyboard;
+import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 
-import java.util.HashMap;
 import java.util.Locale;
 
-public class InputTestsBase extends ServiceTestCase<LatinIME> {
+public class InputTestsBase extends ServiceTestCase<LatinIMEForTests> {
 
     private static final String PREF_DEBUG_MODE = "debug_mode";
 
@@ -52,10 +48,9 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
 
     protected LatinIME mLatinIME;
     protected Keyboard mKeyboard;
-    protected MyTextView mTextView;
+    protected MyEditText mEditText;
+    protected View mInputView;
     protected InputConnection mInputConnection;
-    private final HashMap<String, InputMethodSubtype> mSubtypeMap =
-            new HashMap<String, InputMethodSubtype>();
 
     // A helper class to ease span tests
     public static class SpanGetter {
@@ -92,26 +87,41 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         }
     }
 
-    // A helper class to increase control over the TextView
-    public static class MyTextView extends TextView {
+    // A helper class to increase control over the EditText
+    public static class MyEditText extends EditText {
         public Locale mCurrentLocale;
-        public MyTextView(final Context c) {
+        public MyEditText(final Context c) {
             super(c);
         }
+
+        @Override
         public void onAttachedToWindow() {
+            // Make onAttachedToWindow "public"
             super.onAttachedToWindow();
         }
+
+        // overriding hidden API in EditText
         public Locale getTextServicesLocale() {
-            // This method is necessary because TextView is asking this method for the language
+            // This method is necessary because EditText is asking this method for the language
             // to check the spell in. If we don't override this, the spell checker will run in
             // whatever language the keyboard is currently set on the test device, ignoring any
             // settings we do inside the tests.
             return mCurrentLocale;
         }
+
+        // overriding hidden API in EditText
+        public Locale getSpellCheckerLocale() {
+            // This method is necessary because EditText is asking this method for the language
+            // to check the spell in. If we don't override this, the spell checker will run in
+            // whatever language the keyboard is currently set on the test device, ignoring any
+            // settings we do inside the tests.
+            return mCurrentLocale;
+        }
+
     }
 
     public InputTestsBase() {
-        super(LatinIME.class);
+        super(LatinIMEForTests.class);
     }
 
     // TODO: Isn't there a way to make this generic somehow? We can take a <T> and return a <T>
@@ -134,50 +144,29 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mTextView = new MyTextView(getContext());
-        mTextView.setInputType(InputType.TYPE_CLASS_TEXT);
-        mTextView.setEnabled(true);
+        mEditText = new MyEditText(getContext());
+        final int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
+                | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+        mEditText.setInputType(inputType);
+        mEditText.setEnabled(true);
         setupService();
         mLatinIME = getService();
         final boolean previousDebugSetting = setDebugMode(true);
         mLatinIME.onCreate();
         setDebugMode(previousDebugSetting);
-        initSubtypeMap();
         final EditorInfo ei = new EditorInfo();
-        ei.inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT;
-        final InputConnection ic = mTextView.onCreateInputConnection(ei);
-        ei.inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT;
+        final InputConnection ic = mEditText.onCreateInputConnection(ei);
         final LayoutInflater inflater =
                 (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final ViewGroup vg = new FrameLayout(getContext());
-        final View inputView = inflater.inflate(R.layout.input_view, vg);
+        mInputView = inflater.inflate(R.layout.input_view, vg);
         mLatinIME.onCreateInputMethodInterface().startInput(ic, ei);
-        mLatinIME.setInputView(inputView);
+        mLatinIME.setInputView(mInputView);
         mLatinIME.onBindInput();
         mLatinIME.onCreateInputView();
         mLatinIME.onStartInputView(ei, false);
         mInputConnection = ic;
         changeLanguage("en_US");
-    }
-
-    private void initSubtypeMap() {
-        final InputMethodManager imm = (InputMethodManager)mLatinIME.getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        final String packageName = mLatinIME.getPackageName();
-        // The IMEs and subtypes don't need to be enabled to run this test because IMF isn't
-        // involved here.
-        for (final InputMethodInfo imi : imm.getInputMethodList()) {
-            if (imi.getPackageName().equals(packageName)) {
-                final int subtypeCount = imi.getSubtypeCount();
-                for (int i = 0; i < subtypeCount; i++) {
-                    final InputMethodSubtype ims = imi.getSubtypeAt(i);
-                    final String locale = ims.getLocale();
-                    mSubtypeMap.put(locale, ims);
-                }
-                return;
-            }
-        }
-        fail("LatinIME is not found");
     }
 
     // We need to run the messages added to the handler from LatinIME. The only way to do
@@ -187,41 +176,22 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     // on the same thread that the tests are running on to mimic the actual environment as
     // closely as possible.
     // Now, Looper#loop() never exits in normal operation unless the Looper#quit() method
-    // is called, so we need to do that at the right time so that #loop() returns at some
-    // point and we don't end up in an infinite loop.
-    // After we quit, the looper is still technically ready to process more messages but
-    // the handler will refuse to enqueue any because #quit() has been called and it
-    // explicitly tests for it on message enqueuing, so we'll have to reset it so that
-    // it lets us continue normal operation.
+    // is called, which has a lot of bad side effects. We can however just throw an exception
+    // in the runnable which will unwind the stack and allow us to exit.
+    private final class InterruptRunMessagesException extends RuntimeException {
+        // Empty class
+    }
     protected void runMessages() {
-        // Here begins deep magic.
-        final Looper looper = mLatinIME.mHandler.getLooper();
         mLatinIME.mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    looper.quit();
+                    throw new InterruptRunMessagesException();
                 }
             });
-        // The only way to get out of Looper#loop() is to call #quit() on it (or on its queue).
-        // Once #quit() is called remaining messages are not processed, which is why we post
-        // a message that calls it instead of calling it directly.
-        Looper.loop();
-
-        // Once #quit() has been called, the message queue has an "mQuiting" field that prevents
-        // any subsequent post in this queue. However the queue itself is still fully functional!
-        // If we have a way of resetting "queue.mQuiting" then we can continue using it as normal,
-        // coming back to this method to run the messages.
-        MessageQueue queue = looper.getQueue();
         try {
-            // However there is no way of doing it externally, and mQuiting is private.
-            // So... get out the big guns.
-            java.lang.reflect.Field f = MessageQueue.class.getDeclaredField("mQuiting");
-            f.setAccessible(true); // What do you mean "private"?
-            f.setBoolean(queue, false);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            Looper.loop();
+        } catch (InterruptRunMessagesException e) {
+            // Resume normal operation
         }
     }
 
@@ -253,8 +223,8 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     }
 
     protected void waitForDictionaryToBeLoaded() {
-        int remainingAttempts = 10;
-        while (remainingAttempts > 0 && !mLatinIME.mSuggest.hasMainDictionary()) {
+        int remainingAttempts = 300;
+        while (remainingAttempts > 0 && mLatinIME.mSuggest.isCurrentlyWaitingForMainDictionary()) {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -269,19 +239,16 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     }
 
     protected void changeLanguage(final String locale) {
-        final InputMethodSubtype subtype = mSubtypeMap.get(locale);
-        mTextView.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
-        if (subtype == null) {
-            fail("InputMethodSubtype for locale " + locale + " is not enabled");
-        }
-        SubtypeSwitcher.getInstance().updateSubtype(subtype);
+        mEditText.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
+        SubtypeSwitcher.getInstance().forceLocale(mEditText.mCurrentLocale);
         mLatinIME.loadKeyboard();
         mKeyboard = mLatinIME.mKeyboardSwitcher.getKeyboard();
         waitForDictionaryToBeLoaded();
     }
 
-    protected void pickSuggestionManually(final int index, final CharSequence suggestion) {
-        mLatinIME.pickSuggestionManually(index, suggestion);
+    protected void pickSuggestionManually(final int index, final String suggestion) {
+        mLatinIME.pickSuggestionManually(index, new SuggestedWordInfo(suggestion, 1,
+                SuggestedWordInfo.KIND_CORRECTION, "main"));
     }
 
     // Helper to avoid writing the try{}catch block each time

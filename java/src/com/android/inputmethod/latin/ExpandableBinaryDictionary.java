@@ -1,15 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -51,10 +53,9 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     private static boolean DEBUG = false;
 
     /**
-     * The maximum length of a word in this dictionary. This is the same value as the binary
-     * dictionary.
+     * The maximum length of a word in this dictionary.
      */
-    protected static final int MAX_WORD_LENGTH = BinaryDictionary.MAX_WORD_LENGTH;
+    protected static final int MAX_WORD_LENGTH = Constants.Dictionary.MAX_WORD_LENGTH;
 
     /**
      * A static map of locks, each of which controls access to a single binary dictionary file. They
@@ -175,14 +176,15 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      */
     // TODO: Create "cache dictionary" to cache fresh words for frequently updated dictionaries,
     // considering performance regression.
-    protected void addWord(final String word, final String shortcutTarget, final int frequency) {
+    protected void addWord(final String word, final String shortcutTarget, final int frequency,
+            final boolean isNotAWord) {
         if (shortcutTarget == null) {
-            mFusionDictionary.add(word, frequency, null, false /* isNotAWord */);
+            mFusionDictionary.add(word, frequency, null, isNotAWord);
         } else {
             // TODO: Do this in the subclass, with this class taking an arraylist.
             final ArrayList<WeightedString> shortcutTargets = CollectionUtils.newArrayList();
             shortcutTargets.add(new WeightedString(shortcutTarget, frequency));
-            mFusionDictionary.add(word, frequency, shortcutTargets, false /* isNotAWord */);
+            mFusionDictionary.add(word, frequency, shortcutTargets, isNotAWord);
         }
     }
 
@@ -198,12 +200,14 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     @Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
-            final CharSequence prevWord, final ProximityInfo proximityInfo) {
+            final String prevWord, final ProximityInfo proximityInfo,
+            final boolean blockOffensiveWords) {
         asyncReloadDictionaryIfRequired();
         if (mLocalDictionaryController.tryLock()) {
             try {
                 if (mBinaryDictionary != null) {
-                    return mBinaryDictionary.getSuggestions(composer, prevWord, proximityInfo);
+                    return mBinaryDictionary.getSuggestions(composer, prevWord, proximityInfo,
+                            blockOffensiveWords);
                 }
             } finally {
                 mLocalDictionaryController.unlock();
@@ -213,12 +217,12 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public boolean isValidWord(final CharSequence word) {
+    public boolean isValidWord(final String word) {
         asyncReloadDictionaryIfRequired();
         return isValidWordInner(word);
     }
 
-    protected boolean isValidWordInner(final CharSequence word) {
+    protected boolean isValidWordInner(final String word) {
         if (mLocalDictionaryController.tryLock()) {
             try {
                 return isValidWordLocked(word);
@@ -229,17 +233,17 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         return false;
     }
 
-    protected boolean isValidWordLocked(final CharSequence word) {
+    protected boolean isValidWordLocked(final String word) {
         if (mBinaryDictionary == null) return false;
         return mBinaryDictionary.isValidWord(word);
     }
 
-    protected boolean isValidBigram(final CharSequence word1, final CharSequence word2) {
+    protected boolean isValidBigram(final String word1, final String word2) {
         if (mBinaryDictionary == null) return false;
         return mBinaryDictionary.isValidBigram(word1, word2);
     }
 
-    protected boolean isValidBigramInner(final CharSequence word1, final CharSequence word2) {
+    protected boolean isValidBigramInner(final String word1, final String word2) {
         if (mLocalDictionaryController.tryLock()) {
             try {
                 return isValidBigramLocked(word1, word2);
@@ -250,7 +254,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         return false;
     }
 
-    protected boolean isValidBigramLocked(final CharSequence word1, final CharSequence word2) {
+    protected boolean isValidBigramLocked(final String word1, final String word2) {
         if (mBinaryDictionary == null) return false;
         return mBinaryDictionary.isValidBigram(word1, word2);
     }
@@ -280,9 +284,8 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         final long length = file.length();
 
         // Build the new binary dictionary
-        final BinaryDictionary newBinaryDictionary =
-                new BinaryDictionary(mContext, filename, 0, length, true /* useFullEditDistance */,
-                        null, mDictType);
+        final BinaryDictionary newBinaryDictionary = new BinaryDictionary(filename, 0, length,
+                true /* useFullEditDistance */, null, mDictType);
 
         if (mBinaryDictionary != null) {
             // Ensure all threads accessing the current dictionary have finished before swapping in
@@ -321,9 +324,9 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
             tempFile.renameTo(file);
             clearFusionDictionary();
         } catch (IOException e) {
-            Log.e(TAG, "IO exception while writing file: " + e);
+            Log.e(TAG, "IO exception while writing file", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "Unsupported format: " + e);
+            Log.e(TAG, "Unsupported format", e);
         } finally {
             if (out != null) {
                 try {

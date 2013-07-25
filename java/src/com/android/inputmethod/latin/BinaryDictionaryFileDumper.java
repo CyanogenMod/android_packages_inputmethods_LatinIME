@@ -1,36 +1,44 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
 
+import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.inputmethod.dictionarypack.DictionaryPackConstants;
+import com.android.inputmethod.latin.DictionaryInfoUtils.DictionaryInfo;
+
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -55,11 +63,25 @@ public final class BinaryDictionaryFileDumper {
 
     private static final String DICTIONARY_PROJECTION[] = { "id" };
 
-    public static final String QUERY_PARAMETER_MAY_PROMPT_USER = "mayPrompt";
-    public static final String QUERY_PARAMETER_TRUE = "true";
-    public static final String QUERY_PARAMETER_DELETE_RESULT = "result";
-    public static final String QUERY_PARAMETER_SUCCESS = "success";
-    public static final String QUERY_PARAMETER_FAILURE = "failure";
+    private static final String QUERY_PARAMETER_MAY_PROMPT_USER = "mayPrompt";
+    private static final String QUERY_PARAMETER_TRUE = "true";
+    private static final String QUERY_PARAMETER_DELETE_RESULT = "result";
+    private static final String QUERY_PARAMETER_SUCCESS = "success";
+    private static final String QUERY_PARAMETER_FAILURE = "failure";
+
+    // Using protocol version 2 to communicate with the dictionary pack
+    private static final String QUERY_PARAMETER_PROTOCOL = "protocol";
+    private static final String QUERY_PARAMETER_PROTOCOL_VALUE = "2";
+
+    // The path fragment to append after the client ID for dictionary info requests.
+    private static final String QUERY_PATH_DICT_INFO = "dict";
+    // The path fragment to append after the client ID for dictionary datafile requests.
+    private static final String QUERY_PATH_DATAFILE = "datafile";
+    // The path fragment to append after the client ID for updating the metadata URI.
+    private static final String QUERY_PATH_METADATA = "metadata";
+    private static final String INSERT_METADATA_CLIENT_ID_COLUMN = "clientid";
+    private static final String INSERT_METADATA_METADATA_URI_COLUMN = "uri";
+    private static final String INSERT_METADATA_METADATA_ADDITIONAL_ID_COLUMN = "additionalid";
 
     // Prevents this class to be accidentally instantiated.
     private BinaryDictionaryFileDumper() {
@@ -73,8 +95,36 @@ public final class BinaryDictionaryFileDumper {
      */
     private static Uri.Builder getProviderUriBuilder(final String path) {
         return new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT)
-                .authority(BinaryDictionary.DICTIONARY_PACK_AUTHORITY).appendPath(
-                        path);
+                .authority(DictionaryPackConstants.AUTHORITY).appendPath(path);
+    }
+
+    /**
+     * Gets the content URI builder for a specified type.
+     *
+     * Supported types include QUERY_PATH_DICT_INFO, which takes the locale as
+     * the extraPath argument, and QUERY_PATH_DATAFILE, which needs a wordlist ID
+     * as the extraPath argument.
+     *
+     * @param clientId the clientId to use
+     * @param contentProviderClient the instance of content provider client
+     * @param queryPathType the path element encoding the type
+     * @param extraPath optional extra argument for this type (typically word list id)
+     * @return a builder that can build the URI for the best supported protocol version
+     * @throws RemoteException if the client can't be contacted
+     */
+    private static Uri.Builder getContentUriBuilderForType(final String clientId,
+            final ContentProviderClient contentProviderClient, final String queryPathType,
+            final String extraPath) throws RemoteException {
+        // Check whether protocol v2 is supported by building a v2 URI and calling getType()
+        // on it. If this returns null, v2 is not supported.
+        final Uri.Builder uriV2Builder = getProviderUriBuilder(clientId);
+        uriV2Builder.appendPath(queryPathType);
+        uriV2Builder.appendPath(extraPath);
+        uriV2Builder.appendQueryParameter(QUERY_PARAMETER_PROTOCOL,
+                QUERY_PARAMETER_PROTOCOL_VALUE);
+        if (null != contentProviderClient.getType(uriV2Builder.build())) return uriV2Builder;
+        // Protocol v2 is not supported, so create and return the protocol v1 uri.
+        return getProviderUriBuilder(extraPath);
     }
 
     /**
@@ -83,22 +133,33 @@ public final class BinaryDictionaryFileDumper {
      */
     private static List<WordListInfo> getWordListWordListInfos(final Locale locale,
             final Context context, final boolean hasDefaultWordList) {
-        final ContentResolver resolver = context.getContentResolver();
-        final Uri.Builder builder = getProviderUriBuilder(locale.toString());
-        if (!hasDefaultWordList) {
-            builder.appendQueryParameter(QUERY_PARAMETER_MAY_PROMPT_USER, QUERY_PARAMETER_TRUE);
-        }
-        final Uri dictionaryPackUri = builder.build();
-
-        final Cursor c = resolver.query(dictionaryPackUri, DICTIONARY_PROJECTION, null, null, null);
-        if (null == c) return Collections.<WordListInfo>emptyList();
-        if (c.getCount() <= 0 || !c.moveToFirst()) {
-            c.close();
-            return Collections.<WordListInfo>emptyList();
-        }
+        final String clientId = context.getString(R.string.dictionary_pack_client_id);
+        final ContentProviderClient client = context.getContentResolver().
+                acquireContentProviderClient(getProviderUriBuilder("").build());
+        if (null == client) return Collections.<WordListInfo>emptyList();
 
         try {
-            final List<WordListInfo> list = CollectionUtils.newArrayList();
+            final Uri.Builder builder = getContentUriBuilderForType(clientId, client,
+                    QUERY_PATH_DICT_INFO, locale.toString());
+            if (!hasDefaultWordList) {
+                builder.appendQueryParameter(QUERY_PARAMETER_MAY_PROMPT_USER,
+                        QUERY_PARAMETER_TRUE);
+            }
+            final Uri queryUri = builder.build();
+            final boolean isProtocolV2 = (QUERY_PARAMETER_PROTOCOL_VALUE.equals(
+                    queryUri.getQueryParameter(QUERY_PARAMETER_PROTOCOL)));
+
+            Cursor c = client.query(queryUri, DICTIONARY_PROJECTION, null, null, null);
+            if (isProtocolV2 && null == c) {
+                reinitializeClientRecordInDictionaryContentProvider(context, client, clientId);
+                c = client.query(queryUri, DICTIONARY_PROJECTION, null, null, null);
+            }
+            if (null == c) return Collections.<WordListInfo>emptyList();
+            if (c.getCount() <= 0 || !c.moveToFirst()) {
+                c.close();
+                return Collections.<WordListInfo>emptyList();
+            }
+            final ArrayList<WordListInfo> list = CollectionUtils.newArrayList();
             do {
                 final String wordListId = c.getString(0);
                 final String wordListLocale = c.getString(1);
@@ -107,11 +168,20 @@ public final class BinaryDictionaryFileDumper {
             } while (c.moveToNext());
             c.close();
             return list;
-        } catch (Exception e) {
-            // Just in case we hit a problem in communication with the dictionary pack.
-            // We don't want to die.
-            Log.e(TAG, "Exception communicating with the dictionary pack : " + e);
+        } catch (RemoteException e) {
+            // The documentation is unclear as to in which cases this may happen, but it probably
+            // happens when the content provider got suddenly killed because it crashed or because
+            // the user disabled it through Settings.
+            Log.e(TAG, "RemoteException: communication with the dictionary pack cut", e);
             return Collections.<WordListInfo>emptyList();
+        } catch (Exception e) {
+            // A crash here is dangerous because crashing here would brick any encrypted device -
+            // we need the keyboard to be up and working to enter the password, so we don't want
+            // to die no matter what. So let's be as safe as possible.
+            Log.e(TAG, "Unexpected exception communicating with the dictionary pack", e);
+            return Collections.<WordListInfo>emptyList();
+        } finally {
+            client.release();
         }
     }
 
@@ -119,13 +189,18 @@ public final class BinaryDictionaryFileDumper {
     /**
      * Helper method to encapsulate exception handling.
      */
-    private static AssetFileDescriptor openAssetFileDescriptor(final ContentResolver resolver,
-            final Uri uri) {
+    private static AssetFileDescriptor openAssetFileDescriptor(
+            final ContentProviderClient providerClient, final Uri uri) {
         try {
-            return resolver.openAssetFileDescriptor(uri, "r");
+            return providerClient.openAssetFile(uri, "r");
         } catch (FileNotFoundException e) {
-            // I don't want to log the word list URI here for security concerns
-            Log.e(TAG, "Could not find a word list from the dictionary provider.");
+            // I don't want to log the word list URI here for security concerns. The exception
+            // contains the name of the file, so let's not pass it to Log.e here.
+            Log.e(TAG, "Could not find a word list from the dictionary provider."
+                    /* intentionally don't pass the exception (see comment above) */);
+            return null;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Can't communicate with the dictionary pack", e);
             return null;
         }
     }
@@ -135,9 +210,8 @@ public final class BinaryDictionaryFileDumper {
      * to the cache file name designated by its id and locale, overwriting it if already present
      * and creating it (and its containing directory) if necessary.
      */
-    private static AssetFileAddress cacheWordList(final String id, final String locale,
-            final ContentResolver resolver, final Context context) {
-
+    private static void cacheWordList(final String wordlistId, final String locale,
+            final ContentProviderClient providerClient, final Context context) {
         final int COMPRESSED_CRYPTED_COMPRESSED = 0;
         final int CRYPTED_COMPRESSED = 1;
         final int COMPRESSED_CRYPTED = 2;
@@ -147,32 +221,46 @@ public final class BinaryDictionaryFileDumper {
         final int MODE_MIN = COMPRESSED_CRYPTED_COMPRESSED;
         final int MODE_MAX = NONE;
 
-        final Uri.Builder wordListUriBuilder = getProviderUriBuilder(id);
-        final String finalFileName = BinaryDictionaryGetter.getCacheFileName(id, locale, context);
-        final String tempFileName = BinaryDictionaryGetter.getTempFileName(id, context);
+        final String clientId = context.getString(R.string.dictionary_pack_client_id);
+        final Uri.Builder wordListUriBuilder;
+        try {
+            wordListUriBuilder = getContentUriBuilderForType(clientId,
+                    providerClient, QUERY_PATH_DATAFILE, wordlistId /* extraPath */);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Can't communicate with the dictionary pack", e);
+            return;
+        }
+        final String finalFileName =
+                DictionaryInfoUtils.getCacheFileName(wordlistId, locale, context);
+        String tempFileName;
+        try {
+            tempFileName = BinaryDictionaryGetter.getTempFileName(wordlistId, context);
+        } catch (IOException e) {
+            Log.e(TAG, "Can't open the temporary file", e);
+            return;
+        }
 
         for (int mode = MODE_MIN; mode <= MODE_MAX; ++mode) {
-            InputStream originalSourceStream = null;
+            final InputStream originalSourceStream;
             InputStream inputStream = null;
             InputStream uncompressedStream = null;
             InputStream decryptedStream = null;
-            BufferedInputStream bufferedStream = null;
+            BufferedInputStream bufferedInputStream = null;
             File outputFile = null;
-            FileOutputStream outputStream = null;
+            BufferedOutputStream bufferedOutputStream = null;
             AssetFileDescriptor afd = null;
             final Uri wordListUri = wordListUriBuilder.build();
             try {
                 // Open input.
-                afd = openAssetFileDescriptor(resolver, wordListUri);
+                afd = openAssetFileDescriptor(providerClient, wordListUri);
                 // If we can't open it at all, don't even try a number of times.
-                if (null == afd) return null;
+                if (null == afd) return;
                 originalSourceStream = afd.createInputStream();
                 // Open output.
                 outputFile = new File(tempFileName);
                 // Just to be sure, delete the file. This may fail silently, and return false: this
                 // is the right thing to do, as we just want to continue anyway.
                 outputFile.delete();
-                outputStream = new FileOutputStream(outputFile);
                 // Get the appropriate decryption method for this try
                 switch (mode) {
                     case COMPRESSED_CRYPTED_COMPRESSED:
@@ -200,10 +288,11 @@ public final class BinaryDictionaryFileDumper {
                         inputStream = originalSourceStream;
                         break;
                 }
-                bufferedStream = new BufferedInputStream(inputStream);
-                checkMagicAndCopyFileTo(bufferedStream, outputStream);
-                outputStream.flush();
-                outputStream.close();
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
+                checkMagicAndCopyFileTo(bufferedInputStream, bufferedOutputStream);
+                bufferedOutputStream.flush();
+                bufferedOutputStream.close();
                 final File finalFile = new File(finalFileName);
                 finalFile.delete();
                 if (!outputFile.renameTo(finalFile)) {
@@ -211,15 +300,15 @@ public final class BinaryDictionaryFileDumper {
                 }
                 wordListUriBuilder.appendQueryParameter(QUERY_PARAMETER_DELETE_RESULT,
                         QUERY_PARAMETER_SUCCESS);
-                if (0 >= resolver.delete(wordListUriBuilder.build(), null, null)) {
+                if (0 >= providerClient.delete(wordListUriBuilder.build(), null, null)) {
                     Log.e(TAG, "Could not have the dictionary pack delete a word list");
                 }
-                BinaryDictionaryGetter.removeFilesWithIdExcept(context, id, finalFile);
+                BinaryDictionaryGetter.removeFilesWithIdExcept(context, wordlistId, finalFile);
                 // Success! Close files (through the finally{} clause) and return.
-                return AssetFileAddress.makeFromFileName(finalFileName);
+                return;
             } catch (Exception e) {
                 if (DEBUG) {
-                    Log.i(TAG, "Can't open word list in mode " + mode + " : " + e);
+                    Log.i(TAG, "Can't open word list in mode " + mode, e);
                 }
                 if (null != outputFile) {
                     // This may or may not fail. The file may not have been created if the
@@ -231,18 +320,18 @@ public final class BinaryDictionaryFileDumper {
             } finally {
                 // Ignore exceptions while closing files.
                 try {
-                    // inputStream.close() will close afd, we should not call afd.close().
+                    if (null != afd) afd.close();
                     if (null != inputStream) inputStream.close();
                     if (null != uncompressedStream) uncompressedStream.close();
                     if (null != decryptedStream) decryptedStream.close();
-                    if (null != bufferedStream) bufferedStream.close();
+                    if (null != bufferedInputStream) bufferedInputStream.close();
                 } catch (Exception e) {
-                    Log.e(TAG, "Exception while closing a file descriptor : " + e);
+                    Log.e(TAG, "Exception while closing a file descriptor", e);
                 }
                 try {
-                    if (null != outputStream) outputStream.close();
+                    if (null != bufferedOutputStream) bufferedOutputStream.close();
                 } catch (Exception e) {
-                    Log.e(TAG, "Exception while closing a file : " + e);
+                    Log.e(TAG, "Exception while closing a file", e);
                 }
             }
         }
@@ -254,10 +343,13 @@ public final class BinaryDictionaryFileDumper {
         // as invalid.
         wordListUriBuilder.appendQueryParameter(QUERY_PARAMETER_DELETE_RESULT,
                 QUERY_PARAMETER_FAILURE);
-        if (0 >= resolver.delete(wordListUriBuilder.build(), null, null)) {
-            Log.e(TAG, "In addition, we were unable to delete it.");
+        try {
+            if (0 >= providerClient.delete(wordListUriBuilder.build(), null, null)) {
+                Log.e(TAG, "In addition, we were unable to delete it.");
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "In addition, communication with the dictionary provider was cut", e);
         }
-        return null;
     }
 
     /**
@@ -266,23 +358,26 @@ public final class BinaryDictionaryFileDumper {
      * This will query a content provider for word list data for a given locale, and copy the
      * files locally so that they can be mmap'ed. This may overwrite previously cached word lists
      * with newer versions if a newer version is made available by the content provider.
-     * @returns the addresses of the word list files, or null if no data could be obtained.
      * @throw FileNotFoundException if the provider returns non-existent data.
      * @throw IOException if the provider-returned data could not be read.
      */
-    public static List<AssetFileAddress> cacheWordListsFromContentProvider(final Locale locale,
+    public static void cacheWordListsFromContentProvider(final Locale locale,
             final Context context, final boolean hasDefaultWordList) {
-        final ContentResolver resolver = context.getContentResolver();
-        final List<WordListInfo> idList = getWordListWordListInfos(locale, context,
-                hasDefaultWordList);
-        final List<AssetFileAddress> fileAddressList = CollectionUtils.newArrayList();
-        for (WordListInfo id : idList) {
-            final AssetFileAddress afd = cacheWordList(id.mId, id.mLocale, resolver, context);
-            if (null != afd) {
-                fileAddressList.add(afd);
-            }
+        final ContentProviderClient providerClient = context.getContentResolver().
+                acquireContentProviderClient(getProviderUriBuilder("").build());
+        if (null == providerClient) {
+            Log.e(TAG, "Can't establish communication with the dictionary provider");
+            return;
         }
-        return fileAddressList;
+        try {
+            final List<WordListInfo> idList = getWordListWordListInfos(locale, context,
+                    hasDefaultWordList);
+            for (WordListInfo id : idList) {
+                cacheWordList(id.mId, id.mLocale, providerClient, context);
+            }
+        } finally {
+            providerClient.release();
+        }
     }
 
     /**
@@ -295,9 +390,8 @@ public final class BinaryDictionaryFileDumper {
      * @param input the stream to be copied.
      * @param output an output stream to copy the data to.
      */
-    // TODO: make output a BufferedOutputStream
-    private static void checkMagicAndCopyFileTo(final BufferedInputStream input,
-            final FileOutputStream output) throws FileNotFoundException, IOException {
+    public static void checkMagicAndCopyFileTo(final BufferedInputStream input,
+            final BufferedOutputStream output) throws FileNotFoundException, IOException {
         // Check the magic number
         final int length = MAGIC_NUMBER_VERSION_2.length;
         final byte[] magicNumberBuffer = new byte[length];
@@ -317,5 +411,59 @@ public final class BinaryDictionaryFileDumper {
         for (int readBytes = input.read(buffer); readBytes >= 0; readBytes = input.read(buffer))
             output.write(buffer, 0, readBytes);
         input.close();
+    }
+
+    private static void reinitializeClientRecordInDictionaryContentProvider(final Context context,
+            final ContentProviderClient client, final String clientId) throws RemoteException {
+        final String metadataFileUri = MetadataFileUriGetter.getMetadataUri(context);
+        final String metadataAdditionalId = MetadataFileUriGetter.getMetadataAdditionalId(context);
+        if (TextUtils.isEmpty(metadataFileUri)) return;
+        // Tell the content provider to reset all information about this client id
+        final Uri metadataContentUri = getProviderUriBuilder(clientId)
+                .appendPath(QUERY_PATH_METADATA)
+                .appendQueryParameter(QUERY_PARAMETER_PROTOCOL, QUERY_PARAMETER_PROTOCOL_VALUE)
+                .build();
+        client.delete(metadataContentUri, null, null);
+        // Update the metadata URI
+        final ContentValues metadataValues = new ContentValues();
+        metadataValues.put(INSERT_METADATA_CLIENT_ID_COLUMN, clientId);
+        metadataValues.put(INSERT_METADATA_METADATA_URI_COLUMN, metadataFileUri);
+        metadataValues.put(INSERT_METADATA_METADATA_ADDITIONAL_ID_COLUMN, metadataAdditionalId);
+        client.insert(metadataContentUri, metadataValues);
+
+        // Update the dictionary list.
+        final Uri dictionaryContentUriBase = getProviderUriBuilder(clientId)
+                .appendPath(QUERY_PATH_DICT_INFO)
+                .appendQueryParameter(QUERY_PARAMETER_PROTOCOL, QUERY_PARAMETER_PROTOCOL_VALUE)
+                .build();
+        final ArrayList<DictionaryInfo> dictionaryList =
+                DictionaryInfoUtils.getCurrentDictionaryFileNameAndVersionInfo(context);
+        final int length = dictionaryList.size();
+        for (int i = 0; i < length; ++i) {
+            final DictionaryInfo info = dictionaryList.get(i);
+            client.insert(Uri.withAppendedPath(dictionaryContentUriBase, info.mId),
+                    info.toContentValues());
+        }
+    }
+
+    /**
+     * Initialize a client record with the dictionary content provider.
+     *
+     * This merely acquires the content provider and calls
+     * #reinitializeClientRecordInDictionaryContentProvider.
+     *
+     * @param context the context for resources and providers.
+     * @param clientId the client ID to use.
+     */
+    public static void initializeClientRecordHelper(final Context context,
+            final String clientId) {
+        try {
+            final ContentProviderClient client = context.getContentResolver().
+                    acquireContentProviderClient(getProviderUriBuilder("").build());
+            if (null == client) return;
+            reinitializeClientRecordInDictionaryContentProvider(context, client, clientId);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Cannot contact the dictionary content provider", e);
+        }
     }
 }

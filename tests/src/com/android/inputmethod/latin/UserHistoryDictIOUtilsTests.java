@@ -16,16 +16,16 @@
 
 package com.android.inputmethod.latin;
 
+import android.content.Context;
+import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
+
 import com.android.inputmethod.latin.UserHistoryDictIOUtils.BigramDictionaryInterface;
 import com.android.inputmethod.latin.UserHistoryDictIOUtils.OnAddWordListener;
-import com.android.inputmethod.latin.makedict.BinaryDictInputOutput;
 import com.android.inputmethod.latin.makedict.FormatSpec;
 import com.android.inputmethod.latin.makedict.FusionDictionary;
 import com.android.inputmethod.latin.makedict.FusionDictionary.CharGroup;
-
-import android.content.Context;
-import android.test.AndroidTestCase;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +39,7 @@ import java.util.HashMap;
 /**
  * Unit tests for UserHistoryDictIOUtils
  */
+@LargeTest
 public class UserHistoryDictIOUtilsTests extends AndroidTestCase
     implements BigramDictionaryInterface {
 
@@ -139,7 +140,7 @@ public class UserHistoryDictIOUtilsTests extends AndroidTestCase
             out.flush();
             out.close();
         } catch (IOException e) {
-            Log.e(TAG, "IO exception while writing file: " + e);
+            Log.e(TAG, "IO exception while writing file", e);
         }
     }
 
@@ -154,9 +155,9 @@ public class UserHistoryDictIOUtilsTests extends AndroidTestCase
             UserHistoryDictIOUtils.readDictionaryBinary(
                     new UserHistoryDictIOUtils.ByteArrayWrapper(buffer), listener);
         } catch (FileNotFoundException e) {
-            Log.e(TAG, "file not found: " + e);
+            Log.e(TAG, "file not found", e);
         } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e);
+            Log.e(TAG, "IOException", e);
         } finally {
             if (inStream != null) {
                 try {
@@ -188,9 +189,9 @@ public class UserHistoryDictIOUtilsTests extends AndroidTestCase
 
         File file = null;
         try {
-            file = File.createTempFile("testReadAndWrite", ".dict");
+            file = File.createTempFile("testReadAndWrite", ".dict", getContext().getCacheDir());
         } catch (IOException e) {
-            Log.d(TAG, "IOException while creating a temporary file: " + e);
+            Log.d(TAG, "IOException while creating a temporary file", e);
         }
         assertNotNull(file);
 

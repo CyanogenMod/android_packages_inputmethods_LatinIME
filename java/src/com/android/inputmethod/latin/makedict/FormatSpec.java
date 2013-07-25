@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.makedict;
@@ -59,9 +59,11 @@ public final class FormatSpec {
      * l |                                   10 = 2 bytes     : FLAG_GROUP_ADDRESS_TYPE_TWOBYTES
      * a |                                   11 = 3 bytes     : FLAG_GROUP_ADDRESS_TYPE_THREEBYTES
      * g | ELSE
-     * s |   is moved ?              2 bits, 11 = no
-     *   |                                   01 = yes
+     * s |   is moved ?              2 bits, 11 = no          : FLAG_IS_NOT_MOVED
+     *   |                              This must be the same as FLAG_GROUP_ADDRESS_TYPE_THREEBYTES
+     *   |                                   01 = yes         : FLAG_IS_MOVED
      *   |                        the new address is stored in the same place as the parent address
+     *   |   is deleted?                     10 = yes         : FLAG_IS_DELETED
      *   | has several chars ?         1 bit, 1 = yes, 0 = no   : FLAG_HAS_MULTIPLE_CHARS
      *   | has a terminal ?            1 bit, 1 = yes, 0 = no   : FLAG_IS_TERMINAL
      *   | has shortcut targets ?      1 bit, 1 = yes, 0 = no   : FLAG_HAS_SHORTCUT_TARGETS
@@ -170,6 +172,7 @@ public final class FormatSpec {
     static final int PARENT_ADDRESS_SIZE = 3;
     static final int FORWARD_LINK_ADDRESS_SIZE = 3;
 
+    // These flags are used only in the static dictionary.
     static final int MASK_GROUP_ADDRESS_TYPE = 0xC0;
     static final int FLAG_GROUP_ADDRESS_TYPE_NOADDRESS = 0x00;
     static final int FLAG_GROUP_ADDRESS_TYPE_ONEBYTE = 0x40;
@@ -183,7 +186,13 @@ public final class FormatSpec {
     static final int FLAG_HAS_BIGRAMS = 0x04;
     static final int FLAG_IS_NOT_A_WORD = 0x02;
     static final int FLAG_IS_BLACKLISTED = 0x01;
-    static final int FLAG_IS_MOVED = 0x40;
+
+    // These flags are used only in the dynamic dictionary.
+    static final int MASK_MOVE_AND_DELETE_FLAG = 0xC0;
+    static final int FIXED_BIT_OF_DYNAMIC_UPDATE_MOVE = 0x40;
+    static final int FLAG_IS_MOVED = 0x00 | FIXED_BIT_OF_DYNAMIC_UPDATE_MOVE;
+    static final int FLAG_IS_NOT_MOVED = 0x80 | FIXED_BIT_OF_DYNAMIC_UPDATE_MOVE;
+    static final int FLAG_IS_DELETED = 0x80;
 
     static final int FLAG_ATTRIBUTE_HAS_NEXT = 0x80;
     static final int FLAG_ATTRIBUTE_OFFSET_NEGATIVE = 0x40;
@@ -210,9 +219,12 @@ public final class FormatSpec {
 
     static final int MAX_CHARGROUPS_FOR_ONE_BYTE_CHARGROUP_COUNT = 0x7F; // 127
     static final int MAX_CHARGROUPS_IN_A_NODE = 0x7FFF; // 32767
+    static final int MAX_BIGRAMS_IN_A_GROUP = 10000;
 
     static final int MAX_TERMINAL_FREQUENCY = 255;
     static final int MAX_BIGRAM_FREQUENCY = 15;
+
+    public static final int SHORTCUT_WHITELIST_FREQUENCY = 15;
 
     // This option needs to be the same numeric value as the one in binary_format.h.
     static final int NOT_VALID_WORD = -99;
@@ -240,15 +252,41 @@ public final class FormatSpec {
     /**
      * Class representing file header.
      */
-    static final class FileHeader {
+    public static final class FileHeader {
         public final int mHeaderSize;
         public final DictionaryOptions mDictionaryOptions;
         public final FormatOptions mFormatOptions;
+        private static final String DICTIONARY_VERSION_ATTRIBUTE = "version";
+        private static final String DICTIONARY_LOCALE_ATTRIBUTE = "locale";
+        private static final String DICTIONARY_ID_ATTRIBUTE = "dictionary";
+        private static final String DICTIONARY_DESCRIPTION_ATTRIBUTE = "description";
         public FileHeader(final int headerSize, final DictionaryOptions dictionaryOptions,
                 final FormatOptions formatOptions) {
             mHeaderSize = headerSize;
             mDictionaryOptions = dictionaryOptions;
             mFormatOptions = formatOptions;
+        }
+
+        // Helper method to get the locale as a String
+        public String getLocaleString() {
+            return mDictionaryOptions.mAttributes.get(FileHeader.DICTIONARY_LOCALE_ATTRIBUTE);
+        }
+
+        // Helper method to get the version String
+        public String getVersion() {
+            return mDictionaryOptions.mAttributes.get(FileHeader.DICTIONARY_VERSION_ATTRIBUTE);
+        }
+
+        // Helper method to get the dictionary ID as a String
+        public String getId() {
+            return mDictionaryOptions.mAttributes.get(FileHeader.DICTIONARY_ID_ATTRIBUTE);
+        }
+
+        // Helper method to get the description
+        public String getDescription() {
+            // TODO: Right now each dictionary file comes with a description in its own language.
+            // It will display as is no matter the device's locale. It should be internationalized.
+            return mDictionaryOptions.mAttributes.get(FileHeader.DICTIONARY_DESCRIPTION_ATTRIBUTE);
         }
     }
 

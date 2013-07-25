@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -44,19 +44,22 @@ public final class LastComposedWord {
     public final String mTypedWord;
     public final String mCommittedWord;
     public final String mSeparatorString;
-    public final CharSequence mPrevWord;
-    public final InputPointers mInputPointers = new InputPointers(BinaryDictionary.MAX_WORD_LENGTH);
+    public final String mPrevWord;
+    public final int mCapitalizedMode;
+    public final InputPointers mInputPointers =
+            new InputPointers(Constants.Dictionary.MAX_WORD_LENGTH);
 
     private boolean mActive;
 
     public static final LastComposedWord NOT_A_COMPOSED_WORD =
-            new LastComposedWord(null, null, "", "", NOT_A_SEPARATOR, null);
+            new LastComposedWord(null, null, "", "", NOT_A_SEPARATOR, null,
+            WordComposer.CAPS_MODE_OFF);
 
     // Warning: this is using the passed objects as is and fully expects them to be
     // immutable. Do not fiddle with their contents after you passed them to this constructor.
     public LastComposedWord(final int[] primaryKeyCodes, final InputPointers inputPointers,
-            final String typedWord, final String committedWord,
-            final String separatorString, final CharSequence prevWord) {
+            final String typedWord, final String committedWord, final String separatorString,
+            final String prevWord, final int capitalizedMode) {
         mPrimaryKeyCodes = primaryKeyCodes;
         if (inputPointers != null) {
             mInputPointers.copy(inputPointers);
@@ -66,6 +69,7 @@ public final class LastComposedWord {
         mSeparatorString = separatorString;
         mActive = true;
         mPrevWord = prevWord;
+        mCapitalizedMode = capitalizedMode;
     }
 
     public void deactivate() {

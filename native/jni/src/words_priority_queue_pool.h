@@ -17,26 +17,26 @@
 #ifndef LATINIME_WORDS_PRIORITY_QUEUE_POOL_H
 #define LATINIME_WORDS_PRIORITY_QUEUE_POOL_H
 
-#include <cassert>
+#include "defines.h"
 #include "words_priority_queue.h"
 
 namespace latinime {
 
 class WordsPriorityQueuePool {
  public:
-    WordsPriorityQueuePool(int mainQueueMaxWords, int subQueueMaxWords, int maxWordLength)
+    WordsPriorityQueuePool(int mainQueueMaxWords, int subQueueMaxWords)
             // Note: using placement new() requires the caller to call the destructor explicitly.
-            : mMasterQueue(new(mMasterQueueBuf) WordsPriorityQueue(
-                      mainQueueMaxWords, maxWordLength)) {
+            : mMasterQueue(new(mMasterQueueBuf) WordsPriorityQueue(mainQueueMaxWords)) {
         for (int i = 0, subQueueBufOffset = 0;
                 i < MULTIPLE_WORDS_SUGGESTION_MAX_WORDS * SUB_QUEUE_MAX_COUNT;
                 ++i, subQueueBufOffset += static_cast<int>(sizeof(WordsPriorityQueue))) {
             mSubQueues[i] = new(mSubQueueBuf + subQueueBufOffset)
-                    WordsPriorityQueue(subQueueMaxWords, maxWordLength);
+                    WordsPriorityQueue(subQueueMaxWords);
         }
     }
 
-    virtual ~WordsPriorityQueuePool() {
+    // Non virtual inline destructor -- never inherit this class
+    ~WordsPriorityQueuePool() {
         // Note: these explicit calls to the destructor match the calls to placement new() above.
         if (mMasterQueue) mMasterQueue->~WordsPriorityQueue();
         for (int i = 0; i < MULTIPLE_WORDS_SUGGESTION_MAX_WORDS * SUB_QUEUE_MAX_COUNT; ++i) {
@@ -44,17 +44,17 @@ class WordsPriorityQueuePool {
         }
     }
 
-    WordsPriorityQueue *getMasterQueue() {
+    WordsPriorityQueue *getMasterQueue() const {
         return mMasterQueue;
     }
 
-    WordsPriorityQueue *getSubQueue(const int wordIndex, const int inputWordLength) {
+    WordsPriorityQueue *getSubQueue(const int wordIndex, const int inputWordLength) const {
         if (wordIndex >= MULTIPLE_WORDS_SUGGESTION_MAX_WORDS) {
             return 0;
         }
         if (inputWordLength < 0 || inputWordLength >= SUB_QUEUE_MAX_COUNT) {
             if (DEBUG_WORDS_PRIORITY_QUEUE) {
-                assert(false);
+                ASSERT(false);
             }
             return 0;
         }
@@ -68,7 +68,7 @@ class WordsPriorityQueuePool {
         }
     }
 
-    inline void clearSubQueue(const int wordIndex) {
+    AK_FORCE_INLINE void clearSubQueue(const int wordIndex) {
         for (int i = 0; i < SUB_QUEUE_MAX_COUNT; ++i) {
             WordsPriorityQueue *queue = getSubQueue(wordIndex, i);
             if (queue) {
@@ -77,7 +77,7 @@ class WordsPriorityQueuePool {
         }
     }
 
-    void dumpSubQueue1TopSuggestions() {
+    void dumpSubQueue1TopSuggestions() const {
         AKLOGI("DUMP SUBQUEUE1 TOP SUGGESTIONS");
         for (int i = 0; i < SUB_QUEUE_MAX_COUNT; ++i) {
             getSubQueue(0, i)->dumpTopWord();

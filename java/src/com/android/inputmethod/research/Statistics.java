@@ -1,24 +1,32 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.research;
 
-import com.android.inputmethod.keyboard.Keyboard;
+import android.util.Log;
+
+import com.android.inputmethod.latin.Constants;
+import com.android.inputmethod.latin.define.ProductionFlag;
 
 public class Statistics {
+    private static final String TAG = Statistics.class.getSimpleName();
+    private static final boolean DEBUG = false
+            && ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS_DEBUG;
+
+    // TODO: Cleanup comments to only including those giving meaningful information.
     // Number of characters entered during a typing session
     int mCharCount;
     // Number of letter characters entered during a typing session
@@ -31,6 +39,24 @@ public class Statistics {
     int mDeleteKeyCount;
     // Number of words entered during a session.
     int mWordCount;
+    // Number of words found in the dictionary.
+    int mDictionaryWordCount;
+    // Number of words split and spaces automatically entered.
+    int mSplitWordsCount;
+    // Number of words entered during a session.
+    int mCorrectedWordsCount;
+    // Number of gestures that were input.
+    int mGesturesInputCount;
+    // Number of gestures that were deleted.
+    int mGesturesDeletedCount;
+    // Total number of characters in words entered by gesture.
+    int mGesturesCharsCount;
+    // Number of manual suggestions chosen.
+    int mManualSuggestionsCount;
+    // Number of times that autocorrection was invoked.
+    int mAutoCorrectionsCount;
+    // Number of times a commit was reverted in this session.
+    int mRevertCommitsCount;
     // Whether the text field was empty upon editing
     boolean mIsEmptyUponStarting;
     boolean mIsEmptinessStateKnown;
@@ -91,29 +117,34 @@ public class Statistics {
         mSpaceCount = 0;
         mDeleteKeyCount = 0;
         mWordCount = 0;
+        mDictionaryWordCount = 0;
+        mSplitWordsCount = 0;
+        mCorrectedWordsCount = 0;
+        mGesturesInputCount = 0;
+        mGesturesDeletedCount = 0;
+        mManualSuggestionsCount = 0;
+        mRevertCommitsCount = 0;
+        mAutoCorrectionsCount = 0;
         mIsEmptyUponStarting = true;
         mIsEmptinessStateKnown = false;
         mKeyCounter.reset();
         mBeforeDeleteKeyCounter.reset();
         mDuringRepeatedDeleteKeysCounter.reset();
         mAfterDeleteKeyCounter.reset();
+        mGesturesCharsCount = 0;
+        mGesturesDeletedCount = 0;
 
         mLastTapTime = 0;
         mIsLastKeyDeleteKey = false;
     }
 
     public void recordChar(int codePoint, long time) {
-        final long delta = time - mLastTapTime;
-        if (codePoint == Keyboard.CODE_DELETE) {
+        if (DEBUG) {
+            Log.d(TAG, "recordChar() called");
+        }
+        if (codePoint == Constants.CODE_DELETE) {
             mDeleteKeyCount++;
-            if (delta < MIN_DELETION_INTERMISSION) {
-                if (mIsLastKeyDeleteKey) {
-                    mDuringRepeatedDeleteKeysCounter.add(delta);
-                } else {
-                    mBeforeDeleteKeyCounter.add(delta);
-                }
-            }
-            mIsLastKeyDeleteKey = true;
+            recordUserAction(time, true /* isDeletion */);
         } else {
             mCharCount++;
             if (Character.isDigit(codePoint)) {
@@ -125,22 +156,78 @@ public class Statistics {
             if (Character.isSpaceChar(codePoint)) {
                 mSpaceCount++;
             }
-            if (mIsLastKeyDeleteKey && delta < MIN_DELETION_INTERMISSION) {
-                mAfterDeleteKeyCounter.add(delta);
-            } else if (!mIsLastKeyDeleteKey && delta < MIN_TYPING_INTERMISSION) {
-                mKeyCounter.add(delta);
-            }
-            mIsLastKeyDeleteKey = false;
+            recordUserAction(time, false /* isDeletion */);
         }
-        mLastTapTime = time;
     }
 
-    public void recordWordEntered() {
+    public void recordWordEntered(final boolean isDictionaryWord,
+            final boolean containsCorrection) {
         mWordCount++;
+        if (isDictionaryWord) {
+            mDictionaryWordCount++;
+        }
+        if (containsCorrection) {
+            mCorrectedWordsCount++;
+        }
+    }
+
+    public void recordSplitWords() {
+        mSplitWordsCount++;
+    }
+
+    public void recordGestureInput(final int numCharsEntered, final long time) {
+        mGesturesInputCount++;
+        mGesturesCharsCount += numCharsEntered;
+        recordUserAction(time, false /* isDeletion */);
     }
 
     public void setIsEmptyUponStarting(final boolean isEmpty) {
         mIsEmptyUponStarting = isEmpty;
         mIsEmptinessStateKnown = true;
+    }
+
+    public void recordGestureDelete(final int length, final long time) {
+        mGesturesDeletedCount++;
+        recordUserAction(time, true /* isDeletion */);
+    }
+
+    public void recordManualSuggestion(final long time) {
+        mManualSuggestionsCount++;
+        recordUserAction(time, false /* isDeletion */);
+    }
+
+    public void recordAutoCorrection(final long time) {
+        mAutoCorrectionsCount++;
+        recordUserAction(time, false /* isDeletion */);
+    }
+
+    public void recordRevertCommit(final long time) {
+        mRevertCommitsCount++;
+        recordUserAction(time, true /* isDeletion */);
+    }
+
+    private void recordUserAction(final long time, final boolean isDeletion) {
+        final long delta = time - mLastTapTime;
+        if (isDeletion) {
+            if (delta < MIN_DELETION_INTERMISSION) {
+                if (mIsLastKeyDeleteKey) {
+                    mDuringRepeatedDeleteKeysCounter.add(delta);
+                } else {
+                    mBeforeDeleteKeyCounter.add(delta);
+                }
+            } else {
+                ResearchLogger.onUserPause(delta);
+            }
+        } else {
+            if (mIsLastKeyDeleteKey && delta < MIN_DELETION_INTERMISSION) {
+                mAfterDeleteKeyCounter.add(delta);
+            } else if (!mIsLastKeyDeleteKey && delta < MIN_TYPING_INTERMISSION) {
+                mKeyCounter.add(delta);
+            } else {
+                ResearchLogger.onUserPause(delta);
+            }
+        }
+        mIsLastKeyDeleteKey = isDeletion;
+        mLastTapTime = time;
     }
 }

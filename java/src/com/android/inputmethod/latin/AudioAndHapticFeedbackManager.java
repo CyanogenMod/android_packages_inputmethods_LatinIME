@@ -1,28 +1,26 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-
-import com.android.inputmethod.keyboard.Keyboard;
-import com.android.inputmethod.latin.VibratorUtils;
 
 /**
  * This class gathers audio feedback and haptic feedback functions.
@@ -31,58 +29,82 @@ import com.android.inputmethod.latin.VibratorUtils;
  * complexity of settings and the like.
  */
 public final class AudioAndHapticFeedbackManager {
-    final private SettingsValues mSettingsValues;
-    final private AudioManager mAudioManager;
-    final private VibratorUtils mVibratorUtils;
+    private AudioManager mAudioManager;
+    private Vibrator mVibrator;
+
+    private SettingsValues mSettingsValues;
     private boolean mSoundOn;
 
-    public AudioAndHapticFeedbackManager(final LatinIME latinIme,
-            final SettingsValues settingsValues) {
-        mSettingsValues = settingsValues;
-        mVibratorUtils = VibratorUtils.getInstance(latinIme);
-        mAudioManager = (AudioManager) latinIme.getSystemService(Context.AUDIO_SERVICE);
-        mSoundOn = reevaluateIfSoundIsOn();
+    private static final AudioAndHapticFeedbackManager sInstance =
+            new AudioAndHapticFeedbackManager();
+
+    public static AudioAndHapticFeedbackManager getInstance() {
+        return sInstance;
+    }
+
+    private AudioAndHapticFeedbackManager() {
+        // Intentional empty constructor for singleton.
+    }
+
+    public static void init(final Context context) {
+        sInstance.initInternal(context);
+    }
+
+    private void initInternal(final Context context) {
+        mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public void hapticAndAudioFeedback(final int primaryCode,
             final View viewToPerformHapticFeedbackOn) {
-        vibrate(viewToPerformHapticFeedbackOn);
+        vibrateInternal(viewToPerformHapticFeedbackOn);
         playKeyClick(primaryCode);
     }
 
-    private boolean reevaluateIfSoundIsOn() {
-        if (!mSettingsValues.mSoundOn || mAudioManager == null) {
-            return false;
-        } else {
-            return mAudioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
-        }
+    public boolean hasVibrator() {
+        return mVibrator != null && mVibrator.hasVibrator();
     }
 
-    private void playKeyClick(int primaryCode) {
+    public void vibrate(final long milliseconds) {
+        if (mVibrator == null) {
+            return;
+        }
+        mVibrator.vibrate(milliseconds);
+    }
+
+    private boolean reevaluateIfSoundIsOn() {
+        if (mSettingsValues == null || !mSettingsValues.mSoundOn || mAudioManager == null) {
+            return false;
+        }
+        return mAudioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+    }
+
+    private void playKeyClick(final int primaryCode) {
         // if mAudioManager is null, we can't play a sound anyway, so return
-        if (mAudioManager == null) return;
+        if (mAudioManager == null) {
+            return;
+        }
         if (mSoundOn) {
             final int sound;
             switch (primaryCode) {
-            case Keyboard.CODE_DELETE:
+            case Constants.CODE_DELETE:
                 sound = AudioManager.FX_KEYPRESS_DELETE;
                 break;
-            case Keyboard.CODE_ENTER:
+            case Constants.CODE_ENTER:
                 sound = AudioManager.FX_KEYPRESS_RETURN;
                 break;
-            case Keyboard.CODE_SPACE:
+            case Constants.CODE_SPACE:
                 sound = AudioManager.FX_KEYPRESS_SPACEBAR;
                 break;
             default:
                 sound = AudioManager.FX_KEYPRESS_STANDARD;
                 break;
             }
-            mAudioManager.playSoundEffect(sound, mSettingsValues.mFxVolume);
+            mAudioManager.playSoundEffect(sound, mSettingsValues.mKeypressSoundVolume);
         }
     }
 
-    // TODO: make this private when LatinIME does not call it any more
-    public void vibrate(final View viewToPerformHapticFeedbackOn) {
+    private void vibrateInternal(final View viewToPerformHapticFeedbackOn) {
         if (!mSettingsValues.mVibrateOn) {
             return;
         }
@@ -93,9 +115,14 @@ public final class AudioAndHapticFeedbackManager {
                         HapticFeedbackConstants.KEYBOARD_TAP,
                         HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
             }
-        } else if (mVibratorUtils != null) {
-            mVibratorUtils.vibrate(mSettingsValues.mKeypressVibrationDuration);
+            return;
         }
+        vibrate(mSettingsValues.mKeypressVibrationDuration);
+    }
+
+    public void onSettingsChanged(final SettingsValues settingsValues) {
+        mSettingsValues = settingsValues;
+        mSoundOn = reevaluateIfSoundIsOn();
     }
 
     public void onRingerModeChanged() {

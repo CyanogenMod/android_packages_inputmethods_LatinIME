@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard.internal;
@@ -19,8 +19,8 @@ package com.android.inputmethod.keyboard.internal;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.CollectionUtils;
-import com.android.inputmethod.latin.R;
 
 import java.util.HashMap;
 
@@ -60,13 +60,14 @@ public final class KeyboardTextsSet {
         }
     }
 
-    public void loadStringResources(Context context) {
-        loadStringResourcesInternal(context, RESOURCE_NAMES, R.string.english_ime_name);
+    public void loadStringResources(final Context context) {
+        final int referenceId = context.getApplicationInfo().labelRes;
+        loadStringResourcesInternal(context, RESOURCE_NAMES, referenceId);
     }
 
-    /* package for test */
-    void loadStringResourcesInternal(Context context, final String[] resourceNames,
-            int referenceId) {
+    @UsedForTesting
+    void loadStringResourcesInternal(final Context context, final String[] resourceNames,
+            final int referenceId) {
         final Resources res = context.getResources();
         final String packageName = res.getResourcePackageName(referenceId);
         for (final String resName : resourceNames) {
@@ -96,9 +97,6 @@ public final class KeyboardTextsSet {
         "label_done_key",
         "label_previous_key",
         // Other labels.
-        "label_to_alpha_key",
-        "label_to_symbol_key",
-        "label_to_symbol_with_microphone_key",
         "label_pause_key",
         "label_wait_key",
     };

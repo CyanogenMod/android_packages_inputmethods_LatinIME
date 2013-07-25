@@ -16,6 +16,12 @@
 
 package com.android.inputmethod.latin.makedict;
 
+import android.test.AndroidTestCase;
+import android.test.MoreAsserts;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
+import android.util.SparseArray;
+
 import com.android.inputmethod.latin.CollectionUtils;
 import com.android.inputmethod.latin.UserHistoryDictIOUtils;
 import com.android.inputmethod.latin.makedict.BinaryDictInputOutput.FusionDictionaryBufferInterface;
@@ -23,11 +29,6 @@ import com.android.inputmethod.latin.makedict.FormatSpec.FileHeader;
 import com.android.inputmethod.latin.makedict.FusionDictionary.CharGroup;
 import com.android.inputmethod.latin.makedict.FusionDictionary.Node;
 import com.android.inputmethod.latin.makedict.FusionDictionary.WeightedString;
-
-import android.test.AndroidTestCase;
-import android.test.MoreAsserts;
-import android.util.Log;
-import android.util.SparseArray;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,9 +48,10 @@ import java.util.Set;
 /**
  * Unit tests for BinaryDictInputOutput
  */
+@LargeTest
 public class BinaryDictIOTests extends AndroidTestCase {
     private static final String TAG = BinaryDictIOTests.class.getSimpleName();
-    private static final int MAX_UNIGRAMS = 1000;
+    private static final int MAX_UNIGRAMS = 100;
     private static final int UNIGRAM_FREQ = 10;
     private static final int BIGRAM_FREQ = 50;
     private static final int TOLERANCE_OF_BIGRAM_FREQ = 5;
@@ -70,15 +72,12 @@ public class BinaryDictIOTests extends AndroidTestCase {
     private static final FormatSpec.FormatOptions VERSION3_WITH_DYNAMIC_UPDATE =
             new FormatSpec.FormatOptions(3, true /* supportsDynamicUpdate */);
 
-    private static final String[] CHARACTERS = {
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-        "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    };
-
     public BinaryDictIOTests() {
         super();
 
-        final Random random = new Random(123456);
+        final long time = System.currentTimeMillis();
+        Log.e(TAG, "Testing dictionary: seed is " + time);
+        final Random random = new Random(time);
         sWords.clear();
         generateWords(MAX_UNIGRAMS, random);
 
@@ -114,13 +113,13 @@ public class BinaryDictIOTests extends AndroidTestCase {
                 return new BinaryDictInputOutput.ByteBufferWrapper(buffer);
             }
         } catch (IOException e) {
-            Log.e(TAG, "IOException while making buffer: " + e);
+            Log.e(TAG, "IOException while making buffer", e);
         } finally {
             if (inStream != null) {
                 try {
                     inStream.close();
                 } catch (IOException e) {
-                    Log.e(TAG, "IOException while closing stream: " + e);
+                    Log.e(TAG, "IOException while closing stream", e);
                 }
             }
         }
@@ -130,13 +129,20 @@ public class BinaryDictIOTests extends AndroidTestCase {
     /**
      * Generates a random word.
      */
-    private String generateWord(final int value) {
-        final int lengthOfChars = CHARACTERS.length;
+    private String generateWord(final Random random) {
         StringBuilder builder = new StringBuilder("a");
-        long lvalue = Math.abs((long)value);
-        while (lvalue > 0) {
-            builder.append(CHARACTERS[(int)(lvalue % lengthOfChars)]);
-            lvalue /= lengthOfChars;
+        int count = random.nextInt() % 30; // Arbitrarily 30 chars max
+        while (count > 0) {
+            final long r = Math.abs(random.nextInt());
+            if (r < 0) continue;
+            // Don't insert 0~0x20, but insert any other code point.
+            // Code points are in the range 0~0x10FFFF.
+            final int candidateCodePoint = (int)(0x20 + r % (Character.MAX_CODE_POINT - 0x20));
+            // Code points between MIN_ and MAX_SURROGATE are not valid on their own.
+            if (candidateCodePoint >= Character.MIN_SURROGATE
+                    && candidateCodePoint <= Character.MAX_SURROGATE) continue;
+            builder.appendCodePoint(candidateCodePoint);
+            --count;
         }
         return builder.toString();
     }
@@ -144,7 +150,7 @@ public class BinaryDictIOTests extends AndroidTestCase {
     private void generateWords(final int number, final Random random) {
         final Set<String> wordSet = CollectionUtils.newHashSet();
         while (wordSet.size() < number) {
-            wordSet.add(generateWord(random.nextInt()));
+            wordSet.add(generateWord(random));
         }
         sWords.addAll(wordSet);
     }
@@ -193,9 +199,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
             out.flush();
             out.close();
         } catch (IOException e) {
-            Log.e(TAG, "IO exception while writing file: " + e);
+            Log.e(TAG, "IO exception while writing file", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "UnsupportedFormatException: " + e);
+            Log.e(TAG, "UnsupportedFormatException", e);
         }
 
         return diff;
@@ -255,9 +261,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
             dict = BinaryDictInputOutput.readDictionaryBinary(buffer, null);
             diff  = System.currentTimeMillis() - now;
         } catch (IOException e) {
-            Log.e(TAG, "IOException while reading dictionary: " + e);
+            Log.e(TAG, "IOException while reading dictionary", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "Unsupported format: " + e);
+            Log.e(TAG, "Unsupported format", e);
         }
 
         checkDictionary(dict, words, bigrams, shortcutMap);
@@ -271,9 +277,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
             final String message) {
         File file = null;
         try {
-            file = File.createTempFile("runReadAndWrite", ".dict");
+            file = File.createTempFile("runReadAndWrite", ".dict", getContext().getCacheDir());
         } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e);
+            Log.e(TAG, "IOException", e);
         }
         assertNotNull(file);
 
@@ -390,9 +396,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
                     resultBigrams);
             diff = System.currentTimeMillis() - now;
         } catch (IOException e) {
-            Log.e(TAG, "IOException " + e);
+            Log.e(TAG, "IOException", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "UnsupportedFormatException: " + e);
+            Log.e(TAG, "UnsupportedFormatException", e);
         } finally {
             if (inStream != null) {
                 try {
@@ -412,9 +418,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
             final FormatSpec.FormatOptions formatOptions, final String message) {
         File file = null;
         try {
-            file = File.createTempFile("runReadUnigrams", ".dict");
+            file = File.createTempFile("runReadUnigrams", ".dict", getContext().getCacheDir());
         } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e);
+            Log.e(TAG, "IOException", e);
         }
         assertNotNull(file);
 
@@ -484,7 +490,7 @@ public class BinaryDictIOTests extends AndroidTestCase {
         }
         if (header == null) return null;
         return BinaryDictInputOutput.getWordAtAddress(buffer, header.mHeaderSize,
-                address - header.mHeaderSize, header.mFormatOptions);
+                address - header.mHeaderSize, header.mFormatOptions).mWord;
     }
 
     private long runGetTerminalPosition(final FusionDictionaryBufferInterface buffer,
@@ -497,9 +503,9 @@ public class BinaryDictIOTests extends AndroidTestCase {
             position = BinaryDictIOUtils.getTerminalPosition(buffer, word);
             diff = System.nanoTime() - now;
         } catch (IOException e) {
-            Log.e(TAG, "IOException while getTerminalPosition: " + e);
+            Log.e(TAG, "IOException while getTerminalPosition", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "UnsupportedFormatException while getTermianlPosition: " + e);
+            Log.e(TAG, "UnsupportedFormatException while getTerminalPosition", e);
         }
 
         assertEquals(FormatSpec.NOT_VALID_WORD != position, contained);
@@ -510,7 +516,8 @@ public class BinaryDictIOTests extends AndroidTestCase {
     public void testGetTerminalPosition() {
         File file = null;
         try {
-            file = File.createTempFile("testGetTerminalPosition", ".dict");
+            file = File.createTempFile("testGetTerminalPosition", ".dict",
+                    getContext().getCacheDir());
         } catch (IOException e) {
             // do nothing
         }
@@ -552,7 +559,7 @@ public class BinaryDictIOTests extends AndroidTestCase {
         // Test a word that isn't contained within the dictionary.
         final Random random = new Random((int)System.currentTimeMillis());
         for (int i = 0; i < 1000; ++i) {
-            final String word = generateWord(random.nextInt());
+            final String word = generateWord(random);
             if (sWords.indexOf(word) != -1) continue;
             runGetTerminalPosition(buffer, word, i, false);
         }
@@ -561,7 +568,7 @@ public class BinaryDictIOTests extends AndroidTestCase {
     public void testDeleteWord() {
         File file = null;
         try {
-            file = File.createTempFile("testDeleteWord", ".dict");
+            file = File.createTempFile("testDeleteWord", ".dict", getContext().getCacheDir());
         } catch (IOException e) {
             // do nothing
         }

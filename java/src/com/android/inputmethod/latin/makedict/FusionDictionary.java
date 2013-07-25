@@ -1,26 +1,28 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.makedict;
 
+import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,6 +30,7 @@ import java.util.LinkedList;
 /**
  * A dictionary that can fusion heads and tails of words for more compression.
  */
+@UsedForTesting
 public final class FusionDictionary implements Iterable<Word> {
     private static final boolean DBG = MakedictLog.DBG;
 
@@ -141,6 +144,33 @@ public final class FusionDictionary implements Iterable<Word> {
             return NOT_A_TERMINAL != mFrequency;
         }
 
+        public int getFrequency() {
+            return mFrequency;
+        }
+
+        public boolean getIsNotAWord() {
+            return mIsNotAWord;
+        }
+
+        public boolean getIsBlacklistEntry() {
+            return mIsBlacklistEntry;
+        }
+
+        public ArrayList<WeightedString> getShortcutTargets() {
+            // We don't want write permission to escape outside the package, so we return a copy
+            if (null == mShortcutTargets) return null;
+            final ArrayList<WeightedString> copyOfShortcutTargets =
+                    new ArrayList<WeightedString>(mShortcutTargets);
+            return copyOfShortcutTargets;
+        }
+
+        public ArrayList<WeightedString> getBigrams() {
+            // We don't want write permission to escape outside the package, so we return a copy
+            if (null == mBigrams) return null;
+            final ArrayList<WeightedString> copyOfBigrams = new ArrayList<WeightedString>(mBigrams);
+            return copyOfBigrams;
+        }
+
         public boolean hasSeveralChars() {
             assert(mChars.length > 0);
             return 1 < mChars.length;
@@ -249,8 +279,6 @@ public final class FusionDictionary implements Iterable<Word> {
 
     /**
      * Options global to the dictionary.
-     *
-     * There are no options at the moment, so this class is empty.
      */
     public static final class DictionaryOptions {
         public final boolean mGermanUmlautProcessing;
@@ -261,6 +289,43 @@ public final class FusionDictionary implements Iterable<Word> {
             mAttributes = attributes;
             mGermanUmlautProcessing = germanUmlautProcessing;
             mFrenchLigatureProcessing = frenchLigatureProcessing;
+        }
+        @Override
+        public String toString() { // Convenience method
+            return toString(0, false);
+        }
+        public String toString(final int indentCount, final boolean plumbing) {
+            final StringBuilder indent = new StringBuilder();
+            if (plumbing) {
+                indent.append("H:");
+            } else {
+                for (int i = 0; i < indentCount; ++i) {
+                    indent.append(" ");
+                }
+            }
+            final StringBuilder s = new StringBuilder();
+            for (final String optionKey : mAttributes.keySet()) {
+                s.append(indent);
+                s.append(optionKey);
+                s.append(" = ");
+                if ("date".equals(optionKey) && !plumbing) {
+                    // Date needs a number of milliseconds, but the dictionary contains seconds
+                    s.append(new Date(
+                            1000 * Long.parseLong(mAttributes.get(optionKey))).toString());
+                } else {
+                    s.append(mAttributes.get(optionKey));
+                }
+                s.append("\n");
+            }
+            if (mGermanUmlautProcessing) {
+                s.append(indent);
+                s.append("Needs German umlaut processing\n");
+            }
+            if (mFrenchLigatureProcessing) {
+                s.append(indent);
+                s.append("Needs French ligature processing\n");
+            }
+            return s.toString();
         }
     }
 
@@ -279,7 +344,7 @@ public final class FusionDictionary implements Iterable<Word> {
     /**
      * Helper method to convert a String to an int array.
      */
-    static private int[] getCodePoints(final String word) {
+    static int[] getCodePoints(final String word) {
         // TODO: this is a copy-paste of the contents of StringUtils.toCodePointArray,
         // which is not visible from the makedict package. Factor this code.
         final char[] characters = word.toCharArray();
@@ -358,6 +423,10 @@ public final class FusionDictionary implements Iterable<Word> {
             if (charGroup2 == null) {
                 add(getCodePoints(word2), 0, null, false /* isNotAWord */,
                         false /* isBlacklistEntry */);
+                // The chargroup for the first word may have moved by the above insertion,
+                // if word1 and word2 share a common stem that happens not to have been
+                // a cutting point until now. In this case, we need to refresh charGroup.
+                charGroup = findWordInTree(mRoot, word1);
             }
             charGroup.addBigram(word2, frequency);
         } else {
@@ -417,7 +486,7 @@ public final class FusionDictionary implements Iterable<Word> {
             if (differentCharIndex == currentGroup.mChars.length) {
                 if (charIndex + differentCharIndex >= word.length) {
                     // The new word is a prefix of an existing word, but the node on which it
-                    // should end already exists as is. Since the old CharNode was not a terminal, 
+                    // should end already exists as is. Since the old CharNode was not a terminal,
                     // make it one by filling in its frequency and other attributes
                     currentGroup.update(frequency, shortcutTargets, null, isNotAWord,
                             isBlacklistEntry);
@@ -459,7 +528,7 @@ public final class FusionDictionary implements Iterable<Word> {
                     } else {
                         newParent = new CharGroup(
                                 Arrays.copyOfRange(currentGroup.mChars, 0, differentCharIndex),
-                                null /* shortcutTargets */, null /* bigrams */, -1, 
+                                null /* shortcutTargets */, null /* bigrams */, -1,
                                 false /* isNotAWord */, false /* isBlacklistEntry */, newChildren);
                         final CharGroup newWord = new CharGroup(Arrays.copyOfRange(word,
                                 charIndex + differentCharIndex, word.length),
@@ -550,34 +619,35 @@ public final class FusionDictionary implements Iterable<Word> {
     /**
      * Helper method to find a word in a given branch.
      */
-    public static CharGroup findWordInTree(Node node, final String s) {
+    @SuppressWarnings("unused")
+    public static CharGroup findWordInTree(Node node, final String string) {
         int index = 0;
         final StringBuilder checker = DBG ? new StringBuilder() : null;
+        final int[] codePoints = getCodePoints(string);
 
         CharGroup currentGroup;
-        final int codePointCountInS = s.codePointCount(0, s.length());
         do {
-            int indexOfGroup = findIndexOfChar(node, s.codePointAt(index));
+            int indexOfGroup = findIndexOfChar(node, codePoints[index]);
             if (CHARACTER_NOT_FOUND == indexOfGroup) return null;
             currentGroup = node.mData.get(indexOfGroup);
 
-            if (s.length() - index < currentGroup.mChars.length) return null;
+            if (codePoints.length - index < currentGroup.mChars.length) return null;
             int newIndex = index;
-            while (newIndex < s.length() && newIndex - index < currentGroup.mChars.length) {
-                if (currentGroup.mChars[newIndex - index] != s.codePointAt(newIndex)) return null;
+            while (newIndex < codePoints.length && newIndex - index < currentGroup.mChars.length) {
+                if (currentGroup.mChars[newIndex - index] != codePoints[newIndex]) return null;
                 newIndex++;
             }
             index = newIndex;
 
             if (DBG) checker.append(new String(currentGroup.mChars, 0, currentGroup.mChars.length));
-            if (index < codePointCountInS) {
+            if (index < codePoints.length) {
                 node = currentGroup.mChildren;
             }
-        } while (null != node && index < codePointCountInS);
+        } while (null != node && index < codePoints.length);
 
-        if (index < codePointCountInS) return null;
+        if (index < codePoints.length) return null;
         if (!currentGroup.isTerminal()) return null;
-        if (DBG && !s.equals(checker.toString())) return null;
+        if (DBG && !string.equals(checker.toString())) return null;
         return currentGroup;
     }
 
@@ -777,26 +847,29 @@ public final class FusionDictionary implements Iterable<Word> {
         @Override
         public Word next() {
             Position currentPos = mPositions.getLast();
-            mCurrentString.setLength(mCurrentString.length() - currentPos.length);
+            mCurrentString.setLength(currentPos.length);
 
             do {
                 if (currentPos.pos.hasNext()) {
                     final CharGroup currentGroup = currentPos.pos.next();
-                    currentPos.length = currentGroup.mChars.length;
-                    for (int i : currentGroup.mChars)
+                    currentPos.length = mCurrentString.length();
+                    for (int i : currentGroup.mChars) {
                         mCurrentString.append(Character.toChars(i));
+                    }
                     if (null != currentGroup.mChildren) {
                         currentPos = new Position(currentGroup.mChildren.mData);
+                        currentPos.length = mCurrentString.length();
                         mPositions.addLast(currentPos);
                     }
-                    if (currentGroup.mFrequency >= 0)
+                    if (currentGroup.mFrequency >= 0) {
                         return new Word(mCurrentString.toString(), currentGroup.mFrequency,
                                 currentGroup.mShortcutTargets, currentGroup.mBigrams,
                                 currentGroup.mIsNotAWord, currentGroup.mIsBlacklistEntry);
+                    }
                 } else {
                     mPositions.removeLast();
                     currentPos = mPositions.getLast();
-                    mCurrentString.setLength(mCurrentString.length() - mPositions.getLast().length);
+                    mCurrentString.setLength(mPositions.getLast().length);
                 }
             } while (true);
         }

@@ -1,15 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard.internal;
@@ -27,6 +29,10 @@ public class GestureStroke {
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_SPEED = false;
 
+    // The height of extra area above the keyboard to draw gesture trails.
+    // Proportional to the keyboard height.
+    public static final float EXTRA_GESTURE_TRAIL_AREA_ABOVE_KEYBOARD_RATIO = 0.25f;
+
     public static final int DEFAULT_CAPACITY = 128;
 
     private final int mPointerId;
@@ -37,6 +43,8 @@ public class GestureStroke {
     private final GestureStrokeParams mParams;
 
     private int mKeyWidth; // pixel
+    private int mMinYCoordinate; // pixel
+    private int mMaxYCoordinate; // pixel
     // Static threshold for starting gesture detection
     private int mDetectFastMoveSpeedThreshold; // pixel /sec
     private int mDetectFastMoveTime;
@@ -75,9 +83,8 @@ public class GestureStroke {
         public final int mRecognitionMinimumTime; // msec
         public final float mRecognitionSpeedThreshold; // keyWidth/sec
 
-        // Default GestureStroke parameters for test.
-        public static final GestureStrokeParams FOR_TEST = new GestureStrokeParams();
-        public static final GestureStrokeParams DEFAULT = FOR_TEST;
+        // Default GestureStroke parameters.
+        public static final GestureStrokeParams DEFAULT = new GestureStrokeParams();
 
         private GestureStrokeParams() {
             // These parameter values are default and intended for testing.
@@ -135,8 +142,10 @@ public class GestureStroke {
         mParams = params;
     }
 
-    public void setKeyboardGeometry(final int keyWidth) {
+    public void setKeyboardGeometry(final int keyWidth, final int keyboardHeight) {
         mKeyWidth = keyWidth;
+        mMinYCoordinate = -(int)(keyboardHeight * EXTRA_GESTURE_TRAIL_AREA_ABOVE_KEYBOARD_RATIO);
+        mMaxYCoordinate = keyboardHeight;
         // TODO: Find an appropriate base metric for these length. Maybe diagonal length of the key?
         mDetectFastMoveSpeedThreshold = (int)(keyWidth * mParams.mDetectFastMoveSpeedThreshold);
         mGestureDynamicDistanceThresholdFrom =
@@ -155,6 +164,10 @@ public class GestureStroke {
         }
     }
 
+    public int getLength() {
+        return mEventTimes.getLength();
+    }
+
     public void onDownEvent(final int x, final int y, final long downTime,
             final long gestureFirstDownTime, final long lastTypingTime) {
         reset();
@@ -167,7 +180,7 @@ public class GestureStroke {
                     elapsedTimeAfterTyping, mAfterFastTyping ? " afterFastTyping" : ""));
         }
         final int elapsedTimeFromFirstDown = (int)(downTime - gestureFirstDownTime);
-        addPoint(x, y, elapsedTimeFromFirstDown, true /* isMajorEvent */);
+        addPointOnKeyboard(x, y, elapsedTimeFromFirstDown, true /* isMajorEvent */);
     }
 
     private int getGestureDynamicDistanceThreshold(final int deltaTime) {
@@ -194,7 +207,7 @@ public class GestureStroke {
         if (!hasDetectedFastMove()) {
             return false;
         }
-        final int size = mEventTimes.getLength();
+        final int size = getLength();
         if (size <= 0) {
             return false;
         }
@@ -220,6 +233,21 @@ public class GestureStroke {
         return isStartOfAGesture;
     }
 
+    public void duplicateLastPointWith(final int time) {
+        final int lastIndex = getLength() - 1;
+        if (lastIndex >= 0) {
+            final int x = mXCoordinates.get(lastIndex);
+            final int y = mYCoordinates.get(lastIndex);
+            if (DEBUG) {
+                Log.d(TAG, String.format("[%d] duplicateLastPointWith: %d,%d|%d", mPointerId,
+                        x, y, time));
+            }
+            // TODO: Have appendMajorPoint()
+            appendPoint(x, y, time);
+            updateIncrementalRecognitionSize(x, y, time);
+        }
+    }
+
     protected void reset() {
         mIncrementalRecognitionSize = 0;
         mLastIncrementalBatchSize = 0;
@@ -232,6 +260,16 @@ public class GestureStroke {
     }
 
     private void appendPoint(final int x, final int y, final int time) {
+        final int lastIndex = getLength() - 1;
+        // The point that is created by {@link duplicateLastPointWith(int)} may have later event
+        // time than the next {@link MotionEvent}. To maintain the monotonicity of the event time,
+        // drop the successive point here.
+        if (lastIndex >= 0 && mEventTimes.get(lastIndex) > time) {
+            Log.w(TAG, String.format("[%d] drop stale event: %d,%d|%d last: %d,%d|%d", mPointerId,
+                    x, y, time, mXCoordinates.get(lastIndex), mYCoordinates.get(lastIndex),
+                    mEventTimes.get(lastIndex)));
+            return;
+        }
         mEventTimes.add(time);
         mXCoordinates.add(x);
         mYCoordinates.add(y);
@@ -248,7 +286,7 @@ public class GestureStroke {
     }
 
     private int detectFastMove(final int x, final int y, final int time) {
-        final int size = mEventTimes.getLength();
+        final int size = getLength();
         final int lastIndex = size - 1;
         final int lastX = mXCoordinates.get(lastIndex);
         final int lastY = mYCoordinates.get(lastIndex);
@@ -277,8 +315,18 @@ public class GestureStroke {
         return dist;
     }
 
-    public void addPoint(final int x, final int y, final int time, final boolean isMajorEvent) {
-        final int size = mEventTimes.getLength();
+    /**
+     * Add a touch event as a gesture point. Returns true if the touch event is on the valid
+     * gesture area.
+     * @param x the x-coordinate of the touch event
+     * @param y the y-coordinate of the touch event
+     * @param time the elapsed time in millisecond from the first gesture down
+     * @param isMajorEvent false if this is a historical move event
+     * @return true if the touch event is on the valid gesture area
+     */
+    public boolean addPointOnKeyboard(final int x, final int y, final int time,
+            final boolean isMajorEvent) {
+        final int size = getLength();
         if (size <= 0) {
             // Down event
             appendPoint(x, y, time);
@@ -293,6 +341,7 @@ public class GestureStroke {
             updateIncrementalRecognitionSize(x, y, time);
             updateMajorEvent(x, y, time);
         }
+        return y >= mMinYCoordinate && y < mMaxYCoordinate;
     }
 
     private void updateIncrementalRecognitionSize(final int x, final int y, final int time) {
@@ -304,7 +353,7 @@ public class GestureStroke {
         final int pixelsPerSec = pixels * MSEC_PER_SEC;
         // Equivalent to (pixels / msecs < mGestureRecognitionThreshold / MSEC_PER_SEC)
         if (pixelsPerSec < mGestureRecognitionSpeedThreshold * msecs) {
-            mIncrementalRecognitionSize = mEventTimes.getLength();
+            mIncrementalRecognitionSize = getLength();
         }
     }
 
@@ -314,7 +363,7 @@ public class GestureStroke {
     }
 
     public final void appendAllBatchPoints(final InputPointers out) {
-        appendBatchPoints(out, mEventTimes.getLength());
+        appendBatchPoints(out, getLength());
     }
 
     public final void appendIncrementalBatchPoints(final InputPointers out) {

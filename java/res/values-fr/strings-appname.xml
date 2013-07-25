@@ -2,7 +2,7 @@
 <!-- 
 /*
 **
-** Copyright 2012, The Android Open Source Project
+** Copyright 2013, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" msgid="178705338187710493">"Clavier Android"</string>
-    <string name="spell_checker_service_name" msgid="6268342166872202903">"Correcteur orthographique Android"</string>
-    <string name="english_ime_settings" msgid="7470027018752707691">"Paramètres du clavier Android"</string>
-    <string name="android_spell_checker_settings" msgid="8397842018475560441">"Paramètres du correcteur orthographique"</string>
+    <string name="english_ime_name" msgid="5940510615957428904">"Clavier Android (AOSP)"</string>
+    <string name="spell_checker_service_name" msgid="1254221805440242662">"Correcteur orthographique Android (AOSP)"</string>
+    <string name="english_ime_settings" msgid="5760361067176802794">"Paramètres du clavier Android (AOSP)"</string>
+    <string name="android_spell_checker_settings" msgid="6123949487832861885">"Paramètres du correcteur orthographique Android (AOSP)"</string>
 </resources>

@@ -1,23 +1,24 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
 
 import android.util.Log;
 
+import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.makedict.BinaryDictIOUtils;
 import com.android.inputmethod.latin.makedict.BinaryDictInputOutput;
 import com.android.inputmethod.latin.makedict.BinaryDictInputOutput.FusionDictionaryBufferInterface;
@@ -47,6 +48,7 @@ public final class UserHistoryDictIOUtils {
         public void setBigram(final String word1, final String word2, final int frequency);
     }
 
+    @UsedForTesting
     public interface BigramDictionaryInterface {
         public int getFrequency(final String word1, final String word2);
     }
@@ -62,7 +64,7 @@ public final class UserHistoryDictIOUtils {
 
         @Override
         public int readUnsignedByte() {
-            return ((int)mBuffer[mPosition++]) & 0xFF;
+            return mBuffer[mPosition++] & 0xFF;
         }
 
         @Override
@@ -120,16 +122,17 @@ public final class UserHistoryDictIOUtils {
             BinaryDictInputOutput.writeDictionaryBinary(destination, fusionDict, formatOptions);
             Log.d(TAG, "end writing");
         } catch (IOException e) {
-            Log.e(TAG, "IO exception while writing file: " + e);
+            Log.e(TAG, "IO exception while writing file", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "Unsupported fomat: " + e);
+            Log.e(TAG, "Unsupported format", e);
         }
     }
 
     /**
      * Constructs a new FusionDictionary from BigramDictionaryInterface.
      */
-    /* packages for test */ static FusionDictionary constructFusionDictionary(
+    @UsedForTesting
+    static FusionDictionary constructFusionDictionary(
             final BigramDictionaryInterface dict, final UserHistoryDictionaryBigramList bigrams) {
         final FusionDictionary fusionDict = new FusionDictionary(new Node(),
                 new FusionDictionary.DictionaryOptions(new HashMap<String, String>(), false,
@@ -181,11 +184,11 @@ public final class UserHistoryDictIOUtils {
             BinaryDictIOUtils.readUnigramsAndBigramsBinary(buffer, unigrams, frequencies,
                     bigrams);
         } catch (IOException e) {
-            Log.e(TAG, "IO exception while reading file: " + e);
+            Log.e(TAG, "IO exception while reading file", e);
         } catch (UnsupportedFormatException e) {
-            Log.e(TAG, "Unsupported format: " + e);
+            Log.e(TAG, "Unsupported format", e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            Log.e(TAG, "ArrayIndexOutOfBoundsException while reading file: " + e);
+            Log.e(TAG, "ArrayIndexOutOfBoundsException while reading file", e);
         }
         addWordsFromWordMap(unigrams, frequencies, bigrams, dict);
     }
@@ -193,7 +196,8 @@ public final class UserHistoryDictIOUtils {
     /**
      * Adds all unigrams and bigrams in maps to OnAddWordListener.
      */
-    /* package for test */ static void addWordsFromWordMap(final Map<Integer, String> unigrams,
+    @UsedForTesting
+    static void addWordsFromWordMap(final Map<Integer, String> unigrams,
             final Map<Integer, Integer> frequencies,
             final Map<Integer, ArrayList<PendingAttribute>> bigrams, final OnAddWordListener to) {
         for (Map.Entry<Integer, String> entry : unigrams.entrySet()) {
@@ -203,7 +207,12 @@ public final class UserHistoryDictIOUtils {
             final ArrayList<PendingAttribute> attrList = bigrams.get(entry.getKey());
             if (attrList != null) {
                 for (final PendingAttribute attr : attrList) {
-                    to.setBigram(word1, unigrams.get(attr.mAddress),
+                    final String word2 = unigrams.get(attr.mAddress);
+                    if (word1 == null || word2 == null) {
+                        Log.e(TAG, "Invalid bigram pair detected: " + word1 + ", " + word2);
+                        continue;
+                    }
+                    to.setBigram(word1, word2,
                             BinaryDictInputOutput.reconstructBigramFrequency(unigramFrequency,
                                     attr.mFrequency));
                 }

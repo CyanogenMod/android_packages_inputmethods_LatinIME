@@ -24,11 +24,17 @@ FLAG_DO_PROFILE ?= false
 include $(CLEAR_VARS)
 
 LATIN_IME_SRC_DIR := src
-LATIN_IME_SRC_FULLPATH_DIR := $(LOCAL_PATH)/$(LATIN_IME_SRC_DIR)
 
-LOCAL_C_INCLUDES += $(LATIN_IME_SRC_FULLPATH_DIR) $(LATIN_IME_SRC_FULLPATH_DIR)/gesture
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/$(LATIN_IME_SRC_DIR)
 
-LOCAL_CFLAGS += -Werror -Wall
+LOCAL_CFLAGS += -Werror -Wall -Wextra -Weffc++ -Wformat=2 -Wcast-qual -Wcast-align \
+    -Wwrite-strings -Wfloat-equal -Wpointer-arith -Winit-self -Wredundant-decls -Wno-system-headers
+
+ifeq ($(TARGET_ARCH), arm)
+ifeq ($(TARGET_GCC_VERSION), 4.6)
+LOCAL_CFLAGS += -Winline
+endif # TARGET_GCC_VERSION
+endif # TARGET_ARCH
 
 # To suppress compiler warnings for unused variables/functions used for debug features etc.
 LOCAL_CFLAGS += -Wno-unused-parameter -Wno-unused-function
@@ -41,17 +47,32 @@ LATIN_IME_JNI_SRC_FILES := \
 
 LATIN_IME_CORE_SRC_FILES := \
     additional_proximity_chars.cpp \
-    basechars.cpp \
     bigram_dictionary.cpp \
     char_utils.cpp \
     correction.cpp \
     dictionary.cpp \
     dic_traverse_wrapper.cpp \
+    digraph_utils.cpp \
     proximity_info.cpp \
+    proximity_info_params.cpp \
     proximity_info_state.cpp \
+    proximity_info_state_utils.cpp \
     unigram_dictionary.cpp \
-    gesture/gesture_decoder_wrapper.cpp \
-    gesture/incremental_decoder_wrapper.cpp
+    words_priority_queue.cpp \
+    suggest/core/suggest.cpp \
+    $(addprefix suggest/core/dicnode/, \
+        dic_node.cpp \
+        dic_node_utils.cpp \
+        dic_nodes_cache.cpp) \
+    suggest/core/policy/weighting.cpp \
+    suggest/core/session/dic_traverse_session.cpp \
+    suggest/policyimpl/gesture/gesture_suggest_policy_factory.cpp \
+    $(addprefix suggest/policyimpl/typing/, \
+        scoring_params.cpp \
+        typing_scoring.cpp \
+        typing_suggest_policy.cpp \
+        typing_traversal.cpp \
+        typing_weighting.cpp)
 
 LOCAL_SRC_FILES := \
     $(LATIN_IME_JNI_SRC_FILES) \
@@ -59,11 +80,15 @@ LOCAL_SRC_FILES := \
 
 ifeq ($(FLAG_DO_PROFILE), true)
     $(warning Making profiling version of native library)
-    LOCAL_CFLAGS += -DFLAG_DO_PROFILE
+    LOCAL_CFLAGS += -DFLAG_DO_PROFILE -funwind-tables -fno-inline
 else # FLAG_DO_PROFILE
 ifeq ($(FLAG_DBG), true)
     $(warning Making debug version of native library)
-    LOCAL_CFLAGS += -DFLAG_DBG
+    LOCAL_CFLAGS += -DFLAG_DBG -funwind-tables -fno-inline
+ifeq ($(FLAG_FULL_DBG), true)
+    $(warning Making full debug version of native library)
+    LOCAL_CFLAGS += -DFLAG_FULL_DBG
+endif # FLAG_FULL_DBG
 endif # FLAG_DBG
 endif # FLAG_DO_PROFILE
 
@@ -82,11 +107,11 @@ LOCAL_WHOLE_STATIC_LIBRARIES := libjni_latinime_common_static
 
 ifeq ($(FLAG_DO_PROFILE), true)
     $(warning Making profiling version of native library)
-    LOCAL_SHARED_LIBRARIES += liblog
+    LOCAL_LDFLAGS += -llog
 else # FLAG_DO_PROFILE
 ifeq ($(FLAG_DBG), true)
     $(warning Making debug version of native library)
-    LOCAL_SHARED_LIBRARIES += liblog
+    LOCAL_LDFLAGS += -llog
 endif # FLAG_DBG
 endif # FLAG_DO_PROFILE
 
@@ -95,12 +120,11 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SDK_VERSION := 14
 LOCAL_NDK_STL_VARIANT := stlport_static
+LOCAL_LDFLAGS += -ldl
 
 include $(BUILD_SHARED_LIBRARY)
 
 #################### Clean up the tmp vars
 LATIN_IME_CORE_SRC_FILES :=
 LATIN_IME_JNI_SRC_FILES :=
-LATIN_IME_GESTURE_IMPL_SRC_FILES :=
 LATIN_IME_SRC_DIR :=
-LATIN_IME_SRC_FULLPATH_DIR :=

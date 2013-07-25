@@ -16,13 +16,13 @@
 
 package com.android.inputmethod.latin;
 
-import com.android.inputmethod.latin.UserHistoryDictionary;
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,6 +31,7 @@ import java.util.Set;
 /**
  * Unit tests for UserHistoryDictionary
  */
+@LargeTest
 public class UserHistoryDictionaryTests extends AndroidTestCase {
     private static final String TAG = UserHistoryDictionaryTests.class.getSimpleName();
     private SharedPreferences mPrefs;
@@ -76,34 +77,43 @@ public class UserHistoryDictionaryTests extends AndroidTestCase {
     }
 
     public void testRandomWords() {
-        Log.d(TAG, "This test can be used for profiling.");
-        Log.d(TAG, "Usage: please set UserHisotoryDictionary.PROFILE_SAVE_RESTORE to true.");
-        final int numberOfWords = 1000;
-        final Random random = new Random(123456);
-        List<String> words = generateWords(numberOfWords, random);
-
-        final String locale = "testRandomWords";
-        final UserHistoryDictionary dict = UserHistoryDictionary.getInstance(getContext(),
-                locale, mPrefs);
-        dict.isTest = true;
-
-        addToDict(dict, words);
-
+        File dictFile = null;
         try {
-            Log.d(TAG, "waiting for adding the word ...");
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Log.d(TAG, "InterruptedException: " + e);
-        }
+            Log.d(TAG, "This test can be used for profiling.");
+            Log.d(TAG, "Usage: please set UserHisotoryDictionary.PROFILE_SAVE_RESTORE to true.");
+            final int numberOfWords = 1000;
+            final Random random = new Random(123456);
+            List<String> words = generateWords(numberOfWords, random);
 
-        // write to file
-        dict.close();
+            final String locale = "testRandomWords";
+            final String fileName = "UserHistoryDictionary." + locale + ".dict";
+            dictFile = new File(getContext().getFilesDir(), fileName);
+            final UserHistoryDictionary dict = UserHistoryDictionary.getInstance(getContext(),
+                    locale, mPrefs);
+            dict.isTest = true;
 
-        try {
-            Log.d(TAG, "waiting for writing ...");
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            Log.d(TAG, "InterruptedException: " + e);
+            addToDict(dict, words);
+
+            try {
+                Log.d(TAG, "waiting for adding the word ...");
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Log.d(TAG, "InterruptedException: " + e);
+            }
+
+            // write to file
+            dict.close();
+
+            try {
+                Log.d(TAG, "waiting for writing ...");
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Log.d(TAG, "InterruptedException: " + e);
+            }
+        } finally {
+            if (dictFile != null) {
+                dictFile.delete();
+            }
         }
     }
 }

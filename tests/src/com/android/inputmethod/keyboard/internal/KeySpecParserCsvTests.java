@@ -1,31 +1,34 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard.internal;
 
 import android.app.Instrumentation;
 import android.test.InstrumentationTestCase;
+import android.test.suitebuilder.annotation.MediumTest;
 
 import com.android.inputmethod.latin.CollectionUtils;
+import com.android.inputmethod.latin.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+@MediumTest
 public class KeySpecParserCsvTests extends InstrumentationTestCase {
     private final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
 
@@ -53,7 +56,8 @@ public class KeySpecParserCsvTests extends InstrumentationTestCase {
         return names.toArray(new String[names.size()]);
     }
 
-    private static void assertArrayEquals(String message, Object[] expected, Object[] actual) {
+    private static void assertArrayEquals(final String message, final Object[] expected,
+            final Object[] actual) {
         if (expected == actual) {
             return;
         }
@@ -71,13 +75,15 @@ public class KeySpecParserCsvTests extends InstrumentationTestCase {
         }
     }
 
-    private void assertTextArray(String message, String value, String ... expectedArray) {
-        final String[] actual = KeySpecParser.parseCsvString(value, mTextsSet);
+    private void assertTextArray(final String message, final String value,
+            final String ... expectedArray) {
+        final String resolvedActual = KeySpecParser.resolveTextReference(value, mTextsSet);
+        final String[] actual = StringUtils.parseCsvString(resolvedActual);
         final String[] expected = (expectedArray.length == 0) ? null : expectedArray;
         assertArrayEquals(message, expected, actual);
     }
 
-    private void assertError(String message, String value, String ... expected) {
+    private void assertError(final String message, final String value, final String ... expected) {
         try {
             assertTextArray(message, value, expected);
             fail(message);

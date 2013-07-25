@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.spellcheck;
@@ -23,7 +23,7 @@ import android.service.textservice.SpellCheckerService;
 import android.util.Log;
 import android.view.textservice.SuggestionsInfo;
 
-import com.android.inputmethod.keyboard.ProximityInfo;
+import com.android.inputmethod.keyboard.KeyboardLayoutSet;
 import com.android.inputmethod.latin.BinaryDictionary;
 import com.android.inputmethod.latin.CollectionUtils;
 import com.android.inputmethod.latin.ContactsBinaryDictionary;
@@ -58,18 +58,12 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
 
-    public static final int CAPITALIZE_NONE = 0; // No caps, or mixed case
-    public static final int CAPITALIZE_FIRST = 1; // First only
-    public static final int CAPITALIZE_ALL = 2; // All caps
-
     private final static String[] EMPTY_STRING_ARRAY = new String[0];
     private Map<String, DictionaryPool> mDictionaryPools = CollectionUtils.newSynchronizedTreeMap();
     private Map<String, UserBinaryDictionary> mUserDictionaries =
             CollectionUtils.newSynchronizedTreeMap();
     private ContactsBinaryDictionary mContactsDictionary;
 
-    // The threshold for a candidate to be offered as a suggestion.
-    private float mSuggestionThreshold;
     // The threshold for a suggestion to be considered "recommended".
     private float mRecommendedThreshold;
     // Whether to use the contacts dictionary
@@ -81,6 +75,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     public static final int SCRIPT_LATIN = 0;
     public static final int SCRIPT_CYRILLIC = 1;
+    public static final int SCRIPT_GREEK = 2;
     public static final String SINGLE_QUOTE = "\u0027";
     public static final String APOSTROPHE = "\u2019";
     private static final TreeMap<String, Integer> mLanguageToScript;
@@ -94,29 +89,29 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         // IMPORTANT: this only contains languages - do not write countries in there.
         // Only the language is searched from the map.
         mLanguageToScript = CollectionUtils.newTreeMap();
-        mLanguageToScript.put("en", SCRIPT_LATIN);
-        mLanguageToScript.put("fr", SCRIPT_LATIN);
-        mLanguageToScript.put("de", SCRIPT_LATIN);
-        mLanguageToScript.put("nl", SCRIPT_LATIN);
         mLanguageToScript.put("cs", SCRIPT_LATIN);
+        mLanguageToScript.put("da", SCRIPT_LATIN);
+        mLanguageToScript.put("de", SCRIPT_LATIN);
+        mLanguageToScript.put("el", SCRIPT_GREEK);
+        mLanguageToScript.put("en", SCRIPT_LATIN);
         mLanguageToScript.put("es", SCRIPT_LATIN);
-        mLanguageToScript.put("it", SCRIPT_LATIN);
+        mLanguageToScript.put("fi", SCRIPT_LATIN);
+        mLanguageToScript.put("fr", SCRIPT_LATIN);
         mLanguageToScript.put("hr", SCRIPT_LATIN);
+        mLanguageToScript.put("it", SCRIPT_LATIN);
+        mLanguageToScript.put("lt", SCRIPT_LATIN);
+        mLanguageToScript.put("lv", SCRIPT_LATIN);
+        mLanguageToScript.put("nb", SCRIPT_LATIN);
+        mLanguageToScript.put("nl", SCRIPT_LATIN);
         mLanguageToScript.put("pt", SCRIPT_LATIN);
         mLanguageToScript.put("hu", SCRIPT_LATIN);
         mLanguageToScript.put("ru", SCRIPT_CYRILLIC);
-        mLanguageToScript.put("da", SCRIPT_LATIN);
-        mLanguageToScript.put("fi", SCRIPT_LATIN);
-        mLanguageToScript.put("nb", SCRIPT_LATIN);
         mLanguageToScript.put("sv", SCRIPT_LATIN);
-        // TODO: Make a persian proximity, and activate the Farsi subtype.
-        // mLanguageToScript.put("fa", SCRIPT_PERSIAN);
+        mLanguageToScript.put("sl", SCRIPT_LATIN);
     }
 
     @Override public void onCreate() {
         super.onCreate();
-        mSuggestionThreshold =
-                Float.parseFloat(getString(R.string.spellchecker_suggestion_threshold_value));
         mRecommendedThreshold =
                 Float.parseFloat(getString(R.string.spellchecker_recommended_threshold_value));
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -131,6 +126,19 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
                     + locale.getLanguage() + "\". Framework bug?");
         }
         return script;
+    }
+
+    private static String getKeyboardLayoutNameForScript(final int script) {
+        switch (script) {
+        case AndroidSpellCheckerService.SCRIPT_LATIN:
+            return "qwerty";
+        case AndroidSpellCheckerService.SCRIPT_CYRILLIC:
+            return "east_slavic";
+        case AndroidSpellCheckerService.SCRIPT_GREEK:
+            return "greek";
+        default:
+            throw new RuntimeException("Wrong script supplied: " + script);
+        }
     }
 
     @Override
@@ -201,8 +209,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     }
 
     public SuggestionsGatherer newSuggestionsGatherer(final String text, int maxLength) {
-        return new SuggestionsGatherer(
-                text, mSuggestionThreshold, mRecommendedThreshold, maxLength);
+        return new SuggestionsGatherer(text, mRecommendedThreshold, maxLength);
     }
 
     // TODO: remove this class and replace it by storage local to the session.
@@ -217,10 +224,9 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             }
         }
 
-        private final ArrayList<CharSequence> mSuggestions;
+        private final ArrayList<String> mSuggestions;
         private final int[] mScores;
         private final String mOriginalText;
-        private final float mSuggestionThreshold;
         private final float mRecommendedThreshold;
         private final int mMaxLength;
         private int mLength = 0;
@@ -230,10 +236,9 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         private String mBestSuggestion = null;
         private int mBestScore = Integer.MIN_VALUE; // As small as possible
 
-        SuggestionsGatherer(final String originalText, final float suggestionThreshold,
-                final float recommendedThreshold, final int maxLength) {
+        SuggestionsGatherer(final String originalText, final float recommendedThreshold,
+                final int maxLength) {
             mOriginalText = originalText;
-            mSuggestionThreshold = suggestionThreshold;
             mRecommendedThreshold = recommendedThreshold;
             mMaxLength = maxLength;
             mSuggestions = CollectionUtils.newArrayList(maxLength + 1);
@@ -270,16 +275,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
                 return true;
             }
 
-            // Compute the normalized score and skip this word if it's normalized score does not
-            // make the threshold.
             final String wordString = new String(word, wordOffset, wordLength);
-            final float normalizedScore =
-                    BinaryDictionary.calcNormalizedScore(mOriginalText, wordString, score);
-            if (normalizedScore < mSuggestionThreshold) {
-                if (DBG) Log.i(TAG, wordString + " does not make the score threshold");
-                return true;
-            }
-
             if (mLength < mMaxLength) {
                 final int copyLen = mLength - insertIndex;
                 ++mLength;
@@ -299,6 +295,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             final String[] gatheredSuggestions;
             final boolean hasRecommendedSuggestions;
             if (0 == mLength) {
+                // TODO: the comment below describes what is intended, but in the practice
+                // mBestSuggestion is only ever set to null so it doesn't work. Fix this.
                 // Either we found no suggestions, or we found some BUT the max length was 0.
                 // If we found some mBestSuggestion will not be null. If it is null, then
                 // we found none, regardless of the max length.
@@ -322,16 +320,16 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
                 }
                 Collections.reverse(mSuggestions);
                 StringUtils.removeDupes(mSuggestions);
-                if (CAPITALIZE_ALL == capitalizeType) {
+                if (StringUtils.CAPITALIZE_ALL == capitalizeType) {
                     for (int i = 0; i < mSuggestions.size(); ++i) {
                         // get(i) returns a CharSequence which is actually a String so .toString()
                         // should return the same object.
                         mSuggestions.set(i, mSuggestions.get(i).toString().toUpperCase(locale));
                     }
-                } else if (CAPITALIZE_FIRST == capitalizeType) {
+                } else if (StringUtils.CAPITALIZE_FIRST == capitalizeType) {
                     for (int i = 0; i < mSuggestions.size(); ++i) {
                         // Likewise
-                        mSuggestions.set(i, StringUtils.toTitleCase(
+                        mSuggestions.set(i, StringUtils.capitalizeFirstCodePoint(
                                 mSuggestions.get(i).toString(), locale));
                     }
                 }
@@ -340,7 +338,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
                 gatheredSuggestions = mSuggestions.toArray(EMPTY_STRING_ARRAY);
 
                 final int bestScore = mScores[mLength - 1];
-                final CharSequence bestSuggestion = mSuggestions.get(0);
+                final String bestSuggestion = mSuggestions.get(0);
                 final float normalizedScore =
                         BinaryDictionary.calcNormalizedScore(
                                 mOriginalText, bestSuggestion.toString(), bestScore);
@@ -402,13 +400,13 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         return pool;
     }
 
-    public DictAndProximity createDictAndProximity(final Locale locale) {
+    public DictAndKeyboard createDictAndKeyboard(final Locale locale) {
         final int script = getScriptFromLocale(locale);
-        final ProximityInfo proximityInfo = ProximityInfo.createSpellCheckerProximityInfo(
-                SpellCheckerProximityInfo.getProximityForScript(script),
-                SpellCheckerProximityInfo.ROW_SIZE,
-                SpellCheckerProximityInfo.PROXIMITY_GRID_WIDTH,
-                SpellCheckerProximityInfo.PROXIMITY_GRID_HEIGHT);
+        final String keyboardLayoutName = getKeyboardLayoutNameForScript(script);
+        final KeyboardLayoutSet keyboardLayoutSet =
+                KeyboardLayoutSet.createKeyboardSetForSpellChecker(this, locale.toString(),
+                        keyboardLayoutName);
+
         final DictionaryCollection dictionaryCollection =
                 DictionaryFactory.createMainDictionaryFromManager(this, locale,
                         true /* useFullEditDistance */);
@@ -433,25 +431,6 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             mDictionaryCollectionsList.add(
                     new WeakReference<DictionaryCollection>(dictionaryCollection));
         }
-        return new DictAndProximity(dictionaryCollection, proximityInfo);
-    }
-
-    // This method assumes the text is not empty or null.
-    public static int getCapitalizationType(String text) {
-        // If the first char is not uppercase, then the word is either all lower case,
-        // and in either case we return CAPITALIZE_NONE.
-        if (!Character.isUpperCase(text.codePointAt(0))) return CAPITALIZE_NONE;
-        final int len = text.length();
-        int capsCount = 1;
-        for (int i = 1; i < len; i = text.offsetByCodePoints(i, 1)) {
-            if (1 != capsCount && i != capsCount) break;
-            if (Character.isUpperCase(text.codePointAt(i))) ++capsCount;
-        }
-        // We know the first char is upper case. So we want to test if either everything
-        // else is lower case, or if everything else is upper case. If the string is
-        // exactly one char long, then we will arrive here with capsCount 1, and this is
-        // correct, too.
-        if (1 == capsCount) return CAPITALIZE_FIRST;
-        return (len == capsCount ? CAPITALIZE_ALL : CAPITALIZE_NONE);
+        return new DictAndKeyboard(dictionaryCollection, keyboardLayoutSet);
     }
 }

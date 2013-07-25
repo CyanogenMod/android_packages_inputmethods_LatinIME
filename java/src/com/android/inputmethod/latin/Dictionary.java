@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -26,11 +26,6 @@ import java.util.ArrayList;
  * strokes.
  */
 public abstract class Dictionary {
-    /**
-     * The weight to give to a word if it's length is the same as the number of typed characters.
-     */
-    protected static final int FULL_WORD_SCORE_MULTIPLIER = 2;
-
     public static final int NOT_A_PROBABILITY = -1;
 
     public static final String TYPE_USER_TYPED = "user_typed";
@@ -42,6 +37,8 @@ public abstract class Dictionary {
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
     public static final String TYPE_USER_HISTORY = "history";
+    // Spawned by resuming suggestions. Comes from a span that was in the TextView.
+    public static final String TYPE_RESUMED = "resumed";
     protected final String mDictType;
 
     public Dictionary(final String dictType) {
@@ -54,18 +51,21 @@ public abstract class Dictionary {
      * @param composer the key sequence to match with coordinate info, as a WordComposer
      * @param prevWord the previous word, or null if none
      * @param proximityInfo the object for key proximity. May be ignored by some implementations.
+     * @param blockOffensiveWords whether to block potentially offensive words
      * @return the list of suggestions (possibly null if none)
      */
     // TODO: pass more context than just the previous word, to enable better suggestions (n-gram
     // and more)
     abstract public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
-            final CharSequence prevWord, final ProximityInfo proximityInfo);
+            final String prevWord, final ProximityInfo proximityInfo,
+            final boolean blockOffensiveWords);
 
     // The default implementation of this method ignores sessionId.
     // Subclasses that want to use sessionId need to override this method.
     public ArrayList<SuggestedWordInfo> getSuggestionsWithSessionId(final WordComposer composer,
-            final CharSequence prevWord, final ProximityInfo proximityInfo, int sessionId) {
-        return getSuggestions(composer, prevWord, proximityInfo);
+            final String prevWord, final ProximityInfo proximityInfo,
+            final boolean blockOffensiveWords, final int sessionId) {
+        return getSuggestions(composer, prevWord, proximityInfo, blockOffensiveWords);
     }
 
     /**
@@ -73,9 +73,9 @@ public abstract class Dictionary {
      * @param word the word to search for. The search should be case-insensitive.
      * @return true if the word exists, false otherwise
      */
-    abstract public boolean isValidWord(CharSequence word);
+    abstract public boolean isValidWord(final String word);
 
-    public int getFrequency(CharSequence word) {
+    public int getFrequency(final String word) {
         return NOT_A_PROBABILITY;
     }
 
@@ -87,7 +87,7 @@ public abstract class Dictionary {
      * @param typedWord the word to compare with
      * @return true if they are the same, false otherwise.
      */
-    protected boolean same(final char[] word, final int length, final CharSequence typedWord) {
+    protected boolean same(final char[] word, final int length, final String typedWord) {
         if (typedWord.length() != length) {
             return false;
         }

@@ -20,31 +20,15 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Symbols that are suggested between words -->
     <string name="suggested_punctuations">!,?,\\,,:,;,\",(,),\',-,/,@,_</string>
-    <!-- Symbols that should be swapped with a weak space -->
-    <string name="weak_space_swapping_symbols">.,;:!?)]}</string>
-    <!-- Symbols that should strip a weak space -->
+    <!-- Symbols that are normally preceded by a space (used to add an auto-space before these) -->
+    <string name="symbols_preceded_by_space">([{*&amp;</string>
+    <!-- Symbols that are normally followed by a space (used to add an auto-space after these) -->
+    <string name="symbols_followed_by_space">.,;:!?)]}*&amp;</string>
+    <!-- Symbols that separate words -->
     <!-- Don't remove the enclosing double quotes, they protect whitespace (not just U+0020) -->
-    <string name="weak_space_stripping_symbols">"&#x0009;&#x0020;\n"/_\'-@\"</string>
-    <!-- Symbols that should convert weak spaces into real space -->
-    <string name="phantom_space_promoting_symbols">([*&amp;{&lt;&gt;+=|</string>
-    <!-- Symbols that do NOT separate words -->
-    <string name="symbols_excluded_from_word_separators">\'-</string>
-    <!-- Word separator list is the union of all symbols except those that are not separators:
-    weak_space_swapping_symbols | weak_space_stripping_symbols
-            \ symbols_excluded_from_word_separators -->
-    <!-- Symbol characters list that should switch back to the main layout -->
-    <!-- U+2018: "‘" LEFT SINGLE QUOTATION MARK
-         U+2019: "’" RIGHT SINGLE QUOTATION MARK
-         U+201A: "‚" SINGLE LOW-9 QUOTATION MARK
-         U+201B: "‛" SINGLE HIGH-REVERSED-9 QUOTATION MARK
-         U+201C: "“" LEFT DOUBLE QUOTATION MARK
-         U+201D: "”" RIGHT DOUBLE QUOTATION MARK
-         U+201E: "„" DOUBLE LOW-9 QUOTATION MARK
-         U+201F: "‟" DOUBLE HIGH-REVERSED-9 QUOTATION MARK
-         U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
-         U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK -->
-    <!-- <string name="layout_switch_back_symbols">\"\'&#x2018;&#x2019;&#x201A;&#x201B;&#x201C;&#x201D;&#x201E;&#x201F;&#x00AB;&#x00BB;</string> -->
-    <string name="layout_switch_back_symbols"></string>
+    <string name="symbols_word_separators">"&#x0009;&#x0020;\n"()[]{}*&amp;&lt;&gt;+=|.,;:!?/_\"</string>
+    <!-- Word connectors -->
+    <string name="symbols_word_connectors">\'-</string>
 
     <!--  Always show the suggestion strip -->
     <string name="prefs_suggestion_visibility_show_value">0</string>
@@ -136,17 +120,14 @@
     </string-array>
 
     <!-- Subtype locale display name exceptions.
-         For each exception, there should be related string resource for display name that has
-         explicit keyboard layout. The string resource name must be "subtype_with_layout_<locale>. -->
+         For each exception, there should be related string resources for display name that may have
+         explicit keyboard layout. The string resource name must be "subtype_<locale>" or
+         "subtype_with_layout_<locale>. Please refer to strings.xml for these resources. -->
     <string-array name="subtype_locale_exception_keys">
         <item>en_US</item>
         <item>en_GB</item>
         <item>hu_ZZ</item>
-    </string-array>
-    <string-array name="subtype_locale_exception_values">
-        <item>English (US)</item>
-        <item>English (UK)</item>
-        <item>Hungarian (QUERTY)</item>
+        <item>es_US</item>
     </string-array>
 
     <!-- Generic subtype label -->
@@ -230,9 +211,5 @@
         <item>qwerty</item>
     </string-array>
 
-    <!-- dictionary pack package name /settings activity (for shared prefs and settings) -->
-    <string name="dictionary_pack_package_name">com.google.android.inputmethod.latin.dictionarypack</string>
-    <string name="dictionary_pack_settings_activity">com.google.android.inputmethod.latin.dictionarypack.DictionarySettingsActivity</string>
-    <string name="settings_ms">ms</string>
     <string name="settings_warning_researcher_mode">Attention!  You are using the special keyboard for research purposes.</string>
 </resources>

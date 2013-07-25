@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2010, The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,92 +17,83 @@
 #ifndef LATINIME_DEFINES_H
 #define LATINIME_DEFINES_H
 
-#include <stdint.h>
+#ifdef __GNUC__
+#define AK_FORCE_INLINE __attribute__((always_inline)) __inline__
+#else // __GNUC__
+#define AK_FORCE_INLINE inline
+#endif // __GNUC__
+
+#if defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
+#undef AK_FORCE_INLINE
+#define AK_FORCE_INLINE inline
+#endif // defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
+
+// Must be equal to Constants.Dictionary.MAX_WORD_LENGTH in Java
+#define MAX_WORD_LENGTH 48
+// Must be equal to BinaryDictionary.MAX_RESULTS in Java
+#define MAX_RESULTS 18
+// Must be equal to ProximityInfo.MAX_PROXIMITY_CHARS_SIZE in Java
+#define MAX_PROXIMITY_CHARS_SIZE 16
+#define ADDITIONAL_PROXIMITY_CHAR_DELIMITER_CODE 2
 
 #if defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
 #include <android/log.h>
 #ifndef LOG_TAG
 #define LOG_TAG "LatinIME: "
-#endif
+#endif // LOG_TAG
 #define AKLOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, fmt, ##__VA_ARGS__)
 #define AKLOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, fmt, ##__VA_ARGS__)
 
-#define DUMP_RESULT(words, frequencies, maxWordCount, maxWordLength) do { \
-        dumpResult(words, frequencies, maxWordCount, maxWordLength); } while (0)
+#define DUMP_RESULT(words, frequencies) do { dumpResult(words, frequencies); } while (0)
 #define DUMP_WORD(word, length) do { dumpWord(word, length); } while (0)
-#define DUMP_WORD_INT(word, length) do { dumpWordInt(word, length); } while (0)
-// TODO: INTS_TO_CHARS
-#define SHORTS_TO_CHARS(input, length, output) do { \
-        shortArrayToCharArray(input, length, output); } while (0)
+#define INTS_TO_CHARS(input, length, output) do { \
+        intArrayToCharArray(input, length, output); } while (0)
 
-static inline void dumpWordInfo(const unsigned short *word, const int length,
-        const int rank, const int frequency) {
-    static char charBuf[50];
-    int i = 0;
-    for (; i < length; ++i) {
-        const unsigned short c = word[i];
-        if (c == 0) {
-            break;
+// TODO: Support full UTF-8 conversion
+AK_FORCE_INLINE static int intArrayToCharArray(const int *source, const int sourceSize,
+        char *dest) {
+    int si = 0;
+    int di = 0;
+    while (si < sourceSize && di < MAX_WORD_LENGTH - 1 && 0 != source[si]) {
+        const int codePoint = source[si++];
+        if (codePoint < 0x7F) {
+            dest[di++] = codePoint;
+        } else if (codePoint < 0x7FF) {
+            dest[di++] = 0xC0 + (codePoint >> 6);
+            dest[di++] = 0x80 + (codePoint & 0x3F);
+        } else if (codePoint < 0xFFFF) {
+            dest[di++] = 0xE0 + (codePoint >> 12);
+            dest[di++] = 0x80 + ((codePoint & 0xFC0) >> 6);
+            dest[di++] = 0x80 + (codePoint & 0x3F);
         }
-        // static_cast only for debugging
-        charBuf[i] = static_cast<char>(c);
     }
-    charBuf[i] = 0;
-    if (i > 1) {
-        AKLOGI("%2d [ %s ] (%d)", rank, charBuf, frequency);
+    dest[di] = 0;
+    return di;
+}
+
+static inline void dumpWordInfo(const int *word, const int length, const int rank,
+        const int probability) {
+    static char charBuf[50];
+    const int N = intArrayToCharArray(word, length, charBuf);
+    if (N > 1) {
+        AKLOGI("%2d [ %s ] (%d)", rank, charBuf, probability);
     }
 }
 
-static inline void dumpResult(
-        const unsigned short *outWords, const int *frequencies, const int maxWordCounts,
-        const int maxWordLength) {
+static inline void dumpResult(const int *outWords, const int *frequencies) {
     AKLOGI("--- DUMP RESULT ---------");
-    for (int i = 0; i < maxWordCounts; ++i) {
-        dumpWordInfo(&outWords[i * maxWordLength], maxWordLength, i, frequencies[i]);
+    for (int i = 0; i < MAX_RESULTS; ++i) {
+        dumpWordInfo(&outWords[i * MAX_WORD_LENGTH], MAX_WORD_LENGTH, i, frequencies[i]);
     }
     AKLOGI("-------------------------");
 }
 
-static inline void dumpWord(const unsigned short *word, const int length) {
+static AK_FORCE_INLINE void dumpWord(const int *word, const int length) {
     static char charBuf[50];
-    int i = 0;
-    for (; i < length; ++i) {
-        const unsigned short c = word[i];
-        if (c == 0) {
-            break;
-        }
-        // static_cast only for debugging
-        charBuf[i] = static_cast<char>(c);
-    }
-    charBuf[i] = 0;
-    if (i > 1) {
+    const int N = intArrayToCharArray(word, length, charBuf);
+    if (N > 1) {
         AKLOGI("[ %s ]", charBuf);
     }
-}
-
-static inline void dumpWordInt(const int *word, const int length) {
-    static char charBuf[50];
-
-    for (int i = 0; i < length; ++i) {
-        charBuf[i] = word[i];
-    }
-    charBuf[length] = 0;
-    AKLOGI("i[ %s ]", charBuf);
-}
-
-// TODO: Change this to intArrayToCharArray
-static inline void shortArrayToCharArray(
-        const unsigned short *input, const int length, char *output) {
-    int i = 0;
-    for (;i < length; ++i) {
-        const unsigned short c = input[i];
-        if (c == 0) {
-            break;
-        }
-        // static_cast only for debugging
-        output[i] = static_cast<char>(c);
-    }
-    output[i] = 0;
 }
 
 #ifndef __ANDROID__
@@ -110,6 +101,7 @@ static inline void shortArrayToCharArray(
 #include <execinfo.h>
 #include <stdlib.h>
 
+#define DO_ASSERT_TEST
 #define ASSERT(success) do { if (!(success)) { showStackTrace(); assert(success);} } while (0)
 #define SHOW_STACK_TRACE do { showStackTrace(); } while (0)
 
@@ -126,23 +118,23 @@ static inline void showStackTrace() {
     }
     free(strs);
 }
-#else
+#else // __ANDROID__
 #include <cassert>
+#define DO_ASSERT_TEST
 #define ASSERT(success) assert(success)
 #define SHOW_STACK_TRACE
-#endif
+#endif // __ANDROID__
 
-#else
+#else // defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
 #define AKLOGE(fmt, ...)
 #define AKLOGI(fmt, ...)
-#define DUMP_RESULT(words, frequencies, maxWordCount, maxWordLength)
+#define DUMP_RESULT(words, frequencies)
 #define DUMP_WORD(word, length)
-#define DUMP_WORD_INT(word, length)
+#undef DO_ASSERT_TEST
 #define ASSERT(success)
 #define SHOW_STACK_TRACE
-// TODO: INTS_TO_CHARS
-#define SHORTS_TO_CHARS(input, length, output)
-#endif
+#define INTS_TO_CHARS(input, length, output)
+#endif // defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
 
 #ifdef FLAG_DO_PROFILE
 // Profiler
@@ -178,15 +170,15 @@ static inline void prof_out(void) {
     }
     AKLOGI("Total time is %6.3f ms.",
             profile_buf[PROF_BUF_SIZE - 1] * 1000.0f / static_cast<float>(CLOCKS_PER_SEC));
-    float all = 0;
+    float all = 0.0f;
     for (int i = 0; i < PROF_BUF_SIZE - 1; ++i) {
         all += profile_buf[i];
     }
-    if (all == 0) all = 1;
+    if (all < 1.0f) all = 1.0f;
     for (int i = 0; i < PROF_BUF_SIZE - 1; ++i) {
-        if (profile_buf[i]) {
+        if (profile_buf[i] > 0.0f) {
             AKLOGI("(%d): Used %4.2f%%, %8.4f ms. Called %d times.",
-                    i, (profile_buf[i] * 100 / all),
+                    i, (profile_buf[i] * 100.0f / all),
                     profile_buf[i] * 1000.0f / static_cast<float>(CLOCKS_PER_SEC),
                     profile_counter[i]);
         }
@@ -219,6 +211,12 @@ static inline void prof_out(void) {
 #define DEBUG_CORRECTION false
 #define DEBUG_CORRECTION_FREQ false
 #define DEBUG_WORDS_PRIORITY_QUEUE false
+#define DEBUG_SAMPLING_POINTS false
+#define DEBUG_POINTS_PROBABILITY false
+#define DEBUG_DOUBLE_LETTER false
+#define DEBUG_CACHE false
+#define DEBUG_DUMP_ERROR false
+#define DEBUG_EVALUATE_MOST_PROBABLE_STRING false
 
 #ifdef FLAG_FULL_DBG
 #define DEBUG_GEO_FULL true
@@ -239,14 +237,17 @@ static inline void prof_out(void) {
 #define DEBUG_CORRECTION false
 #define DEBUG_CORRECTION_FREQ false
 #define DEBUG_WORDS_PRIORITY_QUEUE false
+#define DEBUG_SAMPLING_POINTS false
+#define DEBUG_POINTS_PROBABILITY false
+#define DEBUG_DOUBLE_LETTER false
+#define DEBUG_CACHE false
+#define DEBUG_DUMP_ERROR false
+#define DEBUG_EVALUATE_MOST_PROBABLE_STRING false
 
 #define DEBUG_GEO_FULL false
 
 #endif // FLAG_DBG
 
-#ifndef U_SHORT_MAX
-#define U_SHORT_MAX 65535    // ((1 << 16) - 1)
-#endif
 #ifndef S_INT_MAX
 #define S_INT_MAX 2147483647 // ((1 << 31) - 1)
 #endif
@@ -257,44 +258,39 @@ static inline void prof_out(void) {
 #define S_INT_MIN (-2147483647 - 1) // -(1 << 31)
 #endif
 
+#define M_PI_F 3.14159265f
+#define MAX_PERCENTILE 100
+
+// Number of base-10 digits in the largest integer + 1 to leave room for a zero terminator.
+// As such, this is the maximum number of characters will be needed to represent an int as a
+// string, including the terminator; this is used as the size of a string buffer large enough to
+// hold any value that is intended to fit in an integer, e.g. in the code that reads the header
+// of the binary dictionary where a {key,value} string pair scheme is used.
+#define LARGEST_INT_DIGIT_COUNT 11
+
 // Define this to use mmap() for dictionary loading.  Undefine to use malloc() instead of mmap().
 // We measured and compared performance of both, and found mmap() is fairly good in terms of
 // loading time, and acceptable even for several initial lookups which involve page faults.
 #define USE_MMAP_FOR_DICTIONARY
 
-// 22-bit address = ~4MB dictionary size limit, which on average would be about 200k-300k words
-#define ADDRESS_MASK 0x3FFFFF
-
-// The bit that decides if an address follows in the next 22 bits
-#define FLAG_ADDRESS_MASK 0x40
-// The bit that decides if this is a terminal node for a word. The node could still have children,
-// if the word has other endings.
-#define FLAG_TERMINAL_MASK 0x80
-
-#define FLAG_BIGRAM_READ 0x80
-#define FLAG_BIGRAM_CHILDEXIST 0x40
-#define FLAG_BIGRAM_CONTINUED 0x80
-#define FLAG_BIGRAM_FREQ 0x7F
-
-#define DICTIONARY_VERSION_MIN 200
 #define NOT_VALID_WORD (-99)
 #define NOT_A_CODE_POINT (-1)
 #define NOT_A_DISTANCE (-1)
 #define NOT_A_COORDINATE (-1)
-#define EQUIVALENT_CHAR_WITHOUT_DISTANCE_INFO (-2)
+#define MATCH_CHAR_WITHOUT_DISTANCE_INFO (-2)
 #define PROXIMITY_CHAR_WITHOUT_DISTANCE_INFO (-3)
 #define ADDITIONAL_PROXIMITY_CHAR_DISTANCE_INFO (-4)
 #define NOT_AN_INDEX (-1)
 #define NOT_A_PROBABILITY (-1)
 
 #define KEYCODE_SPACE ' '
+#define KEYCODE_SINGLE_QUOTE '\''
+#define KEYCODE_HYPHEN_MINUS '-'
 
 #define CALIBRATE_SCORE_BY_TOUCH_COORDINATES true
-
-#define SUGGEST_WORDS_WITH_MISSING_CHARACTER true
-#define SUGGEST_WORDS_WITH_EXCESSIVE_CHARACTER true
-#define SUGGEST_WORDS_WITH_TRANSPOSED_CHARACTERS true
 #define SUGGEST_MULTIPLE_WORDS true
+#define USE_SUGGEST_INTERFACE_FOR_TYPING true
+#define SUGGEST_INTERFACE_OUTPUT_SCALE 1000000.0f
 
 // The following "rate"s are used as a multiplier before dividing by 100, so they are in percent.
 #define WORDS_WITH_MISSING_CHARACTER_DEMOTION_RATE 80
@@ -316,21 +312,11 @@ static inline void prof_out(void) {
 #define TWO_WORDS_CAPITALIZED_DEMOTION_RATE 50
 #define TWO_WORDS_CORRECTION_DEMOTION_BASE 80
 #define TWO_WORDS_PLUS_OTHER_ERROR_CORRECTION_DEMOTION_DIVIDER 1
-#define ZERO_DISTANCE_PROMOTION_RATE 110
+#define ZERO_DISTANCE_PROMOTION_RATE 110.0f
 #define NEUTRAL_SCORE_SQUARED_RADIUS 8.0f
 #define HALF_SCORE_SQUARED_RADIUS 32.0f
-#define MAX_FREQ 255
-#define MAX_BIGRAM_FREQ 15
-
-// This must be greater than or equal to MAX_WORD_LENGTH defined in BinaryDictionary.java
-// This is only used for the size of array. Not to be used in c functions.
-#define MAX_WORD_LENGTH_INTERNAL 48
-
-// This must be the same as ProximityInfo#MAX_PROXIMITY_CHARS_SIZE, currently it's 16.
-#define MAX_PROXIMITY_CHARS_SIZE_INTERNAL 16
-
-// This must be equal to ADDITIONAL_PROXIMITY_CHAR_DELIMITER_CODE in KeyDetector.java
-#define ADDITIONAL_PROXIMITY_CHAR_DELIMITER_CODE 2
+#define MAX_PROBABILITY 255
+#define MAX_BIGRAM_ENCODED_PROBABILITY 15
 
 // Assuming locale strings such as en_US, sr-Latn etc.
 #define MAX_LOCALE_STRING_LENGTH 10
@@ -350,19 +336,17 @@ static inline void prof_out(void) {
 #define MULTIPLE_WORDS_DEMOTION_RATE 80
 #define MIN_INPUT_LENGTH_FOR_THREE_OR_MORE_WORDS_CORRECTION 6
 
-#define TWO_WORDS_CORRECTION_WITH_OTHER_ERROR_THRESHOLD 0.35
-#define START_TWO_WORDS_CORRECTION_THRESHOLD 0.185
-/* heuristic... This should be changed if we change the unit of the frequency. */
-#define SUPPRESS_SHORT_MULTIPLE_WORDS_THRESHOLD_FREQ (MAX_FREQ * 58 / 100)
+#define TWO_WORDS_CORRECTION_WITH_OTHER_ERROR_THRESHOLD 0.35f
+#define START_TWO_WORDS_CORRECTION_THRESHOLD 0.185f
+/* heuristic... This should be changed if we change the unit of the probability. */
+#define SUPPRESS_SHORT_MULTIPLE_WORDS_THRESHOLD_FREQ (MAX_PROBABILITY * 58 / 100)
 
 #define MAX_DEPTH_MULTIPLIER 3
-
 #define FIRST_WORD_INDEX 0
 
-#define MAX_SPACES_INTERNAL 16
-
-// Max Distance between point to key
-#define MAX_POINT_TO_KEY_LENGTH 10000000
+// Max value for length, distance and probability which are used in weighting
+// TODO: Remove
+#define MAX_VALUE_FOR_WEIGHTING 10000000
 
 // The max number of the keys in one keyboard layout
 #define MAX_KEY_COUNT_IN_A_KEYBOARD 64
@@ -372,10 +356,10 @@ static inline void prof_out(void) {
 #define DEFAULT_MAX_DIGRAPH_SEARCH_DEPTH 5
 
 #define MIN_USER_TYPED_LENGTH_FOR_MULTIPLE_WORD_SUGGESTION 3
-#define MIN_USER_TYPED_LENGTH_FOR_EXCESSIVE_CHARACTER_SUGGESTION 3
 
 // TODO: Remove
-#define MAX_POINTER_COUNT_FOR_G 2
+#define MAX_POINTER_COUNT 1
+#define MAX_POINTER_COUNT_G 2
 
 // Size, in bytes, of the bloom filter index for bigrams
 // 128 gives us 1024 buckets. The probability of false positive is (1 - e ** (-kn/m))**k,
@@ -395,11 +379,19 @@ static inline void prof_out(void) {
 #error "BIGRAM_FILTER_MODULO is larger than BIGRAM_FILTER_BYTE_SIZE"
 #endif
 
-template<typename T> inline T min(T a, T b) { return a < b ? a : b; }
-template<typename T> inline T max(T a, T b) { return a > b ? a : b; }
+// Max number of bigram maps (previous word contexts) to be cached. Increasing this number could
+// improve bigram lookup speed for multi-word suggestions, but at the cost of more memory usage.
+// Also, there are diminishing returns since the most frequently used bigrams are typically near
+// the beginning of the input and are thus the first ones to be cached. Note that these bigrams
+// are reset for each new composing word.
+#define MAX_CACHED_PREV_WORDS_IN_BIGRAM_MAP 25
+// Most common previous word contexts currently have 100 bigrams
+#define DEFAULT_HASH_MAP_SIZE_FOR_EACH_BIGRAM_MAP 100
 
-// The ratio of neutral area radius to sweet spot radius.
-#define NEUTRAL_AREA_RADIUS_RATIO 1.3f
+template<typename T> AK_FORCE_INLINE const T &min(const T &a, const T &b) { return a < b ? a : b; }
+template<typename T> AK_FORCE_INLINE const T &max(const T &a, const T &b) { return a > b ? a : b; }
+
+#define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
 
 // DEBUG
 #define INPUTLENGTH_FOR_DEBUG (-1)
@@ -416,12 +408,63 @@ template<typename T> inline T max(T a, T b) { return a > b ? a : b; }
 // Used as a return value for character comparison
 typedef enum {
     // Same char, possibly with different case or accent
-    EQUIVALENT_CHAR,
+    MATCH_CHAR,
     // It is a char located nearby on the keyboard
-    NEAR_PROXIMITY_CHAR,
+    PROXIMITY_CHAR,
+    // Additional proximity char which can differ by language.
+    ADDITIONAL_PROXIMITY_CHAR,
+    // It is a substitution char
+    SUBSTITUTION_CHAR,
     // It is an unrelated char
     UNRELATED_CHAR,
-    // Additional proximity char which can differ by language.
-    ADDITIONAL_PROXIMITY_CHAR
 } ProximityType;
+
+typedef enum {
+    NOT_A_DOUBLE_LETTER,
+    A_DOUBLE_LETTER,
+    A_STRONG_DOUBLE_LETTER
+} DoubleLetterLevel;
+
+typedef enum {
+    // Correction for MATCH_CHAR
+    CT_MATCH,
+    // Correction for PROXIMITY_CHAR
+    CT_PROXIMITY,
+    // Correction for ADDITIONAL_PROXIMITY_CHAR
+    CT_ADDITIONAL_PROXIMITY,
+    // Correction for SUBSTITUTION_CHAR
+    CT_SUBSTITUTION,
+    // Skip one omitted letter
+    CT_OMISSION,
+    // Delete an unnecessarily inserted letter
+    CT_INSERTION,
+    // Swap the order of next two touch points
+    CT_TRANSPOSITION,
+    CT_COMPLETION,
+    CT_TERMINAL,
+    // Create new word with space omission
+    CT_NEW_WORD_SPACE_OMITTION,
+    // Create new word with space substitution
+    CT_NEW_WORD_SPACE_SUBSTITUTION,
+} CorrectionType;
+
+// ErrorType is mainly decided by CorrectionType but it is also depending on if
+// the correction has really been performed or not.
+typedef enum {
+    // Substitution, omission and transposition
+    ET_EDIT_CORRECTION,
+    // Proximity error
+    ET_PROXIMITY_CORRECTION,
+    // Completion
+    ET_COMPLETION,
+    // New word
+    // TODO: Remove.
+    // A new word error should be an edit correction error or a proximity correction error.
+    ET_NEW_WORD,
+    // Treat error as an intentional omission when the CorrectionType is omission and the node can
+    // be intentional omission.
+    ET_INTENTIONAL_OMISSION,
+    // Not treated as an error. Tracked for checking exact match
+    ET_NOT_AN_ERROR
+} ErrorType;
 #endif // LATINIME_DEFINES_H

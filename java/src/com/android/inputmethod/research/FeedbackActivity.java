@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.research;
@@ -28,22 +28,7 @@ public class FeedbackActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.research_feedback_activity);
         final FeedbackLayout layout = (FeedbackLayout) findViewById(R.id.research_feedback_layout);
-        final CheckBox checkbox = (CheckBox) findViewById(R.id.research_feedback_include_history);
-        final CharSequence cs = checkbox.getText();
-        final String actualString = String.format(cs.toString(),
-                ResearchLogger.FEEDBACK_WORD_BUFFER_SIZE);
-        checkbox.setText(actualString);
         layout.setActivity(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override

@@ -1,21 +1,22 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.spellcheck;
 
+import android.os.Binder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.textservice.SentenceSuggestionsInfo;
@@ -133,22 +134,27 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
     @Override
     public SuggestionsInfo[] onGetSuggestionsMultiple(TextInfo[] textInfos,
             int suggestionsLimit, boolean sequentialWords) {
-        final int length = textInfos.length;
-        final SuggestionsInfo[] retval = new SuggestionsInfo[length];
-        for (int i = 0; i < length; ++i) {
-            final String prevWord;
-            if (sequentialWords && i > 0) {
+        long ident = Binder.clearCallingIdentity();
+        try {
+            final int length = textInfos.length;
+            final SuggestionsInfo[] retval = new SuggestionsInfo[length];
+            for (int i = 0; i < length; ++i) {
+                final String prevWord;
+                if (sequentialWords && i > 0) {
                 final String prevWordCandidate = textInfos[i - 1].getText();
                 // Note that an empty string would be used to indicate the initial word
                 // in the future.
                 prevWord = TextUtils.isEmpty(prevWordCandidate) ? null : prevWordCandidate;
-            } else {
-                prevWord = null;
+                } else {
+                    prevWord = null;
+                }
+                retval[i] = onGetSuggestionsInternal(textInfos[i], prevWord, suggestionsLimit);
+                retval[i].setCookieAndSequence(textInfos[i].getCookie(),
+                        textInfos[i].getSequence());
             }
-            retval[i] = onGetSuggestions(textInfos[i], prevWord, suggestionsLimit);
-            retval[i].setCookieAndSequence(textInfos[i].getCookie(),
-                    textInfos[i].getSequence());
+            return retval;
+        } finally {
+            Binder.restoreCallingIdentity(ident);
         }
-        return retval;
     }
 }

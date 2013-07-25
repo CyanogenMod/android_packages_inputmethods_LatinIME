@@ -19,40 +19,57 @@ package com.android.inputmethod.keyboard;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
-import android.text.TextUtils;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.android.inputmethod.accessibility.AccessibilityUtils;
 import com.android.inputmethod.accessibility.AccessibleKeyboardViewProxy;
+import com.android.inputmethod.annotations.ExternallyReferenced;
 import com.android.inputmethod.keyboard.PointerTracker.DrawingProxy;
 import com.android.inputmethod.keyboard.PointerTracker.TimerProxy;
+import com.android.inputmethod.keyboard.internal.GestureFloatingPreviewText;
+import com.android.inputmethod.keyboard.internal.GestureTrailsPreview;
 import com.android.inputmethod.keyboard.internal.KeyDrawParams;
-import com.android.inputmethod.keyboard.internal.SuddenJumpingTouchEventHandler;
+import com.android.inputmethod.keyboard.internal.KeyPreviewDrawParams;
+import com.android.inputmethod.keyboard.internal.PreviewPlacerView;
+import com.android.inputmethod.keyboard.internal.SlidingKeyInputPreview;
+import com.android.inputmethod.keyboard.internal.TouchScreenRegulator;
+import com.android.inputmethod.latin.CollectionUtils;
 import com.android.inputmethod.latin.Constants;
+import com.android.inputmethod.latin.CoordinateUtils;
+import com.android.inputmethod.latin.DebugSettings;
 import com.android.inputmethod.latin.LatinIME;
 import com.android.inputmethod.latin.LatinImeLogger;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.ResourceUtils;
+import com.android.inputmethod.latin.Settings;
 import com.android.inputmethod.latin.StaticInnerHandlerWrapper;
 import com.android.inputmethod.latin.StringUtils;
 import com.android.inputmethod.latin.SubtypeLocale;
+import com.android.inputmethod.latin.SuggestedWords;
 import com.android.inputmethod.latin.Utils.UsabilityStudyLogUtils;
 import com.android.inputmethod.latin.define.ProductionFlag;
 import com.android.inputmethod.research.ResearchLogger;
@@ -81,7 +98,14 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_longPressKeyTimeout
  * @attr ref R.styleable#MainKeyboardView_longPressShiftKeyTimeout
  * @attr ref R.styleable#MainKeyboardView_ignoreAltCodeKeyTimeout
+ * @attr ref R.styleable#MainKeyboardView_keyPreviewLayout
+ * @attr ref R.styleable#MainKeyboardView_keyPreviewOffset
+ * @attr ref R.styleable#MainKeyboardView_keyPreviewHeight
+ * @attr ref R.styleable#MainKeyboardView_keyPreviewLingerTimeout
+ * @attr ref R.styleable#MainKeyboardView_moreKeysKeyboardLayout
+ * @attr ref R.styleable#MainKeyboardView_backgroundDimAlpha
  * @attr ref R.styleable#MainKeyboardView_showMoreKeysKeyboardAtTouchPoint
+ * @attr ref R.styleable#MainKeyboardView_gestureFloatingPreviewTextLingerTimeout
  * @attr ref R.styleable#MainKeyboardView_gestureStaticTimeThresholdAfterFastTyping
  * @attr ref R.styleable#MainKeyboardView_gestureDetectFastMoveSpeedThreshold
  * @attr ref R.styleable#MainKeyboardView_gestureDynamicThresholdDecayDuration
@@ -95,7 +119,8 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_suppressKeyPreviewAfterBatchInputDuration
  */
 public final class MainKeyboardView extends KeyboardView implements PointerTracker.KeyEventHandler,
-        SuddenJumpingTouchEventHandler.ProcessMotionEvent {
+        PointerTracker.DrawingProxy, MoreKeysPanel.Controller,
+        TouchScreenRegulator.ProcessMotionEvent {
     private static final String TAG = MainKeyboardView.class.getSimpleName();
 
     // TODO: Kill process when the usability study mode was changed.
@@ -130,18 +155,42 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     private ObjectAnimator mAltCodeKeyWhileTypingFadeinAnimator;
     private int mAltCodeKeyWhileTypingAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
+    // Preview placer view
+    private final PreviewPlacerView mPreviewPlacerView;
+    private final int[] mOriginCoords = CoordinateUtils.newInstance();
+    private final GestureFloatingPreviewText mGestureFloatingPreviewText;
+    private final GestureTrailsPreview mGestureTrailsPreview;
+    private final SlidingKeyInputPreview mSlidingKeyInputPreview;
+
+    // Key preview
+    private static final int PREVIEW_ALPHA = 240;
+    private final int mKeyPreviewLayoutId;
+    private final int mKeyPreviewOffset;
+    private final int mKeyPreviewHeight;
+    private final SparseArray<TextView> mKeyPreviewTexts = CollectionUtils.newSparseArray();
+    private final KeyPreviewDrawParams mKeyPreviewDrawParams = new KeyPreviewDrawParams();
+    private boolean mShowKeyPreviewPopup = true;
+    private int mKeyPreviewLingerTimeout;
+
     // More keys keyboard
-    private PopupWindow mMoreKeysWindow;
-    private MoreKeysPanel mMoreKeysPanel;
-    private int mMoreKeysPanelPointerTrackerId;
-    private final WeakHashMap<Key, MoreKeysPanel> mMoreKeysPanelCache =
-            new WeakHashMap<Key, MoreKeysPanel>();
+    private final Paint mBackgroundDimAlphaPaint = new Paint();
+    private boolean mNeedsToDimEntireKeyboard;
+    private final View mMoreKeysKeyboardContainer;
+    private final WeakHashMap<Key, Keyboard> mMoreKeysKeyboardCache =
+            CollectionUtils.newWeakHashMap();
     private final boolean mConfigShowMoreKeysKeyboardAtTouchedPoint;
+    // More keys panel (used by both more keys keyboard and more suggestions view)
+    // TODO: Consider extending to support multiple more keys panels
+    private MoreKeysPanel mMoreKeysPanel;
 
-    private final SuddenJumpingTouchEventHandler mTouchScreenRegulator;
+    // Gesture floating preview text
+    // TODO: Make this parameter customizable by user via settings.
+    private int mGestureFloatingPreviewTextLingerTimeout;
 
-    protected KeyDetector mKeyDetector;
-    private boolean mHasDistinctMultitouch;
+    private final TouchScreenRegulator mTouchScreenRegulator;
+
+    private KeyDetector mKeyDetector;
+    private final boolean mHasDistinctMultitouch;
     private int mOldPointerCount = 1;
     private Key mOldKey;
 
@@ -153,12 +202,13 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         private static final int MSG_REPEAT_KEY = 1;
         private static final int MSG_LONGPRESS_KEY = 2;
         private static final int MSG_DOUBLE_TAP = 3;
+        private static final int MSG_UPDATE_BATCH_INPUT = 4;
 
         private final int mKeyRepeatStartTimeout;
         private final int mKeyRepeatInterval;
-        private final int mLongPressKeyTimeout;
-        private final int mLongPressShiftKeyTimeout;
+        private final int mLongPressShiftLockTimeout;
         private final int mIgnoreAltCodeKeyTimeout;
+        private final int mGestureRecognitionUpdateTime;
 
         public KeyTimerHandler(final MainKeyboardView outerInstance,
                 final TypedArray mainKeyboardViewAttr) {
@@ -168,17 +218,20 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
                     R.styleable.MainKeyboardView_keyRepeatStartTimeout, 0);
             mKeyRepeatInterval = mainKeyboardViewAttr.getInt(
                     R.styleable.MainKeyboardView_keyRepeatInterval, 0);
-            mLongPressKeyTimeout = mainKeyboardViewAttr.getInt(
-                    R.styleable.MainKeyboardView_longPressKeyTimeout, 0);
-            mLongPressShiftKeyTimeout = mainKeyboardViewAttr.getInt(
-                    R.styleable.MainKeyboardView_longPressShiftKeyTimeout, 0);
+            mLongPressShiftLockTimeout = mainKeyboardViewAttr.getInt(
+                    R.styleable.MainKeyboardView_longPressShiftLockTimeout, 0);
             mIgnoreAltCodeKeyTimeout = mainKeyboardViewAttr.getInt(
                     R.styleable.MainKeyboardView_ignoreAltCodeKeyTimeout, 0);
+            mGestureRecognitionUpdateTime = mainKeyboardViewAttr.getInt(
+                    R.styleable.MainKeyboardView_gestureRecognitionUpdateTime, 0);
         }
 
         @Override
         public void handleMessage(final Message msg) {
             final MainKeyboardView keyboardView = getOuterInstance();
+            if (keyboardView == null) {
+                return;
+            }
             final PointerTracker tracker = (PointerTracker) msg.obj;
             switch (msg.what) {
             case MSG_TYPING_STATE_EXPIRED:
@@ -193,17 +246,23 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
                 break;
             case MSG_LONGPRESS_KEY:
                 if (tracker != null) {
-                    keyboardView.openMoreKeysKeyboardIfRequired(tracker.getKey(), tracker);
+                    keyboardView.onLongPress(tracker);
                 } else {
                     KeyboardSwitcher.getInstance().onLongPressTimeout(msg.arg1);
                 }
+                break;
+            case MSG_UPDATE_BATCH_INPUT:
+                tracker.updateBatchInputByTimer(SystemClock.uptimeMillis());
+                startUpdateBatchInputTimer(tracker);
                 break;
             }
         }
 
         private void startKeyRepeatTimer(final PointerTracker tracker, final long delay) {
             final Key key = tracker.getKey();
-            if (key == null) return;
+            if (key == null) {
+                return;
+            }
             sendMessageDelayed(obtainMessage(MSG_REPEAT_KEY, key.mCode, 0, tracker), delay);
         }
 
@@ -226,8 +285,8 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             cancelLongPressTimer();
             final int delay;
             switch (code) {
-            case Keyboard.CODE_SHIFT:
-                delay = mLongPressShiftKeyTimeout;
+            case Constants.CODE_SHIFT:
+                delay = mLongPressShiftLockTimeout;
                 break;
             default:
                 delay = 0;
@@ -247,16 +306,18 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             final Key key = tracker.getKey();
             final int delay;
             switch (key.mCode) {
-            case Keyboard.CODE_SHIFT:
-                delay = mLongPressShiftKeyTimeout;
+            case Constants.CODE_SHIFT:
+                delay = mLongPressShiftLockTimeout;
                 break;
             default:
+                final int longpressTimeout =
+                        Settings.getInstance().getCurrent().mKeyLongpressTimeout;
                 if (KeyboardSwitcher.getInstance().isInMomentarySwitchState()) {
                     // We use longer timeout for sliding finger input started from the symbols
                     // mode key.
-                    delay = mLongPressKeyTimeout * 3;
+                    delay = longpressTimeout * 3;
                 } else {
-                    delay = mLongPressKeyTimeout;
+                    delay = longpressTimeout;
                 }
                 break;
             }
@@ -272,6 +333,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
 
         private static void cancelAndStartAnimators(final ObjectAnimator animatorToCancel,
                 final ObjectAnimator animatorToStart) {
+            if (animatorToCancel == null || animatorToStart == null) {
+                // TODO: Stop using null as a no-operation animator.
+                return;
+            }
             float startFraction = 0.0f;
             if (animatorToCancel.isStarted()) {
                 animatorToCancel.cancel();
@@ -304,8 +369,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
 
             // When user hits the space or the enter key, just cancel the while-typing timer.
             final int typedCode = typedKey.mCode;
-            if (typedCode == Keyboard.CODE_SPACE || typedCode == Keyboard.CODE_ENTER) {
-                startWhileTypingFadeinAnimation(keyboardView);
+            if (typedCode == Constants.CODE_SPACE || typedCode == Constants.CODE_ENTER) {
+                if (isTyping) {
+                    startWhileTypingFadeinAnimation(keyboardView);
+                }
                 return;
             }
 
@@ -344,8 +411,79 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             cancelLongPressTimer();
         }
 
+        @Override
+        public void startUpdateBatchInputTimer(final PointerTracker tracker) {
+            if (mGestureRecognitionUpdateTime <= 0) {
+                return;
+            }
+            removeMessages(MSG_UPDATE_BATCH_INPUT, tracker);
+            sendMessageDelayed(obtainMessage(MSG_UPDATE_BATCH_INPUT, tracker),
+                    mGestureRecognitionUpdateTime);
+        }
+
+        @Override
+        public void cancelUpdateBatchInputTimer(final PointerTracker tracker) {
+            removeMessages(MSG_UPDATE_BATCH_INPUT, tracker);
+        }
+
+        @Override
+        public void cancelAllUpdateBatchInputTimers() {
+            removeMessages(MSG_UPDATE_BATCH_INPUT);
+        }
+
         public void cancelAllMessages() {
             cancelKeyTimers();
+            cancelAllUpdateBatchInputTimers();
+        }
+    }
+
+    private final DrawingHandler mDrawingHandler = new DrawingHandler(this);
+
+    public static class DrawingHandler extends StaticInnerHandlerWrapper<MainKeyboardView> {
+        private static final int MSG_DISMISS_KEY_PREVIEW = 0;
+        private static final int MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
+
+        public DrawingHandler(final MainKeyboardView outerInstance) {
+            super(outerInstance);
+        }
+
+        @Override
+        public void handleMessage(final Message msg) {
+            final MainKeyboardView mainKeyboardView = getOuterInstance();
+            if (mainKeyboardView == null) return;
+            final PointerTracker tracker = (PointerTracker) msg.obj;
+            switch (msg.what) {
+            case MSG_DISMISS_KEY_PREVIEW:
+                final TextView previewText = mainKeyboardView.mKeyPreviewTexts.get(
+                        tracker.mPointerId);
+                if (previewText != null) {
+                    previewText.setVisibility(INVISIBLE);
+                }
+                break;
+            case MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT:
+                mainKeyboardView.showGestureFloatingPreviewText(SuggestedWords.EMPTY);
+                break;
+            }
+        }
+
+        public void dismissKeyPreview(final long delay, final PointerTracker tracker) {
+            sendMessageDelayed(obtainMessage(MSG_DISMISS_KEY_PREVIEW, tracker), delay);
+        }
+
+        public void cancelDismissKeyPreview(final PointerTracker tracker) {
+            removeMessages(MSG_DISMISS_KEY_PREVIEW, tracker);
+        }
+
+        private void cancelAllDismissKeyPreviews() {
+            removeMessages(MSG_DISMISS_KEY_PREVIEW);
+        }
+
+        public void dismissGestureFloatingPreviewText(final long delay) {
+            sendMessageDelayed(obtainMessage(MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT), delay);
+        }
+
+        public void cancelAllMessages() {
+            cancelAllDismissKeyPreviews();
         }
     }
 
@@ -356,49 +494,89 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     public MainKeyboardView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
 
-        mTouchScreenRegulator = new SuddenJumpingTouchEventHandler(getContext(), this);
+        mTouchScreenRegulator = new TouchScreenRegulator(context, this);
 
-        mHasDistinctMultitouch = context.getPackageManager()
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final boolean forceNonDistinctMultitouch = prefs.getBoolean(
+                DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, false);
+        final boolean hasDistinctMultitouch = context.getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
+        mHasDistinctMultitouch = hasDistinctMultitouch && !forceNonDistinctMultitouch;
         final Resources res = getResources();
         final boolean needsPhantomSuddenMoveEventHack = Boolean.parseBoolean(
-                ResourceUtils.getDeviceOverrideValue(res,
-                        R.array.phantom_sudden_move_event_device_list, "false"));
-        PointerTracker.init(mHasDistinctMultitouch, needsPhantomSuddenMoveEventHack);
+                ResourceUtils.getDeviceOverrideValue(
+                        res, R.array.phantom_sudden_move_event_device_list));
+        PointerTracker.init(needsPhantomSuddenMoveEventHack);
+        mPreviewPlacerView = new PreviewPlacerView(context, attrs);
 
-        final TypedArray a = context.obtainStyledAttributes(
+        final TypedArray mainKeyboardViewAttr = context.obtainStyledAttributes(
                 attrs, R.styleable.MainKeyboardView, defStyle, R.style.MainKeyboardView);
-        mAutoCorrectionSpacebarLedEnabled = a.getBoolean(
+        final int backgroundDimAlpha = mainKeyboardViewAttr.getInt(
+                R.styleable.MainKeyboardView_backgroundDimAlpha, 0);
+        mBackgroundDimAlphaPaint.setColor(Color.BLACK);
+        mBackgroundDimAlphaPaint.setAlpha(backgroundDimAlpha);
+        mAutoCorrectionSpacebarLedEnabled = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_autoCorrectionSpacebarLedEnabled, false);
-        mAutoCorrectionSpacebarLedIcon = a.getDrawable(
+        mAutoCorrectionSpacebarLedIcon = mainKeyboardViewAttr.getDrawable(
                 R.styleable.MainKeyboardView_autoCorrectionSpacebarLedIcon);
-        mSpacebarTextRatio = a.getFraction(
+        mSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_spacebarTextRatio, 1, 1, 1.0f);
-        mSpacebarTextColor = a.getColor(R.styleable.MainKeyboardView_spacebarTextColor, 0);
-        mSpacebarTextShadowColor = a.getColor(
+        mSpacebarTextColor = mainKeyboardViewAttr.getColor(
+                R.styleable.MainKeyboardView_spacebarTextColor, 0);
+        mSpacebarTextShadowColor = mainKeyboardViewAttr.getColor(
                 R.styleable.MainKeyboardView_spacebarTextShadowColor, 0);
-        mLanguageOnSpacebarFinalAlpha = a.getInt(
+        mLanguageOnSpacebarFinalAlpha = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_languageOnSpacebarFinalAlpha,
                 Constants.Color.ALPHA_OPAQUE);
-        final int languageOnSpacebarFadeoutAnimatorResId = a.getResourceId(
+        final int languageOnSpacebarFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_languageOnSpacebarFadeoutAnimator, 0);
-        final int altCodeKeyWhileTypingFadeoutAnimatorResId = a.getResourceId(
+        final int altCodeKeyWhileTypingFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_altCodeKeyWhileTypingFadeoutAnimator, 0);
-        final int altCodeKeyWhileTypingFadeinAnimatorResId = a.getResourceId(
+        final int altCodeKeyWhileTypingFadeinAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_altCodeKeyWhileTypingFadeinAnimator, 0);
 
-        final float keyHysteresisDistance = a.getDimension(
-                R.styleable.MainKeyboardView_keyHysteresisDistance, 0);
-        final float keyHysteresisDistanceForSlidingModifier = a.getDimension(
-                R.styleable.MainKeyboardView_keyHysteresisDistanceForSlidingModifier, 0);
+        final float keyHysteresisDistance = mainKeyboardViewAttr.getDimension(
+                R.styleable.MainKeyboardView_keyHysteresisDistance, 0.0f);
+        final float keyHysteresisDistanceForSlidingModifier = mainKeyboardViewAttr.getDimension(
+                R.styleable.MainKeyboardView_keyHysteresisDistanceForSlidingModifier, 0.0f);
         mKeyDetector = new KeyDetector(
                 keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
-        mKeyTimerHandler = new KeyTimerHandler(this, a);
-        mConfigShowMoreKeysKeyboardAtTouchedPoint = a.getBoolean(
+        mKeyTimerHandler = new KeyTimerHandler(this, mainKeyboardViewAttr);
+        mKeyPreviewOffset = mainKeyboardViewAttr.getDimensionPixelOffset(
+                R.styleable.MainKeyboardView_keyPreviewOffset, 0);
+        mKeyPreviewHeight = mainKeyboardViewAttr.getDimensionPixelSize(
+                R.styleable.MainKeyboardView_keyPreviewHeight, 0);
+        mKeyPreviewLingerTimeout = mainKeyboardViewAttr.getInt(
+                R.styleable.MainKeyboardView_keyPreviewLingerTimeout, 0);
+        mKeyPreviewLayoutId = mainKeyboardViewAttr.getResourceId(
+                R.styleable.MainKeyboardView_keyPreviewLayout, 0);
+        if (mKeyPreviewLayoutId == 0) {
+            mShowKeyPreviewPopup = false;
+        }
+        final int moreKeysKeyboardLayoutId = mainKeyboardViewAttr.getResourceId(
+                R.styleable.MainKeyboardView_moreKeysKeyboardLayout, 0);
+        mConfigShowMoreKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_showMoreKeysKeyboardAtTouchedPoint, false);
-        PointerTracker.setParameters(a);
-        a.recycle();
 
+        mGestureFloatingPreviewTextLingerTimeout = mainKeyboardViewAttr.getInt(
+                R.styleable.MainKeyboardView_gestureFloatingPreviewTextLingerTimeout, 0);
+        PointerTracker.setParameters(mainKeyboardViewAttr);
+
+        mGestureFloatingPreviewText = new GestureFloatingPreviewText(
+                mPreviewPlacerView, mainKeyboardViewAttr);
+        mPreviewPlacerView.addPreview(mGestureFloatingPreviewText);
+
+        mGestureTrailsPreview = new GestureTrailsPreview(
+                mPreviewPlacerView, mainKeyboardViewAttr);
+        mPreviewPlacerView.addPreview(mGestureTrailsPreview);
+
+        mSlidingKeyInputPreview = new SlidingKeyInputPreview(
+                mPreviewPlacerView, mainKeyboardViewAttr);
+        mPreviewPlacerView.addPreview(mSlidingKeyInputPreview);
+        mainKeyboardViewAttr.recycle();
+
+        mMoreKeysKeyboardContainer = LayoutInflater.from(getContext())
+                .inflate(moreKeysKeyboardLayoutId, null);
         mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(
                 languageOnSpacebarFadeoutAnimatorResId, this);
         mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(
@@ -408,7 +586,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     }
 
     private ObjectAnimator loadObjectAnimator(final int resId, final Object target) {
-        if (resId == 0) return null;
+        if (resId == 0) {
+            // TODO: Stop returning null.
+            return null;
+        }
         final ObjectAnimator animator = (ObjectAnimator)AnimatorInflater.loadAnimator(
                 getContext(), resId);
         if (animator != null) {
@@ -417,23 +598,36 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         return animator;
     }
 
-    // Getter/setter methods for {@link ObjectAnimator}.
+    @ExternallyReferenced
     public int getLanguageOnSpacebarAnimAlpha() {
         return mLanguageOnSpacebarAnimAlpha;
     }
 
+    @ExternallyReferenced
     public void setLanguageOnSpacebarAnimAlpha(final int alpha) {
         mLanguageOnSpacebarAnimAlpha = alpha;
         invalidateKey(mSpaceKey);
     }
 
+    @ExternallyReferenced
     public int getAltCodeKeyWhileTypingAnimAlpha() {
         return mAltCodeKeyWhileTypingAnimAlpha;
     }
 
+    @ExternallyReferenced
     public void setAltCodeKeyWhileTypingAnimAlpha(final int alpha) {
+        if (mAltCodeKeyWhileTypingAnimAlpha == alpha) {
+            return;
+        }
+        // Update the visual of alt-code-key-while-typing.
         mAltCodeKeyWhileTypingAnimAlpha = alpha;
-        updateAltCodeKeyWhileTyping();
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return;
+        }
+        for (final Key key : keyboard.mAltCodeKeysWhileTyping) {
+            invalidateKey(key);
+        }
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -478,23 +672,265 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         mKeyTimerHandler.cancelLongPressTimer();
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(
-                keyboard, -getPaddingLeft(), -getPaddingTop() + mVerticalCorrection);
+                keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
         PointerTracker.setKeyDetector(mKeyDetector);
-        mTouchScreenRegulator.setKeyboard(keyboard);
-        mMoreKeysPanelCache.clear();
+        mTouchScreenRegulator.setKeyboardGeometry(keyboard.mOccupiedWidth);
+        mMoreKeysKeyboardCache.clear();
 
-        mSpaceKey = keyboard.getKey(Keyboard.CODE_SPACE);
+        mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);
         mSpaceIcon = (mSpaceKey != null)
                 ? mSpaceKey.getIcon(keyboard.mIconsSet, Constants.Color.ALPHA_OPAQUE) : null;
         final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
         mSpacebarTextSize = keyHeight * mSpacebarTextRatio;
-        if (ProductionFlag.IS_EXPERIMENTAL) {
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
             ResearchLogger.mainKeyboardView_setKeyboard(keyboard);
         }
 
         // This always needs to be set since the accessibility state can
         // potentially change without the keyboard being set again.
-        AccessibleKeyboardViewProxy.getInstance().setKeyboard(keyboard);
+        AccessibleKeyboardViewProxy.getInstance().setKeyboard();
+    }
+
+    /**
+     * Enables or disables the key feedback popup. This is a popup that shows a magnified
+     * version of the depressed key. By default the preview is enabled.
+     * @param previewEnabled whether or not to enable the key feedback preview
+     * @param delay the delay after which the preview is dismissed
+     * @see #isKeyPreviewPopupEnabled()
+     */
+    public void setKeyPreviewPopupEnabled(final boolean previewEnabled, final int delay) {
+        mShowKeyPreviewPopup = previewEnabled;
+        mKeyPreviewLingerTimeout = delay;
+    }
+
+
+    private void locatePreviewPlacerView() {
+        if (mPreviewPlacerView.getParent() != null) {
+            return;
+        }
+        final int width = getWidth();
+        final int height = getHeight();
+        if (width == 0 || height == 0) {
+            // In transient state.
+            return;
+        }
+        getLocationInWindow(mOriginCoords);
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / 4) {
+            // In transient state.
+            return;
+        }
+        final View rootView = getRootView();
+        if (rootView == null) {
+            Log.w(TAG, "Cannot find root view");
+            return;
+        }
+        final ViewGroup windowContentView = (ViewGroup)rootView.findViewById(android.R.id.content);
+        // Note: It'd be very weird if we get null by android.R.id.content.
+        if (windowContentView == null) {
+            Log.w(TAG, "Cannot find android.R.id.content view to add PreviewPlacerView");
+        } else {
+            windowContentView.addView(mPreviewPlacerView);
+            mPreviewPlacerView.setKeyboardViewGeometry(mOriginCoords, width, height);
+        }
+    }
+
+    /**
+     * Returns the enabled state of the key feedback preview
+     * @return whether or not the key feedback preview is enabled
+     * @see #setKeyPreviewPopupEnabled(boolean, int)
+     */
+    public boolean isKeyPreviewPopupEnabled() {
+        return mShowKeyPreviewPopup;
+    }
+
+    private void addKeyPreview(final TextView keyPreview) {
+        locatePreviewPlacerView();
+        mPreviewPlacerView.addView(
+                keyPreview, ViewLayoutUtils.newLayoutParam(mPreviewPlacerView, 0, 0));
+    }
+
+    private TextView getKeyPreviewText(final int pointerId) {
+        TextView previewText = mKeyPreviewTexts.get(pointerId);
+        if (previewText != null) {
+            return previewText;
+        }
+        final Context context = getContext();
+        if (mKeyPreviewLayoutId != 0) {
+            previewText = (TextView)LayoutInflater.from(context).inflate(mKeyPreviewLayoutId, null);
+        } else {
+            previewText = new TextView(context);
+        }
+        mKeyPreviewTexts.put(pointerId, previewText);
+        return previewText;
+    }
+
+    private void dismissAllKeyPreviews() {
+        final int pointerCount = mKeyPreviewTexts.size();
+        for (int id = 0; id < pointerCount; id++) {
+            final TextView previewText = mKeyPreviewTexts.get(id);
+            if (previewText != null) {
+                previewText.setVisibility(INVISIBLE);
+            }
+        }
+        PointerTracker.setReleasedKeyGraphicsToAllKeys();
+    }
+
+    // Background state set
+    private static final int[][][] KEY_PREVIEW_BACKGROUND_STATE_TABLE = {
+        { // STATE_MIDDLE
+            EMPTY_STATE_SET,
+            { R.attr.state_has_morekeys }
+        },
+        { // STATE_LEFT
+            { R.attr.state_left_edge },
+            { R.attr.state_left_edge, R.attr.state_has_morekeys }
+        },
+        { // STATE_RIGHT
+            { R.attr.state_right_edge },
+            { R.attr.state_right_edge, R.attr.state_has_morekeys }
+        }
+    };
+    private static final int STATE_MIDDLE = 0;
+    private static final int STATE_LEFT = 1;
+    private static final int STATE_RIGHT = 2;
+    private static final int STATE_NORMAL = 0;
+    private static final int STATE_HAS_MOREKEYS = 1;
+    private static final int[] KEY_PREVIEW_BACKGROUND_DEFAULT_STATE =
+            KEY_PREVIEW_BACKGROUND_STATE_TABLE[STATE_MIDDLE][STATE_NORMAL];
+
+    @Override
+    public void showKeyPreview(final PointerTracker tracker) {
+        final KeyPreviewDrawParams previewParams = mKeyPreviewDrawParams;
+        final Keyboard keyboard = getKeyboard();
+        if (!mShowKeyPreviewPopup) {
+            previewParams.mPreviewVisibleOffset = -keyboard.mVerticalGap;
+            return;
+        }
+
+        final TextView previewText = getKeyPreviewText(tracker.mPointerId);
+        // If the key preview has no parent view yet, add it to the ViewGroup which can place
+        // key preview absolutely in SoftInputWindow.
+        if (previewText.getParent() == null) {
+            addKeyPreview(previewText);
+        }
+
+        mDrawingHandler.cancelDismissKeyPreview(tracker);
+        final Key key = tracker.getKey();
+        // If key is invalid or IME is already closed, we must not show key preview.
+        // Trying to show key preview while root window is closed causes
+        // WindowManager.BadTokenException.
+        if (key == null) {
+            return;
+        }
+
+        final KeyDrawParams drawParams = mKeyDrawParams;
+        previewText.setTextColor(drawParams.mPreviewTextColor);
+        final Drawable background = previewText.getBackground();
+        if (background != null) {
+            background.setState(KEY_PREVIEW_BACKGROUND_DEFAULT_STATE);
+            background.setAlpha(PREVIEW_ALPHA);
+        }
+        final String label = key.getPreviewLabel();
+        // What we show as preview should match what we show on a key top in onDraw().
+        if (label != null) {
+            // TODO Should take care of temporaryShiftLabel here.
+            previewText.setCompoundDrawables(null, null, null, null);
+            previewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    key.selectPreviewTextSize(drawParams));
+            previewText.setTypeface(key.selectPreviewTypeface(drawParams));
+            previewText.setText(label);
+        } else {
+            previewText.setCompoundDrawables(null, null, null,
+                    key.getPreviewIcon(keyboard.mIconsSet));
+            previewText.setText(null);
+        }
+
+        previewText.measure(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int keyDrawWidth = key.getDrawWidth();
+        final int previewWidth = previewText.getMeasuredWidth();
+        final int previewHeight = mKeyPreviewHeight;
+        // The width and height of visible part of the key preview background. The content marker
+        // of the background 9-patch have to cover the visible part of the background.
+        previewParams.mPreviewVisibleWidth = previewWidth - previewText.getPaddingLeft()
+                - previewText.getPaddingRight();
+        previewParams.mPreviewVisibleHeight = previewHeight - previewText.getPaddingTop()
+                - previewText.getPaddingBottom();
+        // The distance between the top edge of the parent key and the bottom of the visible part
+        // of the key preview background.
+        previewParams.mPreviewVisibleOffset = mKeyPreviewOffset - previewText.getPaddingBottom();
+        getLocationInWindow(mOriginCoords);
+        // The key preview is horizontally aligned with the center of the visible part of the
+        // parent key. If it doesn't fit in this {@link KeyboardView}, it is moved inward to fit and
+        // the left/right background is used if such background is specified.
+        final int statePosition;
+        int previewX = key.getDrawX() - (previewWidth - keyDrawWidth) / 2
+                + CoordinateUtils.x(mOriginCoords);
+        if (previewX < 0) {
+            previewX = 0;
+            statePosition = STATE_LEFT;
+        } else if (previewX > getWidth() - previewWidth) {
+            previewX = getWidth() - previewWidth;
+            statePosition = STATE_RIGHT;
+        } else {
+            statePosition = STATE_MIDDLE;
+        }
+        // The key preview is placed vertically above the top edge of the parent key with an
+        // arbitrary offset.
+        final int previewY = key.mY - previewHeight + mKeyPreviewOffset
+                + CoordinateUtils.y(mOriginCoords);
+
+        if (background != null) {
+            final int hasMoreKeys = (key.mMoreKeys != null) ? STATE_HAS_MOREKEYS : STATE_NORMAL;
+            background.setState(KEY_PREVIEW_BACKGROUND_STATE_TABLE[statePosition][hasMoreKeys]);
+        }
+        ViewLayoutUtils.placeViewAt(
+                previewText, previewX, previewY, previewWidth, previewHeight);
+        previewText.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void dismissKeyPreview(final PointerTracker tracker) {
+        mDrawingHandler.dismissKeyPreview(mKeyPreviewLingerTimeout, tracker);
+    }
+
+    public void setSlidingKeyInputPreviewEnabled(final boolean enabled) {
+        mSlidingKeyInputPreview.setPreviewEnabled(enabled);
+    }
+
+    @Override
+    public void showSlidingKeyInputPreview(final PointerTracker tracker) {
+        locatePreviewPlacerView();
+        mSlidingKeyInputPreview.setPreviewPosition(tracker);
+    }
+
+    @Override
+    public void dismissSlidingKeyInputPreview() {
+        mSlidingKeyInputPreview.dismissSlidingKeyInputPreview();
+    }
+
+    public void setGesturePreviewMode(final boolean drawsGestureTrail,
+            final boolean drawsGestureFloatingPreviewText) {
+        mGestureFloatingPreviewText.setPreviewEnabled(drawsGestureFloatingPreviewText);
+        mGestureTrailsPreview.setPreviewEnabled(drawsGestureTrail);
+    }
+
+    public void showGestureFloatingPreviewText(final SuggestedWords suggestedWords) {
+        locatePreviewPlacerView();
+        mGestureFloatingPreviewText.setSuggetedWords(suggestedWords);
+    }
+
+    public void dismissGestureFloatingPreviewText() {
+        locatePreviewPlacerView();
+        mDrawingHandler.dismissGestureFloatingPreviewText(mGestureFloatingPreviewTextLingerTimeout);
+    }
+
+    @Override
+    public void showGestureTrail(final PointerTracker tracker) {
+        locatePreviewPlacerView();
+        mGestureFloatingPreviewText.setPreviewPosition(tracker);
+        mGestureTrailsPreview.setPreviewPosition(tracker);
     }
 
     // Note that this method is called from a non-UI thread.
@@ -506,25 +942,13 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         PointerTracker.setGestureHandlingEnabledByUser(gestureHandlingEnabledByUser);
     }
 
-    /**
-     * Returns whether the device has distinct multi-touch panel.
-     * @return true if the device has distinct multi-touch panel.
-     */
-    public boolean hasDistinctMultitouch() {
-        return mHasDistinctMultitouch;
-    }
-
-    public void setDistinctMultitouch(final boolean hasDistinctMultitouch) {
-        mHasDistinctMultitouch = hasDistinctMultitouch;
-    }
-
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        // Notify the research logger that the keyboard view has been attached.  This is needed
-        // to properly show the splash screen, which requires that the window token of the
-        // KeyboardView be non-null.
-        if (ProductionFlag.IS_EXPERIMENTAL) {
+        // Notify the ResearchLogger (development only diagnostics) that the keyboard view has
+        // been attached.  This is needed to properly show the splash screen, which requires that
+        // the window token of the KeyboardView be non-null.
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
             ResearchLogger.getInstance().mainKeyboardView_onAttachedToWindow(this);
         }
     }
@@ -532,146 +956,148 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        // Notify the research logger that the keyboard view has been detached.  This is needed
-        // to invalidate the reference of {@link MainKeyboardView} to null.
-        if (ProductionFlag.IS_EXPERIMENTAL) {
+        mPreviewPlacerView.removeAllViews();
+        // Notify the ResearchLogger (development only diagnostics) that the keyboard view has
+        // been detached.  This is needed to invalidate the reference of {@link MainKeyboardView}
+        // to null.
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
             ResearchLogger.getInstance().mainKeyboardView_onDetachedFromWindow();
         }
     }
 
-    @Override
-    public void cancelAllMessages() {
-        mKeyTimerHandler.cancelAllMessages();
-        super.cancelAllMessages();
-    }
-
-    private boolean openMoreKeysKeyboardIfRequired(final Key parentKey,
-            final PointerTracker tracker) {
-        // Check if we have a popup layout specified first.
-        if (mMoreKeysLayout == 0) {
-            return false;
+    private MoreKeysPanel onCreateMoreKeysPanel(final Key key, final Context context) {
+        if (key.mMoreKeys == null) {
+            return null;
+        }
+        Keyboard moreKeysKeyboard = mMoreKeysKeyboardCache.get(key);
+        if (moreKeysKeyboard == null) {
+            moreKeysKeyboard = new MoreKeysKeyboard.Builder(
+                    context, key, this, mKeyPreviewDrawParams).build();
+            mMoreKeysKeyboardCache.put(key, moreKeysKeyboard);
         }
 
-        // Check if we are already displaying popup panel.
-        if (mMoreKeysPanel != null)
-            return false;
-        if (parentKey == null)
-            return false;
-        return onLongPress(parentKey, tracker);
-    }
-
-    // This default implementation returns a more keys panel.
-    protected MoreKeysPanel onCreateMoreKeysPanel(final Key parentKey) {
-        if (parentKey.mMoreKeys == null)
-            return null;
-
-        final View container = LayoutInflater.from(getContext()).inflate(mMoreKeysLayout, null);
-        if (container == null)
-            throw new NullPointerException();
-
+        final View container = mMoreKeysKeyboardContainer;
         final MoreKeysKeyboardView moreKeysKeyboardView =
                 (MoreKeysKeyboardView)container.findViewById(R.id.more_keys_keyboard_view);
-        final Keyboard moreKeysKeyboard = new MoreKeysKeyboard.Builder(container, parentKey, this)
-                .build();
         moreKeysKeyboardView.setKeyboard(moreKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
         return moreKeysKeyboardView;
     }
 
     /**
-     * Called when a key is long pressed. By default this will open more keys keyboard associated
-     * with this key.
-     * @param parentKey the key that was long pressed
+     * Called when a key is long pressed.
      * @param tracker the pointer tracker which pressed the parent key
      * @return true if the long press is handled, false otherwise. Subclasses should call the
      * method on the base class if the subclass doesn't wish to handle the call.
      */
-    protected boolean onLongPress(final Key parentKey, final PointerTracker tracker) {
-        if (ProductionFlag.IS_EXPERIMENTAL) {
+    private boolean onLongPress(final PointerTracker tracker) {
+        if (isShowingMoreKeysPanel()) {
+            return false;
+        }
+        final Key key = tracker.getKey();
+        if (key == null) {
+            return false;
+        }
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
             ResearchLogger.mainKeyboardView_onLongPress();
         }
-        final int primaryCode = parentKey.mCode;
-        if (parentKey.hasEmbeddedMoreKey()) {
-            final int embeddedCode = parentKey.mMoreKeys[0].mCode;
+        final int code = key.mCode;
+        if (key.hasEmbeddedMoreKey()) {
+            final int embeddedCode = key.mMoreKeys[0].mCode;
             tracker.onLongPressed();
             invokeCodeInput(embeddedCode);
-            invokeReleaseKey(primaryCode);
-            KeyboardSwitcher.getInstance().hapticAndAudioFeedback(primaryCode);
+            invokeReleaseKey(code);
+            KeyboardSwitcher.getInstance().hapticAndAudioFeedback(code);
             return true;
         }
-        if (primaryCode == Keyboard.CODE_SPACE || primaryCode == Keyboard.CODE_LANGUAGE_SWITCH) {
+        if (code == Constants.CODE_SPACE || code == Constants.CODE_LANGUAGE_SWITCH) {
             // Long pressing the space key invokes IME switcher dialog.
             if (invokeCustomRequest(LatinIME.CODE_SHOW_INPUT_METHOD_PICKER)) {
                 tracker.onLongPressed();
-                invokeReleaseKey(primaryCode);
+                invokeReleaseKey(code);
                 return true;
             }
         }
-        return openMoreKeysPanel(parentKey, tracker);
+        return openMoreKeysPanel(key, tracker);
     }
 
-    private boolean invokeCustomRequest(final int code) {
-        return mKeyboardActionListener.onCustomRequest(code);
+    private boolean invokeCustomRequest(final int requestCode) {
+        return mKeyboardActionListener.onCustomRequest(requestCode);
     }
 
-    private void invokeCodeInput(final int primaryCode) {
+    private void invokeCodeInput(final int code) {
         mKeyboardActionListener.onCodeInput(
-                primaryCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
+                code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
     }
 
-    private void invokeReleaseKey(final int primaryCode) {
-        mKeyboardActionListener.onReleaseKey(primaryCode, false);
+    private void invokeReleaseKey(final int code) {
+        mKeyboardActionListener.onReleaseKey(code, false);
     }
 
-    private boolean openMoreKeysPanel(final Key parentKey, final PointerTracker tracker) {
-        MoreKeysPanel moreKeysPanel = mMoreKeysPanelCache.get(parentKey);
+    private boolean openMoreKeysPanel(final Key key, final PointerTracker tracker) {
+        final MoreKeysPanel moreKeysPanel = onCreateMoreKeysPanel(key, getContext());
         if (moreKeysPanel == null) {
-            moreKeysPanel = onCreateMoreKeysPanel(parentKey);
-            if (moreKeysPanel == null)
-                return false;
-            mMoreKeysPanelCache.put(parentKey, moreKeysPanel);
+            return false;
         }
-        if (mMoreKeysWindow == null) {
-            mMoreKeysWindow = new PopupWindow(getContext());
-            mMoreKeysWindow.setBackgroundDrawable(null);
-            mMoreKeysWindow.setAnimationStyle(R.style.MoreKeysKeyboardAnimation);
-        }
-        mMoreKeysPanel = moreKeysPanel;
-        mMoreKeysPanelPointerTrackerId = tracker.mPointerId;
 
-        final boolean keyPreviewEnabled = isKeyPreviewPopupEnabled() && !parentKey.noKeyPreview();
+        final int[] lastCoords = CoordinateUtils.newInstance();
+        tracker.getLastCoordinates(lastCoords);
+        final boolean keyPreviewEnabled = isKeyPreviewPopupEnabled() && !key.noKeyPreview();
         // The more keys keyboard is usually horizontally aligned with the center of the parent key.
         // If showMoreKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
         // keys keyboard is placed at the touch point of the parent key.
         final int pointX = (mConfigShowMoreKeysKeyboardAtTouchedPoint && !keyPreviewEnabled)
-                ? tracker.getLastX()
-                : parentKey.mX + parentKey.mWidth / 2;
+                ? CoordinateUtils.x(lastCoords)
+                : key.mX + key.mWidth / 2;
         // The more keys keyboard is usually vertically aligned with the top edge of the parent key
         // (plus vertical gap). If the key preview is enabled, the more keys keyboard is vertically
         // aligned with the bottom edge of the visible part of the key preview.
         // {@code mPreviewVisibleOffset} has been set appropriately in
         // {@link KeyboardView#showKeyPreview(PointerTracker)}.
-        final int pointY = parentKey.mY + mKeyPreviewDrawParams.mPreviewVisibleOffset;
-        moreKeysPanel.showMoreKeysPanel(
-                this, this, pointX, pointY, mMoreKeysWindow, mKeyboardActionListener);
-        final int translatedX = moreKeysPanel.translateX(tracker.getLastX());
-        final int translatedY = moreKeysPanel.translateY(tracker.getLastY());
+        final int pointY = key.mY + mKeyPreviewDrawParams.mPreviewVisibleOffset;
+        moreKeysPanel.showMoreKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
+        final int translatedX = moreKeysPanel.translateX(CoordinateUtils.x(lastCoords));
+        final int translatedY = moreKeysPanel.translateY(CoordinateUtils.y(lastCoords));
         tracker.onShowMoreKeysPanel(translatedX, translatedY, moreKeysPanel);
-        dimEntireKeyboard(true);
         return true;
     }
 
     public boolean isInSlidingKeyInput() {
-        if (mMoreKeysPanel != null) {
+        if (isShowingMoreKeysPanel()) {
             return true;
-        } else {
-            return PointerTracker.isAnyInSlidingKeyInput();
         }
+        return PointerTracker.isAnyInSlidingKeyInput();
     }
 
-    public int getPointerCount() {
-        return mOldPointerCount;
+    @Override
+    public void onShowMoreKeysPanel(final MoreKeysPanel panel) {
+        locatePreviewPlacerView();
+        if (isShowingMoreKeysPanel()) {
+            onDismissMoreKeysPanel();
+        }
+        mPreviewPlacerView.addView(panel.getContainerView());
+        mMoreKeysPanel = panel;
+        dimEntireKeyboard(true /* dimmed */);
+    }
+
+    public boolean isShowingMoreKeysPanel() {
+        return mMoreKeysPanel != null && mMoreKeysPanel.isShowingInParent();
+    }
+
+    @Override
+    public void onCancelMoreKeysPanel() {
+        PointerTracker.dismissAllMoreKeysPanels();
+    }
+
+    @Override
+    public boolean onDismissMoreKeysPanel() {
+        dimEntireKeyboard(false /* dimmed */);
+        if (isShowingMoreKeysPanel()) {
+            mPreviewPlacerView.removeView(mMoreKeysPanel.getContainerView());
+            mMoreKeysPanel = null;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -708,47 +1134,18 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         final long eventTime = me.getEventTime();
         final int index = me.getActionIndex();
         final int id = me.getPointerId(index);
-        final int x, y;
-        if (mMoreKeysPanel != null && id == mMoreKeysPanelPointerTrackerId) {
-            x = mMoreKeysPanel.translateX((int)me.getX(index));
-            y = mMoreKeysPanel.translateY((int)me.getY(index));
-        } else {
-            x = (int)me.getX(index);
-            y = (int)me.getY(index);
+        final int x = (int)me.getX(index);
+        final int y = (int)me.getY(index);
+
+        // TODO: This might be moved to the tracker.processMotionEvent() call below.
+        if (ENABLE_USABILITY_STUDY_LOG && action != MotionEvent.ACTION_MOVE) {
+            writeUsabilityStudyLog(me, action, eventTime, index, id, x, y);
         }
-        if (ENABLE_USABILITY_STUDY_LOG) {
-            final String eventTag;
-            switch (action) {
-                case MotionEvent.ACTION_UP:
-                    eventTag = "[Up]";
-                    break;
-                case MotionEvent.ACTION_DOWN:
-                    eventTag = "[Down]";
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    eventTag = "[PointerUp]";
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    eventTag = "[PointerDown]";
-                    break;
-                case MotionEvent.ACTION_MOVE: // Skip this as being logged below
-                    eventTag = "";
-                    break;
-                default:
-                    eventTag = "[Action" + action + "]";
-                    break;
-            }
-            if (!TextUtils.isEmpty(eventTag)) {
-                final float size = me.getSize(index);
-                final float pressure = me.getPressure(index);
-                UsabilityStudyLogUtils.getInstance().write(
-                        eventTag + eventTime + "," + id + "," + x + "," + y + ","
-                        + size + "," + pressure);
-            }
-        }
-        if (ProductionFlag.IS_EXPERIMENTAL) {
-            ResearchLogger.mainKeyboardView_processMotionEvent(me, action, eventTime, index, id,
-                    x, y);
+        // TODO: This should be moved to the tracker.processMotionEvent() call below.
+        // Currently the same "move" event is being logged twice.
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
+            ResearchLogger.mainKeyboardView_processMotionEvent(
+                    me, action, eventTime, index, id, x, y);
         }
 
         if (mKeyTimerHandler.isInKeyRepeat()) {
@@ -774,16 +1171,18 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
                 final Key newKey = tracker.getKeyOn(x, y);
                 if (mOldKey != newKey) {
                     tracker.onDownEvent(x, y, eventTime, this);
-                    if (action == MotionEvent.ACTION_UP)
+                    if (action == MotionEvent.ACTION_UP) {
                         tracker.onUpEvent(x, y, eventTime);
+                    }
                 }
             } else if (pointerCount == 2 && oldPointerCount == 1) {
                 // Single-touch to multi-touch transition.
                 // Send an up event for the last pointer.
-                final int lastX = tracker.getLastX();
-                final int lastY = tracker.getLastY();
-                mOldKey = tracker.getKeyOn(lastX, lastY);
-                tracker.onUpEvent(lastX, lastY, eventTime);
+                final int[] lastCoords = CoordinateUtils.newInstance();
+                mOldKey = tracker.getKeyOn(
+                        CoordinateUtils.x(lastCoords), CoordinateUtils.y(lastCoords));
+                tracker.onUpEvent(
+                        CoordinateUtils.x(lastCoords), CoordinateUtils.y(lastCoords), eventTime);
             } else if (pointerCount == 1 && oldPointerCount == 1) {
                 tracker.processMotionEvent(action, x, y, eventTime, this);
             } else {
@@ -798,30 +1197,18 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
                 final int pointerId = me.getPointerId(i);
                 final PointerTracker tracker = PointerTracker.getPointerTracker(
                         pointerId, this);
-                final int px, py;
-                final MotionEvent motionEvent;
-                if (mMoreKeysPanel != null
-                        && tracker.mPointerId == mMoreKeysPanelPointerTrackerId) {
-                    px = mMoreKeysPanel.translateX((int)me.getX(i));
-                    py = mMoreKeysPanel.translateY((int)me.getY(i));
-                    motionEvent = null;
-                } else {
-                    px = (int)me.getX(i);
-                    py = (int)me.getY(i);
-                    motionEvent = me;
-                }
-                tracker.onMoveEvent(px, py, eventTime, motionEvent);
+                final int px = (int)me.getX(i);
+                final int py = (int)me.getY(i);
+                tracker.onMoveEvent(px, py, eventTime, me);
                 if (ENABLE_USABILITY_STUDY_LOG) {
-                    final float pointerSize = me.getSize(i);
-                    final float pointerPressure = me.getPressure(i);
-                    UsabilityStudyLogUtils.getInstance().write("[Move]"  + eventTime + ","
-                            + pointerId + "," + px + "," + py + ","
-                            + pointerSize + "," + pointerPressure);
+                    writeUsabilityStudyLog(me, action, eventTime, i, pointerId, px, py);
                 }
-                if (ProductionFlag.IS_EXPERIMENTAL) {
-                    ResearchLogger.mainKeyboardView_processMotionEvent(me, action, eventTime,
-                            i, pointerId, px, py);
-                }
+                // TODO: This seems to be no longer necessary, and confusing because it leads to
+                // duplicate MotionEvents being recorded.
+                // if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
+                //     ResearchLogger.mainKeyboardView_processMotionEvent(
+                //             me, action, eventTime, i, pointerId, px, py);
+                // }
             }
         } else {
             final PointerTracker tracker = PointerTracker.getPointerTracker(id, this);
@@ -831,23 +1218,45 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         return true;
     }
 
-    @Override
-    public void closing() {
-        super.closing();
-        dismissMoreKeysPanel();
-        mMoreKeysPanelCache.clear();
+    private static void writeUsabilityStudyLog(final MotionEvent me, final int action,
+            final long eventTime, final int index, final int id, final int x, final int y) {
+        final String eventTag;
+        switch (action) {
+        case MotionEvent.ACTION_UP:
+            eventTag = "[Up]";
+            break;
+        case MotionEvent.ACTION_DOWN:
+            eventTag = "[Down]";
+            break;
+        case MotionEvent.ACTION_POINTER_UP:
+            eventTag = "[PointerUp]";
+            break;
+        case MotionEvent.ACTION_POINTER_DOWN:
+            eventTag = "[PointerDown]";
+            break;
+        case MotionEvent.ACTION_MOVE:
+            eventTag = "[Move]";
+            break;
+        default:
+            eventTag = "[Action" + action + "]";
+            break;
+        }
+        final float size = me.getSize(index);
+        final float pressure = me.getPressure(index);
+        UsabilityStudyLogUtils.getInstance().write(
+                eventTag + eventTime + "," + id + "," + x + "," + y + "," + size + "," + pressure);
     }
 
-    @Override
-    public boolean dismissMoreKeysPanel() {
-        if (mMoreKeysWindow != null && mMoreKeysWindow.isShowing()) {
-            mMoreKeysWindow.dismiss();
-            mMoreKeysPanel = null;
-            mMoreKeysPanelPointerTrackerId = -1;
-            dimEntireKeyboard(false);
-            return true;
-        }
-        return false;
+    public void cancelAllMessages() {
+        mKeyTimerHandler.cancelAllMessages();
+        mDrawingHandler.cancelAllMessages();
+    }
+
+    public void closing() {
+        dismissAllKeyPreviews();
+        cancelAllMessages();
+        onDismissMoreKeysPanel();
+        mMoreKeysKeyboardCache.clear();
     }
 
     /**
@@ -870,19 +1279,15 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
 
     public void updateShortcutKey(final boolean available) {
         final Keyboard keyboard = getKeyboard();
-        if (keyboard == null) return;
-        final Key shortcutKey = keyboard.getKey(Keyboard.CODE_SHORTCUT);
-        if (shortcutKey == null) return;
+        if (keyboard == null) {
+            return;
+        }
+        final Key shortcutKey = keyboard.getKey(Constants.CODE_SHORTCUT);
+        if (shortcutKey == null) {
+            return;
+        }
         shortcutKey.setEnabled(available);
         invalidateKey(shortcutKey);
-    }
-
-    private void updateAltCodeKeyWhileTyping() {
-        final Keyboard keyboard = getKeyboard();
-        if (keyboard == null) return;
-        for (final Key key : keyboard.mAltCodeKeysWhileTyping) {
-            invalidateKey(key);
-        }
     }
 
     public void startDisplayLanguageOnSpacebar(final boolean subtypeChanged,
@@ -909,9 +1314,29 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     }
 
     public void updateAutoCorrectionState(final boolean isAutoCorrection) {
-        if (!mAutoCorrectionSpacebarLedEnabled) return;
+        if (!mAutoCorrectionSpacebarLedEnabled) {
+            return;
+        }
         mAutoCorrectionSpacebarLedOn = isAutoCorrection;
         invalidateKey(mSpaceKey);
+    }
+
+    private void dimEntireKeyboard(final boolean dimmed) {
+        final boolean needsRedrawing = mNeedsToDimEntireKeyboard != dimmed;
+        mNeedsToDimEntireKeyboard = dimmed;
+        if (needsRedrawing) {
+            invalidateAllKeys();
+        }
+    }
+
+    @Override
+    protected void onDraw(final Canvas canvas) {
+        super.onDraw(canvas);
+
+        // Overlay a dark rectangle to dim.
+        if (mNeedsToDimEntireKeyboard) {
+            canvas.drawRect(0.0f, 0.0f, getWidth(), getHeight(), mBackgroundDimAlphaPaint);
+        }
     }
 
     @Override
@@ -920,13 +1345,13 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         if (key.altCodeWhileTyping() && key.isEnabled()) {
             params.mAnimAlpha = mAltCodeKeyWhileTypingAnimAlpha;
         }
-        if (key.mCode == Keyboard.CODE_SPACE) {
+        if (key.mCode == Constants.CODE_SPACE) {
             drawSpacebar(key, canvas, paint);
             // Whether space key needs to show the "..." popup hint for special purposes
             if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes) {
                 drawKeyPopupHint(key, canvas, paint, params);
             }
-        } else if (key.mCode == Keyboard.CODE_LANGUAGE_SWITCH) {
+        } else if (key.mCode == Constants.CODE_LANGUAGE_SWITCH) {
             super.onDrawKeyTopVisuals(key, canvas, paint, params);
             drawKeyPopupHint(key, canvas, paint, params);
         } else {
@@ -934,35 +1359,40 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         }
     }
 
-    private boolean fitsTextIntoWidth(final int width, final String text, final Paint paint) {
+    private static boolean fitsTextIntoWidth(final int width, final String text,
+            final Paint paint) {
         paint.setTextScaleX(1.0f);
-        final float textWidth = getLabelWidth(text, paint);
-        if (textWidth < width) return true;
+        final float textWidth = TypefaceUtils.getLabelWidth(text, paint);
+        if (textWidth < width) {
+            return true;
+        }
 
         final float scaleX = width / textWidth;
-        if (scaleX < MINIMUM_XSCALE_OF_LANGUAGE_NAME) return false;
+        if (scaleX < MINIMUM_XSCALE_OF_LANGUAGE_NAME) {
+            return false;
+        }
 
         paint.setTextScaleX(scaleX);
-        return getLabelWidth(text, paint) < width;
+        return TypefaceUtils.getLabelWidth(text, paint) < width;
     }
 
     // Layout language name on spacebar.
-    private String layoutLanguageOnSpacebar(final Paint paint, final InputMethodSubtype subtype,
-            final int width) {
+    private static String layoutLanguageOnSpacebar(final Paint paint,
+            final InputMethodSubtype subtype, final int width) {
         // Choose appropriate language name to fit into the width.
-        String text = getFullDisplayName(subtype, getResources());
-        if (fitsTextIntoWidth(width, text, paint)) {
-            return text;
+        final String fullText = getFullDisplayName(subtype);
+        if (fitsTextIntoWidth(width, fullText, paint)) {
+            return fullText;
         }
 
-        text = getMiddleDisplayName(subtype);
-        if (fitsTextIntoWidth(width, text, paint)) {
-            return text;
+        final String middleText = getMiddleDisplayName(subtype);
+        if (fitsTextIntoWidth(width, middleText, paint)) {
+            return middleText;
         }
 
-        text = getShortDisplayName(subtype);
-        if (fitsTextIntoWidth(width, text, paint)) {
-            return text;
+        final String shortText = getShortDisplayName(subtype);
+        if (fitsTextIntoWidth(width, shortText, paint)) {
+            return shortText;
         }
 
         return "";
@@ -1009,26 +1439,26 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
 
     // InputMethodSubtype's display name for spacebar text in its locale.
     //        isAdditionalSubtype (T=true, F=false)
-    // locale layout | Short  Middle      Full
-    // ------ ------ - ---- --------- ----------------------
-    //  en_US qwerty F  En  English   English (US)           exception
-    //  en_GB qwerty F  En  English   English (UK)           exception
-    //  fr    azerty F  Fr  Français  Français
-    //  fr_CA qwerty F  Fr  Français  Français (Canada)
-    //  de    qwertz F  De  Deutsch   Deutsch
-    //  zz    qwerty F      QWERTY    QWERTY
-    //  fr    qwertz T  Fr  Français  Français (QWERTZ)
-    //  de    qwerty T  De  Deutsch   Deutsch (QWERTY)
-    //  en_US azerty T  En  English   English (US) (AZERTY)
-    //  zz    azerty T      AZERTY    AZERTY
+    // locale layout  | Short  Middle      Full
+    // ------ ------- - ---- --------- ----------------------
+    //  en_US qwerty  F  En  English   English (US)           exception
+    //  en_GB qwerty  F  En  English   English (UK)           exception
+    //  es_US spanish F  Es  Español   Español (EE.UU.)       exception
+    //  fr    azerty  F  Fr  Français  Français
+    //  fr_CA qwerty  F  Fr  Français  Français (Canada)
+    //  de    qwertz  F  De  Deutsch   Deutsch
+    //  zz    qwerty  F      QWERTY    QWERTY
+    //  fr    qwertz  T  Fr  Français  Français
+    //  de    qwerty  T  De  Deutsch   Deutsch
+    //  en_US azerty  T  En  English   English (US)
+    //  zz    azerty  T      AZERTY    AZERTY
 
     // Get InputMethodSubtype's full display name in its locale.
-    static String getFullDisplayName(final InputMethodSubtype subtype, final Resources res) {
+    static String getFullDisplayName(final InputMethodSubtype subtype) {
         if (SubtypeLocale.isNoLanguage(subtype)) {
             return SubtypeLocale.getKeyboardLayoutSetDisplayName(subtype);
         }
-
-        return SubtypeLocale.getSubtypeDisplayName(subtype, res);
+        return SubtypeLocale.getSubtypeLocaleDisplayName(subtype.getLocale());
     }
 
     // Get InputMethodSubtype's short display name in its locale.
@@ -1037,7 +1467,7 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             return "";
         }
         final Locale locale = SubtypeLocale.getSubtypeLocale(subtype);
-        return StringUtils.toTitleCase(locale.getLanguage(), locale);
+        return StringUtils.capitalizeFirstCodePoint(locale.getLanguage(), locale);
     }
 
     // Get InputMethodSubtype's middle display name in its locale.
@@ -1046,6 +1476,6 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             return SubtypeLocale.getKeyboardLayoutSetDisplayName(subtype);
         }
         final Locale locale = SubtypeLocale.getSubtypeLocale(subtype);
-        return StringUtils.toTitleCase(locale.getDisplayLanguage(locale), locale);
+        return SubtypeLocale.getSubtypeLocaleDisplayName(locale.getLanguage());
     }
 }

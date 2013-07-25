@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2009, The Android Open Source Project
+ * Copyright (C) 2009 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 
 #include <cstring> // for memset()
 
@@ -43,10 +42,8 @@ class ProximityInfo;
 
 static void releaseDictBuf(const void *dictBuf, const size_t length, const int fd);
 
-static jlong latinime_BinaryDictionary_open(JNIEnv *env, jobject object,
-        jstring sourceDir, jlong dictOffset, jlong dictSize,
-        jint typedLetterMultiplier, jint fullWordMultiplier, jint maxWordLength, jint maxWords,
-        jint maxPredictions) {
+static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring sourceDir,
+        jlong dictOffset, jlong dictSize) {
     PROF_OPEN;
     PROF_START(66);
     const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
@@ -71,7 +68,7 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jobject object,
     adjust = static_cast<int>(dictOffset) % pagesize;
     int adjDictOffset = static_cast<int>(dictOffset) - adjust;
     int adjDictSize = static_cast<int>(dictSize) + adjust;
-    dictBuf = mmap(0, sizeof(char) * adjDictSize, PROT_READ, MAP_PRIVATE, fd, adjDictOffset);
+    dictBuf = mmap(0, adjDictSize, PROT_READ, MAP_PRIVATE, fd, adjDictOffset);
     if (dictBuf == MAP_FAILED) {
         AKLOGE("DICT: Can't mmap dictionary. errno=%d", errno);
         return 0;
@@ -85,17 +82,17 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jobject object,
         AKLOGE("DICT: Can't fopen sourceDir. sourceDirChars=%s errno=%d", sourceDirChars, errno);
         return 0;
     }
-    dictBuf = malloc(sizeof(char) * dictSize);
+    dictBuf = malloc(dictSize);
     if (!dictBuf) {
         AKLOGE("DICT: Can't allocate memory region for dictionary. errno=%d", errno);
         return 0;
     }
-    int ret = fseek(file, (long)dictOffset, SEEK_SET);
+    int ret = fseek(file, static_cast<long>(dictOffset), SEEK_SET);
     if (ret != 0) {
         AKLOGE("DICT: Failure in fseek. ret=%d errno=%d", ret, errno);
         return 0;
     }
-    ret = fread(dictBuf, sizeof(char) * dictSize, 1, file);
+    ret = fread(dictBuf, dictSize, 1, file);
     if (ret != 1) {
         AKLOGE("DICT: Failure in fread. ret=%d errno=%d", ret, errno);
         return 0;
@@ -112,7 +109,8 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jobject object,
     }
     Dictionary *dictionary = 0;
     if (BinaryFormat::UNKNOWN_FORMAT
-            == BinaryFormat::detectFormat(static_cast<uint8_t *>(dictBuf))) {
+            == BinaryFormat::detectFormat(static_cast<uint8_t *>(dictBuf),
+                    static_cast<int>(dictSize))) {
         AKLOGE("DICT: dictionary format is unknown, bad magic number");
 #ifdef USE_MMAP_FOR_DICTIONARY
         releaseDictBuf(static_cast<const char *>(dictBuf) - adjust, adjDictSize, fd);
@@ -120,20 +118,19 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jobject object,
         releaseDictBuf(dictBuf, 0, 0);
 #endif // USE_MMAP_FOR_DICTIONARY
     } else {
-        dictionary = new Dictionary(dictBuf, static_cast<int>(dictSize), fd, adjust,
-                typedLetterMultiplier, fullWordMultiplier, maxWordLength, maxWords, maxPredictions);
+        dictionary = new Dictionary(dictBuf, static_cast<int>(dictSize), fd, adjust);
     }
     PROF_END(66);
     PROF_CLOSE;
-    return (jlong)dictionary;
+    return reinterpret_cast<jlong>(dictionary);
 }
 
-static int latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jobject object, jlong dict,
+static int latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jclass clazz, jlong dict,
         jlong proximityInfo, jlong dicTraverseSession, jintArray xCoordinatesArray,
         jintArray yCoordinatesArray, jintArray timesArray, jintArray pointerIdsArray,
-        jintArray inputCodePointsArray, jint arraySize, jint commitPoint, jboolean isGesture,
+        jintArray inputCodePointsArray, jint inputSize, jint commitPoint, jboolean isGesture,
         jintArray prevWordCodePointsForBigrams, jboolean useFullEditDistance,
-        jcharArray outputCharsArray, jintArray scoresArray, jintArray spaceIndicesArray,
+        jintArray outputCodePointsArray, jintArray scoresArray, jintArray spaceIndicesArray,
         jintArray outputTypesArray) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (!dictionary) return 0;
@@ -141,20 +138,20 @@ static int latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jobject object,
     void *traverseSession = reinterpret_cast<void *>(dicTraverseSession);
 
     // Input values
-    int xCoordinates[arraySize];
-    int yCoordinates[arraySize];
-    int times[arraySize];
-    int pointerIds[arraySize];
+    int xCoordinates[inputSize];
+    int yCoordinates[inputSize];
+    int times[inputSize];
+    int pointerIds[inputSize];
     const jsize inputCodePointsLength = env->GetArrayLength(inputCodePointsArray);
     int inputCodePoints[inputCodePointsLength];
     const jsize prevWordCodePointsLength =
             prevWordCodePointsForBigrams ? env->GetArrayLength(prevWordCodePointsForBigrams) : 0;
     int prevWordCodePointsInternal[prevWordCodePointsLength];
     int *prevWordCodePoints = 0;
-    env->GetIntArrayRegion(xCoordinatesArray, 0, arraySize, xCoordinates);
-    env->GetIntArrayRegion(yCoordinatesArray, 0, arraySize, yCoordinates);
-    env->GetIntArrayRegion(timesArray, 0, arraySize, times);
-    env->GetIntArrayRegion(pointerIdsArray, 0, arraySize, pointerIds);
+    env->GetIntArrayRegion(xCoordinatesArray, 0, inputSize, xCoordinates);
+    env->GetIntArrayRegion(yCoordinatesArray, 0, inputSize, yCoordinates);
+    env->GetIntArrayRegion(timesArray, 0, inputSize, times);
+    env->GetIntArrayRegion(pointerIdsArray, 0, inputSize, pointerIds);
     env->GetIntArrayRegion(inputCodePointsArray, 0, inputCodePointsLength, inputCodePoints);
     if (prevWordCodePointsForBigrams) {
         env->GetIntArrayRegion(prevWordCodePointsForBigrams, 0, prevWordCodePointsLength,
@@ -163,34 +160,43 @@ static int latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jobject object,
     }
 
     // Output values
-    // TODO: Should be "outputCodePointsLength" and "int outputCodePoints[]"
-    const jsize outputCharsLength = env->GetArrayLength(outputCharsArray);
-    unsigned short outputChars[outputCharsLength];
+    /* By the way, let's check the output array length here to make sure */
+    const jsize outputCodePointsLength = env->GetArrayLength(outputCodePointsArray);
+    if (outputCodePointsLength != (MAX_WORD_LENGTH * MAX_RESULTS)) {
+        AKLOGE("Invalid outputCodePointsLength: %d", outputCodePointsLength);
+        ASSERT(false);
+        return 0;
+    }
     const jsize scoresLength = env->GetArrayLength(scoresArray);
+    if (scoresLength != MAX_RESULTS) {
+        AKLOGE("Invalid scoresLength: %d", scoresLength);
+        ASSERT(false);
+        return 0;
+    }
+    int outputCodePoints[outputCodePointsLength];
     int scores[scoresLength];
     const jsize spaceIndicesLength = env->GetArrayLength(spaceIndicesArray);
     int spaceIndices[spaceIndicesLength];
     const jsize outputTypesLength = env->GetArrayLength(outputTypesArray);
     int outputTypes[outputTypesLength];
-    memset(outputChars, 0, sizeof(outputChars));
+    memset(outputCodePoints, 0, sizeof(outputCodePoints));
     memset(scores, 0, sizeof(scores));
     memset(spaceIndices, 0, sizeof(spaceIndices));
     memset(outputTypes, 0, sizeof(outputTypes));
 
     int count;
-    if (isGesture || arraySize > 0) {
+    if (isGesture || inputSize > 0) {
         count = dictionary->getSuggestions(pInfo, traverseSession, xCoordinates, yCoordinates,
-                times, pointerIds, inputCodePoints, arraySize, prevWordCodePoints,
-                prevWordCodePointsLength, commitPoint, isGesture, useFullEditDistance, outputChars,
-                scores, spaceIndices, outputTypes);
+                times, pointerIds, inputCodePoints, inputSize, prevWordCodePoints,
+                prevWordCodePointsLength, commitPoint, isGesture, useFullEditDistance,
+                outputCodePoints, scores, spaceIndices, outputTypes);
     } else {
         count = dictionary->getBigrams(prevWordCodePoints, prevWordCodePointsLength,
-                inputCodePoints, arraySize, outputChars, scores, outputTypes);
+                inputCodePoints, inputSize, outputCodePoints, scores, outputTypes);
     }
 
     // Copy back the output values
-    // TODO: Should be SetIntArrayRegion()
-    env->SetCharArrayRegion(outputCharsArray, 0, outputCharsLength, outputChars);
+    env->SetIntArrayRegion(outputCodePointsArray, 0, outputCodePointsLength, outputCodePoints);
     env->SetIntArrayRegion(scoresArray, 0, scoresLength, scores);
     env->SetIntArrayRegion(spaceIndicesArray, 0, spaceIndicesLength, spaceIndices);
     env->SetIntArrayRegion(outputTypesArray, 0, outputTypesLength, outputTypes);
@@ -198,20 +204,20 @@ static int latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jobject object,
     return count;
 }
 
-static jint latinime_BinaryDictionary_getFrequency(JNIEnv *env, jobject object, jlong dict,
+static jint latinime_BinaryDictionary_getProbability(JNIEnv *env, jclass clazz, jlong dict,
         jintArray wordArray) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (!dictionary) return 0;
     const jsize codePointLength = env->GetArrayLength(wordArray);
     int codePoints[codePointLength];
     env->GetIntArrayRegion(wordArray, 0, codePointLength, codePoints);
-    return dictionary->getFrequency(codePoints, codePointLength);
+    return dictionary->getProbability(codePoints, codePointLength);
 }
 
-static jboolean latinime_BinaryDictionary_isValidBigram(JNIEnv *env, jobject object, jlong dict,
+static jboolean latinime_BinaryDictionary_isValidBigram(JNIEnv *env, jclass clazz, jlong dict,
         jintArray wordArray1, jintArray wordArray2) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
-    if (!dictionary) return (jboolean) false;
+    if (!dictionary) return JNI_FALSE;
     const jsize codePointLength1 = env->GetArrayLength(wordArray1);
     const jsize codePointLength2 = env->GetArrayLength(wordArray2);
     int codePoints1[codePointLength1];
@@ -221,33 +227,31 @@ static jboolean latinime_BinaryDictionary_isValidBigram(JNIEnv *env, jobject obj
     return dictionary->isValidBigram(codePoints1, codePointLength1, codePoints2, codePointLength2);
 }
 
-static jfloat latinime_BinaryDictionary_calcNormalizedScore(JNIEnv *env, jobject object,
-        jcharArray before, jcharArray after, jint score) {
+static jfloat latinime_BinaryDictionary_calcNormalizedScore(JNIEnv *env, jclass clazz,
+        jintArray before, jintArray after, jint score) {
     jsize beforeLength = env->GetArrayLength(before);
     jsize afterLength = env->GetArrayLength(after);
-    jchar beforeChars[beforeLength];
-    jchar afterChars[afterLength];
-    env->GetCharArrayRegion(before, 0, beforeLength, beforeChars);
-    env->GetCharArrayRegion(after, 0, afterLength, afterChars);
-    return Correction::RankingAlgorithm::calcNormalizedScore(
-            static_cast<unsigned short *>(beforeChars), beforeLength,
-            static_cast<unsigned short *>(afterChars), afterLength, score);
+    int beforeCodePoints[beforeLength];
+    int afterCodePoints[afterLength];
+    env->GetIntArrayRegion(before, 0, beforeLength, beforeCodePoints);
+    env->GetIntArrayRegion(after, 0, afterLength, afterCodePoints);
+    return Correction::RankingAlgorithm::calcNormalizedScore(beforeCodePoints, beforeLength,
+            afterCodePoints, afterLength, score);
 }
 
-static jint latinime_BinaryDictionary_editDistance(JNIEnv *env, jobject object,
-        jcharArray before, jcharArray after) {
+static jint latinime_BinaryDictionary_editDistance(JNIEnv *env, jclass clazz, jintArray before,
+        jintArray after) {
     jsize beforeLength = env->GetArrayLength(before);
     jsize afterLength = env->GetArrayLength(after);
-    jchar beforeChars[beforeLength];
-    jchar afterChars[afterLength];
-    env->GetCharArrayRegion(before, 0, beforeLength, beforeChars);
-    env->GetCharArrayRegion(after, 0, afterLength, afterChars);
-    return Correction::RankingAlgorithm::editDistance(
-            static_cast<unsigned short *>(beforeChars), beforeLength,
-            static_cast<unsigned short *>(afterChars), afterLength);
+    int beforeCodePoints[beforeLength];
+    int afterCodePoints[afterLength];
+    env->GetIntArrayRegion(before, 0, beforeLength, beforeCodePoints);
+    env->GetIntArrayRegion(after, 0, afterLength, afterCodePoints);
+    return Correction::RankingAlgorithm::editDistance(beforeCodePoints, beforeLength,
+            afterCodePoints, afterLength);
 }
 
-static void latinime_BinaryDictionary_close(JNIEnv *env, jobject object, jlong dict) {
+static void latinime_BinaryDictionary_close(JNIEnv *env, jclass clazz, jlong dict) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (!dictionary) return;
     const void *dictBuf = dictionary->getDict();
@@ -277,24 +281,31 @@ static void releaseDictBuf(const void *dictBuf, const size_t length, const int f
 }
 
 static JNINativeMethod sMethods[] = {
-    {"openNative", "(Ljava/lang/String;JJIIIII)J",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_open)},
-    {"closeNative", "(J)V", reinterpret_cast<void *>(latinime_BinaryDictionary_close)},
-    {"getSuggestionsNative", "(JJJ[I[I[I[I[IIIZ[IZ[C[I[I[I)I",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_getSuggestions)},
-    {"getFrequencyNative", "(J[I)I",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_getFrequency)},
-    {"isValidBigramNative", "(J[I[I)Z",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_isValidBigram)},
-    {"calcNormalizedScoreNative", "([C[CI)F",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_calcNormalizedScore)},
-    {"editDistanceNative", "([C[C)I",
-            reinterpret_cast<void *>(latinime_BinaryDictionary_editDistance)}
+    {const_cast<char *>("openNative"),
+     const_cast<char *>("(Ljava/lang/String;JJ)J"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_open)},
+    {const_cast<char *>("closeNative"),
+     const_cast<char *>("(J)V"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_close)},
+    {const_cast<char *>("getSuggestionsNative"),
+     const_cast<char *>("(JJJ[I[I[I[I[IIIZ[IZ[I[I[I[I)I"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_getSuggestions)},
+    {const_cast<char *>("getProbabilityNative"),
+     const_cast<char *>("(J[I)I"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_getProbability)},
+    {const_cast<char *>("isValidBigramNative"),
+     const_cast<char *>("(J[I[I)Z"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_isValidBigram)},
+    {const_cast<char *>("calcNormalizedScoreNative"),
+     const_cast<char *>("([I[II)F"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_calcNormalizedScore)},
+    {const_cast<char *>("editDistanceNative"),
+     const_cast<char *>("([I[I)I"),
+     reinterpret_cast<void *>(latinime_BinaryDictionary_editDistance)}
 };
 
 int register_BinaryDictionary(JNIEnv *env) {
     const char *const kClassPathName = "com/android/inputmethod/latin/BinaryDictionary";
-    return registerNativeMethods(env, kClassPathName, sMethods,
-            sizeof(sMethods) / sizeof(sMethods[0]));
+    return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
 }
 } // namespace latinime

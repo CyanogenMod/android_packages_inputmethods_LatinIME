@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -25,7 +25,8 @@ import java.util.Arrays;
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public final class WordComposer {
-    private static final int N = BinaryDictionary.MAX_WORD_LENGTH;
+    private static final int MAX_WORD_LENGTH = Constants.Dictionary.MAX_WORD_LENGTH;
+    private static final boolean DBG = LatinImeLogger.sDBG;
 
     public static final int CAPS_MODE_OFF = 0;
     // 1 is shift bit, 2 is caps bit, 4 is auto bit but this is just a convention as these bits
@@ -36,11 +37,18 @@ public final class WordComposer {
     public static final int CAPS_MODE_AUTO_SHIFT_LOCKED = 0x7;
 
     private int[] mPrimaryKeyCodes;
-    private final InputPointers mInputPointers = new InputPointers(N);
+    private final InputPointers mInputPointers = new InputPointers(MAX_WORD_LENGTH);
     private final StringBuilder mTypedWord;
-    private CharSequence mAutoCorrection;
+    private String mAutoCorrection;
     private boolean mIsResumed;
     private boolean mIsBatchMode;
+    // A memory of the last rejected batch mode suggestion, if any. This goes like this: the user
+    // gestures a word, is displeased with the results and hits backspace, then gestures again.
+    // At the very least we should avoid re-suggesting the same thing, and to do that we memorize
+    // the rejected suggestion in this variable.
+    // TODO: this should be done in a comprehensive way by the User History feature instead of
+    // as an ad-hockery here.
+    private String mRejectedBatchModeSuggestion;
 
     // Cache these values for performance
     private int mCapsCount;
@@ -48,6 +56,7 @@ public final class WordComposer {
     private int mCapitalizedMode;
     private int mTrailingSingleQuotesCount;
     private int mCodePointSize;
+    private int mCursorPositionWithinWord;
 
     /**
      * Whether the user chose to capitalize the first char of the word.
@@ -55,16 +64,18 @@ public final class WordComposer {
     private boolean mIsFirstCharCapitalized;
 
     public WordComposer() {
-        mPrimaryKeyCodes = new int[N];
-        mTypedWord = new StringBuilder(N);
+        mPrimaryKeyCodes = new int[MAX_WORD_LENGTH];
+        mTypedWord = new StringBuilder(MAX_WORD_LENGTH);
         mAutoCorrection = null;
         mTrailingSingleQuotesCount = 0;
         mIsResumed = false;
         mIsBatchMode = false;
+        mCursorPositionWithinWord = 0;
+        mRejectedBatchModeSuggestion = null;
         refreshSize();
     }
 
-    public WordComposer(WordComposer source) {
+    public WordComposer(final WordComposer source) {
         mPrimaryKeyCodes = Arrays.copyOf(source.mPrimaryKeyCodes, source.mPrimaryKeyCodes.length);
         mTypedWord = new StringBuilder(source.mTypedWord);
         mInputPointers.copy(source.mInputPointers);
@@ -75,6 +86,8 @@ public final class WordComposer {
         mTrailingSingleQuotesCount = source.mTrailingSingleQuotesCount;
         mIsResumed = source.mIsResumed;
         mIsBatchMode = source.mIsBatchMode;
+        mCursorPositionWithinWord = source.mCursorPositionWithinWord;
+        mRejectedBatchModeSuggestion = source.mRejectedBatchModeSuggestion;
         refreshSize();
     }
 
@@ -90,6 +103,8 @@ public final class WordComposer {
         mTrailingSingleQuotesCount = 0;
         mIsResumed = false;
         mIsBatchMode = false;
+        mCursorPositionWithinWord = 0;
+        mRejectedBatchModeSuggestion = null;
         refreshSize();
     }
 
@@ -111,17 +126,25 @@ public final class WordComposer {
 
     // TODO: make sure that the index should not exceed MAX_WORD_LENGTH
     public int getCodeAt(int index) {
-        if (index >= BinaryDictionary.MAX_WORD_LENGTH) {
+        if (index >= MAX_WORD_LENGTH) {
             return -1;
         }
         return mPrimaryKeyCodes[index];
+    }
+
+    public int getCodeBeforeCursor() {
+        if (mCursorPositionWithinWord < 1 || mCursorPositionWithinWord > mPrimaryKeyCodes.length) {
+            return Constants.NOT_A_CODE;
+        }
+        return mPrimaryKeyCodes[mCursorPositionWithinWord - 1];
     }
 
     public InputPointers getInputPointers() {
         return mInputPointers;
     }
 
-    private static boolean isFirstCharCapitalized(int index, int codePoint, boolean previous) {
+    private static boolean isFirstCharCapitalized(final int index, final int codePoint,
+            final boolean previous) {
         if (index == 0) return Character.isUpperCase(codePoint);
         return previous && !Character.isUpperCase(codePoint);
     }
@@ -129,12 +152,13 @@ public final class WordComposer {
     /**
      * Add a new keystroke, with the pressed key's code point with the touch point coordinates.
      */
-    public void add(int primaryCode, int keyX, int keyY) {
+    public void add(final int primaryCode, final int keyX, final int keyY) {
         final int newIndex = size();
         mTypedWord.appendCodePoint(primaryCode);
         refreshSize();
-        if (newIndex < BinaryDictionary.MAX_WORD_LENGTH) {
-            mPrimaryKeyCodes[newIndex] = primaryCode >= Keyboard.CODE_SPACE
+        mCursorPositionWithinWord = mCodePointSize;
+        if (newIndex < MAX_WORD_LENGTH) {
+            mPrimaryKeyCodes[newIndex] = primaryCode >= Constants.CODE_SPACE
                     ? Character.toLowerCase(primaryCode) : primaryCode;
             // In the batch input mode, the {@code mInputPointers} holds batch input points and
             // shouldn't be overridden by the "typed key" coordinates
@@ -148,7 +172,7 @@ public final class WordComposer {
                 newIndex, primaryCode, mIsFirstCharCapitalized);
         if (Character.isUpperCase(primaryCode)) mCapsCount++;
         if (Character.isDigit(primaryCode)) mDigitsCount++;
-        if (Keyboard.CODE_SINGLE_QUOTE == primaryCode) {
+        if (Constants.CODE_SINGLE_QUOTE == primaryCode) {
             ++mTrailingSingleQuotesCount;
         } else {
             mTrailingSingleQuotesCount = 0;
@@ -156,12 +180,24 @@ public final class WordComposer {
         mAutoCorrection = null;
     }
 
-    public void setBatchInputPointers(InputPointers batchPointers) {
+    public void setCursorPositionWithinWord(final int posWithinWord) {
+        mCursorPositionWithinWord = posWithinWord;
+    }
+
+    public boolean isCursorFrontOrMiddleOfComposingWord() {
+        if (DBG && mCursorPositionWithinWord > mCodePointSize) {
+            throw new RuntimeException("Wrong cursor position : " + mCursorPositionWithinWord
+                    + "in a word of size " + mCodePointSize);
+        }
+        return mCursorPositionWithinWord != mCodePointSize;
+    }
+
+    public void setBatchInputPointers(final InputPointers batchPointers) {
         mInputPointers.set(batchPointers);
         mIsBatchMode = true;
     }
 
-    public void setBatchInputWord(CharSequence word) {
+    public void setBatchInputWord(final String word) {
         reset();
         mIsBatchMode = true;
         final int length = word.length();
@@ -174,9 +210,9 @@ public final class WordComposer {
     }
 
     /**
-     * Internal method to retrieve reasonable proximity info for a character.
+     * Add a dummy key by retrieving reasonable coordinates
      */
-    private void addKeyInfo(final int codePoint, final Keyboard keyboard) {
+    public void addKeyInfo(final int codePoint, final Keyboard keyboard) {
         final int x, y;
         final Key key;
         if (keyboard != null && (key = keyboard.getKey(codePoint)) != null) {
@@ -235,10 +271,11 @@ public final class WordComposer {
             int i = mTypedWord.length();
             while (i > 0) {
                 i = mTypedWord.offsetByCodePoints(i, -1);
-                if (Keyboard.CODE_SINGLE_QUOTE != mTypedWord.codePointAt(i)) break;
+                if (Constants.CODE_SINGLE_QUOTE != mTypedWord.codePointAt(i)) break;
                 ++mTrailingSingleQuotesCount;
             }
         }
+        mCursorPositionWithinWord = mCodePointSize;
         mAutoCorrection = null;
     }
 
@@ -321,14 +358,14 @@ public final class WordComposer {
     /**
      * Sets the auto-correction for this word.
      */
-    public void setAutoCorrection(final CharSequence correction) {
+    public void setAutoCorrection(final String correction) {
         mAutoCorrection = correction;
     }
 
     /**
      * @return the auto-correction for this word, or null if none.
      */
-    public CharSequence getAutoCorrectionOrNull() {
+    public String getAutoCorrectionOrNull() {
         return mAutoCorrection;
     }
 
@@ -341,15 +378,15 @@ public final class WordComposer {
 
     // `type' should be one of the LastComposedWord.COMMIT_TYPE_* constants above.
     public LastComposedWord commitWord(final int type, final String committedWord,
-            final String separatorString, final CharSequence prevWord) {
+            final String separatorString, final String prevWord) {
         // Note: currently, we come here whenever we commit a word. If it's a MANUAL_PICK
         // or a DECIDED_WORD we may cancel the commit later; otherwise, we should deactivate
         // the last composed word to ensure this does not happen.
         final int[] primaryKeyCodes = mPrimaryKeyCodes;
-        mPrimaryKeyCodes = new int[N];
+        mPrimaryKeyCodes = new int[MAX_WORD_LENGTH];
         final LastComposedWord lastComposedWord = new LastComposedWord(primaryKeyCodes,
                 mInputPointers, mTypedWord.toString(), committedWord, separatorString,
-                prevWord);
+                prevWord, mCapitalizedMode);
         mInputPointers.reset();
         if (type != LastComposedWord.COMMIT_TYPE_DECIDED_WORD
                 && type != LastComposedWord.COMMIT_TYPE_MANUAL_PICK) {
@@ -359,11 +396,15 @@ public final class WordComposer {
         mDigitsCount = 0;
         mIsBatchMode = false;
         mTypedWord.setLength(0);
+        mCodePointSize = 0;
         mTrailingSingleQuotesCount = 0;
         mIsFirstCharCapitalized = false;
+        mCapitalizedMode = CAPS_MODE_OFF;
         refreshSize();
         mAutoCorrection = null;
+        mCursorPositionWithinWord = 0;
         mIsResumed = false;
+        mRejectedBatchModeSuggestion = null;
         return lastComposedWord;
     }
 
@@ -373,11 +414,22 @@ public final class WordComposer {
         mTypedWord.setLength(0);
         mTypedWord.append(lastComposedWord.mTypedWord);
         refreshSize();
+        mCapitalizedMode = lastComposedWord.mCapitalizedMode;
         mAutoCorrection = null; // This will be filled by the next call to updateSuggestion.
+        mCursorPositionWithinWord = mCodePointSize;
+        mRejectedBatchModeSuggestion = null;
         mIsResumed = true;
     }
 
     public boolean isBatchMode() {
         return mIsBatchMode;
+    }
+
+    public void setRejectedBatchModeSuggestion(final String rejectedSuggestion) {
+        mRejectedBatchModeSuggestion = rejectedSuggestion;
+    }
+
+    public String getRejectedBatchModeSuggestion() {
+        return mRejectedBatchModeSuggestion;
     }
 }

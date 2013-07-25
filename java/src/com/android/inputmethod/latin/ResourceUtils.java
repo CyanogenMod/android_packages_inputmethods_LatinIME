@@ -19,11 +19,18 @@ package com.android.inputmethod.latin;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 
+import com.android.inputmethod.annotations.UsedForTesting;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class ResourceUtils {
+    private static final String TAG = ResourceUtils.class.getSimpleName();
+
     public static final float UNDEFINED_RATIO = -1.0f;
     public static final int UNDEFINED_DIMENSION = -1;
 
@@ -31,24 +38,146 @@ public final class ResourceUtils {
         // This utility class is not publicly instantiable.
     }
 
-    private static final String HARDWARE_PREFIX = Build.HARDWARE + ",";
     private static final HashMap<String, String> sDeviceOverrideValueMap =
             CollectionUtils.newHashMap();
 
-    public static String getDeviceOverrideValue(Resources res, int overrideResId, String defValue) {
+    private static final String[] BUILD_KEYS_AND_VALUES = {
+        "HARDWARE", Build.HARDWARE,
+        "MODEL", Build.MODEL,
+        "BRAND", Build.BRAND,
+        "MANUFACTURER", Build.MANUFACTURER
+    };
+    private static final HashMap<String, String> sBuildKeyValues;
+    private static final String sBuildKeyValuesDebugString;
+
+    static {
+        sBuildKeyValues = CollectionUtils.newHashMap();
+        final ArrayList<String> keyValuePairs = CollectionUtils.newArrayList();
+        final int keyCount = BUILD_KEYS_AND_VALUES.length / 2;
+        for (int i = 0; i < keyCount; i++) {
+            final int index = i * 2;
+            final String key = BUILD_KEYS_AND_VALUES[index];
+            final String value = BUILD_KEYS_AND_VALUES[index + 1];
+            sBuildKeyValues.put(key, value);
+            keyValuePairs.add(key + '=' + value);
+        }
+        sBuildKeyValuesDebugString = "[" + TextUtils.join(" ", keyValuePairs) + "]";
+    }
+
+    public static String getDeviceOverrideValue(final Resources res, final int overrideResId) {
         final int orientation = res.getConfiguration().orientation;
         final String key = overrideResId + "-" + orientation;
-        if (!sDeviceOverrideValueMap.containsKey(key)) {
-            String overrideValue = defValue;
-            for (final String element : res.getStringArray(overrideResId)) {
-                if (element.startsWith(HARDWARE_PREFIX)) {
-                    overrideValue = element.substring(HARDWARE_PREFIX.length());
-                    break;
-                }
-            }
-            sDeviceOverrideValueMap.put(key, overrideValue);
+        if (sDeviceOverrideValueMap.containsKey(key)) {
+            return sDeviceOverrideValueMap.get(key);
         }
-        return sDeviceOverrideValueMap.get(key);
+
+        final String[] overrideArray = res.getStringArray(overrideResId);
+        final String overrideValue = findConstantForKeyValuePairs(sBuildKeyValues, overrideArray);
+        // The overrideValue might be an empty string.
+        if (overrideValue != null) {
+            Log.i(TAG, "Find override value:"
+                    + " resource="+ res.getResourceEntryName(overrideResId)
+                    + " build=" + sBuildKeyValuesDebugString
+                    + " override=" + overrideValue);
+            sDeviceOverrideValueMap.put(key, overrideValue);
+            return overrideValue;
+        }
+
+        final String defaultValue = findDefaultConstant(overrideArray);
+        // The defaultValue might be an empty string.
+        if (defaultValue == null) {
+            Log.w(TAG, "Couldn't find override value nor default value:"
+                    + " resource="+ res.getResourceEntryName(overrideResId)
+                    + " build=" + sBuildKeyValuesDebugString);
+        } else {
+            Log.i(TAG, "Found default value:"
+                    + " resource="+ res.getResourceEntryName(overrideResId)
+                    + " build=" + sBuildKeyValuesDebugString
+                    + " default=" + defaultValue);
+        }
+        sDeviceOverrideValueMap.put(key, defaultValue);
+        return defaultValue;
+    }
+
+    /**
+     * Find the condition that fulfills specified key value pairs from an array of
+     * "condition,constant", and return the corresponding string constant. A condition is
+     * "pattern1[:pattern2...] (or an empty string for the default). A pattern is
+     * "key=regexp_value" string. The condition matches only if all patterns of the condition
+     * are true for the specified key value pairs.
+     *
+     * For example, "condition,constant" has the following format.
+     * (See {@link ResourceUtilsTests#testFindConstantForKeyValuePairsRegexp()})
+     *  - HARDWARE=mako,constantForNexus4
+     *  - MODEL=Nexus 4:MANUFACTURER=LGE,constantForNexus4
+     *  - ,defaultConstant
+     *
+     * @param keyValuePairs attributes to be used to look for a matched condition.
+     * @param conditionConstantArray an array of "condition,constant" elements to be searched.
+     * @return the constant part of the matched "condition,constant" element. Returns null if no
+     * condition matches.
+     */
+    @UsedForTesting
+    static String findConstantForKeyValuePairs(final HashMap<String, String> keyValuePairs,
+            final String[] conditionConstantArray) {
+        if (conditionConstantArray == null || keyValuePairs == null) {
+            return null;
+        }
+        for (final String conditionConstant : conditionConstantArray) {
+            final int posComma = conditionConstant.indexOf(',');
+            if (posComma < 0) {
+                throw new RuntimeException("Array element has no comma: " + conditionConstant);
+            }
+            final String condition = conditionConstant.substring(0, posComma);
+            if (condition.isEmpty()) {
+                // Default condition. The default condition should be searched by
+                // {@link #findConstantForDefault(String[])}.
+                continue;
+            }
+            if (fulfillsCondition(keyValuePairs, condition)) {
+                return conditionConstant.substring(posComma + 1);
+            }
+        }
+        return null;
+    }
+
+    private static boolean fulfillsCondition(final HashMap<String,String> keyValuePairs,
+            final String condition) {
+        final String[] patterns = condition.split(":");
+        // Check all patterns in a condition are true
+        for (final String pattern : patterns) {
+            final int posEqual = pattern.indexOf('=');
+            if (posEqual < 0) {
+                throw new RuntimeException("Pattern has no '=': " + condition);
+            }
+            final String key = pattern.substring(0, posEqual);
+            final String value = keyValuePairs.get(key);
+            if (value == null) {
+                throw new RuntimeException("Found unknown key: " + condition);
+            }
+            final String patternRegexpValue = pattern.substring(posEqual + 1);
+            if (!value.matches(patternRegexpValue)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @UsedForTesting
+    static String findDefaultConstant(final String[] conditionConstantArray) {
+        if (conditionConstantArray == null) {
+            return null;
+        }
+        for (final String condition : conditionConstantArray) {
+            final int posComma = condition.indexOf(',');
+            if (posComma < 0) {
+                throw new RuntimeException("Array element has no comma: " + condition);
+            }
+            if (posComma == 0) { // condition is empty.
+                return condition.substring(posComma + 1);
+            }
+        }
+        return null;
     }
 
     public static boolean isValidFraction(final float fraction) {
@@ -85,8 +214,8 @@ public final class ResourceUtils {
         return a.getDimensionPixelSize(index, ResourceUtils.UNDEFINED_DIMENSION);
     }
 
-    public static float getDimensionOrFraction(TypedArray a, int index, int base,
-            float defValue) {
+    public static float getDimensionOrFraction(final TypedArray a, final int index, final int base,
+            final float defValue) {
         final TypedValue value = a.peekValue(index);
         if (value == null) {
             return defValue;
@@ -99,7 +228,7 @@ public final class ResourceUtils {
         return defValue;
     }
 
-    public static int getEnumValue(TypedArray a, int index, int defValue) {
+    public static int getEnumValue(final TypedArray a, final int index, final int defValue) {
         final TypedValue value = a.peekValue(index);
         if (value == null) {
             return defValue;
@@ -110,19 +239,19 @@ public final class ResourceUtils {
         return defValue;
     }
 
-    public static boolean isFractionValue(TypedValue v) {
+    public static boolean isFractionValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_FRACTION;
     }
 
-    public static boolean isDimensionValue(TypedValue v) {
+    public static boolean isDimensionValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_DIMENSION;
     }
 
-    public static boolean isIntegerValue(TypedValue v) {
+    public static boolean isIntegerValue(final TypedValue v) {
         return v.type >= TypedValue.TYPE_FIRST_INT && v.type <= TypedValue.TYPE_LAST_INT;
     }
 
-    public static boolean isStringValue(TypedValue v) {
+    public static boolean isStringValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_STRING;
     }
 }

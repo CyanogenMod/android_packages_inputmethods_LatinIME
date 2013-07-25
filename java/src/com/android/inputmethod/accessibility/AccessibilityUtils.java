@@ -32,7 +32,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.EditorInfo;
 
-import com.android.inputmethod.compat.AudioManagerCompatWrapper;
 import com.android.inputmethod.compat.SettingsSecureCompatUtils;
 import com.android.inputmethod.latin.InputTypeUtils;
 import com.android.inputmethod.latin.R;
@@ -40,14 +39,14 @@ import com.android.inputmethod.latin.R;
 public final class AccessibilityUtils {
     private static final String TAG = AccessibilityUtils.class.getSimpleName();
     private static final String CLASS = AccessibilityUtils.class.getClass().getName();
-    private static final String PACKAGE = AccessibilityUtils.class.getClass().getPackage()
-            .getName();
+    private static final String PACKAGE =
+            AccessibilityUtils.class.getClass().getPackage().getName();
 
     private static final AccessibilityUtils sInstance = new AccessibilityUtils();
 
     private Context mContext;
     private AccessibilityManager mAccessibilityManager;
-    private AudioManagerCompatWrapper mAudioManager;
+    private AudioManager mAudioManager;
 
     /*
      * Setting this constant to {@code false} will disable all keyboard
@@ -56,9 +55,8 @@ public final class AccessibilityUtils {
      */
     private static final boolean ENABLE_ACCESSIBILITY = true;
 
-    public static void init(InputMethodService inputMethod) {
-        if (!ENABLE_ACCESSIBILITY)
-            return;
+    public static void init(final InputMethodService inputMethod) {
+        if (!ENABLE_ACCESSIBILITY) return;
 
         // These only need to be initialized if the kill switch is off.
         sInstance.initInternal(inputMethod);
@@ -74,27 +72,32 @@ public final class AccessibilityUtils {
         // This class is not publicly instantiable.
     }
 
-    private void initInternal(Context context) {
+    private void initInternal(final Context context) {
         mContext = context;
-        mAccessibilityManager = (AccessibilityManager) context
-                .getSystemService(Context.ACCESSIBILITY_SERVICE);
+        mAccessibilityManager =
+                (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+    }
 
-        final AudioManager audioManager = (AudioManager) context
-                .getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager = new AudioManagerCompatWrapper(audioManager);
+    /**
+     * Returns {@code true} if accessibility is enabled. Currently, this means
+     * that the kill switch is off and system accessibility is turned on.
+     *
+     * @return {@code true} if accessibility is enabled.
+     */
+    public boolean isAccessibilityEnabled() {
+        return ENABLE_ACCESSIBILITY && mAccessibilityManager.isEnabled();
     }
 
     /**
      * Returns {@code true} if touch exploration is enabled. Currently, this
      * means that the kill switch is off, the device supports touch exploration,
-     * and a spoken feedback service is turned on.
+     * and system accessibility is turned on.
      *
      * @return {@code true} if touch exploration is enabled.
      */
     public boolean isTouchExplorationEnabled() {
-        return ENABLE_ACCESSIBILITY
-                && mAccessibilityManager.isEnabled()
-                && mAccessibilityManager.isTouchExplorationEnabled();
+        return isAccessibilityEnabled() && mAccessibilityManager.isTouchExplorationEnabled();
     }
 
     /**
@@ -105,9 +108,8 @@ public final class AccessibilityUtils {
      * @param event The event to check.
      * @return {@true} is the event is a touch exploration event
      */
-    public boolean isTouchExplorationEvent(MotionEvent event) {
+    public boolean isTouchExplorationEvent(final MotionEvent event) {
         final int action = event.getAction();
-
         return action == MotionEvent.ACTION_HOVER_ENTER
                 || action == MotionEvent.ACTION_HOVER_EXIT
                 || action == MotionEvent.ACTION_HOVER_MOVE;
@@ -119,21 +121,21 @@ public final class AccessibilityUtils {
      *
      * @return {@code true} if the device should obscure password characters.
      */
-    public boolean shouldObscureInput(EditorInfo editorInfo) {
-        if (editorInfo == null)
-            return false;
+    @SuppressWarnings("deprecation")
+    public boolean shouldObscureInput(final EditorInfo editorInfo) {
+        if (editorInfo == null) return false;
 
         // The user can optionally force speaking passwords.
         if (SettingsSecureCompatUtils.ACCESSIBILITY_SPEAK_PASSWORD != null) {
             final boolean speakPassword = Settings.Secure.getInt(mContext.getContentResolver(),
                     SettingsSecureCompatUtils.ACCESSIBILITY_SPEAK_PASSWORD, 0) != 0;
-            if (speakPassword)
-                return false;
+            if (speakPassword) return false;
         }
 
         // Always speak if the user is listening through headphones.
-        if (mAudioManager.isWiredHeadsetOn() || mAudioManager.isBluetoothA2dpOn())
+        if (mAudioManager.isWiredHeadsetOn() || mAudioManager.isBluetoothA2dpOn()) {
             return false;
+        }
 
         // Don't speak if the IME is connected to a password field.
         return InputTypeUtils.isPasswordInputType(editorInfo.inputType);
@@ -146,7 +148,7 @@ public final class AccessibilityUtils {
      * @param view The source view.
      * @param text The text to speak.
      */
-    public void announceForAccessibility(View view, CharSequence text) {
+    public void announceForAccessibility(final View view, final CharSequence text) {
         if (!mAccessibilityManager.isEnabled()) {
             Log.e(TAG, "Attempted to speak when accessibility was disabled!");
             return;
@@ -163,8 +165,9 @@ public final class AccessibilityUtils {
         event.setEnabled(true);
         event.getText().add(text);
 
-        // Platforms starting at SDK 16 should use announce events.
-        if (Build.VERSION.SDK_INT >= 16) {
+        // Platforms starting at SDK version 16 (Build.VERSION_CODES.JELLY_BEAN) should use
+        // announce events.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             event.setEventType(AccessibilityEventCompat.TYPE_ANNOUNCEMENT);
         } else {
             event.setEventType(AccessibilityEvent.TYPE_VIEW_FOCUSED);
@@ -187,7 +190,8 @@ public final class AccessibilityUtils {
      * @param editorInfo The input connection's editor info attribute.
      * @param restarting Whether the connection is being restarted.
      */
-    public void onStartInputViewInternal(View view, EditorInfo editorInfo, boolean restarting) {
+    public void onStartInputViewInternal(final View view, final EditorInfo editorInfo,
+            final boolean restarting) {
         if (shouldObscureInput(editorInfo)) {
             final CharSequence text = mContext.getText(R.string.spoken_use_headphones);
             announceForAccessibility(view, text);
@@ -200,7 +204,7 @@ public final class AccessibilityUtils {
      *
      * @param event The event to send.
      */
-    public void requestSendAccessibilityEvent(AccessibilityEvent event) {
+    public void requestSendAccessibilityEvent(final AccessibilityEvent event) {
         if (mAccessibilityManager.isEnabled()) {
             mAccessibilityManager.sendAccessibilityEvent(event);
         }

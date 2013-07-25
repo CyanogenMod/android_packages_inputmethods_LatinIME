@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -31,9 +31,6 @@ import java.util.Locale;
  */
 public final class DictionaryFactory {
     private static final String TAG = DictionaryFactory.class.getSimpleName();
-    // This class must be located in the same package as LatinIME.java.
-    private static final String RESOURCE_PACKAGE_NAME =
-            DictionaryFactory.class.getPackage().getName();
 
     /**
      * Initializes a main dictionary collection from a dictionary pack, with explicit flags.
@@ -58,9 +55,8 @@ public final class DictionaryFactory {
                 BinaryDictionaryGetter.getDictionaryFiles(locale, context);
         if (null != assetFileList) {
             for (final AssetFileAddress f : assetFileList) {
-                final BinaryDictionary binaryDictionary =
-                        new BinaryDictionary(context, f.mFilename, f.mOffset, f.mLength,
-                                useFullEditDistance, locale, Dictionary.TYPE_MAIN);
+                final BinaryDictionary binaryDictionary = new BinaryDictionary(f.mFilename,
+                        f.mOffset, f.mLength, useFullEditDistance, locale, Dictionary.TYPE_MAIN);
                 if (binaryDictionary.isValidDictionary()) {
                     dictList.add(binaryDictionary);
                 }
@@ -97,8 +93,8 @@ public final class DictionaryFactory {
             final Locale locale) {
         AssetFileDescriptor afd = null;
         try {
-            final int resId =
-                    getMainDictionaryResourceIdIfAvailableForLocale(context.getResources(), locale);
+            final int resId = DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
+                    context.getResources(), locale);
             if (0 == resId) return null;
             afd = context.getResources().openRawResourceFd(resId);
             if (afd == null) {
@@ -112,7 +108,7 @@ public final class DictionaryFactory {
                 Log.e(TAG, "sourceDir is not a file: " + sourceDir);
                 return null;
             }
-            return new BinaryDictionary(context, sourceDir, afd.getStartOffset(), afd.getLength(),
+            return new BinaryDictionary(sourceDir, afd.getStartOffset(), afd.getLength(),
                     false /* useFullEditDistance */, locale, Dictionary.TYPE_MAIN);
         } catch (android.content.res.Resources.NotFoundException e) {
             Log.e(TAG, "Could not find the resource");
@@ -130,17 +126,16 @@ public final class DictionaryFactory {
 
     /**
      * Create a dictionary from passed data. This is intended for unit tests only.
-     * @param context the test context to create this data from.
      * @param dictionary the file to read
      * @param startOffset the offset in the file where the data starts
      * @param length the length of the data
      * @param useFullEditDistance whether to use the full edit distance in suggestions
      * @return the created dictionary, or null.
      */
-    public static Dictionary createDictionaryForTest(Context context, File dictionary,
-            long startOffset, long length, final boolean useFullEditDistance, Locale locale) {
+    public static Dictionary createDictionaryForTest(File dictionary, long startOffset, long length,
+            final boolean useFullEditDistance, Locale locale) {
         if (dictionary.isFile()) {
-            return new BinaryDictionary(context, dictionary.getAbsolutePath(), startOffset, length,
+            return new BinaryDictionary(dictionary.getAbsolutePath(), startOffset, length,
                     useFullEditDistance, locale, Dictionary.TYPE_MAIN);
         } else {
             Log.e(TAG, "Could not find the file. path=" + dictionary.getAbsolutePath());
@@ -156,47 +151,7 @@ public final class DictionaryFactory {
      */
     public static boolean isDictionaryAvailable(Context context, Locale locale) {
         final Resources res = context.getResources();
-        return 0 != getMainDictionaryResourceIdIfAvailableForLocale(res, locale);
-    }
-
-    private static final String DEFAULT_MAIN_DICT = "main";
-    private static final String MAIN_DICT_PREFIX = "main_";
-
-    /**
-     * Helper method to return a dictionary res id for a locale, or 0 if none.
-     * @param locale dictionary locale
-     * @return main dictionary resource id
-     */
-    private static int getMainDictionaryResourceIdIfAvailableForLocale(final Resources res,
-            final Locale locale) {
-        int resId;
-        // Try to find main_language_country dictionary.
-        if (!locale.getCountry().isEmpty()) {
-            final String dictLanguageCountry = MAIN_DICT_PREFIX + locale.toString().toLowerCase();
-            if ((resId = res.getIdentifier(
-                    dictLanguageCountry, "raw", RESOURCE_PACKAGE_NAME)) != 0) {
-                return resId;
-            }
-        }
-
-        // Try to find main_language dictionary.
-        final String dictLanguage = MAIN_DICT_PREFIX + locale.getLanguage();
-        if ((resId = res.getIdentifier(dictLanguage, "raw", RESOURCE_PACKAGE_NAME)) != 0) {
-            return resId;
-        }
-
-        // Not found, return 0
-        return 0;
-    }
-
-    /**
-     * Returns a main dictionary resource id
-     * @param locale dictionary locale
-     * @return main dictionary resource id
-     */
-    public static int getMainDictionaryResourceId(final Resources res, final Locale locale) {
-        int resourceId = getMainDictionaryResourceIdIfAvailableForLocale(res, locale);
-        if (0 != resourceId) return resourceId;
-        return res.getIdentifier(DEFAULT_MAIN_DICT, "raw", RESOURCE_PACKAGE_NAME);
+        return 0 != DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
+                res, locale);
     }
 }

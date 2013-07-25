@@ -1,21 +1,22 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.makedict;
 
+import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.makedict.FormatSpec.FileHeader;
 import com.android.inputmethod.latin.makedict.FormatSpec.FormatOptions;
 import com.android.inputmethod.latin.makedict.FusionDictionary.CharGroup;
@@ -55,6 +56,7 @@ public final class BinaryDictInputOutput {
     private static final int MAX_PASSES = 24;
     private static final int MAX_JUMPS = 12;
 
+    @UsedForTesting
     public interface FusionDictionaryBufferInterface {
         public int readUnsignedByte();
         public int readUnsignedShort();
@@ -76,12 +78,12 @@ public final class BinaryDictInputOutput {
 
         @Override
         public int readUnsignedByte() {
-            return ((int)mBuffer.get()) & 0xFF;
+            return mBuffer.get() & 0xFF;
         }
 
         @Override
         public int readUnsignedShort() {
-            return ((int)mBuffer.getShort()) & 0xFFFF;
+            return mBuffer.getShort() & 0xFFFF;
         }
 
         @Override
@@ -124,8 +126,7 @@ public final class BinaryDictInputOutput {
     /**
      * A class grouping utility function for our specific character encoding.
      */
-    private static final class CharEncoding {
-
+    static final class CharEncoding {
         private static final int MINIMAL_ONE_BYTE_CHARACTER_VALUE = 0x20;
         private static final int MAXIMAL_ONE_BYTE_CHARACTER_VALUE = 0xFF;
 
@@ -154,7 +155,7 @@ public final class BinaryDictInputOutput {
          * @param character the character code.
          * @return the size in binary encoded-form, either 1 or 3 bytes.
          */
-        private static int getCharSize(final int character) {
+        static int getCharSize(final int character) {
             // See char encoding in FusionDictionary.java
             if (fitsOnOneByte(character)) return 1;
             if (FormatSpec.INVALID_CHARACTER == character) return 1;
@@ -263,7 +264,7 @@ public final class BinaryDictInputOutput {
          * @param buffer the buffer, positioned over an encoded character.
          * @return the character code.
          */
-        private static int readChar(final FusionDictionaryBufferInterface buffer) {
+        static int readChar(final FusionDictionaryBufferInterface buffer) {
             int character = buffer.readUnsignedByte();
             if (!fitsOnOneByte(character)) {
                 if (FormatSpec.GROUP_CHARACTERS_TERMINATOR == character) {
@@ -277,6 +278,21 @@ public final class BinaryDictInputOutput {
     }
 
     /**
+     * Compute the binary size of the character array.
+     *
+     * If only one character, this is the size of this character. If many, it's the sum of their
+     * sizes + 1 byte for the terminator.
+     *
+     * @param characters the character array
+     * @return the size of the char array, including the terminator if any
+     */
+    static int getGroupCharactersSize(final int[] characters) {
+        int size = CharEncoding.getCharArraySize(characters);
+        if (characters.length > 1) size += FormatSpec.GROUP_TERMINATOR_SIZE;
+        return size;
+    }
+
+    /**
      * Compute the binary size of the character array in a group
      *
      * If only one character, this is the size of this character. If many, it's the sum of their
@@ -286,9 +302,7 @@ public final class BinaryDictInputOutput {
      * @return the size of the char array, including the terminator if any
      */
     private static int getGroupCharactersSize(final CharGroup group) {
-        int size = CharEncoding.getCharArraySize(group.mChars);
-        if (group.hasSeveralChars()) size += FormatSpec.GROUP_TERMINATOR_SIZE;
-        return size;
+        return getGroupCharactersSize(group.mChars);
     }
 
     /**
@@ -338,7 +352,7 @@ public final class BinaryDictInputOutput {
      * This is known in advance and does not change according to position in the file
      * like address lists do.
      */
-    private static int getShortcutListSize(final ArrayList<WeightedString> shortcutList) {
+    static int getShortcutListSize(final ArrayList<WeightedString> shortcutList) {
         if (null == shortcutList) return 0;
         int size = FormatSpec.GROUP_SHORTCUT_LIST_SIZE_SIZE;
         for (final WeightedString shortcut : shortcutList) {
@@ -399,7 +413,16 @@ public final class BinaryDictInputOutput {
      * Helper method to check whether the group is moved.
      */
     public static boolean isMovedGroup(final int flags, final FormatOptions options) {
-        return options.mSupportsDynamicUpdate && ((flags & FormatSpec.FLAG_IS_MOVED) == 1);
+        return options.mSupportsDynamicUpdate
+                && ((flags & FormatSpec.MASK_GROUP_ADDRESS_TYPE) == FormatSpec.FLAG_IS_MOVED);
+    }
+
+    /**
+     * Helper method to check whether the group is deleted.
+     */
+    public static boolean isDeletedGroup(final int flags, final FormatOptions formatOptions) {
+        return formatOptions.mSupportsDynamicUpdate
+                && ((flags & FormatSpec.MASK_GROUP_ADDRESS_TYPE) == FormatSpec.FLAG_IS_DELETED);
     }
 
     /**
@@ -439,7 +462,7 @@ public final class BinaryDictInputOutput {
      * @param address the address
      * @return the byte size.
      */
-    private static int getByteSize(final int address) {
+    static int getByteSize(final int address) {
         assert(address <= UINT24_MAX);
         if (!hasChildrenAddress(address)) {
             return 0;
@@ -452,11 +475,8 @@ public final class BinaryDictInputOutput {
         }
     }
 
-    private static final int SINT8_MAX = 0x7F;
-    private static final int SINT16_MAX = 0x7FFF;
     private static final int SINT24_MAX = 0x7FFFFF;
     private static final int MSB8 = 0x80;
-    private static final int MSB16 = 0x8000;
     private static final int MSB24 = 0x800000;
 
     // End utility methods.
@@ -721,51 +741,58 @@ public final class BinaryDictInputOutput {
         return 3;
     }
 
+    /**
+     * Makes the flag value for a char group.
+     *
+     * @param hasMultipleChars whether the group has multiple chars.
+     * @param isTerminal whether the group is terminal.
+     * @param childrenAddressSize the size of a children address.
+     * @param hasShortcuts whether the group has shortcuts.
+     * @param hasBigrams whether the group has bigrams.
+     * @param isNotAWord whether the group is not a word.
+     * @param isBlackListEntry whether the group is a blacklist entry.
+     * @param formatOptions file format options.
+     * @return the flags
+     */
+    static int makeCharGroupFlags(final boolean hasMultipleChars, final boolean isTerminal,
+            final int childrenAddressSize, final boolean hasShortcuts, final boolean hasBigrams,
+            final boolean isNotAWord, final boolean isBlackListEntry,
+            final FormatOptions formatOptions) {
+        byte flags = 0;
+        if (hasMultipleChars) flags |= FormatSpec.FLAG_HAS_MULTIPLE_CHARS;
+        if (isTerminal) flags |= FormatSpec.FLAG_IS_TERMINAL;
+        if (formatOptions.mSupportsDynamicUpdate) {
+            flags |= FormatSpec.FLAG_IS_NOT_MOVED;
+        } else if (true) {
+            switch (childrenAddressSize) {
+                case 1:
+                    flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_ONEBYTE;
+                    break;
+                case 2:
+                    flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_TWOBYTES;
+                    break;
+                case 3:
+                    flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_THREEBYTES;
+                    break;
+                case 0:
+                    flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_NOADDRESS;
+                    break;
+                default:
+                    throw new RuntimeException("Node with a strange address");
+            }
+        }
+        if (hasShortcuts) flags |= FormatSpec.FLAG_HAS_SHORTCUT_TARGETS;
+        if (hasBigrams) flags |= FormatSpec.FLAG_HAS_BIGRAMS;
+        if (isNotAWord) flags |= FormatSpec.FLAG_IS_NOT_A_WORD;
+        if (isBlackListEntry) flags |= FormatSpec.FLAG_IS_BLACKLISTED;
+        return flags;
+    }
+
     private static byte makeCharGroupFlags(final CharGroup group, final int groupAddress,
             final int childrenOffset, final FormatOptions formatOptions) {
-        byte flags = 0;
-        if (group.mChars.length > 1) flags |= FormatSpec.FLAG_HAS_MULTIPLE_CHARS;
-        if (group.mFrequency >= 0) {
-            flags |= FormatSpec.FLAG_IS_TERMINAL;
-        }
-        if (null != group.mChildren) {
-            final int byteSize = formatOptions.mSupportsDynamicUpdate
-                    ? FormatSpec.SIGNED_CHILDREN_ADDRESS_SIZE : getByteSize(childrenOffset);
-            switch (byteSize) {
-            case 1:
-                flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_ONEBYTE;
-                break;
-            case 2:
-                flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_TWOBYTES;
-                break;
-            case 3:
-                flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_THREEBYTES;
-                break;
-            default:
-                throw new RuntimeException("Node with a strange address");
-            }
-        } else if (formatOptions.mSupportsDynamicUpdate) {
-            flags |= FormatSpec.FLAG_GROUP_ADDRESS_TYPE_THREEBYTES;
-        }
-        if (null != group.mShortcutTargets) {
-            if (DBG && 0 == group.mShortcutTargets.size()) {
-                throw new RuntimeException("0-sized shortcut list must be null");
-            }
-            flags |= FormatSpec.FLAG_HAS_SHORTCUT_TARGETS;
-        }
-        if (null != group.mBigrams) {
-            if (DBG && 0 == group.mBigrams.size()) {
-                throw new RuntimeException("0-sized bigram list must be null");
-            }
-            flags |= FormatSpec.FLAG_HAS_BIGRAMS;
-        }
-        if (group.mIsNotAWord) {
-            flags |= FormatSpec.FLAG_IS_NOT_A_WORD;
-        }
-        if (group.mIsBlacklistEntry) {
-            flags |= FormatSpec.FLAG_IS_BLACKLISTED;
-        }
-        return flags;
+        return (byte) makeCharGroupFlags(group.mChars.length > 1, group.mFrequency >= 0,
+                getByteSize(childrenOffset), group.mShortcutTargets != null, group.mBigrams != null,
+                group.mIsNotAWord, group.mIsBlacklistEntry, formatOptions);
     }
 
     /**
@@ -859,7 +886,7 @@ public final class BinaryDictInputOutput {
      * @param frequency the frequency of the attribute, 0..15
      * @return the flags
      */
-    private static final int makeShortcutFlags(final boolean more, final int frequency) {
+    static final int makeShortcutFlags(final boolean more, final int frequency) {
         return (more ? FormatSpec.FLAG_ATTRIBUTE_HAS_NEXT : 0)
                 + (frequency & FormatSpec.FLAG_ATTRIBUTE_FREQUENCY);
     }
@@ -895,8 +922,10 @@ public final class BinaryDictInputOutput {
      * @param formatOptions file format options.
      * @return the address of the END of the node.
      */
+    @SuppressWarnings("unused")
     private static int writePlacedNode(final FusionDictionary dict, byte[] buffer,
             final Node node, final FormatOptions formatOptions) {
+        // TODO: Make the code in common with BinaryDictIOUtils#writeCharGroup
         int index = node.mCachedAddress;
 
         final int groupCount = node.mData.size();
@@ -1178,7 +1207,7 @@ public final class BinaryDictInputOutput {
     // Input methods: Read a binary dictionary to memory.
     // readDictionaryBinary is the public entry point for them.
 
-    private static int getChildrenAddressSize(final int optionFlags,
+    static int getChildrenAddressSize(final int optionFlags,
             final FormatOptions formatOptions) {
         if (formatOptions.mSupportsDynamicUpdate) return FormatSpec.SIGNED_CHILDREN_ADDRESS_SIZE;
         switch (optionFlags & FormatSpec.MASK_GROUP_ADDRESS_TYPE) {
@@ -1194,7 +1223,7 @@ public final class BinaryDictInputOutput {
         }
     }
 
-    private static int readChildrenAddress(final FusionDictionaryBufferInterface buffer,
+    static int readChildrenAddress(final FusionDictionaryBufferInterface buffer,
             final int optionFlags, final FormatOptions options) {
         if (options.mSupportsDynamicUpdate) {
             final int address = buffer.readUnsignedInt24();
@@ -1219,7 +1248,7 @@ public final class BinaryDictInputOutput {
         }
     }
 
-    private static int readParentAddress(final FusionDictionaryBufferInterface buffer,
+    static int readParentAddress(final FusionDictionaryBufferInterface buffer,
             final FormatOptions formatOptions) {
         if (supportsDynamicUpdate(formatOptions)) {
             final int parentAddress = buffer.readUnsignedInt24();
@@ -1290,7 +1319,8 @@ public final class BinaryDictInputOutput {
         ArrayList<PendingAttribute> bigrams = null;
         if (0 != (flags & FormatSpec.FLAG_HAS_BIGRAMS)) {
             bigrams = new ArrayList<PendingAttribute>();
-            while (true) {
+            int bigramCount = 0;
+            while (bigramCount++ < FormatSpec.MAX_BIGRAMS_IN_A_GROUP) {
                 final int bigramFlags = buffer.readUnsignedByte();
                 ++addressPointer;
                 final int sign = 0 == (bigramFlags & FormatSpec.FLAG_ATTRIBUTE_OFFSET_NEGATIVE)
@@ -1318,6 +1348,9 @@ public final class BinaryDictInputOutput {
                         bigramAddress));
                 if (0 == (bigramFlags & FormatSpec.FLAG_ATTRIBUTE_HAS_NEXT)) break;
             }
+            if (bigramCount >= FormatSpec.MAX_BIGRAMS_IN_A_GROUP) {
+                MakedictLog.d("too many bigrams in a group.");
+            }
         }
         return new CharGroupInfo(originalGroupAddress, addressPointer, flags, characters, frequency,
                 parentAddress, childrenAddress, shortcutTargets, bigrams);
@@ -1340,7 +1373,8 @@ public final class BinaryDictInputOutput {
     // of this method. Since it performs direct, unbuffered random access to the file and
     // may be called hundreds of thousands of times, the resulting performance is not
     // reasonable without some kind of cache. Thus:
-    private static TreeMap<Integer, String> wordCache = new TreeMap<Integer, String>();
+    private static TreeMap<Integer, WeightedString> wordCache =
+            new TreeMap<Integer, WeightedString>();
     /**
      * Finds, as a string, the word at the address passed as an argument.
      *
@@ -1348,15 +1382,15 @@ public final class BinaryDictInputOutput {
      * @param headerSize the size of the header.
      * @param address the address to seek.
      * @param formatOptions file format options.
-     * @return the word, as a string.
+     * @return the word with its frequency, as a weighted string.
      */
-    /* packages for tests */ static String getWordAtAddress(
+    /* package for tests */ static WeightedString getWordAtAddress(
             final FusionDictionaryBufferInterface buffer, final int headerSize, final int address,
             final FormatOptions formatOptions) {
-        final String cachedString = wordCache.get(address);
+        final WeightedString cachedString = wordCache.get(address);
         if (null != cachedString) return cachedString;
 
-        final String result;
+        final WeightedString result;
         final int originalPointer = buffer.position();
         buffer.position(address);
 
@@ -1372,14 +1406,16 @@ public final class BinaryDictInputOutput {
         return result;
     }
 
+    // TODO: static!? This will behave erratically when used in multi-threaded code.
+    // We need to fix this
     private static int[] sGetWordBuffer = new int[FormatSpec.MAX_WORD_LENGTH];
-    private static String getWordAtAddressWithParentAddress(
+    @SuppressWarnings("unused")
+    private static WeightedString getWordAtAddressWithParentAddress(
             final FusionDictionaryBufferInterface buffer, final int headerSize, final int address,
             final FormatOptions options) {
-        final StringBuilder builder = new StringBuilder();
-
         int currentAddress = address;
         int index = FormatSpec.MAX_WORD_LENGTH - 1;
+        int frequency = Integer.MIN_VALUE;
         // the length of the path from the root to the leaf is limited by MAX_WORD_LENGTH
         for (int count = 0; count < FormatSpec.MAX_WORD_LENGTH; ++count) {
             CharGroupInfo currentInfo;
@@ -1394,6 +1430,7 @@ public final class BinaryDictInputOutput {
                     MakedictLog.d("Too many jumps - probably a bug");
                 }
             } while (isMovedGroup(currentInfo.mFlags, options));
+            if (Integer.MIN_VALUE == frequency) frequency = currentInfo.mFrequency;
             for (int i = 0; i < currentInfo.mCharacters.length; ++i) {
                 sGetWordBuffer[index--] =
                         currentInfo.mCharacters[currentInfo.mCharacters.length - i - 1];
@@ -1402,17 +1439,19 @@ public final class BinaryDictInputOutput {
             currentAddress = currentInfo.mParentAddress + currentInfo.mOriginalAddress;
         }
 
-        return new String(sGetWordBuffer, index + 1, FormatSpec.MAX_WORD_LENGTH - index - 1);
+        return new WeightedString(
+                new String(sGetWordBuffer, index + 1, FormatSpec.MAX_WORD_LENGTH - index - 1),
+                        frequency);
     }
 
-    private static String getWordAtAddressWithoutParentAddress(
+    private static WeightedString getWordAtAddressWithoutParentAddress(
             final FusionDictionaryBufferInterface buffer, final int headerSize, final int address,
             final FormatOptions options) {
         buffer.position(headerSize);
         final int count = readCharGroupCount(buffer);
         int groupOffset = getGroupCountSize(count);
         final StringBuilder builder = new StringBuilder();
-        String result = null;
+        WeightedString result = null;
 
         CharGroupInfo last = null;
         for (int i = count - 1; i >= 0; --i) {
@@ -1420,7 +1459,7 @@ public final class BinaryDictInputOutput {
             groupOffset = info.mEndAddress;
             if (info.mOriginalAddress == address) {
                 builder.append(new String(info.mCharacters, 0, info.mCharacters.length));
-                result = builder.toString();
+                result = new WeightedString(builder.toString(), info.mFrequency);
                 break; // and return
             }
             if (hasChildrenAddress(info.mChildrenAddress)) {
@@ -1428,8 +1467,8 @@ public final class BinaryDictInputOutput {
                     if (null == last) continue;
                     builder.append(new String(last.mCharacters, 0, last.mCharacters.length));
                     buffer.position(last.mChildrenAddress + headerSize);
-                    groupOffset = last.mChildrenAddress + 1;
-                    i = buffer.readUnsignedByte();
+                    i = readCharGroupCount(buffer);
+                    groupOffset = last.mChildrenAddress + getGroupCountSize(i);
                     last = null;
                     continue;
                 }
@@ -1438,8 +1477,8 @@ public final class BinaryDictInputOutput {
             if (0 == i && hasChildrenAddress(last.mChildrenAddress)) {
                 builder.append(new String(last.mCharacters, 0, last.mCharacters.length));
                 buffer.position(last.mChildrenAddress + headerSize);
-                groupOffset = last.mChildrenAddress + 1;
-                i = buffer.readUnsignedByte();
+                i = readCharGroupCount(buffer);
+                groupOffset = last.mChildrenAddress + getGroupCountSize(i);
                 last = null;
                 continue;
             }
@@ -1481,9 +1520,11 @@ public final class BinaryDictInputOutput {
                 if (null != info.mBigrams) {
                     bigrams = new ArrayList<WeightedString>();
                     for (PendingAttribute bigram : info.mBigrams) {
-                        final String word = getWordAtAddress(
+                        final WeightedString word = getWordAtAddress(
                                 buffer, headerSize, bigram.mAddress, options);
-                        bigrams.add(new WeightedString(word, bigram.mFrequency));
+                        final int reconstructedFrequency =
+                                reconstructBigramFrequency(word.mFrequency, bigram.mFrequency);
+                        bigrams.add(new WeightedString(word.mWord, reconstructedFrequency));
                     }
                 }
                 if (hasChildrenAddress(info.mChildrenAddress)) {
@@ -1618,6 +1659,7 @@ public final class BinaryDictInputOutput {
      * @param dict an optional dictionary to add words to, or null.
      * @return the created (or merged) dictionary.
      */
+    @UsedForTesting
     public static FusionDictionary readDictionaryBinary(
             final FusionDictionaryBufferInterface buffer, final FusionDictionary dict)
                     throws IOException, UnsupportedFormatException {
@@ -1655,17 +1697,24 @@ public final class BinaryDictInputOutput {
     }
 
     /**
+     * Helper method to pass a file name instead of a File object to isBinaryDictionary.
+     */
+    public static boolean isBinaryDictionary(final String filename) {
+        final File file = new File(filename);
+        return isBinaryDictionary(file);
+    }
+
+    /**
      * Basic test to find out whether the file is a binary dictionary or not.
      *
      * Concretely this only tests the magic number.
      *
-     * @param filename The name of the file to test.
+     * @param file The file to test.
      * @return true if it's a binary dictionary, false otherwise
      */
-    public static boolean isBinaryDictionary(final String filename) {
+    public static boolean isBinaryDictionary(final File file) {
         FileInputStream inStream = null;
         try {
-            final File file = new File(filename);
             inStream = new FileInputStream(file);
             final ByteBuffer buffer = inStream.getChannel().map(
                     FileChannel.MapMode.READ_ONLY, 0, file.length());
@@ -1700,8 +1749,7 @@ public final class BinaryDictInputOutput {
             final int bigramFrequency) {
         final float stepSize = (FormatSpec.MAX_TERMINAL_FREQUENCY - unigramFrequency)
                 / (1.5f + FormatSpec.MAX_BIGRAM_FREQUENCY);
-        final float resultFreqFloat = (float)unigramFrequency
-                + stepSize * (bigramFrequency + 1.0f);
+        final float resultFreqFloat = unigramFrequency + stepSize * (bigramFrequency + 1.0f);
         return (int)resultFreqFloat;
     }
 }

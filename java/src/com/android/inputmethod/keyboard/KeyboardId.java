@@ -1,23 +1,24 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard;
 
 import static com.android.inputmethod.latin.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 
+import android.content.res.Configuration;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
@@ -55,60 +56,60 @@ public final class KeyboardId {
     public static final int ELEMENT_PHONE_SYMBOLS = 8;
     public static final int ELEMENT_NUMBER = 9;
 
-    public static final int FORM_FACTOR_PHONE = 0;
-    public static final int FORM_FACTOR_TABLET7 = 1;
-    public static final int FORM_FACTOR_TABLET10 = 2;
-
-    private static final int IME_ACTION_CUSTOM_LABEL = EditorInfo.IME_MASK_ACTION + 1;
-
     public final InputMethodSubtype mSubtype;
     public final Locale mLocale;
-    public final int mDeviceFormFactor;
+    // TODO: Remove this member. It is used only for logging purpose.
     public final int mOrientation;
     public final int mWidth;
+    public final int mHeight;
     public final int mMode;
     public final int mElementId;
     private final EditorInfo mEditorInfo;
     public final boolean mClobberSettingsKey;
     public final boolean mShortcutKeyEnabled;
-    public final boolean mHasShortcutKey;
+    public final boolean mShortcutKeyOnSymbols;
     public final boolean mLanguageSwitchKeyEnabled;
     public final String mCustomActionLabel;
+    public final boolean mHasShortcutKey;
 
     private final int mHashCode;
 
-    public KeyboardId(int elementId, InputMethodSubtype subtype, int deviceFormFactor,
-            int orientation, int width, int mode, EditorInfo editorInfo, boolean clobberSettingsKey,
-            boolean shortcutKeyEnabled, boolean hasShortcutKey, boolean languageSwitchKeyEnabled) {
-        mSubtype = subtype;
-        mLocale = SubtypeLocale.getSubtypeLocale(subtype);
-        mDeviceFormFactor = deviceFormFactor;
-        mOrientation = orientation;
-        mWidth = width;
-        mMode = mode;
+    public KeyboardId(final int elementId, final KeyboardLayoutSet.Params params) {
+        mSubtype = params.mSubtype;
+        mLocale = SubtypeLocale.getSubtypeLocale(mSubtype);
+        mOrientation = params.mOrientation;
+        mWidth = params.mKeyboardWidth;
+        mHeight = params.mKeyboardHeight;
+        mMode = params.mMode;
         mElementId = elementId;
-        mEditorInfo = editorInfo;
-        mClobberSettingsKey = clobberSettingsKey;
-        mShortcutKeyEnabled = shortcutKeyEnabled;
-        mHasShortcutKey = hasShortcutKey;
-        mLanguageSwitchKeyEnabled = languageSwitchKeyEnabled;
-        mCustomActionLabel = (editorInfo.actionLabel != null)
-                ? editorInfo.actionLabel.toString() : null;
+        mEditorInfo = params.mEditorInfo;
+        mClobberSettingsKey = params.mNoSettingsKey;
+        mShortcutKeyEnabled = params.mVoiceKeyEnabled;
+        mShortcutKeyOnSymbols = mShortcutKeyEnabled && !params.mVoiceKeyOnMain;
+        mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
+        mCustomActionLabel = (mEditorInfo.actionLabel != null)
+                ? mEditorInfo.actionLabel.toString() : null;
+        final boolean alphabetMayHaveShortcutKey = isAlphabetKeyboard(elementId)
+                && !mShortcutKeyOnSymbols;
+        final boolean symbolsMayHaveShortcutKey = (elementId == KeyboardId.ELEMENT_SYMBOLS)
+                && mShortcutKeyOnSymbols;
+        mHasShortcutKey = mShortcutKeyEnabled
+                && (alphabetMayHaveShortcutKey || symbolsMayHaveShortcutKey);
 
         mHashCode = computeHashCode(this);
     }
 
-    private static int computeHashCode(KeyboardId id) {
+    private static int computeHashCode(final KeyboardId id) {
         return Arrays.hashCode(new Object[] {
-                id.mDeviceFormFactor,
                 id.mOrientation,
                 id.mElementId,
                 id.mMode,
                 id.mWidth,
+                id.mHeight,
                 id.passwordInput(),
                 id.mClobberSettingsKey,
                 id.mShortcutKeyEnabled,
-                id.mHasShortcutKey,
+                id.mShortcutKeyOnSymbols,
                 id.mLanguageSwitchKeyEnabled,
                 id.isMultiLine(),
                 id.imeAction(),
@@ -119,18 +120,18 @@ public final class KeyboardId {
         });
     }
 
-    private boolean equals(KeyboardId other) {
+    private boolean equals(final KeyboardId other) {
         if (other == this)
             return true;
-        return other.mDeviceFormFactor == mDeviceFormFactor
-                && other.mOrientation == mOrientation
+        return other.mOrientation == mOrientation
                 && other.mElementId == mElementId
                 && other.mMode == mMode
                 && other.mWidth == mWidth
+                && other.mHeight == mHeight
                 && other.passwordInput() == passwordInput()
                 && other.mClobberSettingsKey == mClobberSettingsKey
                 && other.mShortcutKeyEnabled == mShortcutKeyEnabled
-                && other.mHasShortcutKey == mHasShortcutKey
+                && other.mShortcutKeyOnSymbols == mShortcutKeyOnSymbols
                 && other.mLanguageSwitchKeyEnabled == mLanguageSwitchKeyEnabled
                 && other.isMultiLine() == isMultiLine()
                 && other.imeAction() == imeAction()
@@ -140,8 +141,12 @@ public final class KeyboardId {
                 && other.mSubtype.equals(mSubtype);
     }
 
+    private static boolean isAlphabetKeyboard(final int elementId) {
+        return elementId < ELEMENT_SYMBOLS;
+    }
+
     public boolean isAlphabetKeyboard() {
-        return mElementId < ELEMENT_SYMBOLS;
+        return isAlphabetKeyboard(mElementId);
     }
 
     public boolean navigateNext() {
@@ -165,23 +170,11 @@ public final class KeyboardId {
     }
 
     public int imeAction() {
-        final int actionId = mEditorInfo.imeOptions & EditorInfo.IME_MASK_ACTION;
-        if ((mEditorInfo.imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
-            return EditorInfo.IME_ACTION_NONE;
-        } else if (mEditorInfo.actionLabel != null) {
-            return IME_ACTION_CUSTOM_LABEL;
-        } else {
-            return actionId;
-        }
-    }
-
-    public int imeActionId() {
-        final int actionId = imeAction();
-        return actionId == IME_ACTION_CUSTOM_LABEL ? mEditorInfo.actionId : actionId;
+        return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(mEditorInfo);
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         return other instanceof KeyboardId && equals((KeyboardId) other);
     }
 
@@ -192,11 +185,13 @@ public final class KeyboardId {
 
     @Override
     public String toString() {
-        return String.format("[%s %s:%s %s-%s:%d %s %s %s%s%s%s%s%s%s%s]",
+        final String orientation = (mOrientation == Configuration.ORIENTATION_PORTRAIT)
+                ? "port" : "land";
+        return String.format("[%s %s:%s %s:%dx%d %s %s %s%s%s%s%s%s%s%s%s]",
                 elementIdToName(mElementId),
                 mLocale,
                 mSubtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
-                deviceFormFactor(mDeviceFormFactor), (mOrientation == 1 ? "port" : "land"), mWidth,
+                orientation, mWidth, mHeight,
                 modeName(mMode),
                 imeAction(),
                 (navigateNext() ? "navigateNext" : ""),
@@ -204,13 +199,14 @@ public final class KeyboardId {
                 (mClobberSettingsKey ? " clobberSettingsKey" : ""),
                 (passwordInput() ? " passwordInput" : ""),
                 (mShortcutKeyEnabled ? " shortcutKeyEnabled" : ""),
+                (mShortcutKeyOnSymbols ? " shortcutKeyOnSymbols" : ""),
                 (mHasShortcutKey ? " hasShortcutKey" : ""),
                 (mLanguageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : ""),
                 (isMultiLine() ? "isMultiLine" : "")
         );
     }
 
-    public static boolean equivalentEditorInfoForKeyboard(EditorInfo a, EditorInfo b) {
+    public static boolean equivalentEditorInfoForKeyboard(final EditorInfo a, final EditorInfo b) {
         if (a == null && b == null) return true;
         if (a == null || b == null) return false;
         return a.inputType == b.inputType
@@ -218,7 +214,7 @@ public final class KeyboardId {
                 && TextUtils.equals(a.privateImeOptions, b.privateImeOptions);
     }
 
-    public static String elementIdToName(int elementId) {
+    public static String elementIdToName(final int elementId) {
         switch (elementId) {
         case ELEMENT_ALPHABET: return "alphabet";
         case ELEMENT_ALPHABET_MANUAL_SHIFTED: return "alphabetManualShifted";
@@ -234,16 +230,7 @@ public final class KeyboardId {
         }
     }
 
-    public static String deviceFormFactor(int devoceFormFactor) {
-        switch (devoceFormFactor) {
-        case FORM_FACTOR_PHONE: return "phone";
-        case FORM_FACTOR_TABLET7: return "tablet7";
-        case FORM_FACTOR_TABLET10: return "tablet10";
-        default: return null;
-        }
-    }
-
-    public static String modeName(int mode) {
+    public static String modeName(final int mode) {
         switch (mode) {
         case MODE_TEXT: return "text";
         case MODE_URL: return "url";
@@ -258,8 +245,8 @@ public final class KeyboardId {
         }
     }
 
-    public static String actionName(int actionId) {
-        return (actionId == IME_ACTION_CUSTOM_LABEL) ? "actionCustomLabel"
+    public static String actionName(final int actionId) {
+        return (actionId == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) ? "actionCustomLabel"
                 : EditorInfoCompatUtils.imeActionName(actionId);
     }
 }

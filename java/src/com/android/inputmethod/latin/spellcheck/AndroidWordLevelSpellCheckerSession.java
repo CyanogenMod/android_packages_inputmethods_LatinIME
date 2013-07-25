@@ -1,23 +1,24 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.spellcheck;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
+import android.os.Binder;
 import android.provider.UserDictionary.Words;
 import android.service.textservice.SpellCheckerService.Session;
 import android.text.TextUtils;
@@ -28,9 +29,11 @@ import android.view.textservice.TextInfo;
 
 import com.android.inputmethod.compat.SuggestionsInfoCompatUtils;
 import com.android.inputmethod.latin.Constants;
+import com.android.inputmethod.latin.Dictionary;
 import com.android.inputmethod.latin.LocaleUtils;
-import com.android.inputmethod.latin.WordComposer;
+import com.android.inputmethod.latin.StringUtils;
 import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import com.android.inputmethod.latin.WordComposer;
 import com.android.inputmethod.latin.spellcheck.AndroidSpellCheckerService.SuggestionsGatherer;
 
 import java.util.ArrayList;
@@ -141,8 +144,17 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         case AndroidSpellCheckerService.SCRIPT_CYRILLIC:
             // All Cyrillic characters are in the 400~52F block. There are some in the upper
             // Unicode range, but they are archaic characters that are not used in modern
-            // russian and are not used by our dictionary.
+            // Russian and are not used by our dictionary.
             return codePoint >= 0x400 && codePoint <= 0x52F && Character.isLetter(codePoint);
+        case AndroidSpellCheckerService.SCRIPT_GREEK:
+            // Greek letters are either in the 370~3FF range (Greek & Coptic), or in the
+            // 1F00~1FFF range (Greek extended). Our dictionary contains both sort of characters.
+            // Our dictionary also contains a few words with 0xF2; it would be best to check
+            // if that's correct, but a web search does return results for these words so
+            // they are probably okay.
+            return (codePoint >= 0x370 && codePoint <= 0x3FF)
+                    || (codePoint >= 0x1F00 && codePoint <= 0x1FFF)
+                    || codePoint == 0xF2;
         default:
             // Should never come here
             throw new RuntimeException("Impossible value of script: " + script);
@@ -177,15 +189,46 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         int letterCount = 0;
         for (int i = 0; i < length; i = text.offsetByCodePoints(i, 1)) {
             final int codePoint = text.codePointAt(i);
-            // Any word containing a '@' is probably an e-mail address
-            // Any word containing a '/' is probably either an ad-hoc combination of two
+            // Any word containing a COMMERCIAL_AT is probably an e-mail address
+            // Any word containing a SLASH is probably either an ad-hoc combination of two
             // words or a URI - in either case we don't want to spell check that
-            if ('@' == codePoint || '/' == codePoint) return true;
+            if (Constants.CODE_COMMERCIAL_AT == codePoint || Constants.CODE_SLASH == codePoint) {
+                return true;
+            }
             if (isLetterCheckableByLanguage(codePoint, script)) ++letterCount;
         }
         // Guestimate heuristic: perform spell checking if at least 3/4 of the characters
         // in this word are letters
         return (letterCount * 4 < length * 3);
+    }
+
+    /**
+     * Helper method to test valid capitalizations of a word.
+     *
+     * If the "text" is lower-case, we test only the exact string.
+     * If the "Text" is capitalized, we test the exact string "Text" and the lower-cased
+     *  version of it "text".
+     * If the "TEXT" is fully upper case, we test the exact string "TEXT", the lower-cased
+     *  version of it "text" and the capitalized version of it "Text".
+     */
+    private boolean isInDictForAnyCapitalization(final Dictionary dict, final String text,
+            final int capitalizeType) {
+        // If the word is in there as is, then it's in the dictionary. If not, we'll test lower
+        // case versions, but only if the word is not already all-lower case or mixed case.
+        if (dict.isValidWord(text)) return true;
+        if (StringUtils.CAPITALIZE_NONE == capitalizeType) return false;
+
+        // If we come here, we have a capitalized word (either First- or All-).
+        // Downcase the word and look it up again. If the word is only capitalized, we
+        // tested all possibilities, so if it's still negative we can return false.
+        final String lowerCaseText = text.toLowerCase(mLocale);
+        if (dict.isValidWord(lowerCaseText)) return true;
+        if (StringUtils.CAPITALIZE_FIRST == capitalizeType) return false;
+
+        // If the lower case version is not in the dictionary, it's still possible
+        // that we have an all-caps version of a word that needs to be capitalized
+        // according to the dictionary. E.g. "GERMANS" only exists in the dictionary as "Germans".
+        return dict.isValidWord(StringUtils.capitalizeFirstAndDowncaseRest(lowerCaseText, mLocale));
     }
 
     // Note : this must be reentrant
@@ -194,13 +237,12 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
      * corrections for the text passed as an argument. It may split or group words, and
      * even perform grammatical analysis.
      */
-    @Override
-    public SuggestionsInfo onGetSuggestions(final TextInfo textInfo,
+    private SuggestionsInfo onGetSuggestionsInternal(final TextInfo textInfo,
             final int suggestionsLimit) {
-        return onGetSuggestions(textInfo, null, suggestionsLimit);
+        return onGetSuggestionsInternal(textInfo, null, suggestionsLimit);
     }
 
-    protected SuggestionsInfo onGetSuggestions(
+    protected SuggestionsInfo onGetSuggestionsInternal(
             final TextInfo textInfo, final String prevWord, final int suggestionsLimit) {
         try {
             final String inText = textInfo.getText();
@@ -215,7 +257,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             if (shouldFilterOut(inText, mScript)) {
-                DictAndProximity dictInfo = null;
+                DictAndKeyboard dictInfo = null;
                 try {
                     dictInfo = mDictionaryPool.pollWithDefaultTimeout();
                     if (!DictionaryPool.isAValidDictionary(dictInfo)) {
@@ -241,44 +283,32 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             //suggestionsLimit);
             final SuggestionsGatherer suggestionsGatherer = mService.newSuggestionsGatherer(
                     text, suggestionsLimit);
-            final WordComposer composer = new WordComposer();
-            final int length = text.length();
-            for (int i = 0; i < length; i = text.offsetByCodePoints(i, 1)) {
-                final int codePoint = text.codePointAt(i);
-                // The getXYForCodePointAndScript method returns (Y << 16) + X
-                final int xy = SpellCheckerProximityInfo.getXYForCodePointAndScript(
-                        codePoint, mScript);
-                if (SpellCheckerProximityInfo.NOT_A_COORDINATE_PAIR == xy) {
-                    composer.add(codePoint,
-                            Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
-                } else {
-                    composer.add(codePoint, xy & 0xFFFF, xy >> 16);
-                }
-            }
 
-            final int capitalizeType = AndroidSpellCheckerService.getCapitalizationType(text);
+            final int capitalizeType = StringUtils.getCapitalizationType(text);
             boolean isInDict = true;
-            DictAndProximity dictInfo = null;
+            DictAndKeyboard dictInfo = null;
             try {
                 dictInfo = mDictionaryPool.pollWithDefaultTimeout();
                 if (!DictionaryPool.isAValidDictionary(dictInfo)) {
                     return AndroidSpellCheckerService.getNotInDictEmptySuggestions();
                 }
+                final WordComposer composer = new WordComposer();
+                final int length = text.length();
+                for (int i = 0; i < length; i = text.offsetByCodePoints(i, 1)) {
+                    final int codePoint = text.codePointAt(i);
+                    composer.addKeyInfo(codePoint, dictInfo.getKeyboard(codePoint));
+                }
+                // TODO: make a spell checker option to block offensive words or not
                 final ArrayList<SuggestedWordInfo> suggestions =
                         dictInfo.mDictionary.getSuggestions(composer, prevWord,
-                                dictInfo.mProximityInfo);
+                                dictInfo.getProximityInfo(),
+                                true /* blockOffensiveWords */);
                 for (final SuggestedWordInfo suggestion : suggestions) {
-                    final String suggestionStr = suggestion.mWord.toString();
+                    final String suggestionStr = suggestion.mWord;
                     suggestionsGatherer.addWord(suggestionStr.toCharArray(), null, 0,
                             suggestionStr.length(), suggestion.mScore);
                 }
-                isInDict = dictInfo.mDictionary.isValidWord(text);
-                if (!isInDict && AndroidSpellCheckerService.CAPITALIZE_NONE != capitalizeType) {
-                    // We want to test the word again if it's all caps or first caps only.
-                    // If it's fully down, we already tested it, if it's mixed case, we don't
-                    // want to test a lowercase version of it.
-                    isInDict = dictInfo.mDictionary.isValidWord(text.toLowerCase(mLocale));
-                }
+                isInDict = isInDictForAnyCapitalization(dictInfo.mDictionary, text, capitalizeType);
             } finally {
                 if (null != dictInfo) {
                     if (!mDictionaryPool.offer(dictInfo)) {
@@ -318,9 +348,27 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             if (DBG) {
                 throw e;
             } else {
-                Log.e(TAG, "Exception while spellcheking: " + e);
+                Log.e(TAG, "Exception while spellcheking", e);
                 return AndroidSpellCheckerService.getNotInDictEmptySuggestions();
             }
+        }
+    }
+
+    /*
+     * The spell checker acts on its own behalf. That is needed, in particular, to be able to
+     * access the dictionary files, which the provider restricts to the identity of Latin IME.
+     * Since it's called externally by the application, the spell checker is using the identity
+     * of the application by default unless we clearCallingIdentity.
+     * That's what the following method does.
+     */
+    @Override
+    public SuggestionsInfo onGetSuggestions(final TextInfo textInfo,
+            final int suggestionsLimit) {
+        long ident = Binder.clearCallingIdentity();
+        try {
+            return onGetSuggestionsInternal(textInfo, suggestionsLimit);
+        } finally {
+            Binder.restoreCallingIdentity(ident);
         }
     }
 }

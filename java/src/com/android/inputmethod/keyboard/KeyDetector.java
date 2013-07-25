@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard;
@@ -118,7 +118,7 @@ public class KeyDetector {
     }
 
     public static String printableCode(Key key) {
-        return key != null ? Keyboard.printableCode(key.mCode) : "none";
+        return key != null ? Constants.printableCode(key.mCode) : "none";
     }
 
     public static String printableCodes(int[] codes) {
@@ -127,7 +127,7 @@ public class KeyDetector {
         for (final int code : codes) {
             if (code == Constants.NOT_A_CODE) break;
             if (addDelimiter) sb.append(", ");
-            sb.append(Keyboard.printableCode(code));
+            sb.append(Constants.printableCode(code));
             addDelimiter = true;
         }
         return "[" + sb + "]";

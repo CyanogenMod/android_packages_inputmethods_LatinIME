@@ -1,22 +1,24 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
 
 import android.view.inputmethod.EditorInfo;
+
+import java.util.Locale;
 
 /**
  * Holder class for data about a word already committed but that may still be edited.
@@ -29,17 +31,19 @@ import android.view.inputmethod.EditorInfo;
  * the IME needs to take a note of what it has to replace and where it is.
  * This class encapsulates this data.
  */
-public class PositionalInfoForUserDictPendingAddition {
+public final class PositionalInfoForUserDictPendingAddition {
     final private String mOriginalWord;
     final private int mCursorPos; // Position of the cursor after the word
     final private EditorInfo mEditorInfo; // On what binding this has been added
+    final private int mCapitalizedMode;
     private String mActualWordBeingAdded;
 
     public PositionalInfoForUserDictPendingAddition(final String word, final int cursorPos,
-            final EditorInfo editorInfo) {
+            final EditorInfo editorInfo, final int capitalizedMode) {
         mOriginalWord = word;
         mCursorPos = cursorPos;
         mEditorInfo = editorInfo;
+        mCapitalizedMode = capitalizedMode;
     }
 
     public void setActualWordBeingAdded(final String actualWordBeingAdded) {
@@ -68,10 +72,11 @@ public class PositionalInfoForUserDictPendingAddition {
      * @param connection The RichInputConnection through which to contact the editor.
      * @param editorInfo Information pertaining to the editor we are currently in.
      * @param currentCursorPosition The current cursor position, for checking purposes.
+     * @param locale The locale for changing case, if necessary
      * @return true if the edit has been successfully made, false if we need to try again later
      */
     public boolean tryReplaceWithActualWord(final RichInputConnection connection,
-            final EditorInfo editorInfo, final int currentCursorPosition) {
+            final EditorInfo editorInfo, final int currentCursorPosition, final Locale locale) {
         // If we still don't know the actual word being added, we need to try again later.
         if (null == mActualWordBeingAdded) return false;
         // The entered text and the registered text were the same anyway : we can
@@ -90,9 +95,12 @@ public class PositionalInfoForUserDictPendingAddition {
         // so that it won't be tried again
         if (currentCursorPosition != mCursorPos) return true;
         // We have made all the checks : do the replacement and report success
+        // If this was auto-capitalized, we need to restore the case before committing
+        final String wordWithCaseFixed = CapsModeUtils.applyAutoCapsMode(mActualWordBeingAdded,
+                mCapitalizedMode, locale);
         connection.setComposingRegion(currentCursorPosition - mOriginalWord.length(),
                 currentCursorPosition);
-        connection.commitText(mActualWordBeingAdded, mActualWordBeingAdded.length());
+        connection.commitText(wordWithCaseFixed, wordWithCaseFixed.length());
         return true;
     }
 }

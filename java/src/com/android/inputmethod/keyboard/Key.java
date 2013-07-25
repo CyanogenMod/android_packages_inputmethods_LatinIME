@@ -1,26 +1,26 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard;
 
-import static com.android.inputmethod.keyboard.Keyboard.CODE_OUTPUT_TEXT;
-import static com.android.inputmethod.keyboard.Keyboard.CODE_SHIFT;
-import static com.android.inputmethod.keyboard.Keyboard.CODE_SWITCH_ALPHA_SYMBOL;
-import static com.android.inputmethod.keyboard.Keyboard.CODE_UNSPECIFIED;
 import static com.android.inputmethod.keyboard.internal.KeyboardIconsSet.ICON_UNDEFINED;
+import static com.android.inputmethod.latin.Constants.CODE_OUTPUT_TEXT;
+import static com.android.inputmethod.latin.Constants.CODE_SHIFT;
+import static com.android.inputmethod.latin.Constants.CODE_SWITCH_ALPHA_SYMBOL;
+import static com.android.inputmethod.latin.Constants.CODE_UNSPECIFIED;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -39,8 +39,8 @@ import com.android.inputmethod.keyboard.internal.KeyboardIconsSet;
 import com.android.inputmethod.keyboard.internal.KeyboardParams;
 import com.android.inputmethod.keyboard.internal.KeyboardRow;
 import com.android.inputmethod.keyboard.internal.MoreKeySpec;
+import com.android.inputmethod.latin.Constants;
 import com.android.inputmethod.latin.R;
-import com.android.inputmethod.latin.ResourceUtils;
 import com.android.inputmethod.latin.StringUtils;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -105,7 +105,7 @@ public class Key implements Comparable<Key> {
     /** Hit bounding box of the key */
     public final Rect mHitBox = new Rect();
 
-    /** More keys */
+    /** More keys. It is guaranteed that this is null or an array of one or more elements */
     public final MoreKeySpec[] mMoreKeys;
     /** More keys column number and flags */
     private final int mMoreKeysColumnAndFlags;
@@ -224,8 +224,8 @@ public class Key implements Comparable<Key> {
     public Key(final Resources res, final KeyboardParams params, final KeyboardRow row,
             final XmlPullParser parser) throws XmlPullParserException {
         final float horizontalGap = isSpacer() ? 0 : params.mHorizontalGap;
-        final int keyHeight = row.mRowHeight;
-        mHeight = keyHeight - params.mVerticalGap;
+        final int rowHeight = row.mRowHeight;
+        mHeight = rowHeight - params.mVerticalGap;
 
         final TypedArray keyAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.Keyboard_Key);
@@ -240,17 +240,18 @@ public class Key implements Comparable<Key> {
         mY = keyYPos;
         mWidth = Math.round(keyWidth - horizontalGap);
         mHitBox.set(Math.round(keyXPos), keyYPos, Math.round(keyXPos + keyWidth) + 1,
-                keyYPos + keyHeight);
+                keyYPos + rowHeight);
         // Update row to have current x coordinate.
         row.setXPos(keyXPos + keyWidth);
 
         mBackgroundType = style.getInt(keyAttr,
                 R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
 
-        final int visualInsetsLeft = Math.round(ResourceUtils.getDimensionOrFraction(keyAttr,
-                R.styleable.Keyboard_Key_visualInsetsLeft, params.mBaseWidth, 0));
-        final int visualInsetsRight = Math.round(ResourceUtils.getDimensionOrFraction(keyAttr,
-                R.styleable.Keyboard_Key_visualInsetsRight, params.mBaseWidth, 0));
+        final int baseWidth = params.mBaseWidth;
+        final int visualInsetsLeft = Math.round(keyAttr.getFraction(
+                R.styleable.Keyboard_Key_visualInsetsLeft, baseWidth, baseWidth, 0));
+        final int visualInsetsRight = Math.round(keyAttr.getFraction(
+                R.styleable.Keyboard_Key_visualInsetsRight, baseWidth, baseWidth, 0));
         mIconId = KeySpecParser.getIconId(style.getString(keyAttr,
                 R.styleable.Keyboard_Key_keyIcon));
         final int disabledIconId = KeySpecParser.getIconId(style.getString(keyAttr,
@@ -453,7 +454,7 @@ public class Key implements Comparable<Key> {
             label = "/" + mLabel;
         }
         return String.format("%s%s %d,%d %dx%d %s/%s/%s",
-                Keyboard.printableCode(mCode), label, mX, mY, mWidth, mHeight, mHintLabel,
+                Constants.printableCode(mCode), label, mX, mY, mWidth, mHeight, mHintLabel,
                 KeyboardIconsSet.getIconName(mIconId), backgroundName(mBackgroundType));
     }
 
@@ -469,11 +470,11 @@ public class Key implements Comparable<Key> {
     }
 
     public void markAsLeftEdge(final KeyboardParams params) {
-        mHitBox.left = params.mHorizontalEdgesPadding;
+        mHitBox.left = params.mLeftPadding;
     }
 
     public void markAsRightEdge(final KeyboardParams params) {
-        mHitBox.right = params.mOccupiedWidth - params.mHorizontalEdgesPadding;
+        mHitBox.right = params.mOccupiedWidth - params.mRightPadding;
     }
 
     public void markAsTopEdge(final KeyboardParams params) {
@@ -518,11 +519,11 @@ public class Key implements Comparable<Key> {
         // TODO: Handle "bold" here too?
         if ((mLabelFlags & LABEL_FLAGS_FONT_NORMAL) != 0) {
             return Typeface.DEFAULT;
-        } else if ((mLabelFlags & LABEL_FLAGS_FONT_MONO_SPACE) != 0) {
-            return Typeface.MONOSPACE;
-        } else {
-            return params.mTypeface;
         }
+        if ((mLabelFlags & LABEL_FLAGS_FONT_MONO_SPACE) != 0) {
+            return Typeface.MONOSPACE;
+        }
+        return params.mTypeface;
     }
 
     public final int selectTextSize(final KeyDrawParams params) {
@@ -549,26 +550,49 @@ public class Key implements Comparable<Key> {
     public final int selectHintTextSize(final KeyDrawParams params) {
         if (hasHintLabel()) {
             return params.mHintLabelSize;
-        } else if (hasShiftedLetterHint()) {
-            return params.mShiftedLetterHintSize;
-        } else {
-            return params.mHintLetterSize;
         }
+        if (hasShiftedLetterHint()) {
+            return params.mShiftedLetterHintSize;
+        }
+        return params.mHintLetterSize;
     }
 
     public final int selectHintTextColor(final KeyDrawParams params) {
         if (hasHintLabel()) {
             return params.mHintLabelColor;
-        } else if (hasShiftedLetterHint()) {
+        }
+        if (hasShiftedLetterHint()) {
             return isShiftedLetterActivated() ? params.mShiftedLetterHintActivatedColor
                     : params.mShiftedLetterHintInactivatedColor;
-        } else {
-            return params.mHintLetterColor;
         }
+        return params.mHintLetterColor;
     }
 
     public final int selectMoreKeyTextSize(final KeyDrawParams params) {
         return hasLabelsInMoreKeys() ? params.mLabelSize : params.mLetterSize;
+    }
+
+    public final String getPreviewLabel() {
+        return isShiftedLetterActivated() ? mHintLabel : mLabel;
+    }
+
+    private boolean previewHasLetterSize() {
+        return (mLabelFlags & LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO) != 0
+                || StringUtils.codePointCount(getPreviewLabel()) == 1;
+    }
+
+    public final int selectPreviewTextSize(final KeyDrawParams params) {
+        if (previewHasLetterSize()) {
+            return params.mPreviewTextSize;
+        }
+        return params.mLetterSize;
+    }
+
+    public Typeface selectPreviewTypeface(final KeyDrawParams params) {
+        if (previewHasLetterSize()) {
+            return selectTypeface(params);
+        }
+        return Typeface.DEFAULT_BOLD;
     }
 
     public final boolean isAlignLeft() {

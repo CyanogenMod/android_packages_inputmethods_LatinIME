@@ -1,36 +1,41 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
+
+import com.android.inputmethod.latin.personalization.AccountUtils;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.provider.BaseColumns;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.inputmethod.keyboard.Keyboard;
-
+import java.util.List;
 import java.util.Locale;
 
 public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
 
-    private static final String[] PROJECTION = {BaseColumns._ID, Contacts.DISPLAY_NAME,};
+    private static final String[] PROJECTION = {BaseColumns._ID, Contacts.DISPLAY_NAME};
     private static final String[] PROJECTION_ID_ONLY = {BaseColumns._ID};
 
     private static final String TAG = ContactsBinaryDictionary.class.getSimpleName();
@@ -62,7 +67,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
      */
     private final boolean mUseFirstLastBigrams;
 
-    public ContactsBinaryDictionary(final Context context, Locale locale) {
+    public ContactsBinaryDictionary(final Context context, final Locale locale) {
         super(context, getFilenameWithLocale(NAME, locale.toString()), Dictionary.TYPE_CONTACTS);
         mLocale = locale;
         mUseFirstLastBigrams = useFirstLastBigramsForLocale(locale);
@@ -102,9 +107,32 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
 
     @Override
     public void loadDictionaryAsync() {
+        clearFusionDictionary();
+        loadDeviceAccountsEmailAddresses();
+        loadDictionaryAsyncForUri(ContactsContract.Profile.CONTENT_URI);
+        // TODO: Switch this URL to the newer ContactsContract too
+        loadDictionaryAsyncForUri(Contacts.CONTENT_URI);
+    }
+
+    private void loadDeviceAccountsEmailAddresses() {
+        final List<String> accountVocabulary =
+                AccountUtils.getDeviceAccountsEmailAddresses(mContext);
+        if (accountVocabulary == null || accountVocabulary.isEmpty()) {
+            return;
+        }
+        for (String word : accountVocabulary) {
+            if (DEBUG) {
+                Log.d(TAG, "loadAccountVocabulary: " + word);
+            }
+            super.addWord(word, null /* shortcut */, FREQUENCY_FOR_CONTACTS,
+                    false /* isNotAWord */);
+        }
+    }
+
+    private void loadDictionaryAsyncForUri(final Uri uri) {
         try {
             Cursor cursor = mContext.getContentResolver()
-                    .query(Contacts.CONTENT_URI, PROJECTION, null, null, null);
+                    .query(uri, PROJECTION, null, null, null);
             if (cursor != null) {
                 try {
                     if (cursor.moveToFirst()) {
@@ -120,7 +148,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
         }
     }
 
-    private boolean useFirstLastBigramsForLocale(Locale locale) {
+    private boolean useFirstLastBigramsForLocale(final Locale locale) {
         // TODO: Add firstname/lastname bigram rules for other languages.
         if (locale != null && locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
             return true;
@@ -128,8 +156,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
         return false;
     }
 
-    private void addWords(Cursor cursor) {
-        clearFusionDictionary();
+    private void addWords(final Cursor cursor) {
         int count = 0;
         while (!cursor.isAfterLast() && count < MAX_CONTACT_COUNT) {
             String name = cursor.getString(INDEX_NAME);
@@ -160,7 +187,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
      * Adds the words in a name (e.g., firstname/lastname) to the binary dictionary along with their
      * bigrams depending on locale.
      */
-    private void addName(String name) {
+    private void addName(final String name) {
         int len = StringUtils.codePointCount(name);
         String prevWord = null;
         // TODO: Better tokenization for non-Latin writing systems
@@ -173,7 +200,11 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
                 // capitalization of i.
                 final int wordLen = StringUtils.codePointCount(word);
                 if (wordLen < MAX_WORD_LENGTH && wordLen > 1) {
-                    super.addWord(word, null /* shortcut */, FREQUENCY_FOR_CONTACTS);
+                    if (DEBUG) {
+                        Log.d(TAG, "addName " + name + ", " + word + ", " + prevWord);
+                    }
+                    super.addWord(word, null /* shortcut */, FREQUENCY_FOR_CONTACTS,
+                            false /* isNotAWord */);
                     if (!TextUtils.isEmpty(prevWord)) {
                         if (mUseFirstLastBigrams) {
                             super.setBigram(prevWord, word, FREQUENCY_FOR_CONTACTS_BIGRAM);
@@ -188,12 +219,13 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
     /**
      * Returns the index of the last letter in the word, starting from position startIndex.
      */
-    private static int getWordEndPosition(String string, int len, int startIndex) {
+    private static int getWordEndPosition(final String string, final int len,
+            final int startIndex) {
         int end;
         int cp = 0;
         for (end = startIndex + 1; end < len; end += Character.charCount(cp)) {
             cp = string.codePointAt(end);
-            if (!(cp == Keyboard.CODE_DASH || cp == Keyboard.CODE_SINGLE_QUOTE
+            if (!(cp == Constants.CODE_DASH || cp == Constants.CODE_SINGLE_QUOTE
                     || Character.isLetter(cp))) {
                 break;
             }
@@ -249,8 +281,8 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
         return false;
     }
 
-    private static boolean isValidName(String name) {
-        if (name != null && -1 == name.indexOf('@')) {
+    private static boolean isValidName(final String name) {
+        if (name != null && -1 == name.indexOf(Constants.CODE_COMMERCIAL_AT)) {
             return true;
         }
         return false;
@@ -259,7 +291,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary {
     /**
      * Checks if the words in a name are in the current binary dictionary.
      */
-    private boolean isNameInDictionary(String name) {
+    private boolean isNameInDictionary(final String name) {
         int len = StringUtils.codePointCount(name);
         String prevWord = null;
         for (int i = 0; i < len; i++) {

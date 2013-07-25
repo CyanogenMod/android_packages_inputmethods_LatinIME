@@ -1,23 +1,23 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.keyboard.internal;
 
-import com.android.inputmethod.keyboard.Keyboard;
 import com.android.inputmethod.latin.CollectionUtils;
+import com.android.inputmethod.latin.Constants;
 
 import java.util.HashMap;
 
@@ -48,9 +48,9 @@ public final class KeyboardCodesSet {
         "key_delete",
         "key_settings",
         "key_shortcut",
-        "key_action_enter",
         "key_action_next",
         "key_action_previous",
+        "key_shift_enter",
         "key_language_switch",
         "key_research",
         "key_unspecified",
@@ -73,22 +73,23 @@ public final class KeyboardCodesSet {
     private static final int CODE_LEFT_CURLY_BRACKET = '{';
     private static final int CODE_RIGHT_CURLY_BRACKET = '}';
 
+    // This array should be aligned with the array RTL below.
     private static final int[] DEFAULT = {
-        Keyboard.CODE_TAB,
-        Keyboard.CODE_ENTER,
-        Keyboard.CODE_SPACE,
-        Keyboard.CODE_SHIFT,
-        Keyboard.CODE_SWITCH_ALPHA_SYMBOL,
-        Keyboard.CODE_OUTPUT_TEXT,
-        Keyboard.CODE_DELETE,
-        Keyboard.CODE_SETTINGS,
-        Keyboard.CODE_SHORTCUT,
-        Keyboard.CODE_ACTION_ENTER,
-        Keyboard.CODE_ACTION_NEXT,
-        Keyboard.CODE_ACTION_PREVIOUS,
-        Keyboard.CODE_LANGUAGE_SWITCH,
-        Keyboard.CODE_RESEARCH,
-        Keyboard.CODE_UNSPECIFIED,
+        Constants.CODE_TAB,
+        Constants.CODE_ENTER,
+        Constants.CODE_SPACE,
+        Constants.CODE_SHIFT,
+        Constants.CODE_SWITCH_ALPHA_SYMBOL,
+        Constants.CODE_OUTPUT_TEXT,
+        Constants.CODE_DELETE,
+        Constants.CODE_SETTINGS,
+        Constants.CODE_SHORTCUT,
+        Constants.CODE_ACTION_NEXT,
+        Constants.CODE_ACTION_PREVIOUS,
+        Constants.CODE_SHIFT_ENTER,
+        Constants.CODE_LANGUAGE_SWITCH,
+        Constants.CODE_RESEARCH,
+        Constants.CODE_UNSPECIFIED,
         CODE_LEFT_PARENTHESIS,
         CODE_RIGHT_PARENTHESIS,
         CODE_LESS_THAN_SIGN,
@@ -138,6 +139,9 @@ public final class KeyboardCodesSet {
     };
 
     static {
+        if (DEFAULT.length != RTL.length || DEFAULT.length != ID_TO_NAME.length) {
+            throw new RuntimeException("Internal inconsistency");
+        }
         for (int i = 0; i < ID_TO_NAME.length; i++) {
             sNameToIdMap.put(ID_TO_NAME[i], i);
         }

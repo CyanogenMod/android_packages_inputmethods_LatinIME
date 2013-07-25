@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.spellcheck;
@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * the client code, but may help with sloppy clients.
  */
 @SuppressWarnings("serial")
-public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> {
+public final class DictionaryPool extends LinkedBlockingQueue<DictAndKeyboard> {
     private final static String TAG = DictionaryPool.class.getSimpleName();
     // How many seconds we wait for a dictionary to become available. Past this delay, we give up in
     // fear some bug caused a deadlock, and reset the whole pool.
@@ -47,15 +47,16 @@ public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> 
     private int mSize;
     private volatile boolean mClosed;
     final static ArrayList<SuggestedWordInfo> noSuggestions = CollectionUtils.newArrayList();
-    private final static DictAndProximity dummyDict = new DictAndProximity(
+    private final static DictAndKeyboard dummyDict = new DictAndKeyboard(
             new Dictionary(Dictionary.TYPE_MAIN) {
                 @Override
                 public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
-                        final CharSequence prevWord, final ProximityInfo proximityInfo) {
+                        final String prevWord, final ProximityInfo proximityInfo,
+                        final boolean blockOffensiveWords) {
                     return noSuggestions;
                 }
                 @Override
-                public boolean isValidWord(CharSequence word) {
+                public boolean isValidWord(final String word) {
                     // This is never called. However if for some strange reason it ever gets
                     // called, returning true is less destructive (it will not underline the
                     // word in red).
@@ -63,7 +64,7 @@ public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> 
                 }
             }, null);
 
-    static public boolean isAValidDictionary(final DictAndProximity dictInfo) {
+    static public boolean isAValidDictionary(final DictAndKeyboard dictInfo) {
         return null != dictInfo && dummyDict != dictInfo;
     }
 
@@ -78,32 +79,32 @@ public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> 
     }
 
     @Override
-    public DictAndProximity poll(final long timeout, final TimeUnit unit)
+    public DictAndKeyboard poll(final long timeout, final TimeUnit unit)
             throws InterruptedException {
-        final DictAndProximity dict = poll();
+        final DictAndKeyboard dict = poll();
         if (null != dict) return dict;
         synchronized(this) {
             if (mSize >= mMaxSize) {
                 // Our pool is already full. Wait until some dictionary is ready, or TIMEOUT
                 // expires to avoid a deadlock.
-                final DictAndProximity result = super.poll(timeout, unit);
+                final DictAndKeyboard result = super.poll(timeout, unit);
                 if (null == result) {
                     Log.e(TAG, "Deadlock detected ! Resetting dictionary pool");
                     clear();
                     mSize = 1;
-                    return mService.createDictAndProximity(mLocale);
+                    return mService.createDictAndKeyboard(mLocale);
                 } else {
                     return result;
                 }
             } else {
                 ++mSize;
-                return mService.createDictAndProximity(mLocale);
+                return mService.createDictAndKeyboard(mLocale);
             }
         }
     }
 
     // Convenience method
-    public DictAndProximity pollWithDefaultTimeout() {
+    public DictAndKeyboard pollWithDefaultTimeout() {
         try {
             return poll(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -114,7 +115,7 @@ public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> 
     public void close() {
         synchronized(this) {
             mClosed = true;
-            for (DictAndProximity dict : this) {
+            for (DictAndKeyboard dict : this) {
                 dict.mDictionary.close();
             }
             clear();
@@ -122,7 +123,7 @@ public final class DictionaryPool extends LinkedBlockingQueue<DictAndProximity> 
     }
 
     @Override
-    public boolean offer(final DictAndProximity dict) {
+    public boolean offer(final DictAndKeyboard dict) {
         if (mClosed) {
             dict.mDictionary.close();
             return super.offer(dummyDict);

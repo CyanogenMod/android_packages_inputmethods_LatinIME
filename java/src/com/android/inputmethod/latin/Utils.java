@@ -16,8 +16,14 @@
 
 package com.android.inputmethod.latin;
 
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.InputMethodService;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -28,6 +34,7 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 
 import java.io.BufferedReader;
@@ -41,8 +48,11 @@ import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class Utils {
+    private static final String TAG = Utils.class.getSimpleName();
+
     private Utils() {
         // This utility class is not publicly instantiable.
     }
@@ -60,7 +70,7 @@ public final class Utils {
         }
     }
 
-    /* package */ static class RingCharBuffer {
+    /* package */ static final class RingCharBuffer {
         private static RingCharBuffer sRingCharBuffer = new RingCharBuffer();
         private static final char PLACEHOLDER_DELIMITER_CHAR = '\uFFFC';
         private static final int INVALID_COORDINATE = -2;
@@ -76,6 +86,7 @@ public final class Utils {
         private RingCharBuffer() {
             // Intentional empty constructor for singleton.
         }
+        @UsedForTesting
         public static RingCharBuffer getInstance() {
             return sRingCharBuffer;
         }
@@ -92,6 +103,7 @@ public final class Utils {
             return ret < 0 ? ret + BUFSIZE : ret;
         }
         // TODO: accept code points
+        @UsedForTesting
         public void push(char c, int x, int y) {
             if (!mEnabled) return;
             mCharBuf[mEnd] = c;
@@ -193,7 +205,7 @@ public final class Utils {
 
         private UsabilityStudyLogUtils() {
             mDate = new Date();
-            mDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss.SSSZ");
+            mDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss.SSSZ", Locale.US);
 
             HandlerThread handlerThread = new HandlerThread("UsabilityStudyLogUtils logging task",
                     Process.THREAD_PRIORITY_BACKGROUND);
@@ -202,7 +214,7 @@ public final class Utils {
         }
 
         // Initialization-on-demand holder
-        private static class OnDemandInitializationHolder {
+        private static final class OnDemandInitializationHolder {
             public static final UsabilityStudyLogUtils sInstance = new UsabilityStudyLogUtils();
         }
 
@@ -255,7 +267,7 @@ public final class Utils {
                     final long currentTime = System.currentTimeMillis();
                     mDate.setTime(currentTime);
 
-                    final String printString = String.format("%s\t%d\t%s\n",
+                    final String printString = String.format(Locale.US, "%s\t%d\t%s\n",
                             mDateFormat.format(mDate), currentTime, log);
                     if (LatinImeLogger.sDBG) {
                         Log.d(USABILITY_TAG, "Write: " + log);
@@ -297,7 +309,7 @@ public final class Utils {
                     final Date date = new Date();
                     date.setTime(System.currentTimeMillis());
                     final String currentDateTimeString =
-                            new SimpleDateFormat("yyyyMMdd-HHmmssZ").format(date);
+                            new SimpleDateFormat("yyyyMMdd-HHmmssZ", Locale.US).format(date);
                     if (mFile == null) {
                         Log.w(USABILITY_TAG, "No internal log file found.");
                         return;
@@ -313,11 +325,15 @@ public final class Utils {
                             + "/research-" + currentDateTimeString + ".log";
                     final File destFile = new File(destPath);
                     try {
-                        final FileChannel src = (new FileInputStream(mFile)).getChannel();
-                        final FileChannel dest = (new FileOutputStream(destFile)).getChannel();
+                        final FileInputStream srcStream = new FileInputStream(mFile);
+                        final FileOutputStream destStream = new FileOutputStream(destFile);
+                        final FileChannel src = srcStream.getChannel();
+                        final FileChannel dest = destStream.getChannel();
                         src.transferTo(0, src.size(), dest);
                         src.close();
+                        srcStream.close();
                         dest.close();
+                        destStream.close();
                     } catch (FileNotFoundException e1) {
                         Log.w(USABILITY_TAG, e1);
                         return;
@@ -444,5 +460,32 @@ public final class Utils {
         final String info = wordInfo.getDebugString();
         if (TextUtils.isEmpty(info)) return null;
         return info;
+    }
+
+    public static int getAcitivityTitleResId(Context context, Class<? extends Activity> cls) {
+        final ComponentName cn = new ComponentName(context, cls);
+        try {
+            final ActivityInfo ai = context.getPackageManager().getActivityInfo(cn, 0);
+            if (ai != null) {
+                return ai.labelRes;
+            }
+        } catch (NameNotFoundException e) {
+            Log.e(TAG, "Failed to get settings activity title res id.", e);
+        }
+        return 0;
+    }
+
+    public static String getVersionName(Context context) {
+        try {
+            if (context == null) {
+                return "";
+            }
+            final String packageName = context.getPackageName();
+            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+            return info.versionName;
+        } catch (NameNotFoundException e) {
+            Log.e(TAG, "Could not find version info.", e);
+        }
+        return "";
     }
 }

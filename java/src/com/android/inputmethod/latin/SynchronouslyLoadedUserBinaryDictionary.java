@@ -36,13 +36,14 @@ public final class SynchronouslyLoadedUserBinaryDictionary extends UserBinaryDic
 
     @Override
     public synchronized ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer codes,
-            final CharSequence prevWordForBigrams, final ProximityInfo proximityInfo) {
+            final String prevWordForBigrams, final ProximityInfo proximityInfo,
+            final boolean blockOffensiveWords) {
         syncReloadDictionaryIfRequired();
-        return super.getSuggestions(codes, prevWordForBigrams, proximityInfo);
+        return super.getSuggestions(codes, prevWordForBigrams, proximityInfo, blockOffensiveWords);
     }
 
     @Override
-    public synchronized boolean isValidWord(CharSequence word) {
+    public synchronized boolean isValidWord(final String word) {
         syncReloadDictionaryIfRequired();
         return isValidWordInner(word);
     }

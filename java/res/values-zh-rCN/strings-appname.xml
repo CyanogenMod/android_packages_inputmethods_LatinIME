@@ -2,7 +2,7 @@
 <!-- 
 /*
 **
-** Copyright 2012, The Android Open Source Project
+** Copyright 2013, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" msgid="178705338187710493">"Android 键盘"</string>
-    <string name="spell_checker_service_name" msgid="6268342166872202903">"Android 拼写检查工具"</string>
-    <string name="english_ime_settings" msgid="7470027018752707691">"Android 键盘设置"</string>
-    <string name="android_spell_checker_settings" msgid="8397842018475560441">"拼写检查设置"</string>
+    <string name="english_ime_name" msgid="5940510615957428904">"Android 键盘 (AOSP)"</string>
+    <string name="spell_checker_service_name" msgid="1254221805440242662">"Android 拼写检查工具 (AOSP)"</string>
+    <string name="english_ime_settings" msgid="5760361067176802794">"Android 键盘设置 (AOSP)"</string>
+    <string name="android_spell_checker_settings" msgid="6123949487832861885">"Android 拼写检查工具设置 (AOSP)"</string>
 </resources>

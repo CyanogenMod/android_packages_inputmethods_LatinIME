@@ -1,191 +1,93 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.research;
 
-import android.Manifest;
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.BatteryManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.SystemClock;
 
-import com.android.inputmethod.latin.R;
+import com.android.inputmethod.latin.define.ProductionFlag;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
+/**
+ * Service to invoke the uploader.
+ *
+ * Can be regularly invoked, invoked on boot, etc.
+ */
 public final class UploaderService extends IntentService {
     private static final String TAG = UploaderService.class.getSimpleName();
+    private static final boolean DEBUG = false
+            && ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS_DEBUG;
     public static final long RUN_INTERVAL = AlarmManager.INTERVAL_HOUR;
-    private static final String EXTRA_UPLOAD_UNCONDITIONALLY = UploaderService.class.getName()
+    public static final String EXTRA_UPLOAD_UNCONDITIONALLY = UploaderService.class.getName()
             + ".extra.UPLOAD_UNCONDITIONALLY";
-    private static final int BUF_SIZE = 1024 * 8;
     protected static final int TIMEOUT_IN_MS = 1000 * 4;
-
-    private boolean mCanUpload;
-    private File mFilesDir;
-    private URL mUrl;
 
     public UploaderService() {
         super("Research Uploader Service");
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    protected void onHandleIntent(final Intent intent) {
+        // We may reach this point either because the alarm fired, or because the system explicitly
+        // requested that an Upload occur.  In the latter case, we want to cancel the alarm in case
+        // it's about to fire.
+        cancelAndRescheduleUploadingService(this, false /* needsRescheduling */);
 
-        mCanUpload = false;
-        mFilesDir = null;
-        mUrl = null;
-
-        final PackageManager packageManager = getPackageManager();
-        final boolean hasPermission = packageManager.checkPermission(Manifest.permission.INTERNET,
-                getPackageName()) == PackageManager.PERMISSION_GRANTED;
-        if (!hasPermission) {
-            return;
+        final Uploader uploader = new Uploader(this);
+        if (!uploader.isPossibleToUpload()) return;
+        if (isUploadingUnconditionally(intent.getExtras()) || uploader.isConvenientToUpload()) {
+            uploader.doUpload();
         }
-
-        try {
-            final String urlString = getString(R.string.research_logger_upload_url);
-            if (urlString == null || urlString.equals("")) {
-                return;
-            }
-            mFilesDir = getFilesDir();
-            mUrl = new URL(urlString);
-            mCanUpload = true;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        cancelAndRescheduleUploadingService(this, true /* needsRescheduling */);
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        if (!mCanUpload) {
-            return;
+    private boolean isUploadingUnconditionally(final Bundle bundle) {
+        if (bundle == null) return false;
+        if (bundle.containsKey(EXTRA_UPLOAD_UNCONDITIONALLY)) {
+            return bundle.getBoolean(EXTRA_UPLOAD_UNCONDITIONALLY);
         }
-        boolean isUploadingUnconditionally = false;
-        Bundle bundle = intent.getExtras();
-        if (bundle != null && bundle.containsKey(EXTRA_UPLOAD_UNCONDITIONALLY)) {
-            isUploadingUnconditionally = bundle.getBoolean(EXTRA_UPLOAD_UNCONDITIONALLY);
-        }
-        doUpload(isUploadingUnconditionally);
+        return false;
     }
 
-    private boolean isExternallyPowered() {
-        final Intent intent = registerReceiver(null, new IntentFilter(
-                Intent.ACTION_BATTERY_CHANGED));
-        final int pluggedState = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        return pluggedState == BatteryManager.BATTERY_PLUGGED_AC
-                || pluggedState == BatteryManager.BATTERY_PLUGGED_USB;
-    }
-
-    private boolean hasWifiConnection() {
-        final ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return wifiInfo.isConnected();
-    }
-
-    private void doUpload(final boolean isUploadingUnconditionally) {
-        if (!isUploadingUnconditionally && (!isExternallyPowered() || !hasWifiConnection())) {
-            return;
+    /**
+     * Arrange for the UploaderService to be run on a regular basis.
+     *
+     * Any existing scheduled invocation of UploaderService is removed and optionally rescheduled.
+     * This may cause problems if this method is called so often that no scheduled invocation is
+     * ever run.  But if the delay is short enough that it will go off when the user is sleeping,
+     * then there should be no starvation.
+     *
+     * @param context {@link Context} object
+     * @param needsRescheduling whether to schedule a future intent to be delivered to this service
+     */
+    public static void cancelAndRescheduleUploadingService(final Context context,
+            final boolean needsRescheduling) {
+        final Intent intent = new Intent(context, UploaderService.class);
+        final PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(
+                Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        if (needsRescheduling) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()
+                    + UploaderService.RUN_INTERVAL, pendingIntent);
         }
-        if (mFilesDir == null) {
-            return;
-        }
-        final File[] files = mFilesDir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().startsWith(ResearchLogger.FILENAME_PREFIX)
-                        && !pathname.canWrite();
-            }
-        });
-        boolean success = true;
-        if (files.length == 0) {
-            success = false;
-        }
-        for (final File file : files) {
-            if (!uploadFile(file)) {
-                success = false;
-            }
-        }
-    }
-
-    private boolean uploadFile(File file) {
-        Log.d(TAG, "attempting upload of " + file.getAbsolutePath());
-        boolean success = false;
-        final int contentLength = (int) file.length();
-        HttpURLConnection connection = null;
-        InputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-            connection = (HttpURLConnection) mUrl.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setDoOutput(true);
-            connection.setFixedLengthStreamingMode(contentLength);
-            final OutputStream os = connection.getOutputStream();
-            final byte[] buf = new byte[BUF_SIZE];
-            int numBytesRead;
-            while ((numBytesRead = fileInputStream.read(buf)) != -1) {
-                os.write(buf, 0, numBytesRead);
-            }
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Log.d(TAG, "upload failed: " + connection.getResponseCode());
-                InputStream netInputStream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(netInputStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Log.d(TAG, "| " + reader.readLine());
-                }
-                reader.close();
-                return success;
-            }
-            file.delete();
-            success = true;
-            Log.d(TAG, "upload successful");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return success;
     }
 }

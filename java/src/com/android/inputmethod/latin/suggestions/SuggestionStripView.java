@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin.suggestions;
@@ -27,9 +27,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -48,24 +46,25 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.inputmethod.keyboard.KeyboardActionListener;
-import com.android.inputmethod.keyboard.KeyboardView;
+import com.android.inputmethod.keyboard.Keyboard;
+import com.android.inputmethod.keyboard.KeyboardSwitcher;
+import com.android.inputmethod.keyboard.MainKeyboardView;
 import com.android.inputmethod.keyboard.MoreKeysPanel;
-import com.android.inputmethod.keyboard.PointerTracker;
 import com.android.inputmethod.keyboard.ViewLayoutUtils;
 import com.android.inputmethod.latin.AutoCorrection;
 import com.android.inputmethod.latin.CollectionUtils;
+import com.android.inputmethod.latin.Constants;
 import com.android.inputmethod.latin.LatinImeLogger;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.ResourceUtils;
-import com.android.inputmethod.latin.StaticInnerHandlerWrapper;
 import com.android.inputmethod.latin.SuggestedWords;
+import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import com.android.inputmethod.latin.Utils;
 import com.android.inputmethod.latin.define.ProductionFlag;
+import com.android.inputmethod.latin.suggestions.MoreSuggestions.MoreSuggestionsListener;
 import com.android.inputmethod.research.ResearchLogger;
 
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         OnLongClickListener {
     public interface Listener {
         public void addWordToUserDictionary(String word);
-        public void pickSuggestionManually(int index, CharSequence word);
+        public void pickSuggestionManually(int index, SuggestedWordInfo word);
     }
 
     // The maximum number of suggestions available. See {@link Suggest#mPrefMaxSuggestions}.
@@ -83,53 +82,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     static final boolean DBG = LatinImeLogger.sDBG;
 
     private final ViewGroup mSuggestionsStrip;
-    private KeyboardView mKeyboardView;
+    MainKeyboardView mMainKeyboardView;
 
     private final View mMoreSuggestionsContainer;
     private final MoreSuggestionsView mMoreSuggestionsView;
     private final MoreSuggestions.Builder mMoreSuggestionsBuilder;
-    private final PopupWindow mMoreSuggestionsWindow;
 
     private final ArrayList<TextView> mWords = CollectionUtils.newArrayList();
     private final ArrayList<TextView> mInfos = CollectionUtils.newArrayList();
     private final ArrayList<View> mDividers = CollectionUtils.newArrayList();
 
-    private final PopupWindow mPreviewPopup;
-    private final TextView mPreviewText;
-
-    private Listener mListener;
+    Listener mListener;
     private SuggestedWords mSuggestedWords = SuggestedWords.EMPTY;
 
     private final SuggestionStripViewParams mParams;
     private static final float MIN_TEXT_XSCALE = 0.70f;
-
-    private final UiHandler mHandler = new UiHandler(this);
-
-    private static final class UiHandler extends StaticInnerHandlerWrapper<SuggestionStripView> {
-        private static final int MSG_HIDE_PREVIEW = 0;
-
-        public UiHandler(SuggestionStripView outerInstance) {
-            super(outerInstance);
-        }
-
-        @Override
-        public void dispatchMessage(Message msg) {
-            final SuggestionStripView suggestionStripView = getOuterInstance();
-            switch (msg.what) {
-            case MSG_HIDE_PREVIEW:
-                suggestionStripView.hidePreview();
-                break;
-            }
-        }
-
-        public void cancelHidePreview() {
-            removeMessages(MSG_HIDE_PREVIEW);
-        }
-
-        public void cancelAllMessages() {
-            cancelHidePreview();
-        }
-    }
 
     private static final class SuggestionStripViewParams {
         private static final int DEFAULT_SUGGESTIONS_COUNT_IN_STRIP = 3;
@@ -177,8 +144,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         private final TextView mLeftwardsArrowView;
         private final TextView mHintToSaveView;
 
-        public SuggestionStripViewParams(Context context, AttributeSet attrs, int defStyle,
-                ArrayList<TextView> words, ArrayList<View> dividers, ArrayList<TextView> infos) {
+        public SuggestionStripViewParams(final Context context, final AttributeSet attrs,
+                final int defStyle, final ArrayList<TextView> words, final ArrayList<View> dividers,
+                final ArrayList<TextView> infos) {
             mWords = words;
             mDividers = dividers;
             mInfos = infos;
@@ -250,7 +218,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return mMaxMoreSuggestionsRow * mMoreSuggestionsRowHeight + mMoreSuggestionsBottomGap;
         }
 
-        public int setMoreSuggestionsHeight(int remainingHeight) {
+        public int setMoreSuggestionsHeight(final int remainingHeight) {
             final int currentHeight = getMoreSuggestionsHeight();
             if (currentHeight <= remainingHeight) {
                 return currentHeight;
@@ -262,7 +230,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return newHeight;
         }
 
-        private static Drawable getMoreSuggestionsHint(Resources res, float textSize, int color) {
+        private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize,
+                final int color) {
             final Paint paint = new Paint();
             paint.setAntiAlias(true);
             paint.setTextAlign(Align.CENTER);
@@ -279,8 +248,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return new BitmapDrawable(res, buffer);
         }
 
-        private CharSequence getStyledSuggestionWord(SuggestedWords suggestedWords, int pos) {
-            final CharSequence word = suggestedWords.getWord(pos);
+        private CharSequence getStyledSuggestionWord(final SuggestedWords suggestedWords,
+                final int pos) {
+            final String word = suggestedWords.getWord(pos);
             final boolean isAutoCorrect = pos == 1 && suggestedWords.willAutoCorrect();
             final boolean isTypedWordValid = pos == 0 && suggestedWords.mTypedWordValid;
             if (!isAutoCorrect && !isTypedWordValid)
@@ -299,7 +269,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return spannedWord;
         }
 
-        private int getWordPosition(int index, SuggestedWords suggestedWords) {
+        private int getWordPosition(final int index, final SuggestedWords suggestedWords) {
             // TODO: This works for 3 suggestions. Revisit this algorithm when there are 5 or more
             // suggestions.
             final int centerPos = suggestedWords.willAutoCorrect() ? 1 : 0;
@@ -312,7 +282,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
 
-        private int getSuggestionTextColor(int index, SuggestedWords suggestedWords, int pos) {
+        private int getSuggestionTextColor(final int index, final SuggestedWords suggestedWords,
+                final int pos) {
             // TODO: Need to revisit this logic with bigram suggestions
             final boolean isSuggested = (pos != 0);
 
@@ -331,7 +302,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 // is in slot 1.
                 if (index == mCenterSuggestionIndex
                         && AutoCorrection.shouldBlockAutoCorrectionBySafetyNet(
-                                suggestedWords.getWord(1).toString(), suggestedWords.getWord(0))) {
+                                suggestedWords.getWord(1), suggestedWords.getWord(0))) {
                     return 0xFFFF0000;
                 }
             }
@@ -355,8 +326,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             params.gravity = Gravity.CENTER;
         }
 
-        public void layout(SuggestedWords suggestedWords, ViewGroup stripView, ViewGroup placer,
-                int stripWidth) {
+        public void layout(final SuggestedWords suggestedWords, final ViewGroup stripView,
+                final ViewGroup placer, final int stripWidth) {
             if (suggestedWords.mIsPunctuationSuggestions) {
                 layoutPunctuationSuggestions(suggestedWords, stripView);
                 return;
@@ -402,7 +373,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 x += word.getMeasuredWidth();
 
                 if (DBG && pos < suggestedWords.size()) {
-                    final CharSequence debugInfo = Utils.getDebugInfo(suggestedWords, pos);
+                    final String debugInfo = Utils.getDebugInfo(suggestedWords, pos);
                     if (debugInfo != null) {
                         final TextView info = mInfos.get(pos);
                         info.setText(debugInfo);
@@ -418,14 +389,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
 
-        private int getSuggestionWidth(int index, int maxWidth) {
+        private int getSuggestionWidth(final int index, final int maxWidth) {
             final int paddings = mPadding * mSuggestionsCountInStrip;
             final int dividers = mDividerWidth * (mSuggestionsCountInStrip - 1);
             final int availableWidth = maxWidth - paddings - dividers;
             return (int)(availableWidth * getSuggestionWeight(index));
         }
 
-        private float getSuggestionWeight(int index) {
+        private float getSuggestionWeight(final int index) {
             if (index == mCenterSuggestionIndex) {
                 return mCenterSuggestionWeight;
             } else {
@@ -434,7 +405,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
 
-        private void setupTexts(SuggestedWords suggestedWords, int countInStrip) {
+        private void setupTexts(final SuggestedWords suggestedWords, final int countInStrip) {
             mTexts.clear();
             final int count = Math.min(suggestedWords.size(), countInStrip);
             for (int pos = 0; pos < count; pos++) {
@@ -447,8 +418,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
 
-        private void layoutPunctuationSuggestions(SuggestedWords suggestedWords,
-                ViewGroup stripView) {
+        private void layoutPunctuationSuggestions(final SuggestedWords suggestedWords,
+                final ViewGroup stripView) {
             final int countInStrip = Math.min(suggestedWords.size(), PUNCTUATIONS_IN_STRIP);
             for (int index = 0; index < countInStrip; index++) {
                 if (index != 0) {
@@ -459,7 +430,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 final TextView word = mWords.get(index);
                 word.setEnabled(true);
                 word.setTextColor(mColorAutoCorrect);
-                final CharSequence text = suggestedWords.getWord(index);
+                final String text = suggestedWords.getWord(index);
                 word.setText(text);
                 word.setTextScaleX(1.0f);
                 word.setCompoundDrawables(null, null, null, null);
@@ -469,8 +440,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mMoreSuggestionsAvailable = false;
         }
 
-        public void layoutAddToDictionaryHint(CharSequence word, ViewGroup stripView,
-                int stripWidth, CharSequence hintText, OnClickListener listener) {
+        public void layoutAddToDictionaryHint(final String word, final ViewGroup stripView,
+                final int stripWidth, final CharSequence hintText, final OnClickListener listener) {
             final int width = stripWidth - mDividerWidth - mPadding * 2;
 
             final TextView wordView = mWordToSaveView;
@@ -511,11 +482,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return (CharSequence)mWordToSaveView.getTag();
         }
 
-        public boolean isAddToDictionaryShowing(View v) {
+        public boolean isAddToDictionaryShowing(final View v) {
             return v == mWordToSaveView || v == mHintToSaveView || v == mLeftwardsArrowView;
         }
 
-        private static void setLayoutWeight(View v, float weight, int height) {
+        private static void setLayoutWeight(final View v, final float weight, final int height) {
             final ViewGroup.LayoutParams lp = v.getLayoutParams();
             if (lp instanceof LinearLayout.LayoutParams) {
                 final LinearLayout.LayoutParams llp = (LinearLayout.LayoutParams)lp;
@@ -525,7 +496,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
 
-        private static float getTextScaleX(CharSequence text, int maxWidth, TextPaint paint) {
+        private static float getTextScaleX(final CharSequence text, final int maxWidth,
+                final TextPaint paint) {
             paint.setTextScaleX(1.0f);
             final int width = getTextWidth(text, paint);
             if (width <= maxWidth) {
@@ -534,8 +506,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return maxWidth / (float)width;
         }
 
-        private static CharSequence getEllipsizedText(CharSequence text, int maxWidth,
-                TextPaint paint) {
+        private static CharSequence getEllipsizedText(final CharSequence text, final int maxWidth,
+                final TextPaint paint) {
             if (text == null) return null;
             paint.setTextScaleX(1.0f);
             final int width = getTextWidth(text, paint);
@@ -556,7 +528,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return ellipsized;
         }
 
-        private static int getTextWidth(CharSequence text, TextPaint paint) {
+        private static int getTextWidth(final CharSequence text, final TextPaint paint) {
             if (TextUtils.isEmpty(text)) return 0;
             final Typeface savedTypeface = paint.getTypeface();
             paint.setTypeface(getTextTypeface(text));
@@ -571,7 +543,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return width;
         }
 
-        private static Typeface getTextTypeface(CharSequence text) {
+        private static Typeface getTextTypeface(final CharSequence text) {
             if (!(text instanceof SpannableString))
                 return Typeface.DEFAULT;
 
@@ -593,22 +565,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
      * @param context
      * @param attrs
      */
-    public SuggestionStripView(Context context, AttributeSet attrs) {
+    public SuggestionStripView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.suggestionStripViewStyle);
     }
 
-    public SuggestionStripView(Context context, AttributeSet attrs, int defStyle) {
+    public SuggestionStripView(final Context context, final AttributeSet attrs,
+            final int defStyle) {
         super(context, attrs, defStyle);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
-
-        mPreviewPopup = new PopupWindow(context);
-        mPreviewText = (TextView) inflater.inflate(R.layout.suggestion_preview, null);
-        mPreviewPopup.setWindowLayoutMode(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mPreviewPopup.setContentView(mPreviewText);
-        mPreviewPopup.setBackgroundDrawable(null);
 
         mSuggestionsStrip = (ViewGroup)findViewById(R.id.suggestions_strip);
         for (int pos = 0; pos < MAX_SUGGESTIONS; pos++) {
@@ -630,22 +596,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsContainer = inflater.inflate(R.layout.more_suggestions, null);
         mMoreSuggestionsView = (MoreSuggestionsView)mMoreSuggestionsContainer
                 .findViewById(R.id.more_suggestions_view);
-        mMoreSuggestionsBuilder = new MoreSuggestions.Builder(mMoreSuggestionsView);
-
-        final PopupWindow moreWindow = new PopupWindow(context);
-        moreWindow.setWindowLayoutMode(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        moreWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
-        moreWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-        moreWindow.setFocusable(true);
-        moreWindow.setOutsideTouchable(true);
-        moreWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                mKeyboardView.dimEntireKeyboard(false);
-            }
-        });
-        mMoreSuggestionsWindow = moreWindow;
+        mMoreSuggestionsBuilder = new MoreSuggestions.Builder(context, mMoreSuggestionsView);
 
         final Resources res = context.getResources();
         mMoreSuggestionsModalTolerance = res.getDimensionPixelOffset(
@@ -658,24 +609,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
      * A connection back to the input method.
      * @param listener
      */
-    public void setListener(Listener listener, View inputView) {
+    public void setListener(final Listener listener, final View inputView) {
         mListener = listener;
-        mKeyboardView = (KeyboardView)inputView.findViewById(R.id.keyboard_view);
+        mMainKeyboardView = (MainKeyboardView)inputView.findViewById(R.id.keyboard_view);
     }
 
-    public void setSuggestions(SuggestedWords suggestedWords) {
-        if (suggestedWords == null)
-            return;
-
+    public void setSuggestions(final SuggestedWords suggestedWords) {
         clear();
         mSuggestedWords = suggestedWords;
         mParams.layout(mSuggestedWords, mSuggestionsStrip, this, getWidth());
-        if (ProductionFlag.IS_EXPERIMENTAL) {
+        if (ProductionFlag.USES_DEVELOPMENT_ONLY_DIAGNOSTICS) {
             ResearchLogger.suggestionStripView_setSuggestions(mSuggestedWords);
         }
     }
 
-    public int setMoreSuggestionsHeight(int remainingHeight) {
+    public int setMoreSuggestionsHeight(final int remainingHeight) {
         return mParams.setMoreSuggestionsHeight(remainingHeight);
     }
 
@@ -684,7 +632,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 && mParams.isAddToDictionaryShowing(mSuggestionsStrip.getChildAt(0));
     }
 
-    public void showAddToDictionaryHint(CharSequence word, CharSequence hintText) {
+    public void showAddToDictionaryHint(final String word, final CharSequence hintText) {
         clear();
         mParams.layoutAddToDictionaryHint(word, mSuggestionsStrip, getWidth(), hintText, this);
     }
@@ -697,10 +645,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return false;
     }
 
-    public SuggestedWords getSuggestions() {
-        return mSuggestedWords;
-    }
-
     public void clear() {
         mSuggestionsStrip.removeAllViews();
         removeAllViews();
@@ -708,19 +652,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         dismissMoreSuggestions();
     }
 
-    private void hidePreview() {
-        mPreviewPopup.dismiss();
-    }
-
-    private final KeyboardActionListener mMoreSuggestionsListener =
-            new KeyboardActionListener.Adapter() {
+    private final MoreSuggestionsListener mMoreSuggestionsListener = new MoreSuggestionsListener() {
         @Override
-        public boolean onCustomRequest(int requestCode) {
-            final int index = requestCode;
-            final CharSequence word = mSuggestedWords.getWord(index);
-            mListener.pickSuggestionManually(index, word);
+        public void onSuggestionSelected(final int index, final SuggestedWordInfo wordInfo) {
+            mListener.pickSuggestionManually(index, wordInfo);
             dismissMoreSuggestions();
-            return true;
         }
 
         @Override
@@ -732,55 +668,62 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final MoreKeysPanel.Controller mMoreSuggestionsController =
             new MoreKeysPanel.Controller() {
         @Override
-        public boolean dismissMoreKeysPanel() {
-            return dismissMoreSuggestions();
+        public boolean onDismissMoreKeysPanel() {
+            return mMainKeyboardView.onDismissMoreKeysPanel();
+        }
+
+        @Override
+        public void onShowMoreKeysPanel(final MoreKeysPanel panel) {
+            mMainKeyboardView.onShowMoreKeysPanel(panel);
+        }
+
+        @Override
+        public void onCancelMoreKeysPanel() {
+            dismissMoreSuggestions();
         }
     };
 
-    private boolean dismissMoreSuggestions() {
-        if (mMoreSuggestionsWindow.isShowing()) {
-            mMoreSuggestionsWindow.dismiss();
-            return true;
-        }
-        return false;
+    boolean dismissMoreSuggestions() {
+        return mMoreSuggestionsView.dismissMoreKeysPanel();
     }
 
     @Override
-    public boolean onLongClick(View view) {
+    public boolean onLongClick(final View view) {
+        KeyboardSwitcher.getInstance().hapticAndAudioFeedback(Constants.NOT_A_CODE);
         return showMoreSuggestions();
     }
 
-    private boolean showMoreSuggestions() {
-        final SuggestionStripViewParams params = mParams;
-        if (params.mMoreSuggestionsAvailable) {
-            final int stripWidth = getWidth();
-            final View container = mMoreSuggestionsContainer;
-            final int maxWidth = stripWidth - container.getPaddingLeft()
-                    - container.getPaddingRight();
-            final MoreSuggestions.Builder builder = mMoreSuggestionsBuilder;
-            builder.layout(mSuggestedWords, params.mSuggestionsCountInStrip, maxWidth,
-                    (int)(maxWidth * params.mMinMoreSuggestionsWidth),
-                    params.getMaxMoreSuggestionsRow());
-            mMoreSuggestionsView.setKeyboard(builder.build());
-            container.measure(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            final MoreKeysPanel moreKeysPanel = mMoreSuggestionsView;
-            final int pointX = stripWidth / 2;
-            final int pointY = -params.mMoreSuggestionsBottomGap;
-            moreKeysPanel.showMoreKeysPanel(
-                    this, mMoreSuggestionsController, pointX, pointY,
-                    mMoreSuggestionsWindow, mMoreSuggestionsListener);
-            mMoreSuggestionsMode = MORE_SUGGESTIONS_CHECKING_MODAL_OR_SLIDING;
-            mOriginX = mLastX;
-            mOriginY = mLastY;
-            mKeyboardView.dimEntireKeyboard(true);
-            for (int i = 0; i < params.mSuggestionsCountInStrip; i++) {
-                mWords.get(i).setPressed(false);
-            }
-            return true;
+    boolean showMoreSuggestions() {
+        final Keyboard parentKeyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (parentKeyboard == null) {
+            return false;
         }
-        return false;
+        final SuggestionStripViewParams params = mParams;
+        if (!params.mMoreSuggestionsAvailable) {
+            return false;
+        }
+        final int stripWidth = getWidth();
+        final View container = mMoreSuggestionsContainer;
+        final int maxWidth = stripWidth - container.getPaddingLeft() - container.getPaddingRight();
+        final MoreSuggestions.Builder builder = mMoreSuggestionsBuilder;
+        builder.layout(mSuggestedWords, params.mSuggestionsCountInStrip, maxWidth,
+                (int)(maxWidth * params.mMinMoreSuggestionsWidth),
+                params.getMaxMoreSuggestionsRow(), parentKeyboard);
+        mMoreSuggestionsView.setKeyboard(builder.build());
+        container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        final MoreKeysPanel moreKeysPanel = mMoreSuggestionsView;
+        final int pointX = stripWidth / 2;
+        final int pointY = -params.mMoreSuggestionsBottomGap;
+        moreKeysPanel.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
+                mMoreSuggestionsListener);
+        mMoreSuggestionsMode = MORE_SUGGESTIONS_CHECKING_MODAL_OR_SLIDING;
+        mOriginX = mLastX;
+        mOriginY = mLastY;
+        for (int i = 0; i < params.mSuggestionsCountInStrip; i++) {
+            mWords.get(i).setPressed(false);
+        }
+        return true;
     }
 
     // Working variables for onLongClick and dispatchTouchEvent.
@@ -807,9 +750,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     };
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent me) {
-        if (!mMoreSuggestionsWindow.isShowing()
-                || mMoreSuggestionsMode == MORE_SUGGESTIONS_IN_MODAL_MODE) {
+    public boolean dispatchTouchEvent(final MotionEvent me) {
+        if (!mMoreSuggestionsView.isShowingInParent()) {
             mLastX = (int)me.getX();
             mLastY = (int)me.getY();
             if (mMoreSuggestionsSlidingDetector.onTouchEvent(me)) {
@@ -823,7 +765,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final long eventTime = me.getEventTime();
         final int index = me.getActionIndex();
         final int id = me.getPointerId(index);
-        final PointerTracker tracker = PointerTracker.getPointerTracker(id, moreKeysPanel);
         final int x = (int)me.getX(index);
         final int y = (int)me.getY(index);
         final int translatedX = moreKeysPanel.translateX(x);
@@ -835,21 +776,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 // Decided to be in the sliding input mode only when the touch point has been moved
                 // upward.
                 mMoreSuggestionsMode = MORE_SUGGESTIONS_IN_SLIDING_MODE;
-                tracker.onShowMoreKeysPanel(translatedX, translatedY, moreKeysPanel);
             } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
                 // Decided to be in the modal input mode
                 mMoreSuggestionsMode = MORE_SUGGESTIONS_IN_MODAL_MODE;
+                mMoreSuggestionsView.adjustVerticalCorrectionForModalMode();
             }
             return true;
         }
 
         // MORE_SUGGESTIONS_IN_SLIDING_MODE
-        tracker.processMotionEvent(action, translatedX, translatedY, eventTime, moreKeysPanel);
+        mMoreSuggestionsView.processMotionEvent(action, translatedX, translatedY, id, eventTime);
         return true;
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         if (mParams.isAddToDictionaryShowing(view)) {
             mListener.addWordToUserDictionary(mParams.getAddToDictionaryWord().toString());
             clear();
@@ -863,15 +804,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (index >= mSuggestedWords.size())
             return;
 
-        final CharSequence word = mSuggestedWords.getWord(index);
-        mListener.pickSuggestionManually(index, word);
+        final SuggestedWordInfo wordInfo = mSuggestedWords.getInfo(index);
+        mListener.pickSuggestionManually(index, wordInfo);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mHandler.cancelAllMessages();
-        hidePreview();
         dismissMoreSuggestions();
     }
 }

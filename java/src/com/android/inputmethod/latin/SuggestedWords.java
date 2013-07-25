@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -53,16 +53,16 @@ public final class SuggestedWords {
         mIsPrediction = isPrediction;
     }
 
+    public boolean isEmpty() {
+        return mSuggestedWordInfoList.isEmpty();
+    }
+
     public int size() {
         return mSuggestedWordInfoList.size();
     }
 
     public String getWord(int pos) {
         return mSuggestedWordInfoList.get(pos).mWord;
-    }
-
-    public SuggestedWordInfo getWordInfo(int pos) {
-        return mSuggestedWordInfoList.get(pos);
     }
 
     public SuggestedWordInfo getInfo(int pos) {
@@ -86,11 +86,14 @@ public final class SuggestedWords {
     public static ArrayList<SuggestedWordInfo> getFromApplicationSpecifiedCompletions(
             final CompletionInfo[] infos) {
         final ArrayList<SuggestedWordInfo> result = CollectionUtils.newArrayList();
-        for (CompletionInfo info : infos) {
-            if (null != info && info.getText() != null) {
-                result.add(new SuggestedWordInfo(info.getText(), SuggestedWordInfo.MAX_SCORE,
-                        SuggestedWordInfo.KIND_APP_DEFINED, Dictionary.TYPE_APPLICATION_DEFINED));
-            }
+        for (final CompletionInfo info : infos) {
+            if (info == null) continue;
+            final CharSequence text = info.getText();
+            if (null == text) continue;
+            final SuggestedWordInfo suggestedWordInfo = new SuggestedWordInfo(text.toString(),
+                    SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_APP_DEFINED,
+                    Dictionary.TYPE_APPLICATION_DEFINED);
+            result.add(suggestedWordInfo);
         }
         return result;
     }
@@ -98,7 +101,7 @@ public final class SuggestedWords {
     // Should get rid of the first one (what the user typed previously) from suggestions
     // and replace it with what the user currently typed.
     public static ArrayList<SuggestedWordInfo> getTypedWordAndPreviousSuggestions(
-            final CharSequence typedWord, final SuggestedWords previousSuggestions) {
+            final String typedWord, final SuggestedWords previousSuggestions) {
         final ArrayList<SuggestedWordInfo> suggestionsList = CollectionUtils.newArrayList();
         final HashSet<String> alreadySeen = CollectionUtils.newHashSet();
         suggestionsList.add(new SuggestedWordInfo(typedWord, SuggestedWordInfo.MAX_SCORE,
@@ -106,8 +109,8 @@ public final class SuggestedWords {
         alreadySeen.add(typedWord.toString());
         final int previousSize = previousSuggestions.size();
         for (int pos = 1; pos < previousSize; pos++) {
-            final SuggestedWordInfo prevWordInfo = previousSuggestions.getWordInfo(pos);
-            final String prevWord = prevWordInfo.mWord.toString();
+            final SuggestedWordInfo prevWordInfo = previousSuggestions.getInfo(pos);
+            final String prevWord = prevWordInfo.mWord;
             // Filter out duplicate suggestion.
             if (!alreadySeen.contains(prevWord)) {
                 suggestionsList.add(prevWordInfo);
@@ -119,6 +122,7 @@ public final class SuggestedWords {
 
     public static final class SuggestedWordInfo {
         public static final int MAX_SCORE = Integer.MAX_VALUE;
+        public static final int KIND_MASK_KIND = 0xFF; // Mask to get only the kind
         public static final int KIND_TYPED = 0; // What user typed
         public static final int KIND_CORRECTION = 1; // Simple correction/suggestion
         public static final int KIND_COMPLETION = 2; // Completion (suggestion with appended chars)
@@ -128,6 +132,12 @@ public final class SuggestedWords {
         public static final int KIND_APP_DEFINED = 6; // Suggested by the application
         public static final int KIND_SHORTCUT = 7; // A shortcut
         public static final int KIND_PREDICTION = 8; // A prediction (== a suggestion with no input)
+        public static final int KIND_RESUMED = 9; // A resumed suggestion (comes from a span)
+
+        public static final int KIND_MASK_FLAGS = 0xFFFFFF00; // Mask to get the flags
+        public static final int KIND_FLAG_POSSIBLY_OFFENSIVE = 0x80000000;
+        public static final int KIND_FLAG_EXACT_MATCH = 0x40000000;
+
         public final String mWord;
         public final int mScore;
         public final int mKind; // one of the KIND_* constants above
@@ -135,9 +145,9 @@ public final class SuggestedWords {
         public final String mSourceDict;
         private String mDebugString = "";
 
-        public SuggestedWordInfo(final CharSequence word, final int score, final int kind,
+        public SuggestedWordInfo(final String word, final int score, final int kind,
                 final String sourceDict) {
-            mWord = word.toString();
+            mWord = word;
             mScore = score;
             mKind = kind;
             mSourceDict = sourceDict;
@@ -145,7 +155,7 @@ public final class SuggestedWords {
         }
 
 
-        public void setDebugString(String str) {
+        public void setDebugString(final String str) {
             if (null == str) throw new NullPointerException("Debug info is null");
             mDebugString = str;
         }
@@ -167,7 +177,7 @@ public final class SuggestedWords {
             if (TextUtils.isEmpty(mDebugString)) {
                 return mWord;
             } else {
-                return mWord + " (" + mDebugString.toString() + ")";
+                return mWord + " (" + mDebugString + ")";
             }
         }
 
@@ -190,5 +200,22 @@ public final class SuggestedWords {
                 ++i;
             }
         }
+    }
+
+    // SuggestedWords is an immutable object, as much as possible. We must not just remove
+    // words from the member ArrayList as some other parties may expect the object to never change.
+    public SuggestedWords getSuggestedWordsExcludingTypedWord() {
+        final ArrayList<SuggestedWordInfo> newSuggestions = CollectionUtils.newArrayList();
+        for (int i = 0; i < mSuggestedWordInfoList.size(); ++i) {
+            final SuggestedWordInfo info = mSuggestedWordInfoList.get(i);
+            if (SuggestedWordInfo.KIND_TYPED != info.mKind) {
+                newSuggestions.add(info);
+            }
+        }
+        // We should never autocorrect, so we say the typed word is valid. Also, in this case,
+        // no auto-correction should take place hence willAutoCorrect = false.
+        return new SuggestedWords(newSuggestions, true /* typedWordValid */,
+                false /* willAutoCorrect */, mIsPunctuationSuggestions, mIsObsoleteSuggestions,
+                mIsPrediction);
     }
 }

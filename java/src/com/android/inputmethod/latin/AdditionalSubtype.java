@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
@@ -45,7 +45,7 @@ public final class AdditionalSubtype {
             final String keyboardLayoutSetName, final String extraValue) {
         final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName;
         final String layoutDisplayNameExtraValue;
-        if (Build.VERSION.SDK_INT >= /* JELLY_BEAN */ 15
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && SubtypeLocale.isExceptionalLocale(localeString)) {
             final String layoutDisplayName = SubtypeLocale.getKeyboardLayoutSetDisplayName(
                     keyboardLayoutSetName);

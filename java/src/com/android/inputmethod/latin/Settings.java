@@ -1,49 +1,33 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2013 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.inputmethod.latin;
 
-import android.app.AlertDialog;
-import android.app.backup.BackupManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Resources;
-import android.media.AudioManager;
-import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceGroup;
-import android.preference.PreferenceScreen;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.inputmethod.InputMethodSubtype;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
+import android.preference.PreferenceManager;
 
-import com.android.inputmethod.latin.define.ProductionFlag;
-import com.android.inputmethodcommon.InputMethodSettingsFragment;
+import com.android.inputmethod.latin.LocaleUtils.RunInLocale;
 
-public final class Settings extends InputMethodSettingsFragment
-        implements SharedPreferences.OnSharedPreferenceChangeListener {
+import java.util.HashMap;
+import java.util.Locale;
 
+public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     // In the same order as xml/prefs.xml
     public static final String PREF_GENERAL_SETTINGS = "general_settings";
     public static final String PREF_AUTO_CAP = "auto_cap";
@@ -52,6 +36,7 @@ public final class Settings extends InputMethodSettingsFragment
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_VOICE_MODE = "voice_mode";
     public static final String PREF_CORRECTION_SETTINGS = "correction_settings";
+    public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_CONFIGURE_DICTIONARIES_KEY = "configure_dictionaries_key";
     public static final String PREF_AUTO_CORRECTION_THRESHOLD = "auto_correction_threshold";
     public static final String PREF_SHOW_SUGGESTIONS_SETTING = "show_suggestions_setting";
@@ -60,6 +45,10 @@ public final class Settings extends InputMethodSettingsFragment
             "last_user_dictionary_write_time";
     public static final String PREF_ADVANCED_SETTINGS = "pref_advanced_settings";
     public static final String PREF_KEY_USE_CONTACTS_DICT = "pref_key_use_contacts_dict";
+    public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD =
+            "pref_key_use_double_space_period";
+    public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE =
+            "pref_key_block_potentially_offensive";
     public static final String PREF_SHOW_LANGUAGE_SWITCH_KEY =
             "pref_show_language_switch_key";
     public static final String PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST =
@@ -68,7 +57,10 @@ public final class Settings extends InputMethodSettingsFragment
     public static final String PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY =
             "pref_key_preview_popup_dismiss_delay";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
+    public static final String PREF_GESTURE_SETTINGS = "gesture_typing_settings";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
+    public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "pref_sliding_key_input_preview";
+    public static final String PREF_KEY_LONGPRESS_TIMEOUT = "pref_key_longpress_timeout";
     public static final String PREF_VIBRATION_DURATION_SETTINGS =
             "pref_vibration_duration_settings";
     public static final String PREF_KEYPRESS_SOUND_VOLUME =
@@ -76,398 +68,248 @@ public final class Settings extends InputMethodSettingsFragment
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "pref_gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT =
             "pref_gesture_floating_preview_text";
+    public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
 
     public static final String PREF_INPUT_LANGUAGE = "input_language";
     public static final String PREF_SELECTED_LANGUAGES = "selected_languages";
     public static final String PREF_DEBUG_SETTINGS = "debug_settings";
+    public static final String PREF_KEY_IS_INTERNAL = "pref_key_is_internal";
 
-    private PreferenceScreen mKeypressVibrationDurationSettingsPref;
-    private PreferenceScreen mKeypressSoundVolumeSettingsPref;
-    private ListPreference mVoicePreference;
-    private ListPreference mShowCorrectionSuggestionsPreference;
-    private ListPreference mAutoCorrectionThresholdPreference;
-    private ListPreference mKeyPreviewPopupDismissDelay;
-    // Use bigrams to predict the next word when there is no input for it yet
-    private CheckBoxPreference mBigramPrediction;
-    private Preference mDebugSettingsPreference;
+    // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
+    // This is being used only for the backward compatibility.
+    private static final String PREF_SUPPRESS_LANGUAGE_SWITCH_KEY =
+            "pref_suppress_language_switch_key";
 
-    private TextView mKeypressVibrationDurationSettingsTextView;
-    private TextView mKeypressSoundVolumeSettingsTextView;
+    public static final String PREF_SEND_FEEDBACK = "send_feedback";
+    public static final String PREF_ABOUT_KEYBOARD = "about_keyboard";
 
-    private static void setPreferenceEnabled(final Preference preference, final boolean enabled) {
-        if (preference != null) {
-            preference.setEnabled(enabled);
-        }
+    private Resources mRes;
+    private SharedPreferences mPrefs;
+    private Locale mCurrentLocale;
+    private SettingsValues mSettingsValues;
+
+    private static final Settings sInstance = new Settings();
+
+    public static Settings getInstance() {
+        return sInstance;
     }
 
-    private void ensureConsistencyOfAutoCorrectionSettings() {
-        final String autoCorrectionOff = getResources().getString(
-                R.string.auto_correction_threshold_mode_index_off);
-        final String currentSetting = mAutoCorrectionThresholdPreference.getValue();
-        setPreferenceEnabled(mBigramPrediction, !currentSetting.equals(autoCorrectionOff));
+    public static void init(final Context context) {
+        sInstance.onCreate(context);
     }
 
-    @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
-        setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
-        setSubtypeEnablerTitle(R.string.select_language);
-        addPreferencesFromResource(R.xml.prefs);
-
-        final Resources res = getResources();
-        final Context context = getActivity();
-
-        // When we are called from the Settings application but we are not already running, the
-        // {@link SubtypeLocale} class may not have been initialized. It is safe to call
-        // {@link SubtypeLocale#init(Context)} multiple times.
-        SubtypeLocale.init(context);
-        mVoicePreference = (ListPreference) findPreference(PREF_VOICE_MODE);
-        mShowCorrectionSuggestionsPreference =
-                (ListPreference) findPreference(PREF_SHOW_SUGGESTIONS_SETTING);
-        SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-        prefs.registerOnSharedPreferenceChangeListener(this);
-
-        mAutoCorrectionThresholdPreference =
-                (ListPreference) findPreference(PREF_AUTO_CORRECTION_THRESHOLD);
-        mBigramPrediction = (CheckBoxPreference) findPreference(PREF_BIGRAM_PREDICTIONS);
-        ensureConsistencyOfAutoCorrectionSettings();
-
-        final PreferenceGroup generalSettings =
-                (PreferenceGroup) findPreference(PREF_GENERAL_SETTINGS);
-        final PreferenceGroup textCorrectionGroup =
-                (PreferenceGroup) findPreference(PREF_CORRECTION_SETTINGS);
-        final PreferenceGroup miscSettings =
-                (PreferenceGroup) findPreference(PREF_MISC_SETTINGS);
-
-        mDebugSettingsPreference = findPreference(PREF_DEBUG_SETTINGS);
-        if (mDebugSettingsPreference != null) {
-            if (ProductionFlag.IS_INTERNAL) {
-                final Intent debugSettingsIntent = new Intent(Intent.ACTION_MAIN);
-                debugSettingsIntent.setClassName(
-                        context.getPackageName(), DebugSettingsActivity.class.getName());
-                mDebugSettingsPreference.setIntent(debugSettingsIntent);
-            } else {
-                miscSettings.removePreference(mDebugSettingsPreference);
-            }
-        }
-
-        final boolean showVoiceKeyOption = res.getBoolean(
-                R.bool.config_enable_show_voice_key_option);
-        if (!showVoiceKeyOption) {
-            generalSettings.removePreference(mVoicePreference);
-        }
-
-        final PreferenceGroup advancedSettings =
-                (PreferenceGroup) findPreference(PREF_ADVANCED_SETTINGS);
-        if (!VibratorUtils.getInstance(context).hasVibrator()) {
-            generalSettings.removePreference(findPreference(PREF_VIBRATE_ON));
-            if (null != advancedSettings) { // Theoretically advancedSettings cannot be null
-                advancedSettings.removePreference(findPreference(PREF_VIBRATION_DURATION_SETTINGS));
-            }
-        }
-
-        final boolean showKeyPreviewPopupOption = res.getBoolean(
-                R.bool.config_enable_show_popup_on_keypress_option);
-        mKeyPreviewPopupDismissDelay =
-                (ListPreference) findPreference(PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY);
-        if (!showKeyPreviewPopupOption) {
-            generalSettings.removePreference(findPreference(PREF_POPUP_ON));
-            if (null != advancedSettings) { // Theoretically advancedSettings cannot be null
-                advancedSettings.removePreference(mKeyPreviewPopupDismissDelay);
-            }
-        } else {
-            final String[] entries = new String[] {
-                    res.getString(R.string.key_preview_popup_dismiss_no_delay),
-                    res.getString(R.string.key_preview_popup_dismiss_default_delay),
-            };
-            final String popupDismissDelayDefaultValue = Integer.toString(res.getInteger(
-                    R.integer.config_key_preview_linger_timeout));
-            mKeyPreviewPopupDismissDelay.setEntries(entries);
-            mKeyPreviewPopupDismissDelay.setEntryValues(
-                    new String[] { "0", popupDismissDelayDefaultValue });
-            if (null == mKeyPreviewPopupDismissDelay.getValue()) {
-                mKeyPreviewPopupDismissDelay.setValue(popupDismissDelayDefaultValue);
-            }
-            setPreferenceEnabled(mKeyPreviewPopupDismissDelay,
-                    SettingsValues.isKeyPreviewPopupEnabled(prefs, res));
-        }
-
-        setPreferenceEnabled(findPreference(PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST),
-                SettingsValues.showsLanguageSwitchKey(prefs));
-
-        final PreferenceScreen dictionaryLink =
-                (PreferenceScreen) findPreference(PREF_CONFIGURE_DICTIONARIES_KEY);
-        final Intent intent = dictionaryLink.getIntent();
-
-        final int number = context.getPackageManager().queryIntentActivities(intent, 0).size();
-        if (0 >= number) {
-            textCorrectionGroup.removePreference(dictionaryLink);
-        }
-
-        final boolean gestureInputEnabledByBuildConfig = res.getBoolean(
-                R.bool.config_gesture_input_enabled_by_build_config);
-        final Preference gesturePreviewTrail = findPreference(PREF_GESTURE_PREVIEW_TRAIL);
-        final Preference gestureFloatingPreviewText = findPreference(
-                PREF_GESTURE_FLOATING_PREVIEW_TEXT);
-        if (!gestureInputEnabledByBuildConfig) {
-            miscSettings.removePreference(findPreference(PREF_GESTURE_INPUT));
-            miscSettings.removePreference(gesturePreviewTrail);
-            miscSettings.removePreference(gestureFloatingPreviewText);
-        } else {
-            final boolean gestureInputEnabledByUser = prefs.getBoolean(PREF_GESTURE_INPUT, true);
-            setPreferenceEnabled(gesturePreviewTrail, gestureInputEnabledByUser);
-            setPreferenceEnabled(gestureFloatingPreviewText, gestureInputEnabledByUser);
-        }
-
-        mKeypressVibrationDurationSettingsPref =
-                (PreferenceScreen) findPreference(PREF_VIBRATION_DURATION_SETTINGS);
-        if (mKeypressVibrationDurationSettingsPref != null) {
-            mKeypressVibrationDurationSettingsPref.setOnPreferenceClickListener(
-                    new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference arg0) {
-                            showKeypressVibrationDurationSettingsDialog();
-                            return true;
-                        }
-                    });
-            updateKeypressVibrationDurationSettingsSummary(prefs, res);
-        }
-
-        mKeypressSoundVolumeSettingsPref =
-                (PreferenceScreen) findPreference(PREF_KEYPRESS_SOUND_VOLUME);
-        if (mKeypressSoundVolumeSettingsPref != null) {
-            mKeypressSoundVolumeSettingsPref.setOnPreferenceClickListener(
-                    new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference arg0) {
-                            showKeypressSoundVolumeSettingDialog();
-                            return true;
-                        }
-                    });
-            updateKeypressSoundVolumeSummary(prefs, res);
-        }
-        refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, res);
+    private Settings() {
+        // Intentional empty constructor for singleton.
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        final boolean isShortcutImeEnabled = SubtypeSwitcher.getInstance().isShortcutImeEnabled();
-        if (isShortcutImeEnabled) {
-            updateVoiceModeSummary();
-        } else {
-            getPreferenceScreen().removePreference(mVoicePreference);
-        }
-        updateShowCorrectionSuggestionsSummary();
-        updateKeyPreviewPopupDelaySummary();
-        updateCustomInputStylesSummary();
+    private void onCreate(final Context context) {
+        mRes = context.getResources();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
     }
 
-    @Override
     public void onDestroy() {
-        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(
-                this);
-        super.onDestroy();
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        (new BackupManager(getActivity())).dataChanged();
-        if (key.equals(PREF_POPUP_ON)) {
-            setPreferenceEnabled(findPreference(PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY),
-                    prefs.getBoolean(PREF_POPUP_ON, true));
-        } else if (key.equals(PREF_SHOW_LANGUAGE_SWITCH_KEY)) {
-            setPreferenceEnabled(findPreference(PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST),
-                    SettingsValues.showsLanguageSwitchKey(prefs));
-        } else if (key.equals(PREF_GESTURE_INPUT)) {
-            final boolean gestureInputEnabledByConfig = getResources().getBoolean(
-                    R.bool.config_gesture_input_enabled_by_build_config);
-            if (gestureInputEnabledByConfig) {
-                final boolean gestureInputEnabledByUser = prefs.getBoolean(
-                        PREF_GESTURE_INPUT, true);
-                setPreferenceEnabled(findPreference(PREF_GESTURE_PREVIEW_TRAIL),
-                        gestureInputEnabledByUser);
-                setPreferenceEnabled(findPreference(PREF_GESTURE_FLOATING_PREVIEW_TEXT),
-                        gestureInputEnabledByUser);
+        loadSettings(mCurrentLocale, mSettingsValues.mInputAttributes);
+    }
+
+    public void loadSettings(final Locale locale, final InputAttributes inputAttributes) {
+        mCurrentLocale = locale;
+        final SharedPreferences prefs = mPrefs;
+        final RunInLocale<SettingsValues> job = new RunInLocale<SettingsValues>() {
+            @Override
+            protected SettingsValues job(final Resources res) {
+                return new SettingsValues(prefs, res, inputAttributes);
             }
+        };
+        mSettingsValues = job.runInLocale(mRes, locale);
+    }
+
+    // TODO: Remove this method and add proxy method to SettingsValues.
+    public SettingsValues getCurrent() {
+        return mSettingsValues;
+    }
+
+    public boolean isInternal() {
+        return mSettingsValues.mIsInternal;
+    }
+
+    public String getWordSeparators() {
+        return mSettingsValues.mWordSeparators;
+    }
+
+    public Locale getCurrentLocale() {
+        return mCurrentLocale;
+    }
+
+    public boolean getBlockPotentiallyOffensive() {
+        return mSettingsValues.mBlockPotentiallyOffensive;
+    }
+
+    // Accessed from the settings interface, hence public
+    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs,
+            final Resources res) {
+        return prefs.getBoolean(Settings.PREF_SOUND_ON,
+                res.getBoolean(R.bool.config_default_sound_enabled));
+    }
+
+    public static boolean readVibrationEnabled(final SharedPreferences prefs,
+            final Resources res) {
+        final boolean hasVibrator = AudioAndHapticFeedbackManager.getInstance().hasVibrator();
+        return hasVibrator && prefs.getBoolean(PREF_VIBRATE_ON,
+                res.getBoolean(R.bool.config_default_vibration_enabled));
+    }
+
+    public static boolean readAutoCorrectEnabled(final String currentAutoCorrectionSetting,
+            final Resources res) {
+        final String autoCorrectionOff = res.getString(
+                R.string.auto_correction_threshold_mode_index_off);
+        return !currentAutoCorrectionSetting.equals(autoCorrectionOff);
+    }
+
+    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs,
+            final Resources res) {
+        return prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
+                res.getBoolean(R.bool.config_block_potentially_offensive));
+    }
+
+    public static boolean readFromBuildConfigIfGestureInputEnabled(final Resources res) {
+        return res.getBoolean(R.bool.config_gesture_input_enabled_by_build_config);
+    }
+
+    public static boolean readGestureInputEnabled(final SharedPreferences prefs,
+            final Resources res) {
+        return readFromBuildConfigIfGestureInputEnabled(res)
+                && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true);
+    }
+
+    public static boolean readFromBuildConfigIfToShowKeyPreviewPopupSettingsOption(
+            final Resources res) {
+        return res.getBoolean(R.bool.config_enable_show_option_of_key_preview_popup);
+    }
+
+    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs,
+            final Resources res) {
+        final boolean defaultKeyPreviewPopup = res.getBoolean(
+                R.bool.config_default_key_preview_popup);
+        if (!readFromBuildConfigIfToShowKeyPreviewPopupSettingsOption(res)) {
+            return defaultKeyPreviewPopup;
         }
-        ensureConsistencyOfAutoCorrectionSettings();
-        updateVoiceModeSummary();
-        updateShowCorrectionSuggestionsSummary();
-        updateKeyPreviewPopupDelaySummary();
-        refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, getResources());
+        return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
     }
 
-    private void updateShowCorrectionSuggestionsSummary() {
-        mShowCorrectionSuggestionsPreference.setSummary(
-                getResources().getStringArray(R.array.prefs_suggestion_visibilities)
-                [mShowCorrectionSuggestionsPreference.findIndexOfValue(
-                        mShowCorrectionSuggestionsPreference.getValue())]);
+    public static int readKeyPreviewPopupDismissDelay(final SharedPreferences prefs,
+            final Resources res) {
+        return Integer.parseInt(prefs.getString(PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY,
+                Integer.toString(res.getInteger(
+                        R.integer.config_key_preview_linger_timeout))));
     }
 
-    private void updateCustomInputStylesSummary() {
-        final PreferenceScreen customInputStyles =
-                (PreferenceScreen)findPreference(PREF_CUSTOM_INPUT_STYLES);
-        final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-        final Resources res = getResources();
-        final String prefSubtype = SettingsValues.getPrefAdditionalSubtypes(prefs, res);
-        final InputMethodSubtype[] subtypes =
-                AdditionalSubtype.createAdditionalSubtypesArray(prefSubtype);
-        final StringBuilder styles = new StringBuilder();
-        for (final InputMethodSubtype subtype : subtypes) {
-            if (styles.length() > 0) styles.append(", ");
-            styles.append(SubtypeLocale.getSubtypeDisplayName(subtype, res));
+    public static boolean readShowsLanguageSwitchKey(final SharedPreferences prefs) {
+        if (prefs.contains(PREF_SUPPRESS_LANGUAGE_SWITCH_KEY)) {
+            final boolean suppressLanguageSwitchKey = prefs.getBoolean(
+                    PREF_SUPPRESS_LANGUAGE_SWITCH_KEY, false);
+            final SharedPreferences.Editor editor = prefs.edit();
+            editor.remove(PREF_SUPPRESS_LANGUAGE_SWITCH_KEY);
+            editor.putBoolean(PREF_SHOW_LANGUAGE_SWITCH_KEY, !suppressLanguageSwitchKey);
+            editor.apply();
         }
-        customInputStyles.setSummary(styles);
+        return prefs.getBoolean(PREF_SHOW_LANGUAGE_SWITCH_KEY, true);
     }
 
-    private void updateKeyPreviewPopupDelaySummary() {
-        final ListPreference lp = mKeyPreviewPopupDismissDelay;
-        final CharSequence[] entries = lp.getEntries();
-        if (entries == null || entries.length <= 0) return;
-        lp.setSummary(entries[lp.findIndexOfValue(lp.getValue())]);
+    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs,
+            final Resources res) {
+        final String predefinedPrefSubtypes = AdditionalSubtype.createPrefSubtypes(
+                res.getStringArray(R.array.predefined_subtypes));
+        return prefs.getString(PREF_CUSTOM_INPUT_STYLES, predefinedPrefSubtypes);
     }
 
-    private void updateVoiceModeSummary() {
-        mVoicePreference.setSummary(
-                getResources().getStringArray(R.array.voice_input_modes_summary)
-                        [mVoicePreference.findIndexOfValue(mVoicePreference.getValue())]);
+    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs,
+            final String prefSubtypes) {
+        prefs.edit().putString(Settings.PREF_CUSTOM_INPUT_STYLES, prefSubtypes).apply();
     }
 
-    private void refreshEnablingsOfKeypressSoundAndVibrationSettings(
-            final SharedPreferences sp, final Resources res) {
-        if (mKeypressVibrationDurationSettingsPref != null) {
-            final boolean hasVibratorHardware = VibratorUtils.getInstance(getActivity())
-                    .hasVibrator();
-            final boolean vibrateOnByUser = sp.getBoolean(Settings.PREF_VIBRATE_ON,
-                    res.getBoolean(R.bool.config_default_vibration_enabled));
-            setPreferenceEnabled(mKeypressVibrationDurationSettingsPref,
-                    hasVibratorHardware && vibrateOnByUser);
+    public static float readKeypressSoundVolume(final SharedPreferences prefs,
+            final Resources res) {
+        final float volume = prefs.getFloat(PREF_KEYPRESS_SOUND_VOLUME, -1.0f);
+        return (volume >= 0) ? volume : readDefaultKeypressSoundVolume(res);
+    }
+
+    public static float readDefaultKeypressSoundVolume(final Resources res) {
+        return Float.parseFloat(
+                ResourceUtils.getDeviceOverrideValue(res, R.array.keypress_volumes));
+    }
+
+    public static int readKeyLongpressTimeout(final SharedPreferences prefs,
+            final Resources res) {
+        final int ms = prefs.getInt(PREF_KEY_LONGPRESS_TIMEOUT, -1);
+        return (ms >= 0) ? ms : readDefaultKeyLongpressTimeout(res);
+    }
+
+    public static int readDefaultKeyLongpressTimeout(final Resources res) {
+        return res.getInteger(R.integer.config_default_longpress_key_timeout);
+    }
+
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs,
+            final Resources res) {
+        final int ms = prefs.getInt(PREF_VIBRATION_DURATION_SETTINGS, -1);
+        return (ms >= 0) ? ms : readDefaultKeypressVibrationDuration(res);
+    }
+
+    public static int readDefaultKeypressVibrationDuration(final Resources res) {
+        return Integer.parseInt(
+                ResourceUtils.getDeviceOverrideValue(res, R.array.keypress_vibration_durations));
+    }
+
+    public static boolean readUsabilityStudyMode(final SharedPreferences prefs) {
+        return prefs.getBoolean(DebugSettings.PREF_USABILITY_STUDY_MODE, true);
+    }
+
+    public static long readLastUserHistoryWriteTime(final SharedPreferences prefs,
+            final String locale) {
+        final String str = prefs.getString(PREF_LAST_USER_DICTIONARY_WRITE_TIME, "");
+        final HashMap<String, Long> map = LocaleUtils.localeAndTimeStrToHashMap(str);
+        if (map.containsKey(locale)) {
+            return map.get(locale);
         }
+        return 0;
+    }
 
-        if (mKeypressSoundVolumeSettingsPref != null) {
-            final boolean soundOn = sp.getBoolean(Settings.PREF_SOUND_ON,
-                    res.getBoolean(R.bool.config_default_sound_enabled));
-            setPreferenceEnabled(mKeypressSoundVolumeSettingsPref, soundOn);
+    public static void writeLastUserHistoryWriteTime(final SharedPreferences prefs,
+            final String locale) {
+        final String oldStr = prefs.getString(PREF_LAST_USER_DICTIONARY_WRITE_TIME, "");
+        final HashMap<String, Long> map = LocaleUtils.localeAndTimeStrToHashMap(oldStr);
+        map.put(locale, System.currentTimeMillis());
+        final String newStr = LocaleUtils.localeAndTimeHashMapToStr(map);
+        prefs.edit().putString(PREF_LAST_USER_DICTIONARY_WRITE_TIME, newStr).apply();
+    }
+
+    public static boolean readUseFullscreenMode(final Resources res) {
+        return res.getBoolean(R.bool.config_use_fullscreen_mode);
+    }
+
+    public static boolean readShowSetupWizardIcon(final SharedPreferences prefs,
+            final Context context) {
+        final boolean enableSetupWizardByConfig = context.getResources().getBoolean(
+                R.bool.config_setup_wizard_available);
+        if (!enableSetupWizardByConfig) {
+            return false;
         }
-    }
-
-    private void updateKeypressVibrationDurationSettingsSummary(
-            final SharedPreferences sp, final Resources res) {
-        if (mKeypressVibrationDurationSettingsPref != null) {
-            mKeypressVibrationDurationSettingsPref.setSummary(
-                    SettingsValues.getCurrentVibrationDuration(sp, res)
-                            + res.getString(R.string.settings_ms));
+        if (!prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON)) {
+            final ApplicationInfo appInfo = context.getApplicationInfo();
+            final boolean isApplicationInSystemImage =
+                    (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+            // Default value
+            return !isApplicationInSystemImage;
         }
+        return prefs.getBoolean(Settings.PREF_SHOW_SETUP_WIZARD_ICON, false);
     }
 
-    private void showKeypressVibrationDurationSettingsDialog() {
-        final SharedPreferences sp = getPreferenceManager().getSharedPreferences();
-        final Context context = getActivity();
-        final Resources res = context.getResources();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.prefs_keypress_vibration_duration_settings);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                final int ms = Integer.valueOf(
-                        mKeypressVibrationDurationSettingsTextView.getText().toString());
-                sp.edit().putInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, ms).apply();
-                updateKeypressVibrationDurationSettingsSummary(sp, res);
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel,  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.dismiss();
-            }
-        });
-        final View v = LayoutInflater.from(context).inflate(
-                R.layout.vibration_settings_dialog, null);
-        final int currentMs = SettingsValues.getCurrentVibrationDuration(
-                getPreferenceManager().getSharedPreferences(), getResources());
-        mKeypressVibrationDurationSettingsTextView = (TextView)v.findViewById(R.id.vibration_value);
-        final SeekBar sb = (SeekBar)v.findViewById(R.id.vibration_settings);
-        sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-                final int tempMs = arg1;
-                mKeypressVibrationDurationSettingsTextView.setText(String.valueOf(tempMs));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-                final int tempMs = arg0.getProgress();
-                VibratorUtils.getInstance(context).vibrate(tempMs);
-            }
-        });
-        sb.setProgress(currentMs);
-        mKeypressVibrationDurationSettingsTextView.setText(String.valueOf(currentMs));
-        builder.setView(v);
-        builder.create().show();
-    }
-
-    private void updateKeypressSoundVolumeSummary(final SharedPreferences sp, final Resources res) {
-        if (mKeypressSoundVolumeSettingsPref != null) {
-            mKeypressSoundVolumeSettingsPref.setSummary(String.valueOf(
-                    (int)(SettingsValues.getCurrentKeypressSoundVolume(sp, res) * 100)));
-        }
-    }
-
-    private void showKeypressSoundVolumeSettingDialog() {
-        final Context context = getActivity();
-        final AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        final SharedPreferences sp = getPreferenceManager().getSharedPreferences();
-        final Resources res = context.getResources();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.prefs_keypress_sound_volume_settings);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                final float volume =
-                        ((float)Integer.valueOf(
-                                mKeypressSoundVolumeSettingsTextView.getText().toString())) / 100;
-                sp.edit().putFloat(Settings.PREF_KEYPRESS_SOUND_VOLUME, volume).apply();
-                updateKeypressSoundVolumeSummary(sp, res);
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel,  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.dismiss();
-            }
-        });
-        final View v = LayoutInflater.from(context).inflate(
-                R.layout.sound_effect_volume_dialog, null);
-        final int currentVolumeInt =
-                (int)(SettingsValues.getCurrentKeypressSoundVolume(sp, res) * 100);
-        mKeypressSoundVolumeSettingsTextView =
-                (TextView)v.findViewById(R.id.sound_effect_volume_value);
-        final SeekBar sb = (SeekBar)v.findViewById(R.id.sound_effect_volume_bar);
-        sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-                final int tempVolume = arg1;
-                mKeypressSoundVolumeSettingsTextView.setText(String.valueOf(tempVolume));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-                final float tempVolume = ((float)arg0.getProgress()) / 100;
-                am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, tempVolume);
-            }
-        });
-        sb.setProgress(currentVolumeInt);
-        mKeypressSoundVolumeSettingsTextView.setText(String.valueOf(currentVolumeInt));
-        builder.setView(v);
-        builder.create().show();
+    public static boolean isInternal(final SharedPreferences prefs) {
+        return prefs.getBoolean(Settings.PREF_KEY_IS_INTERNAL, false);
     }
 }
