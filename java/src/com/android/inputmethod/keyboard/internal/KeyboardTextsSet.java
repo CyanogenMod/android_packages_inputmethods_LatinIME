@@ -151,7 +151,7 @@ public final class KeyboardTextsSet {
         /* 46 */ "double_angle_quotes",
         /* 47 */ "more_keys_for_currency_dollar",
         /* 48 */ "keylabel_for_currency_generic",
-        /* 49 */ "more_keys_for_currency_generic",
+        /* 49 */ "more_keys_for_currency_general",
         /* 50 */ "more_keys_for_punctuation",
         /* 51 */ "more_keys_for_star",
         /* 52 */ "more_keys_for_bullet",
@@ -206,49 +206,50 @@ public final class KeyboardTextsSet {
         /* 101 */ "keylabel_for_tablet_comma",
         /* 102 */ "keyhintlabel_for_tablet_comma",
         /* 103 */ "more_keys_for_tablet_comma",
-        /* 104 */ "keyhintlabel_for_tablet_period",
-        /* 105 */ "more_keys_for_tablet_period",
-        /* 106 */ "keylabel_for_apostrophe",
-        /* 107 */ "keyhintlabel_for_apostrophe",
-        /* 108 */ "more_keys_for_apostrophe",
-        /* 109 */ "more_keys_for_q",
-        /* 110 */ "more_keys_for_x",
-        /* 111 */ "keylabel_for_q",
-        /* 112 */ "keylabel_for_w",
-        /* 113 */ "keylabel_for_y",
-        /* 114 */ "keylabel_for_x",
-        /* 115 */ "keylabel_for_spanish_row2_10",
-        /* 116 */ "more_keys_for_am_pm",
-        /* 117 */ "settings_as_more_key",
-        /* 118 */ "shortcut_as_more_key",
-        /* 119 */ "action_next_as_more_key",
-        /* 120 */ "action_previous_as_more_key",
-        /* 121 */ "label_to_more_symbol_key",
-        /* 122 */ "label_to_more_symbol_for_tablet_key",
-        /* 123 */ "label_tab_key",
-        /* 124 */ "label_to_phone_numeric_key",
-        /* 125 */ "label_to_phone_symbols_key",
-        /* 126 */ "label_time_am",
-        /* 127 */ "label_time_pm",
-        /* 128 */ "label_to_symbol_key_pcqwerty",
-        /* 129 */ "keylabel_for_popular_domain",
-        /* 130 */ "more_keys_for_popular_domain",
-        /* 131 */ "more_keys_for_smiley",
-        /* 132 */ "single_laqm_raqm",
-        /* 133 */ "single_laqm_raqm_rtl",
-        /* 134 */ "single_raqm_laqm",
-        /* 135 */ "double_laqm_raqm",
-        /* 136 */ "double_laqm_raqm_rtl",
-        /* 137 */ "double_raqm_laqm",
-        /* 138 */ "single_lqm_rqm",
-        /* 139 */ "single_9qm_lqm",
-        /* 140 */ "single_9qm_rqm",
-        /* 141 */ "double_lqm_rqm",
-        /* 142 */ "double_9qm_lqm",
-        /* 143 */ "double_9qm_rqm",
-        /* 144 */ "more_keys_for_single_quote",
-        /* 145 */ "more_keys_for_double_quote",
-        /* 146 */ "more_keys_for_tablet_double_quote",
+        /* 104 */ "keylabel_for_tablet_period",
+        /* 105 */ "keyhintlabel_for_tablet_period",
+        /* 106 */ "more_keys_for_tablet_period",
+        /* 107 */ "keylabel_for_apostrophe",
+        /* 108 */ "keyhintlabel_for_apostrophe",
+        /* 109 */ "more_keys_for_apostrophe",
+        /* 110 */ "more_keys_for_q",
+        /* 111 */ "more_keys_for_x",
+        /* 112 */ "keylabel_for_q",
+        /* 113 */ "keylabel_for_w",
+        /* 114 */ "keylabel_for_y",
+        /* 115 */ "keylabel_for_x",
+        /* 116 */ "keylabel_for_spanish_row2_10",
+        /* 117 */ "more_keys_for_am_pm",
+        /* 118 */ "settings_as_more_key",
+        /* 119 */ "shortcut_as_more_key",
+        /* 120 */ "action_next_as_more_key",
+        /* 121 */ "action_previous_as_more_key",
+        /* 122 */ "label_to_more_symbol_key",
+        /* 123 */ "label_to_more_symbol_for_tablet_key",
+        /* 124 */ "label_tab_key",
+        /* 125 */ "label_to_phone_numeric_key",
+        /* 126 */ "label_to_phone_symbols_key",
+        /* 127 */ "label_time_am",
+        /* 128 */ "label_time_pm",
+        /* 129 */ "label_to_symbol_key_pcqwerty",
+        /* 130 */ "keylabel_for_popular_domain",
+        /* 131 */ "more_keys_for_popular_domain",
+        /* 132 */ "more_keys_for_smiley",
+        /* 133 */ "single_laqm_raqm",
+        /* 134 */ "single_laqm_raqm_rtl",
+        /* 135 */ "single_raqm_laqm",
+        /* 136 */ "double_laqm_raqm",
+        /* 137 */ "double_laqm_raqm_rtl",
+        /* 138 */ "double_raqm_laqm",
+        /* 139 */ "single_lqm_rqm",
+        /* 140 */ "single_9qm_lqm",
+        /* 141 */ "single_9qm_rqm",
+        /* 142 */ "double_lqm_rqm",
+        /* 143 */ "double_9qm_lqm",
+        /* 144 */ "double_9qm_rqm",
+        /* 145 */ "more_keys_for_single_quote",
+        /* 146 */ "more_keys_for_double_quote",
+        /* 147 */ "more_keys_for_tablet_double_quote",
     };
 
     private static final String EMPTY = "";
@@ -272,9 +273,10 @@ public final class KeyboardTextsSet {
         // U+20AC: "€" EURO SIGN
         // U+00A5: "¥" YEN SIGN
         // U+20B1: "₱" PESO SIGN
-        /* 47 */ "\u00A2,\u00A3,\u20AC,\u00A5,\u20B1",
+        // U+20B9: "₹" RUPEE SIGN
+        /* 47 */ "\u00A2,\u00A3,\u20AC,\u00A5,\u20B1,\u20B9",
         /* 48 */ "$",
-        /* 49 */ "$,\u00A2,\u20AC,\u00A3,\u00A5,\u20B1",
+        /* 49 */ "\u00A2,$,\u20AC,\u00A3,\u00A5,\u20B1,\u20B9",
         /* 50 */ "!fixedColumnOrder!8,\",\',#,-,:,!,\\,,?,@,&,\\%,+,;,/,(,)",
         // U+2020: "†" DAGGER
         // U+2021: "‡" DOUBLE DAGGER
@@ -360,46 +362,47 @@ public final class KeyboardTextsSet {
         /* 101 */ ",",
         /* 102 */ "!",
         /* 103 */ "!",
-        /* 104 */ "?",
+        /* 104 */ ".",
         /* 105 */ "?",
-        /* 106 */ "\'",
-        /* 107 */ "\"",
+        /* 106 */ "?",
+        /* 107 */ "\'",
         /* 108 */ "\"",
-        /* 109 */ EMPTY,
+        /* 109 */ "\"",
         /* 110 */ EMPTY,
-        /* 111 */ "q",
-        /* 112 */ "w",
-        /* 113 */ "y",
-        /* 114 */ "x",
+        /* 111 */ EMPTY,
+        /* 112 */ "q",
+        /* 113 */ "w",
+        /* 114 */ "y",
+        /* 115 */ "x",
         // U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE
-        /* 115 */ "\u00F1",
-        /* 116 */ "!fixedColumnOrder!2,!hasLabels!,!text/label_time_am,!text/label_time_pm",
-        /* 117 */ "!icon/settings_key|!code/key_settings",
-        /* 118 */ "!icon/shortcut_key|!code/key_shortcut",
-        /* 119 */ "!hasLabels!,!text/label_next_key|!code/key_action_next",
-        /* 120 */ "!hasLabels!,!text/label_previous_key|!code/key_action_previous",
+        /* 116 */ "\u00F1",
+        /* 117 */ "!fixedColumnOrder!2,!hasLabels!,!text/label_time_am,!text/label_time_pm",
+        /* 118 */ "!icon/settings_key|!code/key_settings",
+        /* 119 */ "!icon/shortcut_key|!code/key_shortcut",
+        /* 120 */ "!hasLabels!,!text/label_next_key|!code/key_action_next",
+        /* 121 */ "!hasLabels!,!text/label_previous_key|!code/key_action_previous",
         // Label for "switch to more symbol" modifier key.  Must be short to fit on key!
-        /* 121 */ "= \\ <",
+        /* 122 */ "= \\ <",
         // Label for "switch to more symbol" modifier key on tablets.  Must be short to fit on key!
-        /* 122 */ "~ \\ {",
+        /* 123 */ "~ \\ {",
         // Label for "Tab" key.  Must be short to fit on key!
-        /* 123 */ "Tab",
+        /* 124 */ "Tab",
         // Label for "switch to phone numeric" key.  Must be short to fit on key!
-        /* 124 */ "123",
+        /* 125 */ "123",
         // Label for "switch to phone symbols" key.  Must be short to fit on key!
         // U+FF0A: "＊" FULLWIDTH ASTERISK
         // U+FF03: "＃" FULLWIDTH NUMBER SIGN
-        /* 125 */ "\uFF0A\uFF03",
+        /* 126 */ "\uFF0A\uFF03",
         // Key label for "ante meridiem"
-        /* 126 */ "AM",
+        /* 127 */ "AM",
         // Key label for "post meridiem"
-        /* 127 */ "PM",
+        /* 128 */ "PM",
         // Label for "switch to symbols" key on PC QWERTY layout
-        /* 128 */ "Sym",
-        /* 129 */ ".com",
+        /* 129 */ "Sym",
+        /* 130 */ ".com",
         // popular web domains for the locale - most popular, displayed on the keyboard
-        /* 130 */ "!hasLabels!,.net,.org,.gov,.edu",
-        /* 131 */ "!fixedColumnOrder!5,!hasLabels!,=-O|=-O ,:-P|:-P ,;-)|;-) ,:-(|:-( ,:-)|:-) ,:-!|:-! ,:-$|:-$ ,B-)|B-) ,:O|:O ,:-*|:-* ,:-D|:-D ,:\'(|:\'( ,:-\\\\|:-\\\\ ,O:-)|O:-) ,:-[|:-[ ",
+        /* 131 */ "!hasLabels!,.net,.org,.gov,.edu",
+        /* 132 */ "!fixedColumnOrder!5,!hasLabels!,=-O|=-O ,:-P|:-P ,;-)|;-) ,:-(|:-( ,:-)|:-) ,:-!|:-! ,:-$|:-$ ,B-)|B-) ,:O|:O ,:-*|:-* ,:-D|:-D ,:\'(|:\'( ,:-\\\\|:-\\\\ ,O:-)|O:-) ,:-[|:-[ ",
         // U+2039: "‹" SINGLE LEFT-POINTING ANGLE QUOTATION MARK
         // U+203A: "›" SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
         // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -421,24 +424,24 @@ public final class KeyboardTextsSet {
         // The following each quotation mark pair consist of
         // <opening quotation mark>, <closing quotation mark>
         // and is named after (single|double)_<opening quotation mark>_<closing quotation mark>.
-        /* 132 */ "\u2039,\u203A",
-        /* 133 */ "\u2039|\u203A,\u203A|\u2039",
-        /* 134 */ "\u203A,\u2039",
-        /* 135 */ "\u00AB,\u00BB",
-        /* 136 */ "\u00AB|\u00BB,\u00BB|\u00AB",
-        /* 137 */ "\u00BB,\u00AB",
+        /* 133 */ "\u2039,\u203A",
+        /* 134 */ "\u2039|\u203A,\u203A|\u2039",
+        /* 135 */ "\u203A,\u2039",
+        /* 136 */ "\u00AB,\u00BB",
+        /* 137 */ "\u00AB|\u00BB,\u00BB|\u00AB",
+        /* 138 */ "\u00BB,\u00AB",
         // The following each quotation mark triplet consists of
         // <another quotation mark>, <opening quotation mark>, <closing quotation mark>
         // and is named after (single|double)_<opening quotation mark>_<closing quotation mark>.
-        /* 138 */ "\u201A,\u2018,\u2019",
-        /* 139 */ "\u2019,\u201A,\u2018",
-        /* 140 */ "\u2018,\u201A,\u2019",
-        /* 141 */ "\u201E,\u201C,\u201D",
-        /* 142 */ "\u201D,\u201E,\u201C",
-        /* 143 */ "\u201C,\u201E,\u201D",
-        /* 144 */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
-        /* 145 */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
-        /* 146 */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
+        /* 139 */ "\u201A,\u2018,\u2019",
+        /* 140 */ "\u2019,\u201A,\u2018",
+        /* 141 */ "\u2018,\u201A,\u2019",
+        /* 142 */ "\u201E,\u201C,\u201D",
+        /* 143 */ "\u201D,\u201E,\u201C",
+        /* 144 */ "\u201C,\u201E,\u201D",
+        /* 145 */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
+        /* 146 */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
+        /* 147 */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
     };
 
     /* Language af: Afrikaans */
@@ -610,14 +613,14 @@ public final class KeyboardTextsSet {
         // U+2030: "‰" PER MILLE SIGN
         /* 100 */ "\\%,\u2030",
         /* 101~ */
-        null, null, null, null, null,
-        /* ~105 */
+        null, null, null, null, null, null,
+        /* ~106 */
         // U+060C: "،" ARABIC COMMA
         // U+061B: "؛" ARABIC SEMICOLON
         // U+061F: "؟" ARABIC QUESTION MARK
-        /* 106 */ "\u060C",
-        /* 107 */ "\u061F",
-        /* 108 */ "\u061F,\u061B,!,:,-,/,\',\"",
+        /* 107 */ "\u060C",
+        /* 108 */ "\u061F",
+        /* 109 */ "\u061F,\u061B,!,:,-,/,\',\"",
     };
 
     /* Language be: Belarusian */
@@ -819,9 +822,7 @@ public final class KeyboardTextsSet {
         // U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX
         // U+00E3: "ã" LATIN SMALL LETTER A WITH TILDE
         // U+0101: "ā" LATIN SMALL LETTER A WITH MACRON
-        // U+00E5: "å" LATIN SMALL LETTER A WITH RING ABOVE
-        // U+00E6: "æ" LATIN SMALL LETTER AE
-        /* 0 */ "\u00E1,\u00E4,\u00E0,\u00E2,\u00E3,\u0101,\u00E5,\u00E6",
+        /* 0 */ "\u00E1,\u00E4,\u00E0,\u00E2,\u00E3,\u0101",
         // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
         // U+00EB: "ë" LATIN SMALL LETTER E WITH DIAERESIS
         /* 1 */ "\u00E9,\u00EB",
@@ -834,8 +835,7 @@ public final class KeyboardTextsSet {
         // U+00F5: "õ" LATIN SMALL LETTER O WITH TILDE
         // U+0153: "œ" LATIN SMALL LIGATURE OE
         // U+014D: "ō" LATIN SMALL LETTER O WITH MACRON
-        // U+00F8: "ø" LATIN SMALL LETTER O WITH STROKE
-        /* 3 */ "\u00F3,\u00F4,\u00F2,\u00F5,\u0153,\u014D,\u00F8",
+        /* 3 */ "\u00F3,\u00F4,\u00F2,\u00F5,\u0153,\u014D",
         // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
         // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
         // U+00FB: "û" LATIN SMALL LETTER U WITH CIRCUMFLEX
@@ -1116,20 +1116,20 @@ public final class KeyboardTextsSet {
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        /* ~108 */
-        /* 109 */ "q",
-        /* 110 */ "x",
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        /* ~109 */
+        /* 110 */ "q",
+        /* 111 */ "x",
         // U+015D: "ŝ" LATIN SMALL LETTER S WITH CIRCUMFLEX
-        /* 111 */ "\u015D",
+        /* 112 */ "\u015D",
         // U+011D: "ĝ" LATIN SMALL LETTER G WITH CIRCUMFLEX
-        /* 112 */ "\u011D",
+        /* 113 */ "\u011D",
         // U+016D: "ŭ" LATIN SMALL LETTER U WITH BREVE
-        /* 113 */ "\u016D",
+        /* 114 */ "\u016D",
         // U+0109: "ĉ" LATIN SMALL LETTER C WITH CIRCUMFLEX
-        /* 114 */ "\u0109",
+        /* 115 */ "\u0109",
         // U+0135: "ĵ" LATIN SMALL LETTER J WITH CIRCUMFLEX
-        /* 115 */ "\u0135",
+        /* 116 */ "\u0135",
     };
 
     /* Language es: Spanish */
@@ -1201,11 +1201,12 @@ public final class KeyboardTextsSet {
         // U+00A1: "¡" INVERTED EXCLAMATION MARK
         /* 103 */ "!,\u00A1",
         /* 104 */ null,
+        /* 105 */ null,
         // U+00BF: "¿" INVERTED QUESTION MARK
-        /* 105 */ "?,\u00BF",
-        /* 106 */ "\"",
-        /* 107 */ "\'",
+        /* 106 */ "?,\u00BF",
+        /* 107 */ "\"",
         /* 108 */ "\'",
+        /* 109 */ "\'",
     };
 
     /* Language et: Estonian */
@@ -1437,11 +1438,12 @@ public final class KeyboardTextsSet {
         /* 101 */ "\u060C",
         /* 102 */ "!",
         /* 103 */ "!,\\,",
-        /* 104 */ "\u061F",
-        /* 105 */ "\u061F,?",
-        /* 106 */ "\u060C",
-        /* 107 */ "\u061F",
-        /* 108 */ "!fixedColumnOrder!4,:,!,\u061F,\u061B,-,/,\u00AB|\u00BB,\u00BB|\u00AB",
+        /* 104 */ null,
+        /* 105 */ "\u061F",
+        /* 106 */ "\u061F,?",
+        /* 107 */ "\u060C",
+        /* 108 */ "\u061F",
+        /* 109 */ "!fixedColumnOrder!4,:,!,\u061F,\u061B,-,/,\u00AB|\u00BB,\u00BB|\u00AB",
     };
 
     /* Language fi: Finnish */
@@ -1651,48 +1653,6 @@ public final class KeyboardTextsSet {
         // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
         // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
         // U+0171: "ű" LATIN SMALL LETTER U WITH DOUBLE ACUTE
-        /* 4 */ "\u00FA,\u00FC,\u0171",
-    };
-
-    /* Language hu_ZZ: hu_zz */
-    private static final String[] LANGUAGE_hu_ZZ = {
-        // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
-        // U+00E0: "à" LATIN SMALL LETTER A WITH GRAVE
-        // U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX
-        // U+00E4: "ä" LATIN SMALL LETTER A WITH DIAERESIS
-        // U+00E6: "æ" LATIN SMALL LETTER AE
-        // U+00E3: "ã" LATIN SMALL LETTER A WITH TILDE
-        // U+00E5: "å" LATIN SMALL LETTER A WITH RING ABOVE
-        // U+0101: "ā" LATIN SMALL LETTER A WITH MACRON
-        /* 0 */ "\u00E1,\u00E0,\u00E2,\u00E4,\u00E6,\u00E3,\u00E5,\u0101",
-        // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
-        // U+00E8: "è" LATIN SMALL LETTER E WITH GRAVE
-        // U+00EA: "ê" LATIN SMALL LETTER E WITH CIRCUMFLEX
-        // U+00EB: "ë" LATIN SMALL LETTER E WITH DIAERESIS
-        // U+0119: "ę" LATIN SMALL LETTER E WITH OGONEK
-        // U+0117: "ė" LATIN SMALL LETTER E WITH DOT ABOVE
-        // U+0113: "ē" LATIN SMALL LETTER E WITH MACRON
-        /* 1 */ "\u00E9,\u00E8,\u00EA,\u00EB,\u0119,\u0117,\u0113",
-        // U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE
-        // U+00EE: "î" LATIN SMALL LETTER I WITH CIRCUMFLEX
-        // U+00EF: "ï" LATIN SMALL LETTER I WITH DIAERESIS
-        // U+00EC: "ì" LATIN SMALL LETTER I WITH GRAVE
-        // U+012F: "į" LATIN SMALL LETTER I WITH OGONEK
-        // U+012B: "ī" LATIN SMALL LETTER I WITH MACRON
-        /* 2 */ "\u00ED,\u00EE,\u00EF,\u00EC,\u012F,\u012B",
-        // U+00F3: "ó" LATIN SMALL LETTER O WITH ACUTE
-        // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
-        // U+0151: "ő" LATIN SMALL LETTER O WITH DOUBLE ACUTE
-        // U+00F4: "ô" LATIN SMALL LETTER O WITH CIRCUMFLEX
-        // U+00F2: "ò" LATIN SMALL LETTER O WITH GRAVE
-        // U+00F5: "õ" LATIN SMALL LETTER O WITH TILDE
-        // U+0153: "œ" LATIN SMALL LIGATURE OE
-        // U+00F8: "ø" LATIN SMALL LETTER O WITH STROKE
-        // U+014D: "ō" LATIN SMALL LETTER O WITH MACRON
-        /* 3 */ "\u00F3,\u00F6,\u0151,\u00F4,\u00F2,\u00F5,\u0153,\u00F8,\u014D",
-        // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
-        // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
-        // U+0171: "ű" LATIN SMALL LETTER U WITH DOUBLE ACUTE
         // U+00FB: "û" LATIN SMALL LETTER U WITH CIRCUMFLEX
         // U+00F9: "ù" LATIN SMALL LETTER U WITH GRAVE
         // U+016B: "ū" LATIN SMALL LETTER U WITH MACRON
@@ -1708,18 +1668,32 @@ public final class KeyboardTextsSet {
         /* 46 */ "!text/double_raqm_laqm",
     };
 
+    /* Language hu_ZZ: hu_zz */
+    private static final String[] LANGUAGE_hu_ZZ = {
+        // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
+        /* 0 */ "\u00E1",
+        // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
+        /* 1 */ "\u00E9",
+        // U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE
+        /* 2 */ "\u00ED",
+        // U+00F3: "ó" LATIN SMALL LETTER O WITH ACUTE
+        // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
+        // U+0151: "ő" LATIN SMALL LETTER O WITH DOUBLE ACUTE
+        /* 3 */ "\u00F3,\u00F6,\u0151",
+        // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
+        // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
+        // U+0171: "ű" LATIN SMALL LETTER U WITH DOUBLE ACUTE
+        /* 4 */ "\u00FA,\u00FC,\u0171",
+    };
+
     /* Language hy: Armenian */
     private static final String[] LANGUAGE_hy = {
         /* 0~ */
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null, null,
-        /* ~41 */
-        /* 42 */ ">",
-        /* 43 */ "<",
-        /* 44~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null,
-        /* ~48 */
+        /* ~49 */
         // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
         // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
         // U+055E: "՞" ARMENIAN QUESTION MARK
@@ -1727,37 +1701,44 @@ public final class KeyboardTextsSet {
         // U+055C: "՜" ARMENIAN EXCLAMATION MARK
         // U+055B: "՛" ARMENIAN EMPHASIS MARK
         // U+058A: "֊" ARMENIAN HYPHEN
-        /* 49 */ "!fixedColumnOrder!8,\u00AB,\u00BB,\u058A,\\,,.,:,\u055D,\u055E,\u055B,\u055C,@,\\%,;,/,(,)",
-        /* 50~ */
+        /* 50 */ "!fixedColumnOrder!8,\u00AB,\u00BB,\u058A,\\,,.,:,\u055D,\u055E,\u055B,\u055C,@,\\%,;,/,(,)",
+        /* 51~ */
         null, null, null, null, null,
-        /* ~54 */
-        /* 55 */ "<",
-        /* 56 */ ">",
-        /* 57~ */
+        /* ~55 */
+        /* 56 */ "<",
+        /* 57 */ ">",
+        /* 58~ */
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-        /* ~93 */
+        null, null, null, null, null, null, null, null, null,
+        /* ~96 */
         // U+055C: "՜" ARMENIAN EXCLAMATION MARK
-        /* 94 */ "\u055C,!",
+        /* 97 */ "\u055C,!",
         // U+055D: "՝" ARMENIAN COMMA
-        /* 95 */ "\u055D,?",
-        /* 96~ */
+        /* 98 */ "\u055D,?",
+        /* 99~ */
         null, null, null,
-        /* ~98 */
+        /* ~101 */
         // U+055D: "՝" ARMENIAN COMMA
-        /* 99 */ "\u055D",
-        /* 100 */ "\u055D",
+        /* 102 */ "\u055D",
+        /* 103 */ "\u055D",
         // U+0589: "։" ARMENIAN FULL STOP
-        /* 101 */ "\u0589",
+        /* 104 */ "\u0589",
         // U+055E: "՞" ARMENIAN QUESTION MARK
-        /* 102 */ "\u055E",
-        /* 103 */ "\u055E",
+        /* 105 */ "\u055E",
+        /* 106 */ "\u055E",
         // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
         // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-        /* 104 */ "\u00AB",
-        /* 105 */ "\u00BB",
-        /* 106 */ "\u00BB",
+        /* 107 */ "\u00AB",
+        /* 108 */ "\u00BB",
+        /* 109 */ "\u00BB",
+        /* 110~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null,
+        /* ~144 */
+        /* 145 */ ">",
+        /* 146 */ "<",
     };
 
     /* Language is: Icelandic */
