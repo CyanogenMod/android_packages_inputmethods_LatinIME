@@ -21,7 +21,7 @@
     <color name="key_text_color_default">@android:color/white</color>
     <color name="key_text_shadow_color_default">#BB000000</color>
     <color name="key_text_inactivated_color_default">@android:color/white</color>
-    <color name="key_hint_letter_color_default">#80000000</color>
+    <color name="key_hint_letter_color_default">#80E0E4E5</color>
     <color name="key_hint_label_color_default">#E0E0E4E5</color>
     <color name="key_shifted_letter_hint_inactivated_color_default">#66E0E4E5</color>
     <color name="key_shifted_letter_hint_activated_color_default">#CCE0E4E5</color>
@@ -33,7 +33,7 @@
     <color name="key_text_color_stone">@android:color/black</color>
     <color name="key_text_shadow_color_stone">@android:color/white</color>
     <color name="key_text_inactivated_color_stone">#FF808080</color>
-    <color name="key_hint_letter_color_stone">#80000000</color>
+    <color name="key_hint_letter_color_stone">#80E0E4E5</color>
     <color name="key_hint_label_color_stone">#E0000000</color>
     <color name="key_shifted_letter_hint_inactivated_color_stone">#66000000</color>
     <color name="key_shifted_letter_hint_activated_color_stone">#CC000000</color>
@@ -46,7 +46,7 @@
     <color name="key_text_color_ics">@android:color/white</color>
     <color name="key_text_shadow_color_ics">@android:color/transparent</color>
     <color name="key_text_inactivated_color_ics">#66E0E4E5</color>
-    <color name="key_hint_letter_color_ics">#80000000</color>
+    <color name="key_hint_letter_color_ics">#80E0E4E5</color>
     <color name="key_hint_label_color_ics">#A0FFFFFF</color>
     <color name="key_shifted_letter_hint_inactivated_color_ics">#66E0E4E5</color>
     <color name="key_shifted_letter_hint_activated_color_ics">@android:color/white</color>
