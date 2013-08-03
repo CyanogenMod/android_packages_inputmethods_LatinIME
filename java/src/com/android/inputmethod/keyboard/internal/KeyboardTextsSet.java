@@ -151,7 +151,7 @@ public final class KeyboardTextsSet {
         /* 46 */ "double_angle_quotes",
         /* 47 */ "more_keys_for_currency_dollar",
         /* 48 */ "keylabel_for_currency_generic",
-        /* 49 */ "more_keys_for_currency_general",
+        /* 49 */ "more_keys_for_currency_generic",
         /* 50 */ "more_keys_for_punctuation",
         /* 51 */ "more_keys_for_star",
         /* 52 */ "more_keys_for_bullet",
