@@ -46,7 +46,7 @@
     <color name="key_text_color_ics">@android:color/white</color>
     <color name="key_text_shadow_color_ics">@android:color/transparent</color>
     <color name="key_text_inactivated_color_ics">#66E0E4E5</color>
-    <color name="key_hint_letter_color_ics">#80000000</color>
+    <color name="key_hint_letter_color_ics">#80E0E4E5</color>
     <color name="key_hint_label_color_ics">#A0FFFFFF</color>
     <color name="key_shifted_letter_hint_inactivated_color_ics">#66E0E4E5</color>
     <color name="key_shifted_letter_hint_activated_color_ics">@android:color/white</color>
