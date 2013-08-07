@@ -16,13 +16,9 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for aosp_android_keyboard_ime_name (7877134937939182296) -->
-    <skip />
     <!-- no translation found for english_ime_input_options (3909945612939668554) -->
     <skip />
     <!-- no translation found for english_ime_research_log (8492602295696577851) -->
-    <skip />
-    <!-- no translation found for aosp_spell_checker_service_name (6985142605330377819) -->
     <skip />
     <!-- no translation found for use_contacts_for_spellchecking_option_title (5374120998125353898) -->
     <skip />
@@ -115,10 +111,6 @@
     <string name="label_previous_key" msgid="1211868118071386787">"Նախորդ"</string>
     <string name="label_done_key" msgid="2441578748772529288">"Պատրաստ է"</string>
     <string name="label_send_key" msgid="2815056534433717444">"Ուղարկել"</string>
-    <string name="label_to_alpha_key" msgid="4793983863798817523">"ԱԲԳ"</string>
-    <string name="label_to_symbol_key" msgid="8516904117128967293">"՞,12"</string>
-    <!-- no translation found for label_to_symbol_with_microphone_key (9035925553010061906) -->
-    <skip />
     <!-- no translation found for label_pause_key (181098308428035340) -->
     <skip />
     <!-- no translation found for label_wait_key (6402152600878093134) -->
