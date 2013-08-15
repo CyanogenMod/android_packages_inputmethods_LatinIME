@@ -35,7 +35,7 @@
     <Key
         latin:keyLabel="&#x0441;"
         latin:keyHintLabel="&apos;"
-        latin:additionalMoreKeys="&apos;" />
+        latin:additionalMoreKeys="!text/more_keys_for_cyrillic_apostroph" />
     <!-- U+043C: "м" CYRILLIC SMALL LETTER EM -->
     <Key
         latin:keyLabel="&#x043C;"
