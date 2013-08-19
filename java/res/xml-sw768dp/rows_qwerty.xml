@@ -31,7 +31,7 @@
             latin:keyLabelFlags="alignLeft"
             latin:keyWidth="7.969%p" />
         <include
-                latin:keyboardLayout="@xml/rowkeys_qwerty1" />
+            latin:keyboardLayout="@xml/rowkeys_qwerty1" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight"/>
