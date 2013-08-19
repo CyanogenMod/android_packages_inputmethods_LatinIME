@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,9 +103,11 @@ public final class CapsModeUtils {
         // Step 2 : Skip (ignore at the end of input) any opening punctuation. This includes
         // opening parentheses, brackets, opening quotes, everything that *opens* a span of
         // text in the linguistic sense. In RTL languages, this is still an opening sign, although
-        // it may look like a right parenthesis for example. We also include double quote and
-        // single quote since they aren't start punctuation in the unicode sense, but should still
-        // be skipped for English. TODO: does this depend on the language?
+        // it may look like a right parenthesis for example. We also include single quote, 
+        // double quote and left double angle quote since they aren't start punctuation in the 
+        // unicode sense, but should still be skipped for English. 
+        // TODO: does this depend on the language?
+
         int i;
         if (hasSpaceBefore) {
             i = cs.length() + 1;
@@ -112,6 +115,7 @@ public final class CapsModeUtils {
             for (i = cs.length(); i > 0; i--) {
                 final char c = cs.charAt(i - 1);
                 if (c != Constants.CODE_DOUBLE_QUOTE && c != Constants.CODE_SINGLE_QUOTE
+                        && c != Constants.CODE_LEFT_DOUBLE_ANGLE_QUOTE
                         && Character.getType(c) != Character.START_PUNCTUATION) {
                     break;
                 }
@@ -187,6 +191,37 @@ public final class CapsModeUtils {
         if (c == Constants.CODE_QUESTION_MARK || c == Constants.CODE_EXCLAMATION_MARK) {
             return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_SENTENCES) & reqModes;
         }
+
+        // In Armenian a sentence ends by an Armenian full stop (like a colon) and not by a period.
+        // It also can end by three dots. Occasionally two dots can be used instead of three.
+        // Thus allow a sentence to end by two or more dots.
+        // Armenian full stop: U+0589 - '։'.
+        // Also allow a sentence to end by a question mark or an exclamation mark (the code above).
+        // Don't allow a sentence to end by a single dot.
+
+        final int CODE_ARMENIAN_FULL_STOP = 0x589;
+
+        if (locale.getLanguage().equals("hy")) {
+            if (c == Constants.CODE_COLON || c == CODE_ARMENIAN_FULL_STOP) {
+                return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_SENTENCES) & reqModes;
+            } else if (c == Constants.CODE_PERIOD) {
+                if (j <= 0) {
+                    return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
+                } else {
+                    c = cs.charAt(--j);
+                    if (c == Constants.CODE_PERIOD) {
+                        return (TextUtils.CAP_MODE_CHARACTERS
+                                | TextUtils.CAP_MODE_SENTENCES) & reqModes;
+                    } else {
+                        return (TextUtils.CAP_MODE_CHARACTERS
+                                | TextUtils.CAP_MODE_WORDS) & reqModes;
+                    }
+                }
+            } else {
+                return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
+            }
+        }
+
         if (c != Constants.CODE_PERIOD || j <= 0) {
             return (TextUtils.CAP_MODE_CHARACTERS | TextUtils.CAP_MODE_WORDS) & reqModes;
         }
