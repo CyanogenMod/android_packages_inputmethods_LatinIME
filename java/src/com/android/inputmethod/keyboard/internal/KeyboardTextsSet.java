@@ -250,6 +250,7 @@ public final class KeyboardTextsSet {
         /* 145 */ "more_keys_for_single_quote",
         /* 146 */ "more_keys_for_double_quote",
         /* 147 */ "more_keys_for_tablet_double_quote",
+        /* 148 */ "more_keys_for_cyrillic_apostroph",
     };
 
     private static final String EMPTY = "";
@@ -442,6 +443,8 @@ public final class KeyboardTextsSet {
         /* 145 */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
         /* 146 */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
         /* 147 */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
+        // U+0027: "'" APOSTROPH
+        /* 148 */ "'",
     };
 
     /* Language af: Afrikaans */
@@ -2921,11 +2924,8 @@ public final class KeyboardTextsSet {
         /* 32 */ "\u0491",
         // U+0457: "ї" CYRILLIC SMALL LETTER YI
         /* 33 */ "\u0457",
-        /* 34 */ null,
-        // U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN
-        /* 35 */ "\u044A",
-        /* 36~ */
-        null, null, null, null, null, null,
+        /* 34~ */
+        null, null, null, null, null, null, null, null,
         /* ~41 */
         // Label for "switch to alphabetic" key.
         // U+0410: "А" CYRILLIC CAPITAL LETTER A
@@ -2939,6 +2939,18 @@ public final class KeyboardTextsSet {
         /* ~47 */
         // U+20B4: "₴" HRYVNIA SIGN
         /* 48 */ "\u20B4",
+        /* 49~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null,
+        /* ~147 */
+        // U+0027: "'" APOSTROPH
+        // U+02BC: "ʼ" CYRILLIC APOSTROPH
+        /* 148 */ "',\u02BC",
     };
 
     /* Language vi: Vietnamese */

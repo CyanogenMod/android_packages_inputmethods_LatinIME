@@ -247,4 +247,6 @@
     <string name="more_keys_for_single_quote">!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes</string>
     <string name="more_keys_for_double_quote">!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes</string>
     <string name="more_keys_for_tablet_double_quote">!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes</string>
+    <!-- U+0027: "'" APOSTROPH -->
+    <string name="more_keys_for_cyrillic_apostroph">&apos;</string>
 </resources>

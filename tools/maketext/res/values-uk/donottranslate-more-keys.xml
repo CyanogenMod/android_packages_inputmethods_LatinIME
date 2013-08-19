@@ -32,8 +32,9 @@
     <string name="more_keys_for_cyrillic_ghe">&#x0491;</string>
     <!-- U+0457: "ї" CYRILLIC SMALL LETTER YI -->
     <string name="more_keys_for_east_slavic_row2_1">&#x0457;</string>
-    <!-- U+044A: "ъ" CYRILLIC SMALL LETTER HARD SIGN -->
-    <string name="more_keys_for_cyrillic_soft_sign">&#x044A;</string>
+    <!-- U+0027: "'" APOSTROPH
+         U+02BC: "ʼ" CYRILLIC APOSTROPH -->
+    <string name="more_keys_for_cyrillic_apostroph">&apos;,&#x02BC;</string>
     <!-- U+20B4: "₴" HRYVNIA SIGN -->
     <string name="keylabel_for_currency_generic">&#x20B4;</string>
     <!-- Label for "switch to alphabetic" key.
