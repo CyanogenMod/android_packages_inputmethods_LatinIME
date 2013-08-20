@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2013 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,10 +159,12 @@ public final class Constants {
     public static final int CODE_DASH = '-';
     public static final int CODE_SINGLE_QUOTE = '\'';
     public static final int CODE_DOUBLE_QUOTE = '"';
+    public static final int CODE_LEFT_DOUBLE_ANGLE_QUOTE = 0xAB;
     public static final int CODE_QUESTION_MARK = '?';
     public static final int CODE_EXCLAMATION_MARK = '!';
     public static final int CODE_SLASH = '/';
     public static final int CODE_COMMERCIAL_AT = '@';
+    public static final int CODE_COLON = ':';
     // TODO: Check how this should work for right-to-left languages. It seems to stand
     // that for rtl languages, a closing parenthesis is a left parenthesis. Is this
     // managed by the font? Or is it a different char?
