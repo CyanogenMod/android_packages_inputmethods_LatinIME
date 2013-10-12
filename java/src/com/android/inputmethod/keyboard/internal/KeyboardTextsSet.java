@@ -1507,7 +1507,7 @@ public final class KeyboardTextsSet {
         // U+00E5: "å" LATIN SMALL LETTER A WITH RING ABOVE
         // U+0101: "ā" LATIN SMALL LETTER A WITH MACRON
         // U+00AA: "ª" FEMININE ORDINAL INDICATOR
-        /* 0 */ "\u00E0,\u00E2,%,\u00E6,\u00E1,\u00E4,\u00E3,\u00E5,\u0101,\u00AA",
+        /* 0 */ "\u00E0,\u00E2,\u00E6,\u00E1,\u00E4,\u00E3,\u00E5,\u0101,\u00AA",
         // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
         // U+00E8: "è" LATIN SMALL LETTER E WITH GRAVE
         // U+00EA: "ê" LATIN SMALL LETTER E WITH CIRCUMFLEX
@@ -1515,14 +1515,14 @@ public final class KeyboardTextsSet {
         // U+0119: "ę" LATIN SMALL LETTER E WITH OGONEK
         // U+0117: "ė" LATIN SMALL LETTER E WITH DOT ABOVE
         // U+0113: "ē" LATIN SMALL LETTER E WITH MACRON
-        /* 1 */ "\u00E9,\u00E8,\u00EA,\u00EB,%,\u0119,\u0117,\u0113",
+        /* 1 */ "\u00E9,\u00E8,\u00EA,\u00EB,\u0119,\u0117,\u0113",
         // U+00EE: "î" LATIN SMALL LETTER I WITH CIRCUMFLEX
         // U+00EF: "ï" LATIN SMALL LETTER I WITH DIAERESIS
         // U+00EC: "ì" LATIN SMALL LETTER I WITH GRAVE
         // U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE
         // U+012F: "į" LATIN SMALL LETTER I WITH OGONEK
         // U+012B: "ī" LATIN SMALL LETTER I WITH MACRON
-        /* 2 */ "\u00EE,%,\u00EF,\u00EC,\u00ED,\u012F,\u012B",
+        /* 2 */ "\u00EE,\u00EF,\u00EC,\u00ED,\u012F,\u012B",
         // U+00F4: "ô" LATIN SMALL LETTER O WITH CIRCUMFLEX
         // U+0153: "œ" LATIN SMALL LIGATURE OE
         // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
@@ -1532,13 +1532,13 @@ public final class KeyboardTextsSet {
         // U+00F8: "ø" LATIN SMALL LETTER O WITH STROKE
         // U+014D: "ō" LATIN SMALL LETTER O WITH MACRON
         // U+00BA: "º" MASCULINE ORDINAL INDICATOR
-        /* 3 */ "\u00F4,\u0153,%,\u00F6,\u00F2,\u00F3,\u00F5,\u00F8,\u014D,\u00BA",
+        /* 3 */ "\u00F4,\u0153,\u00F6,\u00F2,\u00F3,\u00F5,\u00F8,\u014D,\u00BA",
         // U+00F9: "ù" LATIN SMALL LETTER U WITH GRAVE
         // U+00FB: "û" LATIN SMALL LETTER U WITH CIRCUMFLEX
         // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
         // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
         // U+016B: "ū" LATIN SMALL LETTER U WITH MACRON
-        /* 4 */ "\u00F9,\u00FB,%,\u00FC,\u00FA,\u016B",
+        /* 4 */ "\u00F9,\u00FB,\u00FC,\u00FA,\u016B",
         /* 5 */ null,
         /* 6 */ null,
         // U+00E7: "ç" LATIN SMALL LETTER C WITH CEDILLA
@@ -1546,7 +1546,7 @@ public final class KeyboardTextsSet {
         // U+010D: "č" LATIN SMALL LETTER C WITH CARON
         /* 7 */ "\u00E7,\u0107,\u010D",
         // U+00FF: "ÿ" LATIN SMALL LETTER Y WITH DIAERESIS
-        /* 8 */ "%,\u00FF",
+        /* 8 */ "\u00FF",
     };
 
     /* Language hi: Hindi */
