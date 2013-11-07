@@ -122,6 +122,7 @@
         <item>en_US</item>
         <item>en_GB</item>
         <item>es_US</item>
+        <item>hu_ZZ</item>
     </string-array>
 
     <!-- Generic subtype label -->
