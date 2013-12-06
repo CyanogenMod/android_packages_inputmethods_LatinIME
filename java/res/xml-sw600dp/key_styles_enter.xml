@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2012, The Android Open Source Project
+** Copyright 2013, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@
         <case
             latin:imeAction="actionNext"
             latin:navigatePrevious="true"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle"
@@ -38,7 +37,6 @@
         <case
             latin:imeAction="actionNext"
             latin:navigatePrevious="false"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle" />
@@ -46,7 +44,6 @@
         <case
             latin:imeAction="actionPrevious"
             latin:navigateNext="true"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle"
@@ -56,7 +53,6 @@
         <case
             latin:imeAction="actionPrevious"
             latin:navigateNext="false"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle" />
@@ -64,7 +60,6 @@
         <case
             latin:navigateNext="true"
             latin:navigatePrevious="true"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle"
@@ -74,7 +69,6 @@
         <case
             latin:navigateNext="true"
             latin:navigatePrevious="false"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle"
@@ -84,7 +78,6 @@
         <case
             latin:navigateNext="false"
             latin:navigatePrevious="true"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle"
@@ -94,158 +87,9 @@
         <case
             latin:navigateNext="false"
             latin:navigatePrevious="false"
-            latin:passwordInput="true"
         >
             <key-style
                 latin:styleName="navigateMoreKeysStyle" />
-        </case>
-        <!-- latin:mode="email|url|phone|number|date|time|datetime" -->
-        <case
-            latin:imeAction="actionNext"
-            latin:navigatePrevious="true"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/action_previous_as_more_key" />
-        </case>
-        <case
-            latin:imeAction="actionNext"
-            latin:navigatePrevious="false"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle" />
-        </case>
-        <case
-            latin:imeAction="actionPrevious"
-            latin:navigateNext="true"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:imeAction="actionPrevious"
-            latin:navigateNext="false"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle" />
-        </case>
-        <case
-            latin:navigateNext="true"
-            latin:navigatePrevious="true"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!2,!needsDividers!,!text/action_previous_as_more_key,!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="true"
-            latin:navigatePrevious="false"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="false"
-            latin:navigatePrevious="true"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/action_previous_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="false"
-            latin:navigatePrevious="false"
-            latin:mode="email|url|phone|number|date|time|datetime"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle" />
-        </case>
-        <!-- default -->
-        <case
-            latin:imeAction="actionNext"
-            latin:navigatePrevious="true"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!2,!needsDividers!,!text/emoji_key_as_more_key,!text/action_previous_as_more_key" />
-        </case>
-        <case
-            latin:imeAction="actionNext"
-            latin:navigatePrevious="false"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/emoji_key_as_more_key" />
-        </case>
-        <case
-            latin:imeAction="actionPrevious"
-            latin:navigateNext="true"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!2,!needsDividers!,!text/emoji_key_as_more_key,!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:imeAction="actionPrevious"
-            latin:navigateNext="false"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/emoji_key_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="true"
-            latin:navigatePrevious="true"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!3,!needsDividers!,!text/emoji_key_as_more_key,!text/action_previous_as_more_key,!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="true"
-            latin:navigatePrevious="false"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!2,!needsDividers!,!text/emoji_key_as_more_key,!text/action_next_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="false"
-            latin:navigatePrevious="true"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!fixedColumnOrder!2,!needsDividers!,!text/emoji_key_as_more_key,!text/action_previous_as_more_key" />
-        </case>
-        <case
-            latin:navigateNext="false"
-            latin:navigatePrevious="false"
-        >
-            <key-style
-                latin:styleName="navigateMoreKeysStyle"
-                latin:keyLabelFlags="hasPopupHint|preserveCase"
-                latin:moreKeys="!text/emoji_key_as_more_key" />
         </case>
         <default>
             <key-style
