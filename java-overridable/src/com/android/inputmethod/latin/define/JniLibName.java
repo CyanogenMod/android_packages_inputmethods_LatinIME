@@ -22,4 +22,5 @@ public final class JniLibName {
     }
 
     public static final String JNI_LIB_NAME = "jni_latinime";
+    public static final String JNI_LIB_NAME2 = "jni_unbundled_latinimegoogle";
 }
