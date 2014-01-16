@@ -27,6 +27,7 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -40,6 +41,7 @@ import com.android.inputmethod.dictionarypack.DictionarySettingsActivity;
 import com.android.inputmethod.latin.AudioAndHapticFeedbackManager;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.SubtypeSwitcher;
+import com.android.inputmethod.latin.debug.ExternalDictionaryGetterForDebug;
 import com.android.inputmethod.latin.define.ProductionFlag;
 import com.android.inputmethod.latin.setup.LauncherIconVisibilityManager;
 import com.android.inputmethod.latin.userdictionary.UserDictionaryList;
@@ -67,6 +69,8 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     private ListPreference mKeyPreviewPopupDismissDelay;
     // Use bigrams to predict the next word when there is no input for it yet
     private CheckBoxPreference mBigramPrediction;
+
+    private boolean mServiceNeedsRestart = false;
 
     private void setPreferenceEnabled(final String preferenceKey, final boolean enabled) {
         final Preference preference = findPreference(preferenceKey);
@@ -218,6 +222,22 @@ public final class SettingsFragment extends InputMethodSettingsFragment
             textCorrectionGroup.removePreference(dictionaryLink);
         }
 
+        final PreferenceScreen readExternalDictionary =
+                (PreferenceScreen) findPreference(Settings.PREF_READ_EXTERNAL_DICTIONARY);
+        if (null != readExternalDictionary) {
+            readExternalDictionary.setOnPreferenceClickListener(
+                    new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(final Preference arg0) {
+                            ExternalDictionaryGetterForDebug.chooseAndInstallDictionary(
+                                    getActivity());
+                            mServiceNeedsRestart = true;
+                            return true;
+                        }
+                    }
+            );
+        }
+
         final Preference editPersonalDictionary =
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
         final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
@@ -238,6 +258,12 @@ public final class SettingsFragment extends InputMethodSettingsFragment
         setupKeypressVibrationDurationSettings(prefs, res);
         setupKeypressSoundVolumeSettings(prefs, res);
         refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, res);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mServiceNeedsRestart) Process.killProcess(Process.myPid());
     }
 
     @Override

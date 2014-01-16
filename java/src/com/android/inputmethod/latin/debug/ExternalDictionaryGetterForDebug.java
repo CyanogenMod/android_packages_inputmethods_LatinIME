@@ -100,16 +100,13 @@ public class ExternalDictionaryGetterForDebug {
             final String fileName, final Runnable completeRunnable) {
         final File file = new File(dirPath, fileName.toString());
         final FileHeader header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file);
-        final StringBuilder message = new StringBuilder();
         final String locale = header.getLocaleString();
-        for (String key : header.mDictionaryOptions.mAttributes.keySet()) {
-            message.append(key + " = " + header.mDictionaryOptions.mAttributes.get(key));
-            message.append("\n");
-        }
         final String languageName = LocaleUtils.constructLocaleFromString(locale)
                 .getDisplayName(Locale.getDefault());
         final String title = String.format(
-                context.getString(R.string.read_external_dictionary_confirm_install_message),
+                context.getString(R.string.import_external_dictionary_confirm_install_title));
+        final String message = String.format(
+                context.getString(R.string.import_external_dictionary_confirm_install_message),
                 languageName);
         new AlertDialog.Builder(context)
                 .setTitle(title)

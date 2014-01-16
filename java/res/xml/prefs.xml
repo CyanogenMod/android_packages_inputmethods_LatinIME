@@ -67,6 +67,9 @@
                  android:value="@string/dictionary_pack_client_id" />
            </intent>
         </PreferenceScreen>
+        <PreferenceScreen
+            android:key="read_external_dictionary"
+            android:title="@string/prefs_import_external_dictionary" />
         <CheckBoxPreference
             android:key="pref_key_block_potentially_offensive"
             android:title="@string/prefs_block_potentially_offensive_title"
