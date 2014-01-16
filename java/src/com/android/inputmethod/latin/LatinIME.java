@@ -2571,14 +2571,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     private void getSuggestedWordsOrOlderSuggestionsAsync(final int sessionId,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
-        mInputUpdater.getSuggestedWords(sessionId, sequenceNumber,
-                new OnGetSuggestedWordsCallback() {
-                    @Override
-                    public void onGetSuggestedWords(SuggestedWords suggestedWords) {
-                        callback.onGetSuggestedWords(maybeRetrieveOlderSuggestions(
-                                mWordComposer.getTypedWord(), suggestedWords));
-                    }
-                });
+        if (mInputUpdater != null) {
+            mInputUpdater.getSuggestedWords(sessionId, sequenceNumber,
+                    new OnGetSuggestedWordsCallback() {
+                        @Override
+                        public void onGetSuggestedWords(SuggestedWords suggestedWords) {
+                            callback.onGetSuggestedWords(maybeRetrieveOlderSuggestions(
+                                    mWordComposer.getTypedWord(), suggestedWords));
+                        }
+                    });
+        }
     }
 
     private SuggestedWords maybeRetrieveOlderSuggestions(final String typedWord,
