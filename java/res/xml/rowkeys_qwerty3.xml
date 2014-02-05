@@ -23,8 +23,8 @@
 >
     <Key
         latin:keySpec="z"
-        latin:keyHintLabel="!"
-        latin:additionalMoreKeys="!"
+        latin:keyHintLabel="*"
+        latin:additionalMoreKeys="*"
         latin:moreKeys="!text/morekeys_z" />
     <Key
         latin:keySpec="!text/keyspec_x"
@@ -47,8 +47,8 @@
         latin:additionalMoreKeys=";" />
     <Key
         latin:keySpec="n"
-        latin:keyHintLabel="/"
-        latin:additionalMoreKeys="/"
+        latin:keyHintLabel="!"
+        latin:additionalMoreKeys="!"
         latin:moreKeys="!text/morekeys_n" />
     <Key
         latin:keySpec="m"
