@@ -47,22 +47,22 @@
         latin:moreKeys="!text/more_keys_for_g" />
     <Key
         latin:keyLabel="h"
-        latin:keyHintLabel="*"
-        latin:additionalMoreKeys="*"
+        latin:keyHintLabel="-"
+        latin:additionalMoreKeys="-"
         latin:moreKeys="!text/more_keys_for_h" />
     <Key
         latin:keyLabel="j"
-        latin:keyHintLabel="-"
-        latin:additionalMoreKeys="-"
+        latin:keyHintLabel="+"
+        latin:additionalMoreKeys="+"
         latin:moreKeys="!text/more_keys_for_j" />
     <Key
         latin:keyLabel="k"
-        latin:keyHintLabel="+"
-        latin:additionalMoreKeys="+"
+        latin:keyHintLabel="("
+        latin:additionalMoreKeys="("
         latin:moreKeys="!text/more_keys_for_k" />
     <Key
         latin:keyLabel="l"
-        latin:keyHintLabel="_"
-        latin:additionalMoreKeys="_"
+        latin:keyHintLabel=")"
+        latin:additionalMoreKeys=")"
         latin:moreKeys="!text/more_keys_for_l" />
 </merge>
