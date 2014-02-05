@@ -27,8 +27,8 @@
         latin:additionalMoreKeys=";" />
     <Key
         latin:keySpec="n"
-        latin:keyHintLabel="/"
-        latin:additionalMoreKeys="/"
+        latin:keyHintLabel="!"
+        latin:additionalMoreKeys="!"
         latin:moreKeys="!text/morekeys_n" />
     <Key
         latin:keySpec="m"
