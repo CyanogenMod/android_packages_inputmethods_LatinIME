@@ -236,22 +236,23 @@ public final class KeyboardTextsSet {
         /* 131 */ "keylabel_for_popular_domain",
         /* 132 */ "more_keys_for_popular_domain",
         /* 133 */ "more_keys_for_smiley",
-        /* 134 */ "single_laqm_raqm",
-        /* 135 */ "single_laqm_raqm_rtl",
-        /* 136 */ "single_raqm_laqm",
-        /* 137 */ "double_laqm_raqm",
-        /* 138 */ "double_laqm_raqm_rtl",
-        /* 139 */ "double_raqm_laqm",
-        /* 140 */ "single_lqm_rqm",
-        /* 141 */ "single_9qm_lqm",
-        /* 142 */ "single_9qm_rqm",
-        /* 143 */ "double_lqm_rqm",
-        /* 144 */ "double_9qm_lqm",
-        /* 145 */ "double_9qm_rqm",
-        /* 146 */ "more_keys_for_single_quote",
-        /* 147 */ "more_keys_for_double_quote",
-        /* 148 */ "more_keys_for_tablet_double_quote",
-        /* 149 */ "emoji_key_as_more_key",
+        /* 134 */ "more_keys_for_smiley_popup",
+        /* 135 */ "single_laqm_raqm",
+        /* 136 */ "single_laqm_raqm_rtl",
+        /* 137 */ "single_raqm_laqm",
+        /* 138 */ "double_laqm_raqm",
+        /* 139 */ "double_laqm_raqm_rtl",
+        /* 140 */ "double_raqm_laqm",
+        /* 141 */ "single_lqm_rqm",
+        /* 142 */ "single_9qm_lqm",
+        /* 143 */ "single_9qm_rqm",
+        /* 144 */ "double_lqm_rqm",
+        /* 145 */ "double_9qm_lqm",
+        /* 146 */ "double_9qm_rqm",
+        /* 147 */ "more_keys_for_single_quote",
+        /* 148 */ "more_keys_for_double_quote",
+        /* 149 */ "more_keys_for_tablet_double_quote",
+        /* 150 */ "emoji_key_as_more_key",
     };
 
     private static final String EMPTY = "";
@@ -401,6 +402,7 @@ public final class KeyboardTextsSet {
         // popular web domains for the locale - most popular, displayed on the keyboard
         /* 132 */ "!hasLabels!,.net,.org,.gov,.edu",
         /* 133 */ "!fixedColumnOrder!5,!hasLabels!,:)|:) ,;)|;) ,:(|:( ,:D|:D ,:P|:P ,^^|^^ ,-_-|-_- ,=-O|=-O ,:-P|:-P ,;-)|;-) ,:-(|:-( ,:-)|:-) ,:-!|:-! ,:-$|:-$ ,B-)|B-) ,:O|:O ,:-*|:-* ,:-D|:-D ,:\'(|:\'( ,:-\\\\|:-\\\\ ,O:-)|O:-) ,:-[|:-[ ",
+        /* 134 */ "!fixedColumnOrder!5,!hasLabels!,:-[|:-[ ,O:-)|O:-) ,:-\\\\|:-\\\\ ,:\'(|:\'( , :-D|:-D ,:-*|:-* ,:O|:O ,B-)|B-) ,:-$|:-$ ,:-!|:-! ,:-)|:-) ,;-)|;-) ,:-(|:-( ,:-P|:-P ,=-O|=-O ",
         // U+2039: "‹" SINGLE LEFT-POINTING ANGLE QUOTATION MARK
         // U+203A: "›" SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
         // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -422,25 +424,25 @@ public final class KeyboardTextsSet {
         // The following each quotation mark pair consist of
         // <opening quotation mark>, <closing quotation mark>
         // and is named after (single|double)_<opening quotation mark>_<closing quotation mark>.
-        /* 134 */ "\u2039,\u203A",
-        /* 135 */ "\u2039|\u203A,\u203A|\u2039",
-        /* 136 */ "\u203A,\u2039",
-        /* 137 */ "\u00AB,\u00BB",
-        /* 138 */ "\u00AB|\u00BB,\u00BB|\u00AB",
-        /* 139 */ "\u00BB,\u00AB",
+        /* 135 */ "\u2039,\u203A",
+        /* 136 */ "\u2039|\u203A,\u203A|\u2039",
+        /* 137 */ "\u203A,\u2039",
+        /* 138 */ "\u00AB,\u00BB",
+        /* 139 */ "\u00AB|\u00BB,\u00BB|\u00AB",
+        /* 140 */ "\u00BB,\u00AB",
         // The following each quotation mark triplet consists of
         // <another quotation mark>, <opening quotation mark>, <closing quotation mark>
         // and is named after (single|double)_<opening quotation mark>_<closing quotation mark>.
-        /* 140 */ "\u201A,\u2018,\u2019",
-        /* 141 */ "\u2019,\u201A,\u2018",
-        /* 142 */ "\u2018,\u201A,\u2019",
-        /* 143 */ "\u201E,\u201C,\u201D",
-        /* 144 */ "\u201D,\u201E,\u201C",
-        /* 145 */ "\u201C,\u201E,\u201D",
-        /* 146 */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
-        /* 147 */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
-        /* 148 */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
-        /* 149 */ "!icon/emoji_key|!code/key_emoji",
+        /* 141 */ "\u201A,\u2018,\u2019",
+        /* 142 */ "\u2019,\u201A,\u2018",
+        /* 143 */ "\u2018,\u201A,\u2019",
+        /* 144 */ "\u201E,\u201C,\u201D",
+        /* 145 */ "\u201D,\u201E,\u201C",
+        /* 146 */ "\u201C,\u201E,\u201D",
+        /* 147 */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
+        /* 148 */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
+        /* 149 */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
+        /* 150 */ "!icon/emoji_key|!code/key_emoji",
     };
 
     /* Language af: Afrikaans */
@@ -3147,7 +3149,7 @@ public final class KeyboardTextsSet {
         /* 15 */ "\u011F",
     };
 
-    /* Language uk: Ukrainian */
+    /* Language uk: українська */
     private static final String[] LANGUAGE_uk = {
         /* 0~ */
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -3500,7 +3502,7 @@ public final class KeyboardTextsSet {
         "th", LANGUAGE_th, /* Thai */
         "tl", LANGUAGE_tl, /* Tagalog */
         "tr", LANGUAGE_tr, /* Turkish */
-        "uk", LANGUAGE_uk, /* Ukrainian */
+        "uk", LANGUAGE_uk, /* українська */
         "vi", LANGUAGE_vi, /* Vietnamese */
         "zu", LANGUAGE_zu, /* Zulu */
         "zz", LANGUAGE_zz, /* Alphabet */

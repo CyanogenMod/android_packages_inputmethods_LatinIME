@@ -138,8 +138,12 @@
             latin:mode="im"
         >
             <key-style
+                latin:keyLabel=":-)"
+                latin:keyOutputText=":-) "
+                latin:moreKeys="!text/more_keys_for_smiley_popup"
                 latin:styleName="enterKeyStyle"
-                latin:parentStyle="emojiKeyStyle" />
+                latin:keyLabelFlags="hasPopupHint"
+                latin:backgroundType="functional" />
         </case>
     </switch>
     <key-style
