@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Wörterbuch importieren</string>
-  <string name="import_external_dictionary_multiple_files_title">Wählen Sie das zu importierende Wörterbuch aus</string>
-  <string name="import_external_dictionary_confirm_install_title">Import bestätigen</string>
-  <string name="import_external_dictionary_confirm_install_message">Sind Sie sicher, dass Sie dieses Wörterbuch für <xliff:g id="locale_name">%s</xliff:g> importieren wollen?</string>
+  <string name="prefs_import_external_dictionary">Tuo sanakirjatiedosto</string>
+  <string name="import_external_dictionary_multiple_files_title">Valitse tuotava sanakirjatiedosto</string>
+  <string name="import_external_dictionary_confirm_install_title">Vahvista tuonti</string>
+  <string name="import_external_dictionary_confirm_install_message">Oletko varma, että haluat tuoda tämän sanakirjan kielelle <xliff:g id="locale_name">%s</xliff:g>?</string>
 </resources>
