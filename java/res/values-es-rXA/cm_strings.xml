@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Wörterbuch importieren</string>
-  <string name="import_external_dictionary_multiple_files_title">Wählen Sie das zu importierende Wörterbuch aus</string>
-  <string name="import_external_dictionary_confirm_install_title">Import bestätigen</string>
-  <string name="import_external_dictionary_confirm_install_message">Sind Sie sicher, dass Sie dieses Wörterbuch für <xliff:g id="locale_name">%s</xliff:g> importieren wollen?</string>
+  <string name="prefs_import_external_dictionary">Importar un ficheru de diccionariu</string>
+  <string name="import_external_dictionary_multiple_files_title">Esbilla un ficheru de diccionariu pa importar</string>
+  <string name="import_external_dictionary_confirm_install_title">Confirma la importación</string>
+  <string name="import_external_dictionary_confirm_install_message">¿Daveres que quies importar esti diccionariu pa la llingua <xliff:g id="locale_name">%s</xliff:g>?</string>
 </resources>
