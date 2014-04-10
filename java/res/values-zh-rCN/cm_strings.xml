@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Importovat soubor slovníku</string>
-  <string name="import_external_dictionary_multiple_files_title">Zvolte soubor slovníku pro import</string>
-  <string name="import_external_dictionary_confirm_install_title">Potvrdit import</string>
-  <string name="import_external_dictionary_confirm_install_message">Opravdu chcete importovat soubor slovník pro jazyk <xliff:g id="locale_name">%s</xliff:g>?</string>
+  <string name="prefs_import_external_dictionary">导入字典文件</string>
+  <string name="import_external_dictionary_multiple_files_title">选择要导入的字典文件</string>
+  <string name="import_external_dictionary_confirm_install_title">确认导入</string>
+  <string name="import_external_dictionary_confirm_install_message">您确定要为<xliff:g id="locale_name">%s</xliff:g>导入此字典？</string>
 </resources>

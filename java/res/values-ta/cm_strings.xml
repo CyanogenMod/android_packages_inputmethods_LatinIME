@@ -16,8 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Importovat soubor slovníku</string>
-  <string name="import_external_dictionary_multiple_files_title">Zvolte soubor slovníku pro import</string>
-  <string name="import_external_dictionary_confirm_install_title">Potvrdit import</string>
-  <string name="import_external_dictionary_confirm_install_message">Opravdu chcete importovat soubor slovník pro jazyk <xliff:g id="locale_name">%s</xliff:g>?</string>
+  <string name="prefs_import_external_dictionary">அகரமுதலி கோப்பை இறக்குமதி செய்</string>
+  <string name="import_external_dictionary_multiple_files_title">ஒரு அகரமுதலி கோப்பை இறக்குமதி செய்ய தேர்ந்தெடு</string>
+  <string name="import_external_dictionary_confirm_install_title">இறக்குமதியை உறுதிச்செய்</string>
 </resources>
