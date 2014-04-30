@@ -20,6 +20,7 @@ import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -148,6 +149,7 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     private int mAltCodeKeyWhileTypingAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
     // Preview placer view
+    private final int mCustomKeyboardCoordinateFraction;
     private final PreviewPlacerView mPreviewPlacerView;
     private final int[] mOriginCoords = CoordinateUtils.newInstance();
     private final GestureFloatingPreviewText mGestureFloatingPreviewText;
@@ -434,6 +436,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         mNonDistinctMultitouchHelper = hasDistinctMultitouch ? null
                 : new NonDistinctMultitouchHelper();
 
+        final Resources res = context.getResources();
+        mCustomKeyboardCoordinateFraction = res.getInteger(
+                R.integer.config_custom_keyboard_coordinate_fraction);
+
         mPreviewPlacerView = new PreviewPlacerView(context, attrs);
 
         final TypedArray mainKeyboardViewAttr = context.obtainStyledAttributes(
@@ -653,7 +659,7 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         }
         getLocationInWindow(mOriginCoords);
         final DisplayMetrics dm = getResources().getDisplayMetrics();
-        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / 4) {
+        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / mCustomKeyboardCoordinateFraction) {
             // In transient state.
             return;
         }
