@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Importar ficheiro de dicionário</string>
-  <string name="import_external_dictionary_multiple_files_title">Selecionar o ficheiro de dicionário a importar</string>
-  <string name="import_external_dictionary_confirm_install_title">Confirmar a importação</string>
-  <string name="import_external_dictionary_confirm_install_message">Tem a certeza que quer importar o dicionário para o idioma de <xliff:g id="locale_name">%s</xliff:g>?</string>
+  <string name="prefs_import_external_dictionary">Uvezi datoteku rječnika</string>
+  <string name="import_external_dictionary_multiple_files_title">Odaberi datoteku rječnika za uvoz</string>
+  <string name="import_external_dictionary_confirm_install_title">Potvrdi uvoz</string>
+  <string name="import_external_dictionary_confirm_install_message">Jeste li sigurni da želite uvesti rječnik za <xliff:g id="locale_name">%s</xliff:g> jezik?</string>
 </resources>
