@@ -134,4 +134,8 @@
     <bool name="display_notification_for_auto_update">false</bool>
     <bool name="display_notification_for_user_requested_update">false</bool>
 
+   <!-- Fraction of the display height to use to determine whether or not the
+     current keyboard position is still in a transient state and therefore we
+     should defer displaying preview views such -->
+   <integer name="config_custom_keyboard_coordinate_fraction">4</integer>
 </resources>
