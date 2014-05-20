@@ -326,8 +326,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readDefaultKeypressVibrationDuration(final Resources res) {
-        return Integer.parseInt(
-                ResourceUtils.getDeviceOverrideValue(res, R.array.keypress_vibration_durations));
+        return res.getInteger(R.integer.config_default_keypress_vibration_duration);
     }
 
     public static boolean readUsabilityStudyMode(final SharedPreferences prefs) {
