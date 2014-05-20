@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Sözlük dosyasını içeri aktar</string>
-  <string name="import_external_dictionary_multiple_files_title">İçeri aktarmak için bir sözlük dosyası seç</string>
-  <string name="import_external_dictionary_confirm_install_title">İçeri aktarmayı onayla</string>
-  <string name="import_external_dictionary_confirm_install_message"><xliff:g id="locale_name">%s</xliff:g> dili için bu sözlüğü içeri aktarmak istediğinize emin misiniz?</string>
+  <string name="prefs_import_external_dictionary">Імпорт файлу словника</string>
+  <string name="import_external_dictionary_multiple_files_title">Виберіть файл словника для імпорту</string>
+  <string name="import_external_dictionary_confirm_install_title">Підтвердити імпортування</string>
+  <string name="import_external_dictionary_confirm_install_message">Ви впевнені що хочете імпортувати цей словник для <xliff:g id="locale_name">%s</xliff:g> мови?</string>
 </resources>
