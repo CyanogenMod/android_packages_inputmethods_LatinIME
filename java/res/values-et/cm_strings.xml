@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Увези фајл речника</string>
-  <string name="import_external_dictionary_multiple_files_title">Изабери фајл речника за увоз</string>
-  <string name="import_external_dictionary_confirm_install_title">Потврди увоз</string>
-  <string name="import_external_dictionary_confirm_install_message">Да ли си сигуран да желиш да увезеш овај речник за <xliff:g id="locale_name">%s</xliff:g> језик?</string>
+  <string name="prefs_import_external_dictionary">Impordi sõnastikufail</string>
+  <string name="import_external_dictionary_multiple_files_title">Valige imporditav sõnastikufail</string>
+  <string name="import_external_dictionary_confirm_install_title">Kinnitage import</string>
+  <string name="import_external_dictionary_confirm_install_message">Kas kindlasti soovid importida sõnastiku <xliff:g id="locale_name">%s</xliff:g> keele jaoks?</string>
 </resources>
