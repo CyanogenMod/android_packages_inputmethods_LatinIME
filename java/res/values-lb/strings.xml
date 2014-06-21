@@ -19,8 +19,15 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="auto_correction_threshold_mode_off">Aus</string>
+  <string name="spoken_description_shift">Shift</string>
+  <string name="spoken_description_delete">Läschen</string>
+  <string name="spoken_description_to_symbol">Symboler</string>
   <string name="spoken_description_settings">Astellungen</string>
+  <string name="spoken_description_search">Sichen</string>
   <string name="spoken_description_action_next">Weider</string>
+  <string name="subtype_en_GB">Englesch (Groussbritannien)</string>
+  <string name="subtype_en_US">Englesch (USA)</string>
   <string name="subtype_es_US">Spuenesch (US)</string>
   <string name="subtype_with_layout_en_GB">Englesch (UK) (<xliff:g id="layout">%s</xliff:g>)</string>
   <string name="subtype_with_layout_en_US">Englesch (US) (<xliff:g id="layout">%s</xliff:g>)</string>
@@ -39,6 +46,9 @@
   <string name="remove">Ewechhuelen</string>
   <string name="save">Späicheren</string>
   <string name="subtype_locale">Sprooch</string>
+  <string name="not_now">Net elo</string>
+  <string name="cancel">Ofbriechen</string>
+  <string name="cancel_download_dict">Ofbriechen</string>
   <string name="user_dict_settings_add_dialog_confirm">OK</string>
   <string name="user_dict_settings_delete">Läschen</string>
 </resources>
