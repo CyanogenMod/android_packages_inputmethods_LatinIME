@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Importare fișier dicționar</string>
-  <string name="import_external_dictionary_multiple_files_title">Selectați un fișier de dicționar pentru importare</string>
-  <string name="import_external_dictionary_confirm_install_title">Confirmare importare</string>
-  <string name="import_external_dictionary_confirm_install_message">Sigur doriți să importați acest dicționar pentru limba <xliff:g id="locale_name">%s</xliff:g> ?</string>
+  <string name="prefs_import_external_dictionary">사전 파일 가져오기</string>
+  <string name="import_external_dictionary_multiple_files_title">가져올 사전 파일 선택</string>
+  <string name="import_external_dictionary_confirm_install_title">가져오기 확인</string>
+  <string name="import_external_dictionary_confirm_install_message"><xliff:g id="locale_name">%s</xliff:g> 언어에 이 사전을 설치할까요?</string>
 </resources>
