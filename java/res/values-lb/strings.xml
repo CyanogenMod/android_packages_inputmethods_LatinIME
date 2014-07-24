@@ -19,6 +19,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
   <string name="auto_correction_threshold_mode_off">Aus</string>
   <string name="spoken_description_shift">Shift</string>
   <string name="spoken_description_delete">Läschen</string>
@@ -48,7 +49,10 @@
   <string name="subtype_locale">Sprooch</string>
   <string name="not_now">Net elo</string>
   <string name="cancel">Ofbriechen</string>
+  <string name="install_dict">Installéieren</string>
   <string name="cancel_download_dict">Ofbriechen</string>
+  <string name="delete_dict">Läschen</string>
   <string name="user_dict_settings_add_dialog_confirm">OK</string>
+  <string name="user_dict_settings_context_menu_delete_title">Läschen</string>
   <string name="user_dict_settings_delete">Läschen</string>
 </resources>

@@ -19,41 +19,216 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="english_ime_input_options">بەربژاردەکانی دەرخواردە</string>
+  <string name="english_ime_research_log">دووبارە گەڕان بۆ تۆماری فەرمانەکان</string>
+  <string name="use_contacts_for_spellchecking_option_title">گەڕان بە دوای ناوەکان</string>
+  <string name="use_contacts_for_spellchecking_option_summary">ڕاستکه‌ره‌وه‌ی وشه‌ به‌کاردێت بۆ هه‌موو لیستی په‌یوه‌ندییه‌کان</string>
+  <string name="vibrate_on_keypress">له‌رینه‌وه‌ له‌کاتی په‌نجه‌پێدانان</string>
+  <string name="sound_on_keypress">ده‌نگ ده‌رکردن له‌کاتی په‌نجه‌پێدانان</string>
+  <string name="popup_on_keypress">گه‌وره‌کردن له‌کاتی په‌نجه‌پێدانان</string>
   <string name="general_category">گشتی</string>
+  <string name="correction_category">ڕاستکه‌ره‌وه‌ی ده‌ق</string>
+  <string name="gesture_typing_category">نوسینی نیشانە</string>
+  <string name="misc_category">ڕێکخستنه‌کانی تر</string>
   <string name="advanced_settings">ڕێکخستنی پێشکه‌وتو</string>
+  <string name="advanced_settings_summary">ڕێکخستن بۆ شاره‌زاکان</string>
+  <string name="include_other_imes_in_language_switch_list">گۆڕین بۆ ته‌خته‌کلیلێکی تر</string>
+  <string name="include_other_imes_in_language_switch_list_summary">کلیلی گۆڕینی زمان بۆ ڕێگاکانی تر</string>
+  <string name="show_language_switch_key">کلیلی گۆڕینی زمان</string>
+  <string name="show_language_switch_key_summary">نیشاندان کاتێک له‌ دوو دانه‌ زیاتر زمان له‌کاردان</string>
+  <string name="sliding_key_input_preview">نیشاندانی نیشانده‌ری خزان</string>
+  <string name="sliding_key_input_preview_summary">نیشاندانی جێنیشانده‌ری بینراو کاتێک ده‌خزێنیت به‌ شیفت یان دوگمه‌ی هێماکان</string>
+  <string name="key_preview_popup_dismiss_delay">ماوه‌ی ده‌ه‌رکه‌وتنی کلیل به‌ گه‌وره‌یی</string>
+  <string name="key_preview_popup_dismiss_no_delay">ماوه‌ی نه‌بێت</string>
   <string name="key_preview_popup_dismiss_default_delay">بنه‌ڕه‌ت</string>
+  <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
+  <string name="settings_system_default">بنه‌ڕه‌تی سیسته‌م</string>
+  <string name="use_contacts_dict">پێشنیارکردنی ناوی په‌یوه‌ندی</string>
+  <string name="use_contacts_dict_summary">به‌کارهێنانی ناو بۆ په‌یوه‌ندی له‌ پێشنیار و ڕاستکراوه‌کان</string>
+  <string name="use_double_space_period">ماوه‌ی دوو بۆشایی</string>
+  <string name="use_double_space_period_summary">دو تاپ له‌ شریتی بۆشایی هاورده‌ ده‌کرێ که‌ به‌دواکراوه‌ به‌ بۆشایی</string>
   <string name="auto_cap">خۆکارانە-وشەی گەورەبنوسە</string>
+  <string name="auto_cap_summary">به‌ که‌پیته‌ڵکردنی یه‌که‌م وشه‌ له‌ هه‌ر ڕسته‌یه‌کدا</string>
   <string name="edit_personal_dictionary">فەرهەنگی کەسی</string>
+  <string name="configure_dictionaries_title">فه‌رهه‌نگی زیادکراوه‌کان</string>
+  <string name="main_dictionary">فه‌رهه‌نگی سه‌ره‌کی</string>
+  <string name="prefs_show_suggestions">نیشاندانی پێشنیاری ڕاست</string>
+  <string name="prefs_show_suggestions_summary">ده‌رکه‌وتنی پێشنیاره‌کان له‌کاتی نوسین</string>
   <string name="prefs_suggestion_visibility_show_name">هەمیشە پیشانبدە</string>
+  <string name="prefs_suggestion_visibility_show_only_portrait_name">بینین له‌ باری درێژی</string>
   <string name="prefs_suggestion_visibility_hide_name">هەمیشە بشارەوە</string>
-  <string name="auto_correction_threshold_mode_off">کوژانه‌وه‌</string>
+  <string name="prefs_block_potentially_offensive_title">بلۆک کردنی وشه‌ نایاساییه‌کان</string>
+  <string name="prefs_block_potentially_offensive_summary">پێشنیاری وشه‌ی نایاسایی مه‌که‌</string>
+  <string name="auto_correction">خۆکارانه‌ ڕاستکردنه‌وه‌</string>
+  <string name="auto_correction_summary">میلی بۆشایی و خاڵ ڕێزی خۆکارانە وشە هەڵە نووسراوەکان ڕاست ئەکەنەوە</string>
+  <string name="auto_correction_threshold_mode_off">ناچالاککردن</string>
+  <string name="auto_correction_threshold_mode_modest">كەم</string>
+  <string name="auto_correction_threshold_mode_aggressive">چالاک</string>
+  <string name="auto_correction_threshold_mode_very_aggressive">زۆر چالاکتر</string>
+  <string name="bigram_prediction">پێشنیارەکانی وشەی-داهاتوو</string>
+  <string name="bigram_prediction_summary">وشەی پێشوتر بەکار بهێنە لە سازدانی پێشنیارکردنەکان</string>
+  <string name="gesture_input">چالاککردنی نووسین بە کێشان</string>
+  <string name="gesture_input_summary">تێکردنی وشەیەک بە خلیسکان بە سەر پیتەکان</string>
+  <string name="gesture_preview_trail">شوێنەواری کێشان پیشان بدە</string>
+  <string name="gesture_floating_preview_text">پیشاندانی گەڕۆکی جوڵاو</string>
+  <string name="gesture_floating_preview_text_summary">وشەی پێشنیارکراو ببینە لە کاتی کێشاندا</string>
+  <string name="added_word"><xliff:g id="word">%s</xliff:g> : پاشەکەوتکرا</string>
+  <string name="spoken_use_headphones">بیستۆکێک ببەستەوە بۆ بیستنی کلیلەکانی لێدانی نهێنوشە بە بەرزی.</string>
+  <string name="spoken_current_text_is">نووسراوەی ئێستا \"%s\"</string>
+  <string name="spoken_no_text_entered">هیچ دەقێک تۆمارنەکراوە</string>
+  <string name="spoken_auto_correct"><xliff:g id="key" example="Space">%1$s</xliff:g> راستەکان <xliff:g id="original_word">%2$s</xliff:g> to <xliff:g id="corrected">%3$s</xliff:g></string>
+  <string name="spoken_auto_correct_obscured"><xliff:g id="key" example="Space">%1$s</xliff:g> جێبەجێ کردنی ڕاستکردنەوەی خۆکار</string>
+  <string name="spoken_description_unknown">کۆدی کلیل %d</string>
   <string name="spoken_description_shift">شوێنگۆڕین</string>
+  <string name="spoken_description_shift_shifted">شوێنگۆڕین چالاکە (لێدە بۆ ناچالاککردن)</string>
+  <string name="spoken_description_caps_lock">گەورەکەرەوە چالاکە (لێدە بۆ ناچالاککردن)</string>
   <string name="spoken_description_delete">سڕینه‌وه‌</string>
+  <string name="spoken_description_to_symbol">نیشانەکان</string>
+  <string name="spoken_description_to_alpha">پیتەکان</string>
+  <string name="spoken_description_to_numeric">ژمارەکان</string>
   <string name="spoken_description_settings">ڕێکخستنه‌کان</string>
+  <string name="spoken_description_tab">بازدەر</string>
+  <string name="spoken_description_space">بۆشایی</string>
+  <string name="spoken_description_mic">دەرخواردەی دەنگی</string>
+  <string name="spoken_description_smiley">رووی زەردەخەنەیی</string>
+  <string name="spoken_description_return">گەڕانەوە</string>
   <string name="spoken_description_search">گەڕان</string>
+  <string name="spoken_description_dot">خاڵ</string>
+  <string name="spoken_description_language_switch">گۆڕینی زمان</string>
   <string name="spoken_description_action_next">دواتر</string>
   <string name="spoken_description_action_previous">پێشتر</string>
+  <string name="spoken_description_shiftmode_on">شوێنگۆڕین چالاکە</string>
+  <string name="spoken_description_shiftmode_locked">دەقی گەورە چالاکە</string>
+  <string name="spoken_description_shiftmode_off">شوێنگۆڕین ناچالاککرا</string>
+  <string name="spoken_description_mode_symbol">دۆخی نیشانەکان</string>
+  <string name="spoken_description_mode_alpha">دۆخی پیتەکان</string>
+  <string name="spoken_description_mode_phone">دۆخی مۆبایل</string>
+  <string name="spoken_description_mode_phone_shift">دۆخی نیشانەکانی مۆبایل</string>
+  <string name="announce_keyboard_hidden">تەختەکلیل شارراوەیە</string>
+  <string name="announce_keyboard_mode">پێشاندانی <xliff:g id="mode" example="email">%s</xliff:g> تەختەکلیل</string>
+  <string name="keyboard_mode_date">بەروار</string>
+  <string name="keyboard_mode_date_time">بەروار و كات</string>
+  <string name="keyboard_mode_email">پۆستی ئەلکترۆنی</string>
+  <string name="keyboard_mode_im">پەیامکردن</string>
+  <string name="keyboard_mode_number">ژمارە</string>
+  <string name="keyboard_mode_phone">مۆبایل</string>
+  <string name="keyboard_mode_text">دەق</string>
+  <string name="keyboard_mode_time">کات</string>
+  <string name="keyboard_mode_url">شوێندۆزی سه‌رچاوه‌ی جیهانی</string>
+  <string name="voice_input">کلیلی دەرخواردەی دەنگی</string>
+  <string name="voice_input_modes_main_keyboard">لەسەر تەختەکلیلی سەرەکی</string>
+  <string name="voice_input_modes_symbols_keyboard">لەسەر تەختەکلیلی نیشانەکان</string>
   <string name="voice_input_modes_off">کوژانه‌وه‌</string>
+  <string name="voice_input_modes_summary_main_keyboard">مایکرۆفۆن لەسەر تەختەکلیلی سەرەکی</string>
+  <string name="voice_input_modes_summary_symbols_keyboard">مایکرۆفۆن لەسەر تەختەکیلی نیشانەکانی</string>
+  <string name="voice_input_modes_summary_off">دەرخواردەی دەنگی ناچالاککرا</string>
+  <string name="configure_input_method">ڕێکخستنی شێوازەکانی تێکردە</string>
+  <string name="language_selection_title">دەرخواردەی زمانەکان</string>
+  <string name="send_feedback">ناردنی تێبینی</string>
+  <string name="select_language">دەرخواردەی زمانەکان</string>
+  <string name="hint_add_to_dictionary">دەست لێدان دووبارە بۆ زەخیرەکردن</string>
+  <string name="has_dictionary">فەرهەنگ بەردەستە</string>
+  <string name="prefs_enable_log">چالاکردنی تێبینی بەکارهێنەر</string>
+  <string name="prefs_description_log">یارەمەتی باشترکردنی دەستکاریکەری شێوازەکانی تێکردە بدە ناردنی خۆکارانەی وردەکارییەکانی بەکارهێنان و ڕاپۆرتکردنی تێکشکانەکان</string>
+  <string name="keyboard_layout">رووکاری تەختەکلیل</string>
   <string name="subtype_en_GB">ئینگلیزی(بریتانیا)</string>
   <string name="subtype_en_US">ئینگلیزی(ئه‌مریکا)</string>
+  <string name="subtype_es_US">ئیسپانی (ئەمریکا)</string>
+  <string name="subtype_with_layout_en_GB">ئینگلیزی (بەریتانیا) (<xliff:g id="layout">%s</xliff:g>)</string>
+  <string name="subtype_with_layout_en_US">ئینگلیزی (ئەمریکا) (<xliff:g id="layout">%s</xliff:g>)</string>
+  <string name="subtype_with_layout_es_US">ئیسپانی(ئەمریکا) (<xliff:g id="layout">%s</xliff:g>)</string>
+  <string name="subtype_nepali_traditional"><xliff:g id="language">%s</xliff:g> (نەريتى)</string>
+  <string name="subtype_no_language">هیچ زمان (ئەلف با)</string>
+  <string name="subtype_no_language_qwerty">ئەلف با (كوێرتی)</string>
+  <string name="subtype_no_language_qwertz">ئەلف با (كوێرتز)</string>
+  <string name="subtype_no_language_azerty">ئەلف با (ئازێرتى)</string>
+  <string name="subtype_no_language_dvorak">ئەلفبێ (Dvorak)</string>
+  <string name="subtype_no_language_colemak">ئەلفبێ (Colemak)</string>
+  <string name="subtype_no_language_pcqwerty">ئەلف با (کۆمپیوتەری کەسی)</string>
+  <string name="subtype_emoji">ڕوو وێنە</string>
+  <string name="keyboard_color_scheme">کۆمەڵەڕەنگێکی ڕێککەوتوو</string>
   <string name="keyboard_color_scheme_white">سپی</string>
   <string name="keyboard_color_scheme_blue">شین</string>
+  <string name="custom_input_styles_title">شێوازەکانی دەرخواردەی درووستکراو</string>
+  <string name="add_style">زیادکردنی شێواز</string>
   <string name="add">زیادکردن</string>
   <string name="remove">سڕینەوە</string>
   <string name="save">پاشەکەوتکردن</string>
   <string name="subtype_locale">زمان</string>
+  <string name="keyboard_layout_set">نەخشە</string>
+  <string name="custom_input_style_note_message">"شێوازی تێکردنی خوازراوی خۆت پێویستی بە چالاککردنە پێش ئەوەی دەست بکەی بە بەکارهێنانی. دەتەوێ ئێستا چالاکی بکەیت؟"</string>
   <string name="enable">چالاککردن</string>
   <string name="not_now">ئێستا نا</string>
+  <string name="custom_input_style_already_exists">"شێوازی تێکردەی لەیەکچوو لەمەوپێش تیایەتی: <xliff:g id="input_style_name">%s</xliff:g>"</string>
+  <string name="prefs_usability_study_mode">شێوازی خوێندنی بەکارهاتوو</string>
+  <string name="prefs_key_longpress_timeout_settings">دواکەوتنی پیاکێشانی زۆری کلیل</string>
+  <string name="prefs_keypress_vibration_duration_settings">ماوەی لەرینەوەی کلیل لێدان</string>
+  <string name="prefs_keypress_sound_volume_settings">قەبارەی دەنگی کلیل لێدان</string>
+  <string name="prefs_read_external_dictionary">فایلی دەرەکی وشەدان بخوێنەوە</string>
+  <string name="read_external_dictionary_no_files_message">هیچ پەڕگەیەکی وشەدان لە بوخچەی داگرتنەکان نەدۆزرایەوە</string>
+  <string name="read_external_dictionary_multiple_files_title">پەڕگەی وشەدان هەڵبژێرە بۆ دامەزراندن</string>
+  <string name="read_external_dictionary_confirm_install_message">بەڕاست دەتەوێ ئەم پەڕگەیە دابمەزرێنی بۆ <xliff:g id="locale_name">%s</xliff:g>?</string>
+  <string name="error">هەڵەیەک بوو</string>
   <string name="button_default">بنه‌ڕه‌ت</string>
+  <string name="setup_welcome_title">"بەخێربێیت بۆ <xliff:g id="application_name">%s</xliff:g>"</string>
+  <string name="setup_welcome_additional_description">بە نووسینی کێشان</string>
+  <string name="setup_start_action">دەستپێبکە</string>
+  <string name="setup_next_action">هەنگاوی داهاتوو</string>
+  <string name="setup_steps_title">"دامەزراندنی <xliff:g id="application_name">%s</xliff:g>"</string>
+  <string name="setup_step1_title">"چالاککردنی <xliff:g id="application_name">%s</xliff:g>"</string>
+  <string name="setup_step1_instruction">"تکایە چاودێری \"<xliff:g id="application_name">%s</xliff:g>\" بکە لە زمانەکەتدا &amp; لە ناو ڕێکخستنەکانی تێکردە. ئەم کارە ئەوە ڕێگەپێدراو ئەکەیت بۆ ڕادانی لەناو ئامێرەکەت."</string>
+  <string name="setup_step1_finished_instruction">"<xliff:g id="application_name">%s</xliff:g> لەمەوپێش ڕێکخستنەکانی تێکردن &amp; بۆ زمانەکەت چالاککراوە, کەواتە ئەم هەنگاوە باش بوو. لەوەکەی دواتر!"</string>
+  <string name="setup_step1_action">لە ڕێکخستنەکاندا چالاکی بکە</string>
+  <string name="setup_step2_title">"گۆڕین بۆ <xliff:g id="application_name">%s</xliff:g>"</string>
+  <string name="setup_step2_instruction">"دواتر, هەڵبژێرە \"<xliff:g id="application_name">%s</xliff:g>\" وەکوو شێوازی تێکردنی نووسینی چالاک."</string>
+  <string name="setup_step2_action">گۆڕینی ته‌خته‌کلیل</string>
+  <string name="setup_step3_title">"پیرۆزە، هەموو شتەکانت دامەزراند!"</string>
+  <string name="setup_step3_instruction">ئێستا ئەتوانی لە ناو هەموو بەرنامە داخوازراوەکانت بنووسی بە <xliff:g id="application_name">%s</xliff:g>.</string>
+  <string name="setup_step3_action">ڕێکبەندی زمانە زیادەکان</string>
+  <string name="setup_finish_action">تەواوبوو</string>
+  <string name="show_setup_wizard_icon">پێشاندانی وێنۆچكه‌ بەرنامەکان</string>
+  <string name="show_setup_wizard_icon_summary">پیشاندانی وێنوکەی نەرمەواڵا لە دەسپێکەردا</string>
+  <string name="app_name">دابینکەری وشەدان</string>
+  <string name="dictionary_provider_name">دابینکەری وشەدان</string>
+  <string name="dictionary_service_name">خزمەتگوزارى فەرهەنگ</string>
+  <string name="download_description">زانیاری نوێکردنەوەی فەرهەنگ</string>
+  <string name="dictionary_settings_title">فه‌رهه‌نگی زیادکراوه‌کان</string>
+  <string name="dictionary_install_over_metered_network_prompt">فەرهەنگ بەردەستە</string>
+  <string name="dictionary_settings_summary">رێکخستنەکان بۆ فەرهەنگەکان</string>
+  <string name="user_dictionaries">فەرهەنگەکانی بەکارهێنەر</string>
+  <string name="default_user_dict_pref_name">فەرهەنگی بەکارهێنەر</string>
+  <string name="dictionary_available">فەرهەنگ بەردەستە</string>
+  <string name="dictionary_downloading">داگرتنی ئێستا</string>
   <string name="dictionary_installed">دامەزرێنراوە</string>
+  <string name="dictionary_disabled">دامەزرێنرا، ناچالاککرا</string>
+  <string name="cannot_connect_to_dict_service">هەڵە لە کاتی گرێدان بە خزمەتگوزاری وشەدان</string>
+  <string name="no_dictionaries_available">هیچ فەرهەنگێک بەردەست نیە</string>
   <string name="check_for_updates_now">تازەکردنەوە</string>
+  <string name="last_update">دوایین نوێکردنەوە</string>
+  <string name="message_updating">پشکنین بۆ نوێکردنەوە</string>
+  <string name="message_loading">باركردن...</string>
+  <string name="main_dict_description">فه‌رهه‌نگی سه‌ره‌کی</string>
   <string name="cancel">هەڵوەشاندنەوە</string>
   <string name="install_dict">دامەزراندن</string>
   <string name="cancel_download_dict">هەڵوەشاندنەوە</string>
   <string name="delete_dict">سڕینه‌وه‌</string>
+  <string name="should_download_over_metered_prompt">زمانی هەڵبژێردراو لە ئامێری مۆبایلەکەتدا، وشەدانێکی بەر دەستی هەیە.&lt;br/&gt;
+ئێمە وا بە باش ئەزانین &lt;b&gt;دایبەزێنی&lt;/b&gt; ئەو <xliff:g id="language" example="English">%1$s</xliff:g> وشەدانە بۆ باشتر کردنی شارەزاییت لە نووسیندا.&lt;br/&gt;
+&lt;br/&gt;
+داگرتنەکەت بە هێڵی 3G ئەتوانێت 1 بۆ 2 خولەکی پێبچێت. لەوانەیە باڵانست بڕوات ئەگەر  &lt;b&gt;پلانێکی بێسنوری دراوەت نییە&lt;/b&gt;.&lt;br/&gt;
+ئەگەر دڵنیا نیت لەوەی کە کام پلانی دراوەت هەیە, بە باشی ئەزانین کە گرێدانی Wi-Fi   بەکاربهێنی بۆ دەسپێکردنی خۆکارانەی دابەزاندن.&lt;br/&gt;
+&lt;br/&gt;
+Tip: تۆ ئەتوانی وشەدانەکانت داگری و لایببەی بۆ ڕۆیشتن بۆ &lt;b&gt;زمان &amp; تێکردە&lt;/b&gt; لە ناو &lt;b&gt;ڕێکخستنەکان&lt;/b&gt; لە پێڕستی ئامێری مۆبایلەکەت.</string>
+  <string name="download_over_metered">ئێستا دایبەزێنە (<xliff:g id="size_in_megabytes" example="0.7">%1$.1f</xliff:g>MB)</string>
+  <string name="do_not_download_over_metered">لە ڕێگەی Wi-Fi دایبەزێنە</string>
+  <string name="dict_available_notification_title">وشەدانێک بەردەستە بۆ <xliff:g id="language" example="English">%1$s</xliff:g></string>
+  <string name="dict_available_notification_description">لێدە بۆ چاوخشکاندنەوە و داگرتن</string>
+  <string name="toast_downloading_suggestions">دائەگرێت: پێسنیارەکان بۆ <xliff:g id="language" example="English">%1$s</xliff:g> بەم زووانە ئامادە دەبێت.</string>
+  <string name="version_text">وەشان <xliff:g id="version_number" example="1.0.1864.643521">%1$s</xliff:g></string>
   <string name="user_dict_settings_add_menu_title">زیادکردن</string>
   <string name="user_dict_settings_add_dialog_title">زیادبکە بۆ فەرهەنگ</string>
   <string name="user_dict_settings_add_screen_title">ئامراز</string>
+  <string name="user_dict_settings_add_dialog_more_options">بەربژاردەی زیاتر</string>
   <string name="user_dict_settings_add_dialog_less_options">بەربژاردەی کەمتر</string>
   <string name="user_dict_settings_add_dialog_confirm">باشه‌</string>
   <string name="user_dict_settings_add_word_option_name">وشە:</string>
@@ -68,4 +243,5 @@
   <string name="user_dict_settings_all_languages">بۆ هەموو زمانەکان</string>
   <string name="user_dict_settings_more_languages">زمانی زیاتر...</string>
   <string name="user_dict_settings_delete">سڕینه‌وه‌</string>
+  <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>
