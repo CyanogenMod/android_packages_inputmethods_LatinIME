@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Szótár-fájl importálása</string>
-  <string name="import_external_dictionary_multiple_files_title">Válasszon ki egy szótárt fájlt az importáláshoz</string>
+  <string name="prefs_import_external_dictionary">Szótárfájl importálása</string>
+  <string name="import_external_dictionary_multiple_files_title">Válasszon ki egy szótárfájlt az importáláshoz</string>
   <string name="import_external_dictionary_confirm_install_title">Importálás megerősítése</string>
-  <string name="import_external_dictionary_confirm_install_message">Biztos benne, hogy importálni szeretné <xliff:g id="locale_name"> a(z) %s </xliff:g> nyelvű szótárat?</string>
+  <string name="import_external_dictionary_confirm_install_message">Biztos benne, hogy importálni szeretné a(z) <xliff:g id="locale_name">%s</xliff:g> nyelvű szótárat?</string>
 </resources>
