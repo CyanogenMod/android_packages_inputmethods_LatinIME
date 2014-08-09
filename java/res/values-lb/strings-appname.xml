@@ -19,5 +19,8 @@
 */
 -->
 <resources>
+  <string name="english_ime_name">Android-Tastatur (AOSP)</string>
   <string name="spell_checker_service_name">Android-Orthographiekorrekter (AOSP)</string>
+  <string name="english_ime_settings">Astellunge vun der Android-Tastatur (AOSP)</string>
+  <string name="android_spell_checker_settings">Astellunge vum Android-Orthographiekorrekter (AOSP)</string>
 </resources>

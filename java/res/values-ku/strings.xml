@@ -40,9 +40,9 @@
   <string name="sliding_key_input_preview_summary">نیشاندانی جێنیشانده‌ری بینراو کاتێک ده‌خزێنیت به‌ شیفت یان دوگمه‌ی هێماکان</string>
   <string name="key_preview_popup_dismiss_delay">ماوه‌ی ده‌ه‌رکه‌وتنی کلیل به‌ گه‌وره‌یی</string>
   <string name="key_preview_popup_dismiss_no_delay">ماوه‌ی نه‌بێت</string>
-  <string name="key_preview_popup_dismiss_default_delay">بنه‌ڕه‌ت</string>
+  <string name="key_preview_popup_dismiss_default_delay">بنێڕه‌ت</string>
   <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
-  <string name="settings_system_default">بنه‌ڕه‌تی سیسته‌م</string>
+  <string name="settings_system_default">بنێڕه‌تی سیسته‌م</string>
   <string name="use_contacts_dict">پێشنیارکردنی ناوی په‌یوه‌ندی</string>
   <string name="use_contacts_dict_summary">به‌کارهێنانی ناو بۆ په‌یوه‌ندی له‌ پێشنیار و ڕاستکراوه‌کان</string>
   <string name="use_double_space_period">ماوه‌ی دوو بۆشایی</string>
@@ -169,7 +169,7 @@
   <string name="read_external_dictionary_multiple_files_title">پەڕگەی وشەدان هەڵبژێرە بۆ دامەزراندن</string>
   <string name="read_external_dictionary_confirm_install_message">بەڕاست دەتەوێ ئەم پەڕگەیە دابمەزرێنی بۆ <xliff:g id="locale_name">%s</xliff:g>?</string>
   <string name="error">هەڵەیەک بوو</string>
-  <string name="button_default">بنه‌ڕه‌ت</string>
+  <string name="button_default">بنێڕه‌ت</string>
   <string name="setup_welcome_title">"بەخێربێیت بۆ <xliff:g id="application_name">%s</xliff:g>"</string>
   <string name="setup_welcome_additional_description">بە نووسینی کێشان</string>
   <string name="setup_start_action">دەستپێبکە</string>
