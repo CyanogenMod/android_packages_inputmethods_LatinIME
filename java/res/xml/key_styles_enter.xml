@@ -254,6 +254,15 @@
                 latin:styleName="enterKeyStyle"
                 latin:parentStyle="emojiKeyStyle" />
         </case>
+        <!-- Make the button in the lower right corner of the keyboard to be Enter
+             button. -->
+        <case
+            latin:mode="lowerRightCornerIsEnterKey"
+        >
+            <key-style
+                latin:styleName="enterKeyStyle"
+                latin:parentStyle="defaultEnterKeyStyle" />
+        </case>
         <case
             latin:imeAction="actionGo"
         >

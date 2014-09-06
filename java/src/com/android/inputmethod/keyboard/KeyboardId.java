@@ -43,6 +43,7 @@ public final class KeyboardId {
     public static final int MODE_DATE = 6;
     public static final int MODE_TIME = 7;
     public static final int MODE_DATETIME = 8;
+    public static final int MODE_LOWER_RIGHT_CORNER_ENTER = 9;
 
     public static final int ELEMENT_ALPHABET = 0;
     public static final int ELEMENT_ALPHABET_MANUAL_SHIFTED = 1;
@@ -233,6 +234,7 @@ public final class KeyboardId {
         case MODE_DATE: return "date";
         case MODE_TIME: return "time";
         case MODE_DATETIME: return "datetime";
+        case MODE_LOWER_RIGHT_CORNER_ENTER: return "lowerRightCornerIsEnterKey";
         default: return null;
         }
     }

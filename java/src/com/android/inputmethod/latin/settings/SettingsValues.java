@@ -137,7 +137,7 @@ public final class SettingsValues {
                 && SubtypeSwitcher.getInstance().isShortcutImeEnabled();
         final String autoCorrectionThresholdRawValue = prefs.getString(
                 Settings.PREF_AUTO_CORRECTION_THRESHOLD,
-                res.getString(R.string.auto_correction_threshold_mode_index_modest));
+                res.getString(R.string.auto_correction_threshold_mode_default_index));
         mIncludesOtherImesInLanguageSwitchList = Settings.ENABLE_SHOW_LANGUAGE_SWITCH_KEY_SETTINGS
                 ? prefs.getBoolean(Settings.PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST, false)
                 : true /* forcibly */;
