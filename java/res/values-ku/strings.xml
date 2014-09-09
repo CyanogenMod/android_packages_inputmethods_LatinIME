@@ -131,8 +131,8 @@
   <string name="prefs_enable_log">چالاککردنی تێبینی بەکارهێنەر</string>
   <string name="prefs_description_log">یارەمەتی باشترکردنی دەستکاریکەری شێوازەکانی تێکردە بدە ناردنی خۆکارانەی وردەکارییەکانی بەکارهێنان و ڕاپۆرتکردنی تێکشکانەکان</string>
   <string name="keyboard_layout">رووکاری تەختەکلیل</string>
-  <string name="subtype_en_GB">ئینگلیزی(بریتانیا)</string>
-  <string name="subtype_en_US">ئینگلیزی(ئه‌مریکا)</string>
+  <string name="subtype_en_GB">ئینگلیزی (به‌ریتانیا)</string>
+  <string name="subtype_en_US">ئینگلیزی (ئه‌مریکا)</string>
   <string name="subtype_es_US">ئیسپانی (ئەمریکا)</string>
   <string name="subtype_with_layout_en_GB">ئینگلیزی (بەریتانیا) (<xliff:g id="layout">%s</xliff:g>)</string>
   <string name="subtype_with_layout_en_US">ئینگلیزی (ئەمریکا) (<xliff:g id="layout">%s</xliff:g>)</string>
