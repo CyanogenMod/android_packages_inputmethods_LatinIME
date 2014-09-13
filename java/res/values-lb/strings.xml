@@ -30,6 +30,7 @@
   <string name="advanced_settings">Erweidert Astellungen</string>
   <string name="key_preview_popup_dismiss_default_delay">Standard</string>
   <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
+  <string name="main_dictionary">Haaptdictionnaire</string>
   <string name="prefs_suggestion_visibility_hide_name">Ëmmer verstoppen</string>
   <string name="prefs_block_potentially_offensive_title">Beleidegend Wierder blockéieren</string>
   <string name="auto_correction_threshold_mode_off">Aus</string>
