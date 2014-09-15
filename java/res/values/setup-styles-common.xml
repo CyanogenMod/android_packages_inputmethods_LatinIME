@@ -41,8 +41,8 @@
         <item name="android:background">@color/setup_step_background</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding</item>
-        <item name="android:paddingRight">@dimen/setup_step_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/setup_step_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/setup_step_horizontal_padding</item>
     </style>
     <style name="setupStepTitleStyle" parent="setupStepBaseStyle">
         <item name="android:textSize">@dimen/setup_step_title_text_size</item>
@@ -59,7 +59,7 @@
         <item name="android:textColor">@color/setup_step_action_color</item>
         <item name="android:background">@drawable/setup_step_action_background</item>
         <item name="android:layout_height">@dimen/setup_step_action_height</item>
-        <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding_half</item>
+        <item name="android:paddingStart">@dimen/setup_step_horizontal_padding_half</item>
         <item name="android:textSize">@dimen/setup_step_action_text_size</item>
         <item name="android:drawablePadding">@dimen/setup_step_horizontal_padding_half</item>
         <item name="android:gravity">center_vertical</item>
@@ -67,7 +67,7 @@
         <item name="android:focusable">true</item>
     </style>
     <style name="setupStepStartActionLabelStyleCommon" parent="setupStepActionLabelStyleCommon">
-        <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding</item>
-        <item name="android:paddingRight">@dimen/setup_step_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/setup_step_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/setup_step_horizontal_padding</item>
     </style>
 </resources>
