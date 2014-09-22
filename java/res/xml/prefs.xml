@@ -92,6 +92,14 @@
             android:entryValues="@array/prefs_suggestion_visibility_values"
             android:entries="@array/prefs_suggestion_visibilities"
             android:defaultValue="@string/prefs_suggestion_visibility_default_value" />
+        <ListPreference
+            android:key="hardkeyboard_setting"
+            android:summary="@string/prefs_hardkeyboard_summary"
+            android:title="@string/prefs_hardkeyboard"
+            android:persistent="true"
+            android:entryValues="@array/prefs_hardkeyboard_values"
+            android:entries="@array/prefs_hardkeyboard"
+            android:defaultValue="@string/prefs_hardkeyboard_default_value" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/gesture_typing_category"
