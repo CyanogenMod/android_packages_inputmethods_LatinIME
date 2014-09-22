@@ -51,6 +51,12 @@ public final class SettingsValues {
     private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
     private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
 
+    //visibility constants for soft keyboard and the suggestion stripView when
+    //the hardware keyboard is slid out (or externally connected)
+    public static final int HARD_KEYBOARD_VISIBILITY_BOTH = 0;
+    public static final int HARD_KEYBOARD_VISIBILITY_STRIP_ONLY = 1;
+    public static final int HARD_KEYBOARD_VISIBIILTY_NONE = 2;
+
     // From resources:
     public final int mDelayUpdateOldSuggestions;
     public final int[] mSymbolsPrecededBySpace;
@@ -94,6 +100,7 @@ public final class SettingsValues {
     public final float mAutoCorrectionThreshold;
     public final boolean mCorrectionEnabled;
     public final int mSuggestionVisibility;
+    public final int mVisibilityWithHardKeyboard;
     public final boolean mBoostPersonalizationDictionaryForDebug;
     public final boolean mUseOnlyPersonalizationDictionaryForDebug;
 
@@ -170,6 +177,7 @@ public final class SettingsValues {
                 Settings.PREF_SHOW_SUGGESTIONS_SETTING,
                 res.getString(R.string.prefs_suggestion_visibility_default_value));
         mSuggestionVisibility = createSuggestionVisibility(res, showSuggestionsSetting);
+        mVisibilityWithHardKeyboard = Settings.readVisibilityWithHardKeyboard(prefs);
         AdditionalFeaturesSettingUtils.readAdditionalFeaturesPreferencesIntoArray(
                 prefs, mAdditionalFeaturesSettingValues);
         mIsInternal = Settings.isInternal(prefs);
@@ -221,6 +229,7 @@ public final class SettingsValues {
         mPhraseGestureEnabled = true;
         mCorrectionEnabled = mAutoCorrectEnabled && !mInputAttributes.mInputTypeNoAutoCorrect;
         mSuggestionVisibility = 0;
+        mVisibilityWithHardKeyboard = HARD_KEYBOARD_VISIBILITY_STRIP_ONLY;
         mIsInternal = false;
         mBoostPersonalizationDictionaryForDebug = false;
         mUseOnlyPersonalizationDictionaryForDebug = false;
@@ -386,5 +395,9 @@ public final class SettingsValues {
             prefs.edit().putBoolean(Settings.PREF_VOICE_INPUT_KEY, false).apply();
         }
         return prefs.getBoolean(Settings.PREF_VOICE_INPUT_KEY, true);
+    }
+
+    public boolean isStripVisibleWithHardKeyboard(){
+        return mVisibilityWithHardKeyboard != HARD_KEYBOARD_VISIBIILTY_NONE;
     }
 }

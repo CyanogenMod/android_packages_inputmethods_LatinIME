@@ -53,6 +53,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_READ_EXTERNAL_DICTIONARY = "read_external_dictionary";
     public static final String PREF_AUTO_CORRECTION_THRESHOLD = "auto_correction_threshold";
     public static final String PREF_SHOW_SUGGESTIONS_SETTING = "show_suggestions_setting";
+    public static final String PREF_HARDKEYBOARD_SETTING = "hardkeyboard_setting";
     public static final String PREF_MISC_SETTINGS = "misc_settings";
     public static final String PREF_LAST_USER_DICTIONARY_WRITE_TIME =
             "last_user_dictionary_write_time";
@@ -428,5 +429,19 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readLastShownEmojiCategoryId(
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, defValue);
+    }
+
+    public static int readVisibilityWithHardKeyboard(
+            final SharedPreferences prefs) {
+        String value = prefs.getString(PREF_HARDKEYBOARD_SETTING, "1");
+        return Integer.parseInt(value);
+    }
+
+    //the setting to enable auto correction for the hardware keyboard is currently
+    //a system setting, therefore we don't have an observer for that
+    //incorporate this setting into the LatinIME package?
+    public static boolean shouldHandleHardKeyboard(Context context){
+        return (android.provider.Settings.System.getInt(
+            context.getContentResolver(), "auto_replace", 0)) > 0;
     }
 }

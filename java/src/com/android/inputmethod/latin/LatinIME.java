@@ -227,6 +227,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public final UIHandler mHandler = new UIHandler(this);
     private InputUpdater mInputUpdater;
 
+    private boolean mHandleHardKeyboard;
+
     public static final class UIHandler extends StaticInnerHandlerWrapper<LatinIME> {
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
         private static final int MSG_PENDING_IMS_CALLBACK = 1;
@@ -760,6 +762,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 .findViewById(android.R.id.extractArea);
         mKeyPreviewBackingView = view.findViewById(R.id.key_preview_backing);
         mSuggestionStripView = (SuggestionStripView)view.findViewById(R.id.suggestion_strip_view);
+
         if (mSuggestionStripView != null)
             mSuggestionStripView.setListener(this, view);
         if (LatinImeLogger.sVISUALDEBUG) {
@@ -815,6 +818,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // If we are starting input in a different text field from before, we'll have to reload
         // settings, so currentSettingsValues can't be final.
         SettingsValues currentSettingsValues = mSettings.getCurrent();
+
+        mHandleHardKeyboard = Settings.shouldHandleHardKeyboard(this);
 
         if (editorInfo == null) {
             Log.e(TAG, "Null EditorInfo in onStartInputView()");
@@ -1265,13 +1270,39 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
+    @Override
+    public boolean onShowInputRequested (int flags, boolean configChange){
+        mHandleHardKeyboard = Settings.shouldHandleHardKeyboard(this);
+        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if(mainKeyboardView != null){
+            mainKeyboardView.updateHardKeyboardVisibility();
+        }
+        return super.onShowInputRequested(flags, configChange);
+    }
+
+    @Override
+    public boolean onEvaluateInputViewShown() {
+        //we aĺways return true if we want to enable auto correction for the hardware keyboard
+        //change it to return always true if you want to have the option to show suggestions
+        //without auto correction being enabled
+        return mHandleHardKeyboard || super.onEvaluateInputViewShown();
+    }
+
     private void setSuggestionStripShownInternal(final boolean shown,
             final boolean needsInputViewShown) {
-        // TODO: Modify this if we support suggestions with hard keyboard
         if (onEvaluateInputViewShown() && mSuggestionStripView != null) {
             final boolean inputViewShown = mKeyboardSwitcher.isShowingMainKeyboardOrEmojiPalettes();
-            final boolean shouldShowSuggestions = shown
-                    && (needsInputViewShown ? inputViewShown : true);
+            SettingsValues currentSettings = mSettings.getCurrent();
+            final boolean showStripWithHardKeyboard =
+                currentSettings.isStripVisibleWithHardKeyboard();
+            boolean shouldShowSuggestions = shown
+                && ( showStripWithHardKeyboard || (needsInputViewShown ? inputViewShown : true));
+             if(getResources().getConfiguration().hardKeyboardHidden
+                == Configuration.KEYBOARDHIDDEN_NO &&
+                currentSettings.mVisibilityWithHardKeyboard
+                == SettingsValues.HARD_KEYBOARD_VISIBIILTY_NONE){
+                shouldShowSuggestions = false;
+             }
             if (isFullscreenMode()) {
                 mSuggestionStripView.setVisibility(
                         shouldShowSuggestions ? View.VISIBLE : View.GONE);
@@ -1332,7 +1363,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final int extraHeight = extractHeight + backingHeight + suggestionsHeight;
         int visibleTopY = extraHeight;
         // Need to set touchable region only if input view is being shown
-        if (visibleKeyboardView.isShown()) {
+        if (visibleKeyboardView.isShown() || mSuggestionStripView.isShown()) {
             // Note that the height of Emoji layout is the same as the height of the main keyboard
             // and the suggestion strip
             if (mKeyboardSwitcher.isShowingEmojiPalettes()
@@ -1340,7 +1371,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 visibleTopY -= suggestionsHeight;
             }
             final int touchY = mKeyboardSwitcher.isShowingMoreKeysPanel() ? 0 : visibleTopY;
-            final int touchWidth = visibleKeyboardView.getWidth();
+            final int touchWidth = visibleKeyboardView.isShown() ?
+                visibleKeyboardView.getWidth() : mSuggestionStripView.getWidth();
             final int touchHeight = visibleKeyboardView.getHeight() + extraHeight
                     // Extend touchable region below the keyboard.
                     + EXTENDED_TOUCHABLE_REGION_HEIGHT;
@@ -3150,10 +3182,15 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        if (!ProductionFlag.IS_HARDWARE_KEYBOARD_SUPPORTED) return super.onKeyDown(keyCode, event);
         // onHardwareKeyEvent, like onKeyDown returns true if it handled the event, false if
         // it doesn't know what to do with it and leave it to the application. For example,
         // hardware key events for adjusting the screen's brightness are passed as is.
+
+        //hack: if Ctrl is pressed, let the system handle the key to enable actions
+        //      like Ctrl+[a|c|v|x] for copy, paste etc.
+        if(!mHandleHardKeyboard || event.isCtrlPressed()){
+            return super.onKeyDown(keyCode, event);
+        }
         if (mEventInterpreter.onHardwareKeyEvent(event)) {
             final long keyIdentifier = event.getDeviceId() << 32 + event.getKeyCode();
             mCurrentlyPressedHardwareKeys.add(keyIdentifier);
