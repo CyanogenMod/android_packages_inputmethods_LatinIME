@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Build;
@@ -65,6 +66,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
 
     private CheckBoxPreference mVoiceInputKeyPreference;
     private ListPreference mShowCorrectionSuggestionsPreference;
+    private ListPreference mHardKeyboardPreference;
     private ListPreference mAutoCorrectionThresholdPreference;
     private ListPreference mKeyPreviewPopupDismissDelay;
     // Use bigrams to predict the next word when there is no input for it yet
@@ -115,6 +117,8 @@ public final class SettingsFragment extends InputMethodSettingsFragment
                 (CheckBoxPreference) findPreference(Settings.PREF_VOICE_INPUT_KEY);
         mShowCorrectionSuggestionsPreference =
                 (ListPreference) findPreference(Settings.PREF_SHOW_SUGGESTIONS_SETTING);
+        mHardKeyboardPreference =
+                (ListPreference) findPreference(Settings.PREF_HARDKEYBOARD_SETTING);
         final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
         prefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -280,6 +284,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
             showSetupWizardIcon.setChecked(Settings.readShowSetupWizardIcon(prefs, getActivity()));
         }
         updateShowCorrectionSuggestionsSummary();
+        updateHardKeyboardSummary();
         updateKeyPreviewPopupDelaySummary();
         updateColorSchemeSummary(prefs, getResources());
         updateCustomInputStylesSummary();
@@ -314,6 +319,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
         }
         ensureConsistencyOfAutoCorrectionSettings();
         updateShowCorrectionSuggestionsSummary();
+        updateHardKeyboardSummary();
         updateKeyPreviewPopupDelaySummary();
         updateColorSchemeSummary(prefs, res);
         refreshEnablingsOfKeypressSoundAndVibrationSettings(prefs, getResources());
@@ -331,6 +337,13 @@ public final class SettingsFragment extends InputMethodSettingsFragment
                 getResources().getStringArray(R.array.prefs_suggestion_visibilities)
                 [mShowCorrectionSuggestionsPreference.findIndexOfValue(
                         mShowCorrectionSuggestionsPreference.getValue())]);
+    }
+    
+    private void updateHardKeyboardSummary() {
+        mHardKeyboardPreference.setSummary(
+                getResources().getStringArray(R.array.prefs_hardkeyboard)
+                [mHardKeyboardPreference.findIndexOfValue(
+                        mHardKeyboardPreference.getValue())]);
     }
 
     private void updateColorSchemeSummary(final SharedPreferences prefs, final Resources res) {

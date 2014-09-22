@@ -56,6 +56,23 @@
        <item>@string/prefs_suggestion_visibility_show_only_portrait_name</item>
        <item>@string/prefs_suggestion_visibility_hide_name</item>
     </string-array>
+    
+   <!--  Option to show/hide the suggestion strip and the soft keyboard
+         when a hardware keyboard is present -->
+   <string name="prefs_hardkeyboard_show_all_value">0</string>
+   <string name="prefs_hardkeyboard_show_strip_value">1</string>
+   <string name="prefs_hardkeyboard_show_nothing_value">2</string>
+   <string name="prefs_hardkeyboard_default_value">1</string>
+   <string-array name="prefs_hardkeyboard_values">
+       <item>@string/prefs_hardkeyboard_show_all_value</item>
+       <item>@string/prefs_hardkeyboard_show_strip_value</item>
+       <item>@string/prefs_hardkeyboard_show_nothing_value</item>
+    </string-array>
+    <string-array name="prefs_hardkeyboard">
+       <item>@string/prefs_hardkeyboard_show_all</item>
+       <item>@string/prefs_hardkeyboard_show_strip</item>
+       <item>@string/prefs_hardkeyboard_show_nothing</item>
+    </string-array>
 
     <string name="auto_correction_threshold_mode_index_off">0</string>
     <string name="auto_correction_threshold_mode_index_modest">1</string>

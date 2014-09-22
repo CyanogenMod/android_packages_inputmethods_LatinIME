@@ -388,6 +388,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 isHardwareAcceleratedDrawingEnabled);
         mEmojiPalettesView.setKeyboardActionListener(mLatinIME);
 
+        mKeyboardView.updateHardKeyboardVisibility();
+
         // This always needs to be set since the accessibility state can
         // potentially change without the input view being re-created.
         AccessibleKeyboardViewProxy.getInstance().setView(mKeyboardView);

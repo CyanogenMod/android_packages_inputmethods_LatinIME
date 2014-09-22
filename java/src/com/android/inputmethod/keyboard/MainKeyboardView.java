@@ -20,6 +20,7 @@ import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
@@ -42,6 +43,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.TextView;
 
@@ -63,8 +65,11 @@ import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.SuggestedWords;
 import com.android.inputmethod.latin.define.ProductionFlag;
 import com.android.inputmethod.latin.settings.DebugSettings;
+import com.android.inputmethod.latin.settings.Settings;
+import com.android.inputmethod.latin.settings.SettingsValues;
 import com.android.inputmethod.latin.utils.CollectionUtils;
 import com.android.inputmethod.latin.utils.CoordinateUtils;
+import com.android.inputmethod.latin.utils.ResourceUtils;
 import com.android.inputmethod.latin.utils.StaticInnerHandlerWrapper;
 import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 import com.android.inputmethod.latin.utils.TypefaceUtils;
@@ -185,6 +190,8 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
 
     private final KeyTimerHandler mKeyTimerHandler;
     private final int mLanguageOnSpacebarHorizontalMargin;
+
+    private boolean isForcedHidden = false;
 
     private static final class KeyTimerHandler extends StaticInnerHandlerWrapper<MainKeyboardView>
             implements TimerProxy {
@@ -523,6 +530,20 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
                 (int) getResources().getDimension(R.dimen.language_on_spacebar_horizontal_margin);
     }
 
+    public void updateHardKeyboardVisibility(){
+        int hardKeyboardSetting = Settings.getInstance().getCurrent().mVisibilityWithHardKeyboard;
+        Configuration config = getResources().getConfiguration();
+        if(config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_NO){
+            if(hardKeyboardSetting != SettingsValues.HARD_KEYBOARD_VISIBILITY_BOTH){
+                isForcedHidden = true;
+                setVisibility(View.GONE);
+            }else{
+                isForcedHidden = false;
+                setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     @Override
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {
         super.setHardwareAcceleratedDrawingEnabled(enabled);
@@ -651,18 +672,23 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         if (mPreviewPlacerView.getParent() != null) {
             return;
         }
-        final int width = getWidth();
-        final int height = getHeight();
-        if (width == 0 || height == 0) {
-            // In transient state.
-            return;
+        int width = getWidth();
+        int height = getHeight();
+        if(isForcedHidden){
+            width = ResourceUtils.getDefaultKeyboardWidth(getResources());
+            height = ResourceUtils.getDefaultKeyboardHeight(getResources());
+        }else{ 
+            if (width == 0 || height == 0) {
+                // In transient state.
+                return;
+            }
+            final DisplayMetrics dm = getResources().getDisplayMetrics();
+            if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / mCustomKeyboardCoordinateFraction) {
+                // In transient state.
+                return;
+            }
         }
         getLocationInWindow(mOriginCoords);
-        final DisplayMetrics dm = getResources().getDisplayMetrics();
-        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / mCustomKeyboardCoordinateFraction) {
-            // In transient state.
-            return;
-        }
         final View rootView = getRootView();
         if (rootView == null) {
             Log.w(TAG, "Cannot find root view");
