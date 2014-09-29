@@ -17,4 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="prefs_import_external_dictionary">Lüğət faylını idxal et</string>
+  <string name="import_external_dictionary_multiple_files_title">İdxal etmək üçün lüğət faylı seçin</string>
+  <string name="import_external_dictionary_confirm_install_title">İdxaletməni təsdiqlə</string>
+  <string name="import_external_dictionary_confirm_install_message"><xliff:g id="locale_name">%s</xliff:g> dili üçün bu lüğəti idxal etmək istədiyinizə əminsiniz?</string>
 </resources>
