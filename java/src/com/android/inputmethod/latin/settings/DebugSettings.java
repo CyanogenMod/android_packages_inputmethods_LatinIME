@@ -38,7 +38,6 @@ public final class DebugSettings {
     public static final String PREF_KEY_PREVIEW_DISMISS_DURATION =
             "pref_key_preview_dismiss_duration";
     public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "pref_sliding_key_input_preview";
-    public static final String PREF_KEY_LONGPRESS_TIMEOUT = "pref_key_longpress_timeout";
 
     private DebugSettings() {
         // This class is not publicly instantiable.
