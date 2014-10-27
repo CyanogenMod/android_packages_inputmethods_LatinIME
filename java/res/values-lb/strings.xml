@@ -26,22 +26,41 @@
   <string name="popup_on_keypress">Pop-Up bei Tastendrock</string>
   <string name="general_category">Allgemeng</string>
   <string name="correction_category">Textverbesserung</string>
+  <string name="gesture_typing_category">Tippe mat Gesten</string>
   <string name="misc_category">Aner Optiounen</string>
   <string name="advanced_settings">Erweidert Astellungen</string>
+  <string name="advanced_settings_summary">Optioune fir Experten</string>
+  <string name="show_language_switch_key">Sproochwiesseltast</string>
   <string name="key_preview_popup_dismiss_default_delay">Standard</string>
   <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
+  <string name="use_contacts_dict">Kontaktnimm virschloen</string>
+  <string name="auto_cap">Automatesch Groussschreiwung</string>
+  <string name="edit_personal_dictionary">Perséinlechen Dictionnaire</string>
   <string name="main_dictionary">Haaptdictionnaire</string>
   <string name="prefs_suggestion_visibility_hide_name">Ëmmer verstoppen</string>
   <string name="prefs_block_potentially_offensive_title">Beleidegend Wierder blockéieren</string>
   <string name="auto_correction_threshold_mode_off">Aus</string>
   <string name="auto_correction_threshold_mode_aggressive">Aggressiv</string>
   <string name="auto_correction_threshold_mode_very_aggressive">Immens aggressiv</string>
+  <string name="spoken_no_text_entered">Keen Text aginn</string>
+  <string name="spoken_auto_correct"><xliff:g id="key" example="Space">%1$s</xliff:g> korrigéiert <xliff:g id="original_word">%2$s</xliff:g> op <xliff:g id="corrected">%3$s</xliff:g></string>
+  <string name="spoken_description_unknown">Tastecode %d</string>
   <string name="spoken_description_shift">Shift</string>
   <string name="spoken_description_delete">Läschen</string>
   <string name="spoken_description_to_symbol">Symboler</string>
+  <string name="spoken_description_to_alpha">Buschtawen</string>
+  <string name="spoken_description_to_numeric">Nummeren</string>
   <string name="spoken_description_settings">Astellungen</string>
+  <string name="spoken_description_tab">Tab</string>
+  <string name="spoken_description_space">Espace</string>
+  <string name="spoken_description_mic">Stëmmagab</string>
   <string name="spoken_description_search">Sichen</string>
+  <string name="spoken_description_language_switch">Sprooch wiesselen</string>
   <string name="spoken_description_action_next">Weider</string>
+  <string name="spoken_description_action_previous">Zréck</string>
+  <string name="spoken_description_shiftmode_on">Shift aktivéiert</string>
+  <string name="keyboard_mode_date">Datum</string>
+  <string name="keyboard_mode_date_time">Datum an Zäit</string>
   <string name="keyboard_mode_email">E-Mail</string>
   <string name="keyboard_mode_im">Messagen</string>
   <string name="keyboard_mode_number">Nummer</string>
@@ -49,11 +68,17 @@
   <string name="keyboard_mode_text">Text</string>
   <string name="keyboard_mode_time">Zäit</string>
   <string name="keyboard_mode_url">URL</string>
+  <string name="voice_input">Tast fir d\'Sprooch anzeginn</string>
+  <string name="voice_input_modes_main_keyboard">Op der Haapttastatur</string>
+  <string name="voice_input_modes_symbols_keyboard">Op der Symboltastatur</string>
   <string name="voice_input_modes_off">Aus</string>
+  <string name="voice_input_modes_summary_main_keyboard">Mikro op der Haapttastatur</string>
   <string name="language_selection_title">Sproochen</string>
   <string name="send_feedback">Feedback schécken</string>
   <string name="select_language">Sproochen</string>
   <string name="has_dictionary">Dictionnaire disponibel</string>
+  <string name="prefs_enable_log">Benotzerfeedback aktivéieren</string>
+  <string name="prefs_description_log">Hëllef dës Method fir anzeginn ze verbesseren andeem automatesch Benotzungsstatistiken a Feelerberichter geschéckt ginn</string>
   <string name="subtype_en_GB">Englesch (Groussbritannien)</string>
   <string name="subtype_en_US">Englesch (USA)</string>
   <string name="subtype_es_US">Spuenesch (US)</string>
@@ -75,7 +100,16 @@
   <string name="remove">Ewechhuelen</string>
   <string name="save">Späicheren</string>
   <string name="subtype_locale">Sprooch</string>
+  <string name="enable">Aktivéieren</string>
   <string name="not_now">Net elo</string>
+  <string name="custom_input_style_already_exists">"Deselwechten Agabstil existéiert schonn: <xliff:g id="input_style_name">%s</xliff:g>"</string>
+  <string name="prefs_keypress_vibration_duration_settings">Vibratiounsdauer bei Tastendrock</string>
+  <string name="prefs_keypress_sound_volume_settings">Tounlautstäerkt bei Tastendrock</string>
+  <string name="prefs_read_external_dictionary">Externen Dictionnairesfichier liesen</string>
+  <string name="read_external_dictionary_no_files_message">Keng Dictionnairesfichieren am Download-Dossier</string>
+  <string name="read_external_dictionary_confirm_install_message">Dëse Fichier fir <xliff:g id="locale_name">%s</xliff:g> wierklech installéieren?</string>
+  <string name="error">Et gouf e Feeler</string>
+  <string name="setup_welcome_title">"Wëllkomm bei <xliff:g id="application_name">%s</xliff:g>"</string>
   <string name="setup_start_action">Lassleeën</string>
   <string name="setup_next_action">Nächste Schrëtt</string>
   <string name="setup_step1_action">An den Astellungen aktivéieren</string>
@@ -85,17 +119,31 @@
   <string name="setup_finish_action">Fäerdeg</string>
   <string name="app_name">Dictionnairesprovider</string>
   <string name="dictionary_provider_name">Dictionnairesprovider</string>
+  <string name="dictionary_service_name">Dictionnairesservice</string>
   <string name="dictionary_install_over_metered_network_prompt">Dictionnaire disponibel</string>
+  <string name="dictionary_settings_summary">Astellunge fir d\'Dictionnairen</string>
+  <string name="user_dictionaries">Benotzerdictionnairen</string>
+  <string name="default_user_dict_pref_name">Benotzerdictionnaire</string>
   <string name="dictionary_available">Dictionnaire disponibel</string>
+  <string name="dictionary_downloading">Gëtt grad erofgelueden</string>
   <string name="dictionary_installed">Installéiert</string>
+  <string name="cannot_connect_to_dict_service">Problem bei der Connectioun mam Dictionnairesservice</string>
+  <string name="no_dictionaries_available">Keng Dictionnairen disponibel</string>
   <string name="check_for_updates_now">Nei lueden</string>
+  <string name="last_update">Fir d\'lescht aktualiséiert</string>
   <string name="cancel">Ofbriechen</string>
   <string name="install_dict">Installéieren</string>
   <string name="cancel_download_dict">Ofbriechen</string>
   <string name="delete_dict">Läschen</string>
+  <string name="download_over_metered">Elo eroflueden (<xliff:g id="size_in_megabytes" example="0.7">%1$.1f</xliff:g>MB)</string>
+  <string name="do_not_download_over_metered">Iwwer WLAN eroflueden</string>
+  <string name="dict_available_notification_title">Et ass en Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> disponibel</string>
+  <string name="dict_available_notification_description">Dréck fir ze liesen an erofzelueden</string>
   <string name="version_text">Versioun <xliff:g id="version_number" example="1.0.1864.643521">%1$s</xliff:g></string>
   <string name="user_dict_settings_add_menu_title">Dobäisetzen</string>
+  <string name="user_dict_settings_add_dialog_title">Am Dictionnaire dobäisetzen</string>
   <string name="user_dict_settings_add_screen_title">Saz</string>
+  <string name="user_dict_settings_add_dialog_more_options">Méi Optiounen</string>
   <string name="user_dict_settings_add_dialog_less_options">Manner Optiounen</string>
   <string name="user_dict_settings_add_dialog_confirm">OK</string>
   <string name="user_dict_settings_add_word_option_name">Wuert:</string>
@@ -103,6 +151,7 @@
   <string name="user_dict_settings_add_shortcut_hint">Optional Ofkierzung</string>
   <string name="user_dict_settings_edit_dialog_title">Wuert änneren</string>
   <string name="user_dict_settings_context_menu_delete_title">Läschen</string>
+  <string name="user_dict_settings_empty_text">Du hues keng Wierder am Benotzerdictionnaire. Setz e Wuert dobäi andeem s du de \"+\"-Knäppchen drécks.</string>
   <string name="user_dict_settings_all_languages">Fir all d\'Sproochen</string>
   <string name="user_dict_settings_more_languages">Méi Sproochen&#8230;</string>
   <string name="user_dict_settings_delete">Läschen</string>
