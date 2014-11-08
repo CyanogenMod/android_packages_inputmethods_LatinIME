@@ -122,7 +122,10 @@ public final class SubtypeSwitcher {
     }
 
     public void refreshSubtypeInfo() {
-        onSubtypeChanged(mRichImm.getCurrentRawSubtype());
+        final InputMethodSubtype subtype = mRichImm.getCurrentRawSubtype();
+        if (subtype != null) {
+            onSubtypeChanged(subtype);
+        }
     }
 
     /**
