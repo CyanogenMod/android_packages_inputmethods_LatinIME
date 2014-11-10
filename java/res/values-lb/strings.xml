@@ -21,6 +21,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="english_ime_input_options">Optioune fir anzeginn</string>
   <string name="use_contacts_for_spellchecking_option_title">Kontaktnimm nosichen</string>
+  <string name="use_contacts_for_spellchecking_option_summary">D\'Orthografiekorrektur benotzt d\'Nimm aus der Kontaktlëscht</string>
   <string name="vibrate_on_keypress">Vibratioun bei Tastendrock</string>
   <string name="sound_on_keypress">Toun bei Tastendrock</string>
   <string name="popup_on_keypress">Pop-Up bei Tastendrock</string>
@@ -31,17 +32,33 @@
   <string name="advanced_settings">Erweidert Astellungen</string>
   <string name="advanced_settings_summary">Optioune fir Experten</string>
   <string name="show_language_switch_key">Sproochwiesseltast</string>
+  <string name="show_language_switch_key_summary">Uweise wa méi Sproochen aktivéiert sinn</string>
+  <string name="sliding_key_input_preview">Wëschbeweegung uweisen</string>
+  <string name="sliding_key_input_preview_summary">Wësche mat Shift- oder Symboltast visuell duerstellen</string>
+  <string name="key_preview_popup_dismiss_no_delay">Keng Verzögerung</string>
   <string name="key_preview_popup_dismiss_default_delay">Standard</string>
   <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
   <string name="use_contacts_dict">Kontaktnimm virschloen</string>
+  <string name="use_contacts_dict_summary">Nimm aus der Kontaktlëscht fir Virschléi a Korrekture benotzen</string>
+  <string name="use_double_space_period">Zweefach Espace fir e Punkt </string>
+  <string name="use_double_space_period_summary">Zweemol op Espace drécke fir e Punkt mat Espace anzeginn</string>
   <string name="auto_cap">Automatesch Groussschreiwung</string>
+  <string name="auto_cap_summary">Dat éischt Wuert vun all Saz groussschreiwen</string>
   <string name="edit_personal_dictionary">Perséinlechen Dictionnaire</string>
   <string name="main_dictionary">Haaptdictionnaire</string>
+  <string name="prefs_show_suggestions_summary">Virgeschloe Wierder beim Tippen uweisen</string>
+  <string name="prefs_suggestion_visibility_show_name">Ëmmer uweisen</string>
   <string name="prefs_suggestion_visibility_hide_name">Ëmmer verstoppen</string>
   <string name="prefs_block_potentially_offensive_title">Beleidegend Wierder blockéieren</string>
+  <string name="prefs_block_potentially_offensive_summary">Keng potentiell béis Wierder virschloen</string>
   <string name="auto_correction_threshold_mode_off">Aus</string>
+  <string name="auto_correction_threshold_mode_modest">Moderat</string>
   <string name="auto_correction_threshold_mode_aggressive">Aggressiv</string>
   <string name="auto_correction_threshold_mode_very_aggressive">Immens aggressiv</string>
+  <string name="gesture_input_summary">Gëff e Wuert an, andeem s de iwwer d\'Buschtawe wëschs</string>
+  <string name="gesture_floating_preview_text_summary">Dat virgeschloent Wuert während dem Geste uweisen</string>
+  <string name="added_word"><xliff:g id="word">%s</xliff:g> : Gespäichert</string>
+  <string name="spoken_current_text_is">Den aktuellen Text ass \"%s\"</string>
   <string name="spoken_no_text_entered">Keen Text aginn</string>
   <string name="spoken_auto_correct"><xliff:g id="key" example="Space">%1$s</xliff:g> korrigéiert <xliff:g id="original_word">%2$s</xliff:g> op <xliff:g id="corrected">%3$s</xliff:g></string>
   <string name="spoken_description_unknown">Tastecode %d</string>
@@ -54,11 +71,18 @@
   <string name="spoken_description_tab">Tab</string>
   <string name="spoken_description_space">Espace</string>
   <string name="spoken_description_mic">Stëmmagab</string>
+  <string name="spoken_description_smiley">Smiley</string>
   <string name="spoken_description_search">Sichen</string>
+  <string name="spoken_description_dot">Punkt</string>
   <string name="spoken_description_language_switch">Sprooch wiesselen</string>
   <string name="spoken_description_action_next">Weider</string>
   <string name="spoken_description_action_previous">Zréck</string>
   <string name="spoken_description_shiftmode_on">Shift aktivéiert</string>
+  <string name="spoken_description_shiftmode_locked">Feststelltast aktivéiert</string>
+  <string name="spoken_description_mode_alpha">Buschtawemodus</string>
+  <string name="spoken_description_mode_phone">Telefonsmodus</string>
+  <string name="announce_keyboard_hidden">Tastatur verstoppt</string>
+  <string name="announce_keyboard_mode">D\'<xliff:g id="mode" example="email">%s</xliff:g>-Tastatur gëtt ugewisen</string>
   <string name="keyboard_mode_date">Datum</string>
   <string name="keyboard_mode_date_time">Datum an Zäit</string>
   <string name="keyboard_mode_email">E-Mail</string>
@@ -73,6 +97,8 @@
   <string name="voice_input_modes_symbols_keyboard">Op der Symboltastatur</string>
   <string name="voice_input_modes_off">Aus</string>
   <string name="voice_input_modes_summary_main_keyboard">Mikro op der Haapttastatur</string>
+  <string name="voice_input_modes_summary_symbols_keyboard">Mikro op der Symboltastatur</string>
+  <string name="voice_input_modes_summary_off">D\'Stëmmagab ass desaktivéiert</string>
   <string name="language_selection_title">Sproochen</string>
   <string name="send_feedback">Feedback schécken</string>
   <string name="select_language">Sproochen</string>
@@ -93,6 +119,7 @@
   <string name="subtype_no_language_dvorak">Alphabet (Dvorak)</string>
   <string name="subtype_no_language_colemak">Alphabet (Colemak)</string>
   <string name="subtype_no_language_pcqwerty">Alphabet (PC)</string>
+  <string name="subtype_emoji">Smileyen</string>
   <string name="keyboard_color_scheme">Faarfschema</string>
   <string name="keyboard_color_scheme_white">Wäiss</string>
   <string name="keyboard_color_scheme_blue">Blo</string>
@@ -112,6 +139,7 @@
   <string name="setup_welcome_title">"Wëllkomm bei <xliff:g id="application_name">%s</xliff:g>"</string>
   <string name="setup_start_action">Lassleeën</string>
   <string name="setup_next_action">Nächste Schrëtt</string>
+  <string name="setup_step1_title">"<xliff:g id="application_name">%s</xliff:g> aktivéieren"</string>
   <string name="setup_step1_action">An den Astellungen aktivéieren</string>
   <string name="setup_step2_title">"Op <xliff:g id="application_name">%s</xliff:g> wiesselen"</string>
   <string name="setup_step2_action">Method fir anzeginn wiesselen</string>
@@ -131,6 +159,7 @@
   <string name="no_dictionaries_available">Keng Dictionnairen disponibel</string>
   <string name="check_for_updates_now">Nei lueden</string>
   <string name="last_update">Fir d\'lescht aktualiséiert</string>
+  <string name="message_updating">Aktualiséierunge gi gesicht</string>
   <string name="cancel">Ofbriechen</string>
   <string name="install_dict">Installéieren</string>
   <string name="cancel_download_dict">Ofbriechen</string>
@@ -148,8 +177,10 @@
   <string name="user_dict_settings_add_dialog_confirm">OK</string>
   <string name="user_dict_settings_add_word_option_name">Wuert:</string>
   <string name="user_dict_settings_add_locale_option_name">Sprooch:</string>
+  <string name="user_dict_settings_add_word_hint">Tipp e Wuert an</string>
   <string name="user_dict_settings_add_shortcut_hint">Optional Ofkierzung</string>
   <string name="user_dict_settings_edit_dialog_title">Wuert änneren</string>
+  <string name="user_dict_settings_context_menu_edit_title">Änneren</string>
   <string name="user_dict_settings_context_menu_delete_title">Läschen</string>
   <string name="user_dict_settings_empty_text">Du hues keng Wierder am Benotzerdictionnaire. Setz e Wuert dobäi andeem s du de \"+\"-Knäppchen drécks.</string>
   <string name="user_dict_settings_all_languages">Fir all d\'Sproochen</string>
