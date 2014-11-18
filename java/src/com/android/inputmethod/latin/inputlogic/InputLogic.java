@@ -253,7 +253,7 @@ public final class InputLogic {
         handler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_TYPING);
         final String text = performSpecificTldProcessingOnTextInput(rawText);
         if (SpaceState.PHANTOM == mSpaceState) {
-            promotePhantomSpace(settingsValues);
+            insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
         mConnection.commitText(text, 1);
         StatsUtils.onWordCommitUserTyped(mEnteredText, mWordComposer.isBatchMode());
@@ -320,7 +320,7 @@ public final class InputLogic {
             final int firstChar = Character.codePointAt(suggestion, 0);
             if (!settingsValues.isWordSeparator(firstChar)
                     || settingsValues.isUsuallyPrecededBySpace(firstChar)) {
-                promotePhantomSpace(settingsValues);
+                insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
             }
         }
 
@@ -582,7 +582,9 @@ public final class InputLogic {
                 if (candidate.mSourceDict.shouldAutoCommit(candidate)) {
                     final String[] commitParts = candidate.mWord.split(Constants.WORD_SEPARATOR, 2);
                     batchPointers.shift(candidate.mIndexOfTouchPointOfSecondWord);
-                    promotePhantomSpace(settingsValues);
+                    if (SpaceState.PHANTOM == mSpaceState) {
+                        insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
+                    }
                     mConnection.commitText(commitParts[0], 0);
                     StatsUtils.onWordCommitUserTyped(commitParts[0], mWordComposer.isBatchMode());
                     mSpaceState = SpaceState.PHANTOM;
@@ -859,7 +861,7 @@ public final class InputLogic {
                 // Sanity check
                 throw new RuntimeException("Should not be composing here");
             }
-            promotePhantomSpace(settingsValues);
+            insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
 
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
@@ -970,7 +972,7 @@ public final class InputLogic {
         }
 
         if (needsPrecedingSpace) {
-            promotePhantomSpace(settingsValues);
+            insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
 
         if (tryPerformDoubleSpacePeriod(event, inputTransaction)) {
@@ -1962,14 +1964,14 @@ public final class InputLogic {
     }
 
     /**
-     * Promote a phantom space to an actual space.
+     * Insert an automatic space, if the options allow it.
      *
-     * This essentially inserts a space, and that's it. It just checks the options and the text
-     * before the cursor are appropriate before doing it.
+     * This checks the options and the text before the cursor are appropriate before inserting
+     * an automatic space.
      *
      * @param settingsValues the current values of the settings.
      */
-    private void promotePhantomSpace(final SettingsValues settingsValues) {
+    private void insertAutomaticSpaceIfOptionsAndTextAllow(final SettingsValues settingsValues) {
         if (settingsValues.shouldInsertSpacesAutomatically()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                 && !mConnection.textBeforeCursorLooksLikeURL()) {
@@ -1992,7 +1994,7 @@ public final class InputLogic {
         }
         mConnection.beginBatchEdit();
         if (SpaceState.PHANTOM == mSpaceState) {
-            promotePhantomSpace(settingsValues);
+            insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
         final SuggestedWordInfo autoCommitCandidate = mSuggestedWords.getAutoCommitCandidate();
         // Commit except the last word for phrase gesture if the top suggestion is eligible for auto
