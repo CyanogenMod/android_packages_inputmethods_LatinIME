@@ -23,9 +23,11 @@ import com.android.inputmethod.latin.define.JniLibName;
 public final class JniUtils {
     private static final String TAG = JniUtils.class.getSimpleName();
 
+    public static boolean mHaveGestureLib = false;
     static {
         try {
             System.loadLibrary(JniLibName.JNI_LIB_NAME2);
+            mHaveGestureLib = true;
         } catch (UnsatisfiedLinkError ue) {
             try {
                 System.loadLibrary(JniLibName.JNI_LIB_NAME);
