@@ -20,6 +20,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="english_ime_input_options">Optioune fir anzeginn</string>
+  <string name="english_ime_research_log">Protokolléierungs-Kommandoe recherchéieren</string>
   <string name="use_contacts_for_spellchecking_option_title">Kontaktnimm nosichen</string>
   <string name="use_contacts_for_spellchecking_option_summary">D\'Orthografiekorrektur benotzt d\'Nimm aus der Kontaktlëscht</string>
   <string name="vibrate_on_keypress">Vibratioun bei Tastendrock</string>
@@ -31,11 +32,13 @@
   <string name="misc_category">Aner Optiounen</string>
   <string name="advanced_settings">Erweidert Astellungen</string>
   <string name="advanced_settings_summary">Optioune fir Experten</string>
+  <string name="include_other_imes_in_language_switch_list">Bei aner Methode fir anzegi wiesselen</string>
   <string name="include_other_imes_in_language_switch_list_summary">D\'Sproochwiesseltast ëmfaasst och aner Methode fir anzeginn</string>
   <string name="show_language_switch_key">Sproochwiesseltast</string>
   <string name="show_language_switch_key_summary">Uweise wa méi Sproochen aktivéiert sinn</string>
   <string name="sliding_key_input_preview">Wëschbeweegung uweisen</string>
   <string name="sliding_key_input_preview_summary">Wësche mat Shift- oder Symboltast visuell duerstellen</string>
+  <string name="key_preview_popup_dismiss_delay">Verzögerung vun den Taste-Pop-Ups</string>
   <string name="key_preview_popup_dismiss_no_delay">Keng Verzögerung</string>
   <string name="key_preview_popup_dismiss_default_delay">Standard</string>
   <string name="abbreviation_unit_milliseconds"><xliff:g id="milliseconds">%s</xliff:g>ms</string>
@@ -47,26 +50,38 @@
   <string name="auto_cap">Automatesch Groussschreiwung</string>
   <string name="auto_cap_summary">Dat éischt Wuert vun all Saz groussschreiwen</string>
   <string name="edit_personal_dictionary">Perséinlechen Dictionnaire</string>
+  <string name="configure_dictionaries_title">AddOn-Dictionnaire</string>
   <string name="main_dictionary">Haaptdictionnaire</string>
+  <string name="prefs_show_suggestions">Korrekturvirschléi uweisen</string>
   <string name="prefs_show_suggestions_summary">Virgeschloe Wierder beim Tippen uweisen</string>
   <string name="prefs_suggestion_visibility_show_name">Ëmmer uweisen</string>
+  <string name="prefs_suggestion_visibility_show_only_portrait_name">Am Héichformat uweisen</string>
   <string name="prefs_suggestion_visibility_hide_name">Ëmmer verstoppen</string>
   <string name="prefs_block_potentially_offensive_title">Beleidegend Wierder blockéieren</string>
   <string name="prefs_block_potentially_offensive_summary">Keng potentiell béis Wierder virschloen</string>
+  <string name="auto_correction">Auto-Korrektur</string>
+  <string name="auto_correction_summary">Automatesch Korrektur vu feelerhafte Wierder beim Drécken op Espace oder op Punktuatiounszeechen</string>
   <string name="auto_correction_threshold_mode_off">Aus</string>
   <string name="auto_correction_threshold_mode_modest">Moderat</string>
   <string name="auto_correction_threshold_mode_aggressive">Aggressiv</string>
   <string name="auto_correction_threshold_mode_very_aggressive">Immens aggressiv</string>
   <string name="bigram_prediction">Virschléi vum nächste Wuert</string>
   <string name="bigram_prediction_summary">Dat viregt Wuert benotze fir Virschléi ze maachen</string>
+  <string name="gesture_input">Tippe mat Gesten aktivéieren</string>
   <string name="gesture_input_summary">Gëff e Wuert an, andeem s de iwwer d\'Buschtawe wëschs</string>
+  <string name="gesture_preview_trail">Gestespur uweisen</string>
+  <string name="gesture_floating_preview_text">Dynamesch schwiewend Virschau</string>
   <string name="gesture_floating_preview_text_summary">Dat virgeschloent Wuert während dem Geste uweisen</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Gespäichert</string>
+  <string name="spoken_use_headphones">Kopfhörer uschléisse fir Passwuerttasten ausgeschwat ze héieren.</string>
   <string name="spoken_current_text_is">Den aktuellen Text ass \"%s\"</string>
   <string name="spoken_no_text_entered">Keen Text aginn</string>
   <string name="spoken_auto_correct"><xliff:g id="key" example="Space">%1$s</xliff:g> korrigéiert <xliff:g id="original_word">%2$s</xliff:g> op <xliff:g id="corrected">%3$s</xliff:g></string>
+  <string name="spoken_auto_correct_obscured"><xliff:g id="key" example="Space">%1$s</xliff:g> mécht eng Auto-Korrektur</string>
   <string name="spoken_description_unknown">Tastecode %d</string>
   <string name="spoken_description_shift">Shift</string>
+  <string name="spoken_description_shift_shifted">Shift un (drécke fir auszeschalten)</string>
+  <string name="spoken_description_caps_lock">Feststelltast un (drécke fir ze desaktivéieren)</string>
   <string name="spoken_description_delete">Läschen</string>
   <string name="spoken_description_to_symbol">Symboler</string>
   <string name="spoken_description_to_alpha">Buschtawen</string>
@@ -76,6 +91,7 @@
   <string name="spoken_description_space">Espace</string>
   <string name="spoken_description_mic">Stëmmagab</string>
   <string name="spoken_description_smiley">Smiley</string>
+  <string name="spoken_description_return">Return</string>
   <string name="spoken_description_search">Sichen</string>
   <string name="spoken_description_dot">Punkt</string>
   <string name="spoken_description_language_switch">Sprooch wiesselen</string>
@@ -83,8 +99,11 @@
   <string name="spoken_description_action_previous">Zréck</string>
   <string name="spoken_description_shiftmode_on">Shift aktivéiert</string>
   <string name="spoken_description_shiftmode_locked">Feststelltast aktivéiert</string>
+  <string name="spoken_description_shiftmode_off">Shift desaktivéiert</string>
+  <string name="spoken_description_mode_symbol">Symbolmodus</string>
   <string name="spoken_description_mode_alpha">Buschtawemodus</string>
   <string name="spoken_description_mode_phone">Telefonsmodus</string>
+  <string name="spoken_description_mode_phone_shift">Telefonsymbolmodus</string>
   <string name="announce_keyboard_hidden">Tastatur verstoppt</string>
   <string name="announce_keyboard_mode">D\'<xliff:g id="mode" example="email">%s</xliff:g>-Tastatur gëtt ugewisen</string>
   <string name="keyboard_mode_date">Datum</string>
@@ -136,11 +155,13 @@
   <string name="remove">Ewechhuelen</string>
   <string name="save">Späicheren</string>
   <string name="subtype_locale">Sprooch</string>
+  <string name="keyboard_layout_set">Layout</string>
   <string name="custom_input_style_note_message">"Däin eegenen Agabstil muss aktivéiert ginn ier s de e benotze kanns. Wëlls du en elo aktivéieren?"</string>
   <string name="enable">Aktivéieren</string>
   <string name="not_now">Net elo</string>
   <string name="custom_input_style_already_exists">"Deselwechten Agabstil existéiert schonn: <xliff:g id="input_style_name">%s</xliff:g>"</string>
   <string name="prefs_usability_study_mode">Etüd iwwer d\'Benotzbarkeet</string>
+  <string name="prefs_key_longpress_timeout_settings">Verzögerung fir laang Drécken</string>
   <string name="prefs_keypress_vibration_duration_settings">Vibratiounsdauer bei Tastendrock</string>
   <string name="prefs_keypress_sound_volume_settings">Tounlautstäerkt bei Tastendrock</string>
   <string name="prefs_read_external_dictionary">Externen Dictionnairesfichier liesen</string>
@@ -150,17 +171,28 @@
   <string name="error">Et gouf e Feeler</string>
   <string name="button_default">Standard</string>
   <string name="setup_welcome_title">"Wëllkomm bei <xliff:g id="application_name">%s</xliff:g>"</string>
+  <string name="setup_welcome_additional_description">mat Tippe mat Gesten</string>
   <string name="setup_start_action">Lassleeën</string>
   <string name="setup_next_action">Nächste Schrëtt</string>
+  <string name="setup_steps_title">"<xliff:g id="application_name">%s</xliff:g> gëtt configuréiert"</string>
   <string name="setup_step1_title">"<xliff:g id="application_name">%s</xliff:g> aktivéieren"</string>
+  <string name="setup_step1_instruction">"Aktivéier w.e.g. \"<xliff:g id="application_name">%s</xliff:g>\" an denge Sproochenastellungen fir d'Erlabnes ze ginn op dengem Apparat ze lafen."</string>
+  <string name="setup_step1_finished_instruction">"<xliff:g id="application_name">%s</xliff:g> ass schonn an denge Sproochastellungen aktivéiert, also ass dëse Schrëtt erleedegt. Weider bei den nächsten!"</string>
   <string name="setup_step1_action">An den Astellungen aktivéieren</string>
   <string name="setup_step2_title">"Op <xliff:g id="application_name">%s</xliff:g> wiesselen"</string>
+  <string name="setup_step2_instruction">"Als nächst, auswiel \"<xliff:g id="application_name">%s</xliff:g>\" als deng aktiv Method fir anzeginn aus."</string>
   <string name="setup_step2_action">Method fir anzeginn wiesselen</string>
   <string name="setup_step3_title">"Gléckwonsch, et ass alles prett!"</string>
+  <string name="setup_step3_instruction">Du kanns elo an all denge léifsten Appe mat <xliff:g id="application_name">%s</xliff:g> tippen.</string>
+  <string name="setup_step3_action">Zousätzlech Sprooche configuréieren</string>
   <string name="setup_finish_action">Fäerdeg</string>
+  <string name="show_setup_wizard_icon">En App-Symbolbild uweisen</string>
+  <string name="show_setup_wizard_icon_summary">Applikatiounssymbol am Launcher uweisen</string>
   <string name="app_name">Dictionnairesprovider</string>
   <string name="dictionary_provider_name">Dictionnairesprovider</string>
   <string name="dictionary_service_name">Dictionnairesservice</string>
+  <string name="download_description">Update-Informatioune fir d\'Dictionnairen</string>
+  <string name="dictionary_settings_title">AddOn-Dictionnaire</string>
   <string name="dictionary_install_over_metered_network_prompt">Dictionnaire disponibel</string>
   <string name="dictionary_settings_summary">Astellunge fir d\'Dictionnairen</string>
   <string name="user_dictionaries">Benotzerdictionnairen</string>
@@ -168,6 +200,7 @@
   <string name="dictionary_available">Dictionnaire disponibel</string>
   <string name="dictionary_downloading">Gëtt grad erofgelueden</string>
   <string name="dictionary_installed">Installéiert</string>
+  <string name="dictionary_disabled">Installéiert, ausgeschalt</string>
   <string name="cannot_connect_to_dict_service">Problem bei der Connectioun mam Dictionnairesservice</string>
   <string name="no_dictionaries_available">Keng Dictionnairen disponibel</string>
   <string name="check_for_updates_now">Nei lueden</string>
@@ -179,6 +212,13 @@
   <string name="install_dict">Installéieren</string>
   <string name="cancel_download_dict">Ofbriechen</string>
   <string name="delete_dict">Läschen</string>
+  <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
+Mir recommendéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erof ze luede&lt;/b&gt; fir däin Tipperliefnes ze verbesseren.&lt;br/&gt;
+&lt;br/&gt;
+D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustaane kommen.&lt;br/&gt;
+Wann s de net sécher bass wéi en Tariff dass de hues, recommendéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;
+&lt;br/&gt;
+Tipp: Du kanns Dictionnairen eroflueden a läsche wann s de bei deng &lt;b&gt;Sproochastellungen&lt;/b&gt; am &lt;b&gt;Astellungsmenü&lt;/b&gt; op dengem Apparat gees.</string>
   <string name="download_over_metered">Elo eroflueden (<xliff:g id="size_in_megabytes" example="0.7">%1$.1f</xliff:g>MB)</string>
   <string name="do_not_download_over_metered">Iwwer WLAN eroflueden</string>
   <string name="dict_available_notification_title">Et ass en Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> disponibel</string>
@@ -186,12 +226,13 @@
   <string name="toast_downloading_suggestions">Gëtt erofgelueden: Virschléi fir <xliff:g id="language" example="English">%1$s</xliff:g> si geschwë prett.</string>
   <string name="version_text">Versioun <xliff:g id="version_number" example="1.0.1864.643521">%1$s</xliff:g></string>
   <string name="user_dict_settings_add_menu_title">Dobäisetzen</string>
-  <string name="user_dict_settings_add_dialog_title">Am Dictionnaire dobäisetzen</string>
+  <string name="user_dict_settings_add_dialog_title">An den Dictionnaire setzen</string>
   <string name="user_dict_settings_add_screen_title">Saz</string>
   <string name="user_dict_settings_add_dialog_more_options">Méi Optiounen</string>
   <string name="user_dict_settings_add_dialog_less_options">Manner Optiounen</string>
   <string name="user_dict_settings_add_dialog_confirm">OK</string>
   <string name="user_dict_settings_add_word_option_name">Wuert:</string>
+  <string name="user_dict_settings_add_shortcut_option_name">Tastaturofkierzung:</string>
   <string name="user_dict_settings_add_locale_option_name">Sprooch:</string>
   <string name="user_dict_settings_add_word_hint">Tipp e Wuert an</string>
   <string name="user_dict_settings_add_shortcut_hint">Optional Ofkierzung</string>
