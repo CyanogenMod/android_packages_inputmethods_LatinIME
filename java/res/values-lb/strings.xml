@@ -28,7 +28,7 @@
   <string name="popup_on_keypress">Pop-Up bei Tastendrock</string>
   <string name="general_category">Allgemeng</string>
   <string name="correction_category">Textverbesserung</string>
-  <string name="gesture_typing_category">Tippe mat Gesten</string>
+  <string name="gesture_typing_category">Agi mat Gesten</string>
   <string name="misc_category">Aner Optiounen</string>
   <string name="advanced_settings">Erweidert Astellungen</string>
   <string name="advanced_settings_summary">Optioune fir Experten</string>
@@ -53,7 +53,7 @@
   <string name="configure_dictionaries_title">AddOn-Dictionnaire</string>
   <string name="main_dictionary">Haaptdictionnaire</string>
   <string name="prefs_show_suggestions">Korrekturvirschléi uweisen</string>
-  <string name="prefs_show_suggestions_summary">Virgeschloe Wierder beim Tippen uweisen</string>
+  <string name="prefs_show_suggestions_summary">Virgeschloe Wierder beim Aginn uweisen</string>
   <string name="prefs_suggestion_visibility_show_name">Ëmmer uweisen</string>
   <string name="prefs_suggestion_visibility_show_only_portrait_name">Am Héichformat uweisen</string>
   <string name="prefs_suggestion_visibility_hide_name">Ëmmer verstoppen</string>
@@ -67,7 +67,7 @@
   <string name="auto_correction_threshold_mode_very_aggressive">Immens aggressiv</string>
   <string name="bigram_prediction">Virschléi vum nächste Wuert</string>
   <string name="bigram_prediction_summary">Dat viregt Wuert benotze fir Virschléi ze maachen</string>
-  <string name="gesture_input">Tippe mat Gesten aktivéieren</string>
+  <string name="gesture_input">Agi mat Gesten aktivéieren</string>
   <string name="gesture_input_summary">Gëff e Wuert an, andeem s de iwwer d\'Buschtawe wëschs</string>
   <string name="gesture_preview_trail">Gestespur uweisen</string>
   <string name="gesture_floating_preview_text">Dynamesch schwiewend Virschau</string>
@@ -171,7 +171,7 @@
   <string name="error">Et gouf e Feeler</string>
   <string name="button_default">Standard</string>
   <string name="setup_welcome_title">"Wëllkomm bei <xliff:g id="application_name">%s</xliff:g>"</string>
-  <string name="setup_welcome_additional_description">mat Tippe mat Gesten</string>
+  <string name="setup_welcome_additional_description">mat der Funktioun \"Agi mat Gesten\"</string>
   <string name="setup_start_action">Lassleeën</string>
   <string name="setup_next_action">Nächste Schrëtt</string>
   <string name="setup_steps_title">"<xliff:g id="application_name">%s</xliff:g> gëtt configuréiert"</string>
@@ -183,7 +183,7 @@
   <string name="setup_step2_instruction">"Als nächst, auswiel \"<xliff:g id="application_name">%s</xliff:g>\" als deng aktiv Method fir anzeginn aus."</string>
   <string name="setup_step2_action">Method fir anzeginn wiesselen</string>
   <string name="setup_step3_title">"Gléckwonsch, et ass alles prett!"</string>
-  <string name="setup_step3_instruction">Du kanns elo an all denge léifsten Appe mat <xliff:g id="application_name">%s</xliff:g> tippen.</string>
+  <string name="setup_step3_instruction">Du kanns elo an all denge léifsten Appe mat <xliff:g id="application_name">%s</xliff:g> aginn.</string>
   <string name="setup_step3_action">Zousätzlech Sprooche configuréieren</string>
   <string name="setup_finish_action">Fäerdeg</string>
   <string name="show_setup_wizard_icon">En App-Symbolbild uweisen</string>
@@ -203,7 +203,7 @@
   <string name="dictionary_disabled">Installéiert, ausgeschalt</string>
   <string name="cannot_connect_to_dict_service">Problem bei der Connectioun mam Dictionnairesservice</string>
   <string name="no_dictionaries_available">Keng Dictionnairen disponibel</string>
-  <string name="check_for_updates_now">Nei lueden</string>
+  <string name="check_for_updates_now">Opfrëschen</string>
   <string name="last_update">Fir d\'lescht aktualiséiert</string>
   <string name="message_updating">Aktualiséierunge gi gesicht</string>
   <string name="message_loading">Gëtt gelueden...</string>
@@ -213,10 +213,10 @@
   <string name="cancel_download_dict">Ofbriechen</string>
   <string name="delete_dict">Läschen</string>
   <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
-Mir recommendéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erof ze luede&lt;/b&gt; fir däin Tipperliefnes ze verbesseren.&lt;br/&gt;
+Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erof ze luede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
 &lt;br/&gt;
 D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustaane kommen.&lt;br/&gt;
-Wann s de net sécher bass wéi en Tariff dass de hues, recommendéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;
+Wann s de net sécher bass wéi en Tariff datt s de hues, recommandéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;
 &lt;br/&gt;
 Tipp: Du kanns Dictionnairen eroflueden a läsche wann s de bei deng &lt;b&gt;Sproochastellungen&lt;/b&gt; am &lt;b&gt;Astellungsmenü&lt;/b&gt; op dengem Apparat gees.</string>
   <string name="download_over_metered">Elo eroflueden (<xliff:g id="size_in_megabytes" example="0.7">%1$.1f</xliff:g>MB)</string>
@@ -234,7 +234,7 @@ Tipp: Du kanns Dictionnairen eroflueden a läsche wann s de bei deng &lt;b&gt;Sp
   <string name="user_dict_settings_add_word_option_name">Wuert:</string>
   <string name="user_dict_settings_add_shortcut_option_name">Tastaturofkierzung:</string>
   <string name="user_dict_settings_add_locale_option_name">Sprooch:</string>
-  <string name="user_dict_settings_add_word_hint">Tipp e Wuert an</string>
+  <string name="user_dict_settings_add_word_hint">Gëff e Wuert an</string>
   <string name="user_dict_settings_add_shortcut_hint">Optional Ofkierzung</string>
   <string name="user_dict_settings_edit_dialog_title">Wuert änneren</string>
   <string name="user_dict_settings_context_menu_edit_title">Änneren</string>

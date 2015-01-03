@@ -16,8 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="prefs_import_external_dictionary">Dictionnairesfichier importéieren</string>
-  <string name="import_external_dictionary_multiple_files_title">Wiel en Dictionnaire aus fir z\'importéieren</string>
-  <string name="import_external_dictionary_confirm_install_title">Bestäteg d\'Importéieren</string>
-  <string name="import_external_dictionary_confirm_install_message">Bass du dir sécher dësen Dictionnaire fir d\'Sprooch <xliff:g id="locale_name">%s</xliff:g> z\'importéieren?</string>
+  <string name="prefs_import_external_dictionary">অভিধান ফাইল আমদানি করুন</string>
+  <string name="import_external_dictionary_multiple_files_title">অভিধান আমদানি করতে একটি ফাইল নির্বাচন করুন</string>
+  <string name="import_external_dictionary_confirm_install_title">আমদানি নিশ্চিত করুন</string>
+  <string name="import_external_dictionary_confirm_install_message">আপনি  নিশ্চিত <xliff:g id="locale_name">%s</xliff:g> ভাষার জন্য এই অভিধান আমদানি করতে চান?</string>
 </resources>
