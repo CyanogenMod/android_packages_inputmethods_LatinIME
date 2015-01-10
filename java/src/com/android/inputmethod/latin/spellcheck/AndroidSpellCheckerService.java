@@ -105,6 +105,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         mLanguageToScript.put("fi", SCRIPT_LATIN);
         mLanguageToScript.put("fr", SCRIPT_LATIN);
         mLanguageToScript.put("hr", SCRIPT_LATIN);
+        mLanguageToScript.put("hu", SCRIPT_LATIN);
         mLanguageToScript.put("it", SCRIPT_LATIN);
         mLanguageToScript.put("lt", SCRIPT_LATIN);
         mLanguageToScript.put("lv", SCRIPT_LATIN);
