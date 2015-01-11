@@ -71,7 +71,7 @@
   <string name="gesture_input_summary">Gëff e Wuert an, andeem s de iwwer d\'Buschtawe wëschs</string>
   <string name="gesture_preview_trail">Gestespur uweisen</string>
   <string name="gesture_floating_preview_text">Dynamesch schwiewend Virschau</string>
-  <string name="gesture_floating_preview_text_summary">Dat virgeschloent Wuert während dem Geste uweisen</string>
+  <string name="gesture_floating_preview_text_summary">Dat virgeschloent Wuert während dem Gest uweisen</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Gespäichert</string>
   <string name="spoken_use_headphones">Kopfhörer uschléisse fir Passwuerttasten ausgeschwat ze héieren.</string>
   <string name="spoken_current_text_is">Den aktuellen Text ass \"%s\"</string>
@@ -213,7 +213,7 @@
   <string name="cancel_download_dict">Ofbriechen</string>
   <string name="delete_dict">Läschen</string>
   <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
-Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erof ze luede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
+Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erofzeluede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
 &lt;br/&gt;
 D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustaane kommen.&lt;br/&gt;
 Wann s de net sécher bass wéi en Tariff datt s de hues, recommandéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;

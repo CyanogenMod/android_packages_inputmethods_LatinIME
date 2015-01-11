@@ -61,7 +61,7 @@
   <string name="prefs_block_potentially_offensive_summary">Nun suxerir pallabres ofensives</string>
   <string name="auto_correction">Auto-correición</string>
   <string name="auto_correction_summary">Primir la tecla d\'espaciu o puntu pa correxir fallos</string>
-  <string name="auto_correction_threshold_mode_off">Desactiváu</string>
+  <string name="auto_correction_threshold_mode_off">Non</string>
   <string name="auto_correction_threshold_mode_modest">Parcial</string>
   <string name="auto_correction_threshold_mode_aggressive">Total</string>
   <string name="auto_correction_threshold_mode_very_aggressive">Mui agresiva</string>
@@ -118,7 +118,7 @@
   <string name="voice_input">Tecla d\'entrada de voz</string>
   <string name="voice_input_modes_main_keyboard">En tecláu principal</string>
   <string name="voice_input_modes_symbols_keyboard">En tecláu de símbolos</string>
-  <string name="voice_input_modes_off">Desactiváu</string>
+  <string name="voice_input_modes_off">Non</string>
   <string name="voice_input_modes_summary_main_keyboard">Micrófonu en tecláu principal</string>
   <string name="voice_input_modes_summary_symbols_keyboard">Micrófonu en tecláu de símbolos</string>
   <string name="voice_input_modes_summary_off">Entrada de voz deshabilitada</string>

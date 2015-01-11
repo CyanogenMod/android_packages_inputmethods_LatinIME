@@ -19,11 +19,5 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="label_go_key">يۆتكەل</string>
-  <string name="label_next_key">كېيىنكى</string>
-  <string name="label_previous_key">ئالدىنقى</string>
-  <string name="label_done_key">تامام</string>
-  <string name="label_send_key">يوللا</string>
   <string name="label_pause_key">ۋاقىتلىق توختا</string>
-  <string name="label_wait_key">كۈت</string>
 </resources>

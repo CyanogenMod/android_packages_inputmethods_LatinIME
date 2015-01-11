@@ -49,7 +49,6 @@
   <string name="use_double_space_period_summary">بوشلۇق قوش چېكىلسە بوشلۇق ئەگەشكەن چېكىت قىستۇرىدۇ</string>
   <string name="auto_cap">ئۆزلۈكىدىن باش ھەرپنى چوڭ يېزىش</string>
   <string name="auto_cap_summary">ھەر بىر جۈملىنىڭ بېشىدىكى بىرىنچى سۆزنىڭ باش ھەرىپىنى چوڭ ھەرپكە ئۆزگەرتىدۇ</string>
-  <string name="edit_personal_dictionary">شەخسىي لۇغەت</string>
   <string name="configure_dictionaries_title">قىستۇرما لۇغەتلەر</string>
   <string name="main_dictionary">ئاساسىي لۇغەت</string>
   <string name="prefs_show_suggestions">تۇزىتىش تەۋسىيەسىنى كۆرسەت</string>
@@ -92,11 +91,8 @@
   <string name="spoken_description_mic">تاۋۇش كىرگۈزۈش</string>
   <string name="spoken_description_smiley">كۈلكە چىراي</string>
   <string name="spoken_description_return">قايت</string>
-  <string name="spoken_description_search">ئىزدە</string>
   <string name="spoken_description_dot">چېكىت</string>
   <string name="spoken_description_language_switch">تىل ئالماشتۇرۇش</string>
-  <string name="spoken_description_action_next">كېيىنكى</string>
-  <string name="spoken_description_action_previous">ئالدىنقى</string>
   <string name="spoken_description_shiftmode_on">Shift قوزغىتىلغان</string>
   <string name="spoken_description_shiftmode_locked">Caps lock قوزغىتىلغان</string>
   <string name="spoken_description_shiftmode_off">Shift چەكلەنگەن</string>
@@ -111,7 +107,6 @@
   <string name="keyboard_mode_email">تورخەت</string>
   <string name="keyboard_mode_im">ئۇچۇر</string>
   <string name="keyboard_mode_number">سان</string>
-  <string name="keyboard_mode_phone">تېلېفون</string>
   <string name="keyboard_mode_text">تېكىست</string>
   <string name="keyboard_mode_time">ۋاقىت</string>
   <string name="keyboard_mode_url">URL</string>
@@ -124,7 +119,6 @@
   <string name="voice_input_modes_summary_off">تاۋۇش كىرگۈزۈش چەكلەنگەن</string>
   <string name="configure_input_method">كىرگۈزگۈچ سەپلىمىسى</string>
   <string name="language_selection_title">كىرگۈزگۈچ تىلى</string>
-  <string name="send_feedback">قايتۇرما ئىنكاس يوللا</string>
   <string name="select_language">كىرگۈزگۈچ تىلى</string>
   <string name="hint_add_to_dictionary">\u2190 قايتا چېكىلسە ساقلايدۇ</string>
   <string name="has_dictionary">لۇغەت بار</string>
@@ -147,18 +141,10 @@
   <string name="subtype_no_language_pcqwerty">ئېلىپبە (كومپيۇتېر)</string>
   <string name="subtype_emoji">چىراي ئىپادە</string>
   <string name="keyboard_color_scheme">رەڭ نۇسخىسى</string>
-  <string name="keyboard_color_scheme_white">ئاق</string>
-  <string name="keyboard_color_scheme_blue">كۆك</string>
   <string name="custom_input_styles_title">ئىختىيارىي كىرگۈزۈش ئۇسلۇبى</string>
   <string name="add_style">ئۇسلۇب قوش</string>
-  <string name="add">قوش</string>
-  <string name="remove">چىقىرىۋەت</string>
-  <string name="save">ساقلا</string>
-  <string name="subtype_locale">تىل</string>
   <string name="keyboard_layout_set">جايلاشتۇرۇش</string>
   <string name="custom_input_style_note_message">"ئىختىيارىي كىرگۈزۈش ئۇسلۇبىڭىزنى ئىشلىتىشتىن ئىلگىرى قوزغىتىشىڭىز كېرەك. ئۇنى ھازىرلا قوزغىتامسىز؟"</string>
-  <string name="enable">قوزغات</string>
-  <string name="not_now">ھازىرچە ياق</string>
   <string name="custom_input_style_already_exists">"ئوخشاش كىرگۈزۈش ئۇسلۇبى مەۋجۇت: <xliff:g id="input_style_name">%s</xliff:g>"</string>
   <string name="prefs_usability_study_mode">قوللىنىشچان ئۆگىنىش ھالىتى</string>
   <string name="prefs_key_longpress_timeout_settings">ھەرپ ئۇزۇن بېسىلسا كېچىكتۈرۈش</string>
@@ -169,7 +155,6 @@
   <string name="read_external_dictionary_multiple_files_title">ئورنىتىدىغان لۇغەت ھۆججىتىدىن بىرنى تاللاڭ</string>
   <string name="read_external_dictionary_confirm_install_message">راستلا <xliff:g id="locale_name">%s</xliff:g> غا بۇ ھۆججەتنى ئورنىتامسىز؟</string>
   <string name="error">خاتالىق كۆرۈلدى</string>
-  <string name="button_default">كۆڭۈلدىكى</string>
   <string name="setup_welcome_title">"<xliff:g id="application_name">%s</xliff:g> مەرھابا"</string>
   <string name="setup_welcome_additional_description">قول ئىشارىتى بىلەن</string>
   <string name="setup_start_action">باشلاشتىن ئىلگىرى</string>
@@ -189,29 +174,19 @@
   <string name="show_setup_wizard_icon">ئەپ سىنبەلگىسىنى كۆرسەت</string>
   <string name="show_setup_wizard_icon_summary">قوزغىغۇچتا ئەپ سىنبەلگىسىنى كۆرسەت</string>
   <string name="app_name">لۇغەت تەمىنلىگۈچى</string>
-  <string name="dictionary_provider_name">لۇغەت تەمىنلىگۈچى</string>
   <string name="dictionary_service_name">لۇغەت مۇلازىمىتى</string>
   <string name="download_description">لۇغەت يېڭىلاش ئۇچۇرى</string>
-  <string name="dictionary_settings_title">قىستۇرما لۇغەتلەر</string>
-  <string name="dictionary_install_over_metered_network_prompt">لۇغەت بار</string>
   <string name="dictionary_settings_summary">لۇغەت تەڭشەكلەر</string>
   <string name="user_dictionaries">ئىشلەتكۈچى لۇغەتلىرى</string>
   <string name="default_user_dict_pref_name">ئىشلەتكۈچى لۇغىتى</string>
-  <string name="dictionary_available">لۇغەت بار</string>
   <string name="dictionary_downloading">نۆۋەتتە چۈشۈرۈۋاتقىنى</string>
-  <string name="dictionary_installed">ئورنىتىلغان</string>
   <string name="dictionary_disabled">ئورنىتىلغان، چەكلەنگەن</string>
   <string name="cannot_connect_to_dict_service">لۇغەت مۇلازىمىتىگە باغلىنىش كاشىلىسى</string>
   <string name="no_dictionaries_available">ھېچقانداق لۇغەت يوق</string>
-  <string name="check_for_updates_now">يېڭىلا</string>
   <string name="last_update">ئاخىرقى يېڭىلانغان</string>
   <string name="message_updating">يېڭىلانمىنى تەكشۈرۈۋاتىدۇ</string>
   <string name="message_loading">يۈكلەۋاتىدۇ…</string>
-  <string name="main_dict_description">ئاساسىي لۇغەت</string>
   <string name="cancel">ۋاز كەچ</string>
-  <string name="install_dict">ئورنات</string>
-  <string name="cancel_download_dict">ۋاز كەچ</string>
-  <string name="delete_dict">ئۆچۈر</string>
   <string name="should_download_over_metered_prompt">كۆچمە ئۈسكۈنىڭىزدە تاللىغان تىلنى قوللايدىغان لۇغەتلەرنى چۈشۈرگىلى بولىدۇ!&lt;br/&gt;سىزنىڭ بۇ <xliff:g id="language" example="English">%1$s</xliff:g> لۇغەتنى &lt;b&gt;چۈشۈر&lt;/b&gt;ۈپ، تېخىمۇ ياخشى كىرگۈزۈش تۇيغۇسىدىن بەھرىلىنىشىڭىزنى تەۋسىيە قىلىمىز.&lt;br/&gt;
 &lt;br/&gt;
 ئەگەر 3G تورىدىن چۈشۈرسىڭىز بىر ياكى ئىككى مىنۇت ۋاقىت كېتىشى مۇمكىن. ئەگەر سىزنىڭ ئىشلىتىۋاتقىنىڭىز &lt;b&gt;چەكسىز ئېقىم يۈرۈشلۈك مۇلازىمىتى&lt;/b&gt; بولمىسا ئۇنداقتا مۇئەييەن مۇئەييەن ھەق كېلىپ چىقىشى مۇمكىن.&lt;br/&gt;
@@ -224,23 +199,4 @@
   <string name="dict_available_notification_description">بېسىلسا كۆرسىتىپ چۈشۈرىدۇ</string>
   <string name="toast_downloading_suggestions">چۈشۈرۈۋاتىدۇ: <xliff:g id="language" example="English">%1$s</xliff:g> تەۋسىيەسى تېزلا تەييارلىنىدۇ.</string>
   <string name="version_text">نەشرى <xliff:g id="version_number" example="1.0.1864.643521">%1$s</xliff:g></string>
-  <string name="user_dict_settings_add_menu_title">قوش</string>
-  <string name="user_dict_settings_add_dialog_title">لۇغەتكە قوش</string>
-  <string name="user_dict_settings_add_screen_title">ئىبارە</string>
-  <string name="user_dict_settings_add_dialog_more_options">تېخىمۇ كۆپ تاللانما</string>
-  <string name="user_dict_settings_add_dialog_less_options">تېخىمۇ ئاز تاللانما</string>
-  <string name="user_dict_settings_add_dialog_confirm">جەزملە</string>
-  <string name="user_dict_settings_add_word_option_name">سۆز:</string>
-  <string name="user_dict_settings_add_shortcut_option_name">قىسقا يول:</string>
-  <string name="user_dict_settings_add_locale_option_name">تىل:</string>
-  <string name="user_dict_settings_add_word_hint">بىر سۆز كىرگۈزۈڭ</string>
-  <string name="user_dict_settings_add_shortcut_hint">تاللاشچان قىسقا يول</string>
-  <string name="user_dict_settings_edit_dialog_title">سۆز تەھرىر</string>
-  <string name="user_dict_settings_context_menu_edit_title">تەھرىر</string>
-  <string name="user_dict_settings_context_menu_delete_title">ئۆچۈر</string>
-  <string name="user_dict_settings_empty_text">ئىشلەتكۈچى لۇغىتىڭىزدە ھېچقانداق سۆز يوق. قوش  (+)توپچىنى بېسىپ لۇغەتكە سۆز قوشالايسىز. </string>
-  <string name="user_dict_settings_all_languages">ھەممە تىل ئۈچۈن</string>
-  <string name="user_dict_settings_more_languages">تېخىمۇ كۆپ تىللار&#8230;</string>
-  <string name="user_dict_settings_delete">ئۆچۈر</string>
-  <string name="user_dict_fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>
