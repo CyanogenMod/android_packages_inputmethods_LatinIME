@@ -64,6 +64,7 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("fi", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("fr", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("hr", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("hu", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("it", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lt", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lv", SCRIPT_LATIN);
