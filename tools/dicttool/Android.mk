@@ -59,7 +59,6 @@ LATINIME_SRC_FILES_FOR_DICTTOOL := \
         latin/utils/CombinedFormatUtils.java \
         latin/utils/CoordinateUtils.java \
         latin/utils/FileUtils.java \
-        latin/utils/JniUtils.java \
         latin/utils/LocaleUtils.java \
         latin/utils/ResizableIntArray.java \
         latin/utils/StringUtils.java
