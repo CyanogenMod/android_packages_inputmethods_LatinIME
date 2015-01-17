@@ -29,8 +29,7 @@ LATINIME_CORE_SOURCE_DIRECTORY := $(LATINIME_BASE_SOURCE_DIRECTORY)/latin
 MAKEDICT_CORE_SOURCE_DIRECTORY := $(LATINIME_CORE_SOURCE_DIRECTORY)/makedict
 USED_TARGETTED_UTILS := \
         $(LATINIME_CORE_SOURCE_DIRECTORY)/utils/ByteArrayDictBuffer.java \
-        $(LATINIME_CORE_SOURCE_DIRECTORY)/utils/CollectionUtils.java \
-        $(LATINIME_CORE_SOURCE_DIRECTORY)/utils/JniUtils.java
+        $(LATINIME_CORE_SOURCE_DIRECTORY)/utils/CollectionUtils.java
 
 DICTTOOL_ONDEVICE_TESTS_DIRECTORY := \
         $(LATINIME_LOCAL_DIR)/tests/src/com/android/inputmethod/latin/makedict/
