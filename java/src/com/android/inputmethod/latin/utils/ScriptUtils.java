@@ -55,6 +55,7 @@ public class ScriptUtils {
         // IMPORTANT: this only contains languages - do not write countries in there.
         // Only the language is searched from the map.
         mSpellCheckerLanguageToScript = new TreeMap<>();
+        mSpellCheckerLanguageToScript.put("bg", SCRIPT_CYRILLIC);
         mSpellCheckerLanguageToScript.put("cs", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("da", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("de", SCRIPT_LATIN);
@@ -67,6 +68,7 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("hu", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("it", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("iw", SCRIPT_HEBREW);
+        mSpellCheckerLanguageToScript.put("ka", SCRIPT_GEORGIAN);
         mSpellCheckerLanguageToScript.put("lb", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lt", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lv", SCRIPT_LATIN);
@@ -80,6 +82,7 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("sr", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("sv", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("tr", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("uk", SCRIPT_CYRILLIC);
     }
     /*
      * Returns whether the code point is a letter that makes sense for the specified
