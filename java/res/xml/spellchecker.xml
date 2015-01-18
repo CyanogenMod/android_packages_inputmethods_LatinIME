@@ -59,9 +59,10 @@
             android:label="@string/subtype_generic"
             android:subtypeLocale="pt_BR"
     />
+    <!-- Extra AOSP dictionaries -->
     <subtype
             android:label="@string/subtype_generic"
-            android:subtypeLocale="hu"
+            android:subtypeLocale="cs"
     />
     <subtype
             android:label="@string/subtype_generic"
@@ -69,7 +70,27 @@
     />
     <subtype
             android:label="@string/subtype_generic"
+            android:subtypeLocale="el"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
             android:subtypeLocale="fi"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="hr"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="iw"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="lt"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="lv"
     />
     <subtype
             android:label="@string/subtype_generic"
@@ -77,10 +98,39 @@
     />
     <subtype
             android:label="@string/subtype_generic"
+            android:subtypeLocale="nl"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="pl"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="pt_PT"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="ro"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="sl"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="sr"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
             android:subtypeLocale="sv"
     />
     <subtype
             android:label="@string/subtype_generic"
-            android:subtypeLocale="el"
+            android:subtypeLocale="tr"
+    />
+    <!-- Extra CyanogenMod dictionaries -->
+    <subtype
+            android:label="@string/subtype_generic"
+            android:subtypeLocale="hu"
     />
 </spell-checker>

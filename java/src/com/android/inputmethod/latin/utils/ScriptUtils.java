@@ -66,14 +66,19 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("hr", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("hu", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("it", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("iw", SCRIPT_HEBREW);
         mSpellCheckerLanguageToScript.put("lt", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lv", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("nb", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("nl", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("pl", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("pt", SCRIPT_LATIN);
-        mSpellCheckerLanguageToScript.put("sl", SCRIPT_LATIN);
-        mSpellCheckerLanguageToScript.put("sv", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("ro", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("ru", SCRIPT_CYRILLIC);
+        mSpellCheckerLanguageToScript.put("sl", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("sr", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("sv", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("tr", SCRIPT_LATIN);
     }
     /*
      * Returns whether the code point is a letter that makes sense for the specified
