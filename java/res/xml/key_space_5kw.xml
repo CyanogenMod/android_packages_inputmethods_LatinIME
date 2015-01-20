@@ -24,10 +24,11 @@
     <switch>
         <!-- fa: Perisan
              kn: Kannada
+             ku: Kurdish
              ne: Nepali
              te: Telugu -->
         <case
-            latin:languageCode="fa|kn|ne|te"
+            latin:languageCode="fa|kn|ku|ne|te"
             latin:languageSwitchKeyEnabled="true"
         >
             <Key
@@ -39,7 +40,7 @@
                 latin:keyStyle="zwnjKeyStyle" />
         </case>
         <case
-            latin:languageCode="fa|kn|ne|te"
+            latin:languageCode="fa|kn|ku|ne|te"
             latin:languageSwitchKeyEnabled="false"
         >
             <Key

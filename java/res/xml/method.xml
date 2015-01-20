@@ -65,6 +65,7 @@
     kk: Kazakh/east_slavic
     km_KH: Khmer (Cambodia)/khmer
     kn_IN: Kannada (India)/kannada
+    ku: Kurdish/arabic
     ky: Kyrgyz/east_slavic
     lo_LA: Lao (Laos)/lao
     lt: Lithuanian/qwerty
@@ -459,6 +460,14 @@
             android:imeSubtypeLocale="kn_IN"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xbe66c255"
+            android:imeSubtypeLocale="ku"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kurdish,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
