@@ -34,7 +34,7 @@
             latin:keyboardLayout="@xml/key_space_5kw" />
         <switch>
             <case
-                latin:languageCode="ar|fa"
+                latin:languageCode="ar|fa|ku"
             >
                 <Key
                     latin:keyHintLabel="!text/keyhintlabel_for_arabic_diacritics"

@@ -23,7 +23,7 @@
 >
     <switch>
         <case
-            latin:languageCode="fa"
+            latin:languageCode="fa|ku"
         >
             <!-- U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
                  U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK -->
