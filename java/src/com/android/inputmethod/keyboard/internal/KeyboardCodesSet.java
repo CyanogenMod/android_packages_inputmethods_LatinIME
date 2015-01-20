@@ -133,12 +133,14 @@ public final class KeyboardCodesSet {
     private static final String LANGUAGE_ARABIC = "ar";
     private static final String LANGUAGE_PERSIAN = "fa";
     private static final String LANGUAGE_HEBREW = "iw";
+    private static final String LANGUAGE_KURDISH = "ku";
 
     private static final Object[] LANGUAGE_AND_CODES = {
         LANGUAGE_DEFAULT, DEFAULT,
         LANGUAGE_ARABIC, RTL,
         LANGUAGE_PERSIAN, RTL,
         LANGUAGE_HEBREW, RTL,
+        LANGUAGE_KURDISH, RTL,
     };
 
     static {

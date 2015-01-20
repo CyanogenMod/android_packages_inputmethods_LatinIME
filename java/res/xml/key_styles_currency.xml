@@ -106,7 +106,7 @@
         <!-- TODO: The currency sign of Armenian Dram was created in 2012 and assigned U+058F for
              its unicode, although there is no font glyph for it as of September 2013. -->
         <case
-            latin:languageCode="fa|hi|iw|lo|mn|ne|th|uk|vi"
+            latin:languageCode="fa|hi|iw|ku|lo|mn|ne|th|uk|vi"
         >
             <!-- U+00A3: "£" POUND SIGN
                  U+20AC: "€" EURO SIGN
