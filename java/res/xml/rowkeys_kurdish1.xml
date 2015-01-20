@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2015, The CyanogenMod Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res/com.android.inputmethod.latin"
+>
+    <!-- U+0642: "ق" ARABIC LETTER QAF
+         U+0060: "`" GRAVE ACCENT
+         U+0661: "١" ARABIC-INDIC DIGIT ONE -->
+    <Key
+        latin:keyLabel="&#x0642;"
+        latin:moreKeys="&#x0060;|&#x0060;,%"
+        latin:keyHintLabel="&#x0661;"
+        latin:additionalMoreKeys="&#x0661;,1"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+0648: "و" ARABIC LETTER WAW
+         U+0648 U+0648: "وو" ARABIC LETTER WAW + ARABIC LETTER WAW
+         U+0662: "٢" ARABIC-INDIC DIGIT TWO -->
+    <Key
+        latin:keyLabel="&#x0648;"
+        latin:moreKeys="&#x0648;&#x0648;|&#x0648;&#x0648;,%"
+        latin:keyHintLabel="&#x0662;"
+        latin:additionalMoreKeys="&#x0662;,2"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+06D5: "ە" ARABIC LETTER AE
+         U+064A: "ي" ARABIC LETTER YEH
+         U+0663: "٣" ARABIC-INDIC DIGIT THREE -->
+    <Key
+        latin:keyLabel="&#x06D5;"
+        latin:moreKeys="&#x064A;|&#x064A;,%"
+        latin:keyHintLabel="&#x0663;"
+        latin:additionalMoreKeys="&#x0663;,3"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+0631: "ر" ARABIC LETTER REH
+         U+0695: "ڕ" ARABIC LETTER REH WITH SMALL V BELOW
+         U+0664: "٤" ARABIC-INDIC DIGIT FOUR -->
+    <Key
+        latin:keyLabel="&#x0631;"
+        latin:moreKeys="&#x0695;|&#x0695;,%"
+        latin:keyHintLabel="&#x0664;"
+        latin:additionalMoreKeys="&#x0664;,4"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+062A: "ت" ARABIC LETTER TEH
+         U+0637: "ط" ARABIC LETTER TAH
+         U+0665: "٥" ARABIC-INDIC DIGIT FIVE -->
+    <Key
+        latin:keyLabel="&#x062A;"
+        latin:moreKeys="&#x0637;|&#x0637;,%"
+        latin:keyHintLabel="&#x0665;"
+        latin:additionalMoreKeys="&#x0665;,5"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+06CC: "ی" ARABIC LETTER FARSI YEH
+         U+06CE: "ێ" ARABIC LETTER YEH WITH SMALL V
+         U+0666: "٦" ARABIC-INDIC DIGIT SIX -->
+    <Key
+        latin:keyLabel="&#x06CC;"
+        latin:moreKeys="&#x06CE;|&#x06CE;,%"
+        latin:keyHintLabel="&#x0666;"
+        latin:additionalMoreKeys="&#x0666;,6"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+0626: "ئ" ARABIC LETTER YEH WITH HAMZA ABOVE
+         U+0621: "ء" ARABIC LETTER HAMZA
+         U+0667: "٧" ARABIC-INDIC DIGIT SEVEN -->
+    <Key
+        latin:keyLabel="&#x0626;"
+        latin:moreKeys="&#x0621;|&#x0621;,%"
+        latin:keyHintLabel="&#x0667;"
+        latin:additionalMoreKeys="&#x0667;,7"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+062D: "ح" ARABIC LETTER HAH
+         U+0639: "ع" ARABIC LETTER AIN
+         U+0668: "٨" ARABIC-INDIC DIGIT EIGHT -->
+    <Key
+        latin:keyLabel="&#x062D;"
+        latin:moreKeys="&#x0639;|&#x0639;,%"
+        latin:keyHintLabel="&#x0668;"
+        latin:additionalMoreKeys="&#x0668;,8"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+06C6: "ۆ" ARABIC LETTER OE
+         U+0624: "ؤ" ARABIC LETTER WAW WITH HAMZA ABOVE
+         U+0669: "٩" ARABIC-INDIC DIGIT NINE -->
+    <Key
+        latin:keyLabel="&#x06C6;"
+        latin:moreKeys="&#x0624;|&#x0624;,%"
+        latin:keyHintLabel="&#x0669;"
+        latin:additionalMoreKeys="&#x0669;,9"
+        latin:keyLabelFlags="fontNormal" />
+    <!-- U+067E: "پ" ARABIC LETTER PEH
+         U+062B: "ث" ARABIC LETTER THEH
+         U+0660: "٠" ARABIC-INDIC DIGIT ZERO -->
+    <Key
+        latin:keyLabel="&#x067E;"
+        latin:moreKeys="&#x062B;|&#x062B;,%"
+        latin:keyHintLabel="&#x0660;"
+        latin:additionalMoreKeys="&#x0660;,0"
+        latin:keyLabelFlags="fontNormal" />
+</merge>

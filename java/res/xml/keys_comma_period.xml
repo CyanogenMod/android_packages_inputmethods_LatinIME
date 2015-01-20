@@ -40,7 +40,7 @@
                 latin:keyStyle="hasShiftedLetterHintStyle" />
         </case>
         <case
-            latin:languageCode="fa"
+            latin:languageCode="fa|ku"
         >
             <Key
                 latin:keyLabel="!text/keylabel_for_apostrophe"
