@@ -25,7 +25,7 @@
     <!-- Kept as a separate file for cleaner overriding by an overlay.  -->
     <switch>
         <case
-            latin:languageCode="fa"
+            latin:languageCode="fa|ku"
         >
             <key-style
                 latin:styleName="lessKeyStyle"
