@@ -2022,6 +2022,137 @@ public final class KeyboardTextsSet {
         /* 50 */ "\u17DB,\u00A2,\u00A3,\u20AC,\u00A5,\u20B1",
     };
 
+    /* Language ku: Kurdish */
+    private static final String[] LANGUAGE_ku = {
+        /* 0~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        /* ~44 */
+        // Label for "switch to alphabetic" key.
+        // U+0627: "ا" ARABIC LETTER ALEF
+        // U+200C: ZERO WIDTH NON-JOINER
+        // U+0628: "ب" ARABIC LETTER BEH
+        // U+067E: "پ" ARABIC LETTER PEH
+        /* 45 */ "\u0627\u200C\u0628\u200C\u067E",
+        /* 46 */ null,
+        /* 47 */ null,
+        /* 48 */ "!text/single_laqm_raqm_rtl",
+        /* 49 */ "!text/double_laqm_raqm_rtl",
+        /* 50 */ null,
+        // U+FDFC: "﷼" RIAL SIGN
+        /* 51 */ "\uFDFC",
+        /* 52 */ null,
+        // U+061F: "؟" ARABIC QUESTION MARK
+        // U+060C: "،" ARABIC COMMA
+        // U+061B: "؛" ARABIC SEMICOLON
+        /* 53 */ "!fixedColumnOrder!8,\",\',#,-,:,!,\u060C,\u061F,@,&,\\%,+,\u061B,/,(|),)|(",
+        // U+2605: "★" BLACK STAR
+        // U+066D: "٭" ARABIC FIVE POINTED STAR
+        /* 54 */ "\u2605,\u066D",
+        // U+266A: "♪" EIGHTH NOTE
+        /* 55 */ "\u266A",
+        /* 56 */ null,
+        // The all letters need to be mirrored are found at
+        // http://www.unicode.org/Public/6.1.0/ucd/BidiMirroring.txt
+        // U+FD3E: "﴾" ORNATE LEFT PARENTHESIS
+        // U+FD3F: "﴿" ORNATE RIGHT PARENTHESIS
+        /* 57 */ "!fixedColumnOrder!4,\uFD3E|\uFD3F,<|>,{|},[|]",
+        /* 58 */ "!fixedColumnOrder!4,\uFD3F|\uFD3E,>|<,}|{,]|[",
+        // U+2264: "≤" LESS-THAN OR EQUAL TO
+        // U+2265: "≥" GREATER-THAN EQUAL TO
+        // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+2039: "‹" SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+        // U+203A: "›" SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+        /* 59 */ "!fixedColumnOrder!3,\u2039|\u203A,\u2264|\u2265,<|>",
+        /* 60 */ "!fixedColumnOrder!3,\u203A|\u2039,\u2265|\u2264,>|<",
+        // U+0655: "ٕ" ARABIC HAMZA BELOW
+        // U+0652: "ْ" ARABIC SUKUN
+        // U+0651: "ّ" ARABIC SHADDA
+        // U+064C: "ٌ" ARABIC DAMMATAN
+        // U+064D: "ٍ" ARABIC KASRATAN
+        // U+064B: "ً" ARABIC FATHATAN
+        // U+0654: "ٔ" ARABIC HAMZA ABOVE
+        // U+0656: "ٖ" ARABIC SUBSCRIPT ALEF
+        // U+0670: "ٰ" ARABIC LETTER SUPERSCRIPT ALEF
+        // U+0653: "ٓ" ARABIC MADDAH ABOVE
+        // U+064F: "ُ" ARABIC DAMMA
+        // U+0650: "ِ" ARABIC KASRA
+        // U+064E: "َ" ARABIC FATHA
+        // U+0640: "ـ" ARABIC TATWEEL
+        // In order to make Tatweel easily distinguishable from other punctuations, we use consecutive Tatweels only for its displayed label.
+        // Note: The space character is needed as a preceding letter to draw Arabic diacritics characters correctly.
+        /* 61 */ "!fixedColumnOrder!7, \u0655|\u0655, \u0652|\u0652, \u0651|\u0651, \u064C|\u064C, \u064D|\u064D, \u064B|\u064B, \u0654|\u0654, \u0656|\u0656, \u0670|\u0670, \u0653|\u0653, \u064F|\u064F, \u0650|\u0650, \u064E|\u064E,\u0640\u0640\u0640|\u0640",
+        /* 62 */ "\u064B",
+        // U+06F1: "۱" EXTENDED ARABIC-INDIC DIGIT ONE
+        /* 63 */ "\u06F1",
+        // U+06F2: "۲" EXTENDED ARABIC-INDIC DIGIT TWO
+        /* 64 */ "\u06F2",
+        // U+06F3: "۳" EXTENDED ARABIC-INDIC DIGIT THREE
+        /* 65 */ "\u06F3",
+        // U+06F4: "۴" EXTENDED ARABIC-INDIC DIGIT FOUR
+        /* 66 */ "\u06F4",
+        // U+06F5: "۵" EXTENDED ARABIC-INDIC DIGIT FIVE
+        /* 67 */ "\u06F5",
+        // U+06F6: "۶" EXTENDED ARABIC-INDIC DIGIT SIX
+        /* 68 */ "\u06F6",
+        // U+06F7: "۷" EXTENDED ARABIC-INDIC DIGIT SEVEN
+        /* 69 */ "\u06F7",
+        // U+06F8: "۸" EXTENDED ARABIC-INDIC DIGIT EIGHT
+        /* 70 */ "\u06F8",
+        // U+06F9: "۹" EXTENDED ARABIC-INDIC DIGIT NINE
+        /* 71 */ "\u06F9",
+        // U+06F0: "۰" EXTENDED ARABIC-INDIC DIGIT ZERO
+        /* 72 */ "\u06F0",
+        // Label for "switch to symbols" key.
+        // U+061F: "؟" ARABIC QUESTION MARK
+        /* 73 */ "\u06F3\u06F2\u06F1\u061F",
+        // Label for "switch to symbols with microphone" key. This string shouldn't include the "mic"
+        // part because it'll be appended by the code.
+        /* 74 */ "\u06F3\u06F2\u06F1",
+        /* 75 */ "1",
+        /* 76 */ "2",
+        /* 77 */ "3",
+        /* 78 */ "4",
+        /* 79 */ "5",
+        /* 80 */ "6",
+        /* 81 */ "7",
+        /* 82 */ "8",
+        /* 83 */ "9",
+        // U+066B: "٫" ARABIC DECIMAL SEPARATOR
+        // U+066C: "٬" ARABIC THOUSANDS SEPARATOR
+        /* 84 */ "0,\u066B,\u066C",
+        /* 85~ */
+        null, null, null, null, null, null, null, null, null, null,
+        /* ~94 */
+        // U+060C: "،" ARABIC COMMA
+        /* 95 */ "\u060C",
+        /* 96 */ "\\,",
+        /* 97 */ "\u061F",
+        /* 98 */ "\u061B",
+        // U+066A: "٪" ARABIC PERCENT SIGN
+        /* 99 */ "\u066A",
+        /* 100 */ null,
+        /* 101 */ "?",
+        /* 102 */ ";",
+        // U+2030: "‰" PER MILLE SIGN
+        /* 103 */ "\\%,\u2030",
+        // U+060C: "،" ARABIC COMMA
+        // U+061B: "؛" ARABIC SEMICOLON
+        // U+061F: "؟" ARABIC QUESTION MARK
+        // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        /* 104 */ "\u060C",
+        /* 105 */ "!",
+        /* 106 */ "!,\\,",
+        /* 107 */ "\u061F",
+        /* 108 */ "\u061F,?",
+        /* 109 */ "\u060C",
+        /* 110 */ "\u061F",
+        /* 111 */ "!fixedColumnOrder!4,:,!,\u061F,\u061B,-,/,\u00AB|\u00BB,\u00BB|\u00AB",
+    };
+
     /* Language ky: Kirghiz */
     private static final String[] LANGUAGE_ky = {
         /* 0~ */
@@ -3452,6 +3583,7 @@ public final class KeyboardTextsSet {
         "ka", LANGUAGE_ka, /* Georgian */
         "kk", LANGUAGE_kk, /* Kazakh */
         "km", LANGUAGE_km, /* Khmer */
+        "ku", LANGUAGE_ku, /* Kurdish */
         "ky", LANGUAGE_ky, /* Kirghiz */
         "lo", LANGUAGE_lo, /* Lao */
         "lt", LANGUAGE_lt, /* Lithuanian */
