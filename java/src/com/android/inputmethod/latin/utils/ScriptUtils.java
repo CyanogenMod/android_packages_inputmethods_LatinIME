@@ -74,6 +74,7 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("sl", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("sv", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("ru", SCRIPT_CYRILLIC);
+        mSpellCheckerLanguageToScript.put("iw", SCRIPT_HEBREW);
     }
     /*
      * Returns whether the code point is a letter that makes sense for the specified
