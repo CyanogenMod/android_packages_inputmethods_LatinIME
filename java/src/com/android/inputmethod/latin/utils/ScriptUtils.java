@@ -66,6 +66,7 @@ public class ScriptUtils {
         mSpellCheckerLanguageToScript.put("hr", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("hu", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("it", SCRIPT_LATIN);
+        mSpellCheckerLanguageToScript.put("lb", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lt", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("lv", SCRIPT_LATIN);
         mSpellCheckerLanguageToScript.put("nb", SCRIPT_LATIN);
