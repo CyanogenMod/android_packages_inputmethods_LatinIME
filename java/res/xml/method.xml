@@ -498,6 +498,13 @@
     />
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_generic"
+            android:subtypeId="0x6c624c55"
+            android:imeSubtypeLocale="lb"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwertz,AsciiCapable,EmojiCapable"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
             android:subtypeId="0x8315772c"
             android:imeSubtypeLocale="lo_LA"
             android:imeSubtypeMode="keyboard"
