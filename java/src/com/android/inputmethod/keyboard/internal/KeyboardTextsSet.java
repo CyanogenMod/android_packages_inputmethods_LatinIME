@@ -2063,6 +2063,61 @@ public final class KeyboardTextsSet {
         /* 45 */ "\u0410\u0411\u0412",
     };
 
+    /* Language lb: Luxembourgish */
+    private static final String[] LANGUAGE_lb = {
+        // U+00E4: "ä" LATIN SMALL LETTER A WITH DIAERESIS
+        // U+0040: "@" COMMERCIAL AT
+        // U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX
+        // U+00E0: "à" LATIN SMALL LETTER A WITH GRAVE
+        // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
+        // U+00E6: "æ" LATIN SMALL LETTER AE
+        // U+00E3: "ã" LATIN SMALL LETTER A WITH TILDE
+        // U+00E5: "å" LATIN SMALL LETTER A WITH RING ABOVE
+        // U+0101: "ā" LATIN SMALL LETTER A WITH MACRON
+        /* 0 */ "\u00E4,@,\u00E2,\u00E0,\u00E1,\u00E6,\u00E3,\u00E5,\u0101",
+        // U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE
+        // U+00E8: "è" LATIN SMALL LETTER E WITH GRAVE
+        // U+00EA: "ê" LATIN SMALL LETTER E WITH CIRCUMFLEX
+        // U+00EB: "ë" LATIN SMALL LETTER E WITH DIAERESIS
+        /* 1 */ "\u00E9,\u00E8,\u00EA,\u00EB",
+        // U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE
+        // U+00EC: "ì" LATIN SMALL LETTER I WITH GRAVE
+        // U+00EE: "î" LATIN SMALL LETTER I WITH CIRCUMFLEX
+        // U+00EF: "ï" LATIN SMALL LETTER I WITH DIAERESIS
+        /* 2 */ "\u00ED,\u00EC,\u00EE,\u00EF",
+        // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
+        // U+00F4: "ô" LATIN SMALL LETTER O WITH CIRCUMFLEX
+        // U+00F2: "ò" LATIN SMALL LETTER O WITH GRAVE
+        // U+00F3: "ó" LATIN SMALL LETTER O WITH ACUTE
+        // U+00F5: "õ" LATIN SMALL LETTER O WITH TILDE
+        // U+0153: "œ" LATIN SMALL LIGATURE OE
+        // U+00F8: "ø" LATIN SMALL LETTER O WITH STROKE
+        // U+014D: "ō" LATIN SMALL LETTER O WITH MACRON
+        /* 3 */ "\u00F6,\u00F4,\u00F2,\u00F3,\u00F5,\u0153,\u00F8,\u014D",
+        // U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
+        // U+00FB: "û" LATIN SMALL LETTER U WITH CIRCUMFLEX
+        // U+00F9: "ù" LATIN SMALL LETTER U WITH GRAVE
+        // U+00FA: "ú" LATIN SMALL LETTER U WITH ACUTE
+        // U+016B: "ū" LATIN SMALL LETTER U WITH MACRON
+        /* 4 */ "\u00FC,\u00FB,\u00F9,\u00FA,\u016B",
+        // U+00DF: "ß" LATIN SMALL LETTER SHARP S
+        // U+015B: "ś" LATIN SMALL LETTER S WITH ACUTE
+        // U+0161: "š" LATIN SMALL LETTER S WITH CARON
+        /* 5 */ "\u00DF,\u015B,\u0161",
+        // U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE
+        // U+0144: "ń" LATIN SMALL LETTER N WITH ACUTE
+        /* 6 */ "\u00F1,\u0144",
+        /* 7~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null,
+        /* ~45 */
+        /* 46 */ "!text/single_9qm_lqm",
+        /* 47 */ "!text/double_9qm_lqm",
+        /* 48 */ "!text/single_raqm_laqm",
+        /* 49 */ "!text/double_raqm_laqm",
+    };
+
     /* Language lo: Lao */
     private static final String[] LANGUAGE_lo = {
         /* 0~ */
@@ -3453,6 +3508,7 @@ public final class KeyboardTextsSet {
         "kk", LANGUAGE_kk, /* Kazakh */
         "km", LANGUAGE_km, /* Khmer */
         "ky", LANGUAGE_ky, /* Kirghiz */
+        "lb", LANGUAGE_lb, /* Luxembourgish */
         "lo", LANGUAGE_lo, /* Lao */
         "lt", LANGUAGE_lt, /* Lithuanian */
         "lv", LANGUAGE_lv, /* Latvian */
