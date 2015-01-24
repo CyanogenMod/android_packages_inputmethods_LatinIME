@@ -1910,7 +1910,8 @@ public final class KeyboardTextsTable {
     /* Locale hu: Hungarian */
     private static final String[] TEXTS_hu = {
         // U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
-        /* morekeys_a */ "\u00E1",
+        // U+0040: "@" COMMERCIAL AT
+        /* morekeys_a */ "\u00E1,\u0040",
         // U+00F3: "ó" LATIN SMALL LETTER O WITH ACUTE
         // U+00F6: "ö" LATIN SMALL LETTER O WITH DIAERESIS
         // U+0151: "ő" LATIN SMALL LETTER O WITH DOUBLE ACUTE
@@ -1928,7 +1929,8 @@ public final class KeyboardTextsTable {
         /* double_quotes */ "!text/double_9qm_rqm",
         /* morekeys_n */ null,
         /* single_quotes */ "!text/single_9qm_rqm",
-        /* morekeys_s ~ */
+        // U+0023: "#" NUMERIC HASH
+        /* morekeys_s ~ */ "\u0023",
         null, null, null, null, null, null, null, null,
         /* ~ morekeys_g */
         /* single_angle_quotes */ "!text/single_raqm_laqm",

@@ -18,8 +18,9 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE -->
-    <string name="morekeys_a">&#x00E1;</string>
+    <!-- U+00E1: "á" LATIN SMALL LETTER A WITH ACUTE
+         U+0040: "@" COMMERCIAL AT -->
+    <string name="morekeys_a">&#x00E1;,&#x0040;</string>
     <!-- U+00E9: "é" LATIN SMALL LETTER E WITH ACUTE -->
     <string name="morekeys_e">&#x00E9;</string>
     <!-- U+00ED: "í" LATIN SMALL LETTER I WITH ACUTE -->
@@ -32,6 +33,8 @@
          U+00FC: "ü" LATIN SMALL LETTER U WITH DIAERESIS
          U+0171: "ű" LATIN SMALL LETTER U WITH DOUBLE ACUTE -->
     <string name="morekeys_u">&#x00FA;,&#x00FC;,&#x0171;</string>
+    <!-- U+0023: "#" NUMBER HASH -->
+    <string name="morekeys_s">&#x0023;</string>
     <string name="single_quotes">!text/single_9qm_rqm</string>
     <string name="double_quotes">!text/double_9qm_rqm</string>
     <string name="single_angle_quotes">!text/single_raqm_laqm</string>
