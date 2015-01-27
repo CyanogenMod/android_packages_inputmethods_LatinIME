@@ -36,6 +36,7 @@
     de: German/qwertz
     de_CH: German (Switzerland)/swiss
     el: Greek/greek
+    en_AU: English (Australia)/qwerty
     en_IN: English (India)/qwerty
     en_US: English (United States)/qwerty
     en_GB: English (Great Britain)/qwerty
@@ -116,6 +117,14 @@
         android:settingsActivity="com.android.inputmethod.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
         android:supportsSwitchingToNextInputMethod="true">
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xc9194f97"
+            android:imeSubtypeLocale="en_AU"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_en_US"
             android:subtypeId="0xc9194f98"
