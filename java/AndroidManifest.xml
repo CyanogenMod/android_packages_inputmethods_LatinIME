@@ -68,6 +68,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".settings.ImportFragmentDetailActivity"
+                  android:theme="@style/platformSettingsTheme"
+                  android:uiOptions="splitActionBarWhenNarrow"
+                  android:exported="false" />
+
         <activity android:name=".setup.SetupWizardActivity"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/english_ime_name"
