@@ -16,19 +16,28 @@
 
 package com.android.inputmethod.latin;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.android.inputmethod.annotations.UsedForTesting;
+import com.android.inputmethod.dictionarypack.DictionaryPackConstants;
 import com.android.inputmethod.keyboard.ProximityInfo;
 import com.android.inputmethod.latin.PrevWordsInfo.WordInfo;
 import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import com.android.inputmethod.latin.debug.ExternalDictionaryGetterForDebug;
 import com.android.inputmethod.latin.personalization.ContextualDictionary;
 import com.android.inputmethod.latin.personalization.PersonalizationDataChunk;
 import com.android.inputmethod.latin.personalization.PersonalizationDictionary;
 import com.android.inputmethod.latin.personalization.UserHistoryDictionary;
+import com.android.inputmethod.latin.settings.ImportFragmentDetailActivity;
 import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import com.android.inputmethod.latin.settings.SpacingAndPunctuations;
 import com.android.inputmethod.latin.utils.DistracterFilter;
@@ -205,6 +214,35 @@ public class DictionaryFacilitator {
             Log.e(TAG, "Cannot create dictionary: " + dictType, e);
             return null;
         }
+    }
+
+    public void promptUpdateOrInstallRemoteDictionary(final Context context, ApplicationInfo info) {
+        ArrayList<File> files = ExternalDictionaryGetterForDebug
+                .showFilesFromPackage(context, info);
+        Intent intent = new Intent(context, ImportFragmentDetailActivity.class);
+        intent.putExtra(ImportFragmentDetailActivity.DICTIONARY_PACKAGE_NAME, info.packageName);
+        intent.putExtra(ImportFragmentDetailActivity.DICTIONARY_LIST_FOR_PACKAGE, files);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification noti = new Notification.Builder(context)
+                .setContentTitle(context.getString(R.string.notification_new_dictionary_available))
+                        .setContentText(
+                                context.getString(
+                                        R.string.notification_new_dictionary_available_description)
+                                        + " " + info.loadLabel(context.getPackageManager()))
+                        .setSmallIcon(R.drawable.ic_notify_dictionary)
+                        .setContentIntent(PendingIntent.getActivity(context, 0, intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT))
+                        .setLargeIcon(((BitmapDrawable)
+                                info.loadIcon(context.getPackageManager())).getBitmap())
+                        .setStyle(new Notification.BigTextStyle()
+                                .bigText(context.getString(
+                                        R.string.notification_new_dictionary_available_description)
+                                        + " " + info.loadLabel(context.getPackageManager())))
+                                .build();
+        notificationManager.notify(DictionaryPackConstants.EXTERNAL_NOTIFICATION_DICT_ID, noti);
     }
 
     public void resetDictionaries(final Context context, final Locale newLocale,

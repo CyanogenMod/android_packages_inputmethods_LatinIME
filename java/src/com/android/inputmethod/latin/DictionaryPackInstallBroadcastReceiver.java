@@ -16,6 +16,8 @@
 
 package com.android.inputmethod.latin;
 
+import android.content.pm.ApplicationInfo;
+import android.os.Bundle;
 import com.android.inputmethod.dictionarypack.DictionaryPackConstants;
 import com.android.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
@@ -84,7 +86,25 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
                 return; // No package info : we can't do anything
             }
             final ProviderInfo[] providers = packageInfo.providers;
-            if (null == providers) return; // No providers : it is not a dictionary.
+            if (null == providers) {
+                // If the dictionary package doesn't have a provider, we can try to load its binary
+                // dictionaries from its assets if it has the correct metadata
+                try {
+                    ApplicationInfo ai = manager.getApplicationInfo(packageName,
+                            PackageManager.GET_META_DATA);
+                    Bundle metaData = ai.metaData;
+                    if (metaData != null) {
+                        if (metaData.containsKey(DictionaryPackConstants.EXTERNAL_LATIN_IME_DICT)) {
+                            System.out.println("FOUND AN EXTERNAL DICTIONARY, NOTIFY! "
+                                    + ai.packageName);
+                            mService.handlePossibleDictionaryUpdateOrPromptInstall(ai);
+                        }
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    return ;
+                }
+                return;
+            }
 
             // Search for some dictionary pack in the just-installed package. If found, reread.
             for (ProviderInfo info : providers) {
@@ -93,6 +113,7 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
                     return;
                 }
             }
+
             // If we come here none of the authorities matched the one we searched for.
             // We can exit safely.
             return;

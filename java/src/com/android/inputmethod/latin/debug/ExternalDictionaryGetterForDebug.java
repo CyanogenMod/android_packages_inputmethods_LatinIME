@@ -21,8 +21,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Environment;
 
+import android.widget.Toast;
+import com.android.inputmethod.latin.AssetFileAddress;
 import com.android.inputmethod.latin.BinaryDictionaryFileDumper;
 import com.android.inputmethod.latin.BinaryDictionaryGetter;
 import com.android.inputmethod.latin.R;
@@ -37,6 +43,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -46,6 +54,8 @@ import java.util.Locale;
 public class ExternalDictionaryGetterForDebug {
     private static final String SOURCE_FOLDER = Environment.getExternalStorageDirectory().getPath()
             + "/Download";
+    private static final String INTERNAL_DICT_PATH =
+            "/data/data/com.android.inputmethod.latin/files";
 
     private static String[] findDictionariesInTheDownloadedFolder() {
         final File[] files = new File(SOURCE_FOLDER).listFiles();
@@ -91,6 +101,89 @@ public class ExternalDictionaryGetterForDebug {
                     }
                 })
                 .create().show();
+    }
+
+    /**
+     * Find all possible dictionaries within the given package
+     * @param context
+     */
+    public static ArrayList<File> showFilesFromPackage(final Context context,
+            ApplicationInfo info) {
+        ArrayList<File> files = new ArrayList<File>();
+        try {
+            Context externalContext = context.createPackageContext(info.packageName,
+                    Context.CONTEXT_IGNORE_SECURITY);
+            AssetManager manager = externalContext.getResources().getAssets();
+            String[] list;
+            list = manager.list("");
+            for (String filePath : list) {
+                // Check the extension
+                File file = new File(filePath);
+                if (file.getName().endsWith(".dict")) {
+                    files.add(file);
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            //
+        } catch (IOException e) {
+            //
+        }
+        return files;
+    }
+
+    public static void askInstallFileButCopyFirst(final Context context, final String externalPackage,
+            final String fileName, final Runnable completeRunnable) {
+        Context otherContext;
+        try {
+            otherContext =
+                    context.createPackageContext(externalPackage, Context.CONTEXT_IGNORE_SECURITY);
+
+            // We need to copy the file to LatinIME's data/ directory, so the rest of the
+            // stack can interpret the absolute path correctly.
+            AssetFileDescriptor assetFileDescriptor = otherContext.getAssets().openFd(fileName);
+            File fileCopied =
+                    copyAsset(assetFileDescriptor, INTERNAL_DICT_PATH + "/" + fileName);
+            askInstallFile(context, fileCopied.getParentFile().getAbsolutePath(),
+                    fileCopied.getName(), completeRunnable);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(context, R.string.unable_to_create_package_context,
+                    Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            // Should really never happen
+        } catch (NullPointerException e) {
+            Toast.makeText(context, R.string.unable_to_load_native_library,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private static File copyAsset(AssetFileDescriptor aFd, String toPath) {
+        InputStream in = null;
+        OutputStream out = null;
+        File outFile = new File(toPath);
+        try {
+            in = aFd.createInputStream();
+            outFile.createNewFile();
+            out = new FileOutputStream(toPath);
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return outFile;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
     }
 
     /**
@@ -165,6 +258,9 @@ public class ExternalDictionaryGetterForDebug {
             if (!tempFile.renameTo(finalFile)) {
                 throw new IOException("Can't move the file to its final name");
             }
+            Toast.makeText(context, header.getDescription()
+                            + " " + context.getString(R.string.dictionary_installed),
+                    Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             // There was an error: show a dialog
             new AlertDialog.Builder(DialogUtils.getPlatformDialogThemeContext(context))
