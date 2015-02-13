@@ -233,6 +233,7 @@ public final class BinaryDictionary extends Dictionary {
 
     public DictionaryHeader getHeader() throws UnsupportedFormatException {
         if (mNativeDict == 0) {
+            System.out.println("NATIVE DICT NULL");
             return null;
         }
         final int[] outHeaderSize = new int[1];
