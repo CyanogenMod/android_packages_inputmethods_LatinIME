@@ -27,6 +27,7 @@ import com.android.inputmethod.latin.BinaryDictionaryFileDumper;
 import com.android.inputmethod.latin.BinaryDictionaryGetter;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.makedict.DictionaryHeader;
+import com.android.inputmethod.latin.settings.ImportFragment;
 import com.android.inputmethod.latin.utils.DialogUtils;
 import com.android.inputmethod.latin.utils.DictionaryInfoUtils;
 import com.android.inputmethod.latin.utils.LocaleUtils;
@@ -91,6 +92,12 @@ public class ExternalDictionaryGetterForDebug {
                     }
                 })
                 .create().show();
+    }
+
+    public static void askInstallFile(final Context context,
+                                      final ImportFragment.ImportDictionary dictionary) {
+        askInstallFile(context, dictionary.getFile().getParentFile().getAbsolutePath(),
+                dictionary.getFile().getName(), null);
     }
 
     /**
