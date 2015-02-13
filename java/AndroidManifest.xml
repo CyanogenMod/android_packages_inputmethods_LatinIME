@@ -68,6 +68,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".settings.ImportFragmentDetailActivity"
+                  android:theme="@style/platformSettingsTheme"
+                  android:uiOptions="splitActionBarWhenNarrow"
+                  android:exported="false"
+                  android:excludeFromRecents="true" />
+
         <activity android:name=".setup.SetupWizardActivity"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/english_ime_name"
@@ -119,6 +125,8 @@
         <receiver android:name=".DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="com.android.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
             </intent-filter>
         </receiver>
 

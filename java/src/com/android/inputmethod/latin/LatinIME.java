@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
@@ -669,6 +670,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mDictionaryFacilitator.resetDictionaries(this /* context */,
                 mDictionaryFacilitator.getLocale(), settingsValues.mUseContactsDict,
                 settingsValues.mUsePersonalizedDicts, true /* forceReloadMainDictionary */, this);
+    }
+
+    /**
+     * Handle binary dictionary updates
+     */
+    /* package private */ void handlePossibleDictionaryUpdateOrPromptInstall(ApplicationInfo info) {
+        mDictionaryFacilitator.promptUpdateOrInstallRemoteDictionary(this /* context */, info);
     }
 
     @Override

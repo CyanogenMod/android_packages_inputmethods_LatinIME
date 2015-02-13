@@ -24,6 +24,7 @@ import com.android.inputmethod.latin.settings.CorrectionSettingsFragment;
 import com.android.inputmethod.latin.settings.CustomInputStyleSettingsFragment;
 import com.android.inputmethod.latin.settings.DebugSettingsFragment;
 import com.android.inputmethod.latin.settings.GestureSettingsFragment;
+import com.android.inputmethod.latin.settings.ImportFragment;
 import com.android.inputmethod.latin.settings.MultiLingualSettingsFragment;
 import com.android.inputmethod.latin.settings.PreferencesSettingsFragment;
 import com.android.inputmethod.latin.settings.SettingsFragment;
@@ -56,6 +57,7 @@ public class FragmentUtils {
         sLatinImeFragments.add(UserDictionaryList.class.getName());
         sLatinImeFragments.add(UserDictionaryLocalePicker.class.getName());
         sLatinImeFragments.add(UserDictionarySettings.class.getName());
+        sLatinImeFragments.add(ImportFragment.class.getName());
     }
 
     public static boolean isValidFragment(String fragmentName) {
