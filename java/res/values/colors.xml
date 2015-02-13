@@ -89,4 +89,7 @@
     <color name="theme_primary">#ff263238</color>
     <color name="theme_primary_dark">#ff21272b</color>
     <color name="theme_accent">#ff009688</color>
+
+    <!-- Import colors -->
+    <color name="primary_text_color">#000</color>
 </resources>
