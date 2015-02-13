@@ -62,4 +62,14 @@ public class DictionaryPackConstants {
      */
     public static final String UPDATE_NOW_INTENT_ACTION = DICTIONARY_DOMAIN
             + ".UPDATE_NOW";
+
+    /**
+     * This meta-data key allows us to read external binary dictionaries
+     */
+    public static final String EXTERNAL_LATIN_IME_DICT = "com.android.inputmethod.latin.extension";
+
+    /**
+     * The notification id of the external package that contains a binary dictionary
+     */
+    public static final int EXTERNAL_NOTIFICATION_DICT_ID = 1337;
 }
