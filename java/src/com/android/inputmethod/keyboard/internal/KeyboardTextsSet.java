@@ -3255,6 +3255,18 @@ public final class KeyboardTextsSet {
         // U+0107: "ć" LATIN SMALL LETTER C WITH ACUTE
         // U+010D: "č" LATIN SMALL LETTER C WITH CARON
         /* 7 */ "\u00E7,\u0107,\u010D",
+        /* 8~ */
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null,
+        /* ~117 */
+        // U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE
+        /* 118 */ "\u00F1",
     };
 
     /* Language tr: Turkish */
