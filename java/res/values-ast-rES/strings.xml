@@ -69,7 +69,10 @@
   <string name="gesture_preview_trail">Amosar recorríu del xestu</string>
   <string name="gesture_floating_preview_text">Vista previa dinámica flotante</string>
   <string name="gesture_floating_preview_text_summary">Ver pallabra suxerida al facer xestos</string>
+  <string name="gesture_space_aware">Xestu de frase</string>
+  <string name="gesture_space_aware_summary">Esliza\'l deu a Espaciu pa introducir espacios per aciu de xestos</string>
   <string name="voice_input">Tecla d\'entrada de voz</string>
+  <string name="voice_input_disabled_summary">Nun hai métodos d\'entrada de voz habilitaos. Comprueba los axustes d\'Entrada y Testu.</string>
   <string name="configure_input_method">Configurar métodos d\'entrada</string>
   <string name="language_selection_title">Llingües</string>
   <string name="help_and_feedback">Ayuda &amp; comentarios</string>
@@ -117,7 +120,10 @@
   <string name="setup_steps_title">"Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
   <string name="setup_step1_title">"Habilitar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
   <string name="setup_step1_instruction">"Comprueba \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" nos tos axustes Llingua y tecláu. Esto autorizará la execución nel preséu."</string>
+  <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> yá s'habilitó nos tos axustes de Llingua y Testu, asina qu'esti pasu ta fechu. ¡Al siguiente!"</string>
   <string name="setup_step1_action">Habilitar n\'Axustes</string>
+  <string name="setup_step2_title">"Cambiar a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+  <string name="setup_step2_instruction">"Depués, esbilla \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como'l to métodu d'entrada."</string>
   <string name="setup_step2_action">Camudar métodu d\'entrada</string>
   <string name="setup_step3_title">"Norabona, finó la configuración!"</string>
   <string name="setup_step3_instruction">Agora pues escribir nes tos apps favorites con <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -150,6 +156,13 @@
   <string name="install_dict">Instalar</string>
   <string name="cancel_download_dict">Encaboxar</string>
   <string name="delete_dict">Desaniciar</string>
+  <string name="should_download_over_metered_prompt">La llingua esbillada nel to preséu móvil tien un diccionariu disponible.&lt;br/&gt;
+Aconseyámoste &lt;b&gt;baxar&lt;/b&gt; el diccionariu <xliff:g id="LANGUAGE_NAME" example="English">%1$s</xliff:g> p\'ameyorar la to esperiencia d\'escritura.&lt;br/&gt;
+&lt;br/&gt;
+La descarga podría tardar un minutu o dos sobro 3G. Podríen aplicase cargos si nun tienes un &lt;b&gt;plan de datos illimitáu&lt;/b&gt;.&lt;br/&gt;
+Si nun tas seguru de que plan de datos tienes, aconseyámoste alcontrar una conexón Wi-fi p\'aniciar la descarga automáticamente.&lt;br/&gt;
+&lt;br/&gt;
+Conseyu: Pues baxar y desaniciar diccionarios diendo a &lt;b&gt;Llingua y Entrada&lt;/b&gt; nel menú d\'&lt;b&gt;Axustes&lt;/b&gt; del to móvil.</string>
   <string name="download_over_metered">Descarga agora (<xliff:g id="SIZE_IN_MEGABYTES" example="0.7">%1$.1f</xliff:g>MB)</string>
   <string name="do_not_download_over_metered">Descargar con Wi-Fi</string>
   <string name="dict_available_notification_title">Hai un diccionariu disponible <xliff:g id="LANGUAGE_NAME" example="English">%1$s</xliff:g></string>
