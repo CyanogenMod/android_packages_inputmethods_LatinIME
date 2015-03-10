@@ -288,7 +288,7 @@
     <string name="spoken_emoji_1F382" msgid="4720497171946687501">"Urtebetetze-pastela"</string>
     <string name="spoken_emoji_1F383" msgid="3536505941578757623">"Halloween-eko kuia-lanpara"</string>
     <string name="spoken_emoji_1F384" msgid="1797870204479059004">"Gabonetako zuhaitza"</string>
-    <string name="spoken_emoji_1F385" msgid="1754174063483626367">"Aita Noel"</string>
+    <string name="spoken_emoji_1F385" msgid="1754174063483626367">"Bizarzuri"</string>
     <string name="spoken_emoji_1F386" msgid="2130445450758114746">"Su artifizialak"</string>
     <string name="spoken_emoji_1F387" msgid="3403182563117999933">"Bengala"</string>
     <string name="spoken_emoji_1F388" msgid="2903047203723251804">"Puxika"</string>
@@ -602,7 +602,7 @@
     <string name="spoken_emoji_1F4F0" msgid="6330208624731662525">"Egunkaria"</string>
     <string name="spoken_emoji_1F4F1" msgid="3966503935581675695">"Telefono mugikorra"</string>
     <string name="spoken_emoji_1F4F2" msgid="1057540341746100087">"Telefono mugikorra eta geziak eskuinalderantz ezkerraldean"</string>
-    <string name="spoken_emoji_1F4F3" msgid="5003984447315754658">"Bibrazio-modua"</string>
+    <string name="spoken_emoji_1F4F3" msgid="5003984447315754658">"Dardara modua"</string>
     <string name="spoken_emoji_1F4F4" msgid="5549847566968306253">"Telefono mugikorra itzalita"</string>
     <string name="spoken_emoji_1F4F5" msgid="3660199448671699238">"Telefono mugikorrik ez"</string>
     <string name="spoken_emoji_1F4F6" msgid="2676974903233268860">"Antena barrekin"</string>
@@ -846,6 +846,6 @@
     <string name="spoken_emoji_1F6C1" msgid="2845056048320031158">"Bainuontzia"</string>
     <string name="spoken_emoji_1F6C2" msgid="8117262514698011877">"Pasaporte-kontrola"</string>
     <string name="spoken_emoji_1F6C3" msgid="1176342001834630675">"Aduana"</string>
-    <string name="spoken_emoji_1F6C4" msgid="1477622834179978886">"Maleta-erreklamazioa"</string>
+    <string name="spoken_emoji_1F6C4" msgid="1477622834179978886">"Ekipaje-erreklamazioa"</string>
     <string name="spoken_emoji_1F6C5" msgid="2495834050856617451">"Ahaztutako maletak"</string>
 </resources>
