@@ -176,7 +176,7 @@
   <string name="setup_next_action">Nächste Schrëtt</string>
   <string name="setup_steps_title">"<xliff:g id="application_name">%s</xliff:g> gëtt configuréiert"</string>
   <string name="setup_step1_title">"<xliff:g id="application_name">%s</xliff:g> aktivéieren"</string>
-  <string name="setup_step1_instruction">"Aktivéier w.e.g. \"<xliff:g id="application_name">%s</xliff:g>\" an denge Sproochenastellungen fir d'Erlabnes ze ginn op dengem Apparat ze lafen."</string>
+  <string name="setup_step1_instruction">"Aktivéier w.e.g. \"<xliff:g id="application_name">%s</xliff:g>\" an denge Sproochenastellunge fir d'Erlaabnes ze ginn op dengem Apparat ze lafen."</string>
   <string name="setup_step1_finished_instruction">"<xliff:g id="application_name">%s</xliff:g> ass schonn an denge Sproochastellungen aktivéiert, also ass dëse Schrëtt erleedegt. Weider bei den nächsten!"</string>
   <string name="setup_step1_action">An den Astellungen aktivéieren</string>
   <string name="setup_step2_title">"Op <xliff:g id="application_name">%s</xliff:g> wiesselen"</string>
@@ -215,7 +215,7 @@
   <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
 Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erofzeluede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
 &lt;br/&gt;
-D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustaane kommen.&lt;br/&gt;
+D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustane kommen.&lt;br/&gt;
 Wann s de net sécher bass wéi en Tariff datt s de hues, recommandéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;
 &lt;br/&gt;
 Tipp: Du kanns Dictionnairen eroflueden a läsche wann s de bei deng &lt;b&gt;Sproochastellungen&lt;/b&gt; am &lt;b&gt;Astellungsmenü&lt;/b&gt; op dengem Apparat gees.</string>
