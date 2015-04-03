@@ -24,8 +24,8 @@
     <!-- U+044F: "я" CYRILLIC SMALL LETTER YA -->
     <Key
         latin:keySpec="&#x044F;"
-        latin:keyHintLabel="!"
-        latin:additionalMoreKeys="!" />
+        latin:keyHintLabel="*"
+        latin:additionalMoreKeys="*" />
     <!-- U+0447: "ч" CYRILLIC SMALL LETTER CHE -->
     <Key
         latin:keySpec="&#x0447;"
@@ -48,8 +48,8 @@
     <!-- U+0442: "т" CYRILLIC SMALL LETTER TE -->
     <Key
         latin:keySpec="&#x0442;"
-        latin:keyHintLabel="/"
-        latin:additionalMoreKeys="/" />
+        latin:keyHintLabel="!"
+        latin:additionalMoreKeys="!" />
     <!-- U+044C: "ь" CYRILLIC SMALL LETTER SOFT SIGN -->
     <Key
         latin:keySpec="&#x044C;"

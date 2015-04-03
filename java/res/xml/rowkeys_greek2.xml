@@ -53,21 +53,21 @@
     <Key
         latin:keySpec="&#x03B7;"
         latin:moreKeys="&#x03AE;"
-        latin:keyHintLabel="*"
-        latin:additionalMoreKeys="*" />
+        latin:keyHintLabel="-"
+        latin:additionalMoreKeys="-" />
     <!-- U+03BE: "ξ" GREEK SMALL LETTER XI -->
     <Key
         latin:keySpec="&#x03BE;"
-        latin:keyHintLabel="-"
-        latin:additionalMoreKeys="-" />
+        latin:keyHintLabel="+"
+        latin:additionalMoreKeys="+" />
     <!-- U+03BA: "κ" GREEK SMALL LETTER KAPPA -->
     <Key
         latin:keySpec="&#x03BA;"
-        latin:keyHintLabel="+"
-        latin:additionalMoreKeys="+" />
+        latin:keyHintLabel="("
+        latin:additionalMoreKeys="(" />
     <!-- U+03BB: "λ" GREEK SMALL LETTER LAMDA -->
     <Key
         latin:keySpec="&#x03BB;"
-        latin:keyHintLabel="_"
-        latin:additionalMoreKeys="_" />
+        latin:keyHintLabel=")"
+        latin:additionalMoreKeys=")" />
 </merge>
