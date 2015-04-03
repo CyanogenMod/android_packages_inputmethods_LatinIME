@@ -50,24 +50,24 @@
     <!-- U+0440: "р" CYRILLIC SMALL LETTER ER -->
     <Key
         latin:keySpec="&#x0440;"
-        latin:keyHintLabel="*"
-        latin:additionalMoreKeys="*" />
+        latin:keyHintLabel="_"
+        latin:additionalMoreKeys="_" />
     <!-- U+043E: "о" CYRILLIC SMALL LETTER O -->
     <Key
         latin:keySpec="&#x043E;"
-        latin:keyHintLabel="-"
-        latin:additionalMoreKeys="-"
+        latin:keyHintLabel="/"
+        latin:additionalMoreKeys="/"
         latin:moreKeys="!text/morekeys_cyrillic_o" />
     <!-- U+043B: "л" CYRILLIC SMALL LETTER EL -->
     <Key
         latin:keySpec="&#x043B;"
-        latin:keyHintLabel="+"
-        latin:additionalMoreKeys="+" />
+        latin:keyHintLabel="-"
+        latin:additionalMoreKeys="-" />
     <!-- U+0434: "д" CYRILLIC SMALL LETTER DE -->
     <Key
         latin:keySpec="&#x0434;"
-        latin:keyHintLabel="_"
-        latin:additionalMoreKeys="_" />
+        latin:keyHintLabel="+"
+        latin:additionalMoreKeys="+" />
     <!-- U+0436: "ж" CYRILLIC SMALL LETTER ZHE -->
     <Key
         latin:keySpec="&#x0436;"
