@@ -169,7 +169,7 @@ public final class SettingsValues {
         mPhraseGestureEnabled = Settings.readPhraseGestureEnabled(prefs, res);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled
                 && !mInputAttributes.mInputTypeNoAutoCorrect;
-        mSuggestionsEnabledPerUserSettings = readSuggestionsEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = readSuggestionsEnabled(prefs, res);
         AdditionalFeaturesSettingUtils.readAdditionalFeaturesPreferencesIntoArray(
                 prefs, mAdditionalFeaturesSettingValues);
         mTextHighlightColorForAddToDictionaryIndicator = res.getColor(
@@ -283,7 +283,7 @@ public final class SettingsValues {
 
     private static final String SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE = "2";
 
-    private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
+    private static boolean readSuggestionsEnabled(final SharedPreferences prefs, Resources res) {
         if (prefs.contains(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)) {
             final boolean alwaysHide = SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE.equals(
                     prefs.getString(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE, null));
@@ -292,7 +292,8 @@ public final class SettingsValues {
                     .putBoolean(Settings.PREF_SHOW_SUGGESTIONS, !alwaysHide)
                     .apply();
         }
-        return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+        return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, res.getBoolean(
+                                R.bool.config_show_suggestions_default));
     }
 
     private static boolean readBigramPredictionEnabled(final SharedPreferences prefs,
