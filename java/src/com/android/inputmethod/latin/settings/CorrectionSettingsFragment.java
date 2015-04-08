@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 
@@ -79,6 +80,13 @@ public final class CorrectionSettingsFragment extends SubScreenFragment {
                         editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
+        }
+
+        final SwitchPreference suggestionsEnabledPreference = (SwitchPreference) findPreference(
+                Settings.PREF_SHOW_SUGGESTIONS);
+        if (suggestionsEnabledPreference != null) {
+            suggestionsEnabledPreference.setChecked(
+                    Settings.getInstance().getCurrent().isSuggestionsEnabledPerUserSettings());
         }
     }
 

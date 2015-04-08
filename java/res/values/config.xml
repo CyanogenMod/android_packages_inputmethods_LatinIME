@@ -91,4 +91,7 @@
     <fraction name="config_emoji_keyboard_row_height">33%p</fraction>
     <fraction name="config_emoji_keyboard_key_letter_size">68%p</fraction>
     <integer name="config_emoji_keyboard_max_page_key_count">21</integer>
+
+    <!-- Display suggested words while typing  -->
+    <bool name="config_show_suggestions_default">true</bool>
 </resources>
