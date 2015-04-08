@@ -35,4 +35,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     -->
     <string name="auto_correction_threshold_mode_default_index">1</string>
 
+    <!-- default show suggestion preference. -->
+    <bool name="pref_show_suggestions_default">true</bool>
+
 </resources>
