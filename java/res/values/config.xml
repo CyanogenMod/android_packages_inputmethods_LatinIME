@@ -109,4 +109,7 @@
     <string-array name="keyboard_switcher_symbols_shifted" translatable="false">
         <item>58,32</item> <!-- KeyEvent.KEYCODE_ALT_RIGHT , KeyEvent.META_ALT_RIGHT_ON -->
     </string-array>
+
+    <!-- Display suggested words while typing  -->
+    <bool name="config_show_suggestions_default">true</bool>
 </resources>

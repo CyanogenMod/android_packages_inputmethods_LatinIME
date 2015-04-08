@@ -184,7 +184,7 @@ public class SettingsValues {
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled
                 && !mInputAttributes.mInputTypeNoAutoCorrect;
-        mSuggestionsEnabledPerUserSettings = readSuggestionsEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = readSuggestionsEnabled(prefs, res);
         mIsInternal = Settings.isInternal(prefs);
         mHasCustomKeyPreviewAnimationParams = prefs.getBoolean(
                 DebugSettings.PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS, false);
@@ -303,7 +303,7 @@ public class SettingsValues {
 
     private static final String SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE = "2";
 
-    private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
+    private static boolean readSuggestionsEnabled(final SharedPreferences prefs, Resources res) {
         if (prefs.contains(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)) {
             final boolean alwaysHide = SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE.equals(
                     prefs.getString(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE, null));
@@ -312,7 +312,8 @@ public class SettingsValues {
                     .putBoolean(Settings.PREF_SHOW_SUGGESTIONS, !alwaysHide)
                     .apply();
         }
-        return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+        return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, res.getBoolean(
+                                R.bool.config_show_suggestions_default));
     }
 
     private static boolean readBigramPredictionEnabled(final SharedPreferences prefs,
