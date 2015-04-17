@@ -16,7 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="import_external_dictionary_multiple_files_title">Inportatzeko hiztegi fitxategi bat hautatu</string>
-  <string name="import_external_dictionary_confirm_install_title">Inportatzea berretsi</string>
-  <string name="import_external_dictionary_confirm_install_message">Ziur <xliff:g id="locale_name">%s</xliff:g> hizkuntzarako hiztegia inportatu nahi duzula?</string>
+  <string name="prefs_import_external_dictionary">Importar diccionario</string>
+  <string name="import_external_dictionary_multiple_files_title">Selecciona un archivo de diccionario para importar</string>
+  <string name="import_external_dictionary_confirm_install_title">Confirmar importación</string>
+  <string name="import_external_dictionary_confirm_install_message">¿Estás seguro de que quieres importar este diccionario para el idioma <xliff:g id="locale_name">%s</xliff:g>?</string>
 </resources>
