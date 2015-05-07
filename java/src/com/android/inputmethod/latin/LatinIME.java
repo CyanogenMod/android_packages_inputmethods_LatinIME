@@ -818,7 +818,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     private void onExtractTextViewPreDraw() {
         // CursorAnchorInfo is available on L and later.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.L) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
         if (!isFullscreenMode() || mExtractEditText == null) {
