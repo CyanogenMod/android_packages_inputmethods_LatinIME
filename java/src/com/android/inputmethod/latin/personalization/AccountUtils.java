@@ -31,7 +31,7 @@ public class AccountUtils {
     }
 
     private static Account[] getAccounts(final Context context) {
-        return AccountManager.get(context).getAccounts();
+        return new Account[0];
     }
 
     public static List<String> getDeviceAccountsEmailAddresses(final Context context) {
