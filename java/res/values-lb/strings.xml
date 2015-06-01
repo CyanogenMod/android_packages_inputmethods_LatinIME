@@ -21,7 +21,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="english_ime_input_options">Optioune fir anzeginn</string>
   <string name="use_contacts_for_spellchecking_option_title">Kontaktnimm nosichen</string>
-  <string name="use_contacts_for_spellchecking_option_summary">D\'Orthografiekorrektur benotzt d\'Nimm aus der Kontaktlëscht</string>
+  <string name="use_contacts_for_spellchecking_option_summary">D\'Orthographiekorrektur benotzt d\'Nimm aus der Kontaktlëscht</string>
   <string name="vibrate_on_keypress">Vibratioun bei Tastendrock</string>
   <string name="sound_on_keypress">Toun bei Tastendrock</string>
   <string name="popup_on_keypress">Pop-Up bei Tastendrock</string>
