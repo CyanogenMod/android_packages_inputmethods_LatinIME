@@ -22,7 +22,7 @@
         android:key="gesture_input"
         android:title="@string/gesture_input"
         android:summary="@string/gesture_input_summary"
-        android:defaultValue="true"
+        android:defaultValue="@bool/config_gesture_input_default_value"
         android:persistent="true" />
     <CheckBoxPreference
         android:key="pref_gesture_floating_preview_text"
