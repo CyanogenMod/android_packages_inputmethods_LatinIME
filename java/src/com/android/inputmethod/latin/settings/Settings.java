@@ -243,8 +243,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readGestureInputEnabled(final SharedPreferences prefs,
             final Resources res) {
+        boolean defaultGestureInput =
+                res.getBoolean(R.bool.config_gesture_input_default_value);
         return readFromBuildConfigIfGestureInputEnabled(res)
-                && prefs.getBoolean(PREF_GESTURE_INPUT, true);
+                && prefs.getBoolean(PREF_GESTURE_INPUT, defaultGestureInput);
     }
 
     public static boolean readPhraseGestureEnabled(final SharedPreferences prefs,
