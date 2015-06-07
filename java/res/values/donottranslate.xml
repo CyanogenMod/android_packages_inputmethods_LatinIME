@@ -52,6 +52,7 @@
         <item>azerty</item>
         <item>dvorak</item>
         <item>colemak</item>
+        <item>bepo</item>
         <item>pcqwerty</item>
     </string-array>
     <!-- Predefined keyboard layout display names -->
@@ -61,6 +62,7 @@
         <item>AZERTY</item>
         <item>Dvorak</item>
         <item>Colemak</item>
+        <item>Bépo</item>
         <item>PC</item>
     </string-array>
     <!-- Description for generic subtype that has predefined layout.
@@ -72,6 +74,7 @@
     <string name="subtype_generic_azerty">%s (AZERTY)</string>
     <string name="subtype_generic_dvorak">%s (Dvorak)</string>
     <string name="subtype_generic_colemak">%s (Colemak)</string>
+    <string name="subtype_generic_bepo">%s (Bépo)</string>
     <string name="subtype_generic_pcqwerty">%s (PC)</string>
 
     <!-- Description for Bulgarian (BDS) subtype. -->
