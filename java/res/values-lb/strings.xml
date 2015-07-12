@@ -156,6 +156,13 @@
   <string name="install_dict">Installéieren</string>
   <string name="cancel_download_dict">Ofbriechen</string>
   <string name="delete_dict">Läschen</string>
+  <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
+Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erofzeluede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
+&lt;br/&gt;
+D\'Erofluede kann e puer Minutten iwwer 3G daueren. Wann s du keng &lt;b&gt;Dateflatrate&lt;/b&gt; hues, kéinten zousätzlech Käschten zustane kommen.&lt;br/&gt;
+Wann s de net sécher bass wéi en Tariff datt s de hues, recommandéiere mer eng WLAN-Connectioun ze siche fir den Download automatesch ze starten.&lt;br/&gt;
+&lt;br/&gt;
+Tipp: Du kanns Dictionnairen eroflueden a läsche wann s de bei deng &lt;b&gt;Sproochastellungen&lt;/b&gt; am &lt;b&gt;Astellungsmenü&lt;/b&gt; op dengem Apparat gees.</string>
   <string name="download_over_metered">Elo eroflueden (<xliff:g id="SIZE_IN_MEGABYTES" example="0.7">%1$.1f</xliff:g>MB)</string>
   <string name="do_not_download_over_metered">Iwwer WLAN eroflueden</string>
   <string name="dict_available_notification_title">Fir <xliff:g id="LANGUAGE_NAME" example="English">%1$s</xliff:g> ass en Dictionnaire disponibel</string>
