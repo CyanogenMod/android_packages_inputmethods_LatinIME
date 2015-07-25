@@ -84,7 +84,9 @@ public final class MoreKeysKeyboard extends Keyboard {
             mDefaultKeyWidth = keyWidth;
             mDefaultRowHeight = rowHeight;
 
-            final int numRows = (numKeys + numColumn - 1) / numColumn;
+
+            int numRows = (numKeys + numColumn - 1) / numColumn;
+
             mNumRows = numRows;
             final int numColumns = isMoreKeysFixedColumn ? Math.min(numKeys, numColumn)
                     : getOptimizedColumns(numKeys, numColumn);
@@ -308,7 +310,14 @@ public final class MoreKeysKeyboard extends Keyboard {
                 dividerWidth = 0;
             }
             final MoreKeySpec[] moreKeys = key.getMoreKeys();
-            mParams.setParameters(moreKeys.length, key.getMoreKeysColumnNumber(), keyWidth,
+            int columnNum;
+            if (key.getMoreKeysColumnNumber() == 0) {
+                columnNum = 1;
+            } else {
+                columnNum = key.getMoreKeysColumnNumber();
+            }
+
+            mParams.setParameters(moreKeys.length, columnNum, keyWidth,
                     rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
                     key.isMoreKeysFixedColumn(), key.isMoreKeysFixedOrder(), dividerWidth);
         }

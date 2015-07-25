@@ -282,7 +282,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private PointerTracker(final int id) {
+    public PointerTracker(final int id) {
         mPointerId = id;
         mBatchInputArbiter = new BatchInputArbiter(id, sGestureStrokeRecognitionParams);
         mGestureStrokeDrawingPoints = new GestureStrokeDrawingPoints(sGestureStrokeDrawingParams);
