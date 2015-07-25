@@ -55,13 +55,18 @@ public final class CodesArrayParser {
     }
 
     public static String parseLabel(final String codesArraySpec) {
-        final String labelSpec = getLabelSpec(codesArraySpec);
-        final StringBuilder sb = new StringBuilder();
-        for (final String codeInHex : labelSpec.split(COMMA_REGEX)) {
-            final int codePoint = Integer.parseInt(codeInHex, BASE_HEX);
-            sb.appendCodePoint(codePoint);
+        try {
+            final String labelSpec = getLabelSpec(codesArraySpec);
+            final StringBuilder sb = new StringBuilder();
+            for (final String codeInHex : labelSpec.split(COMMA_REGEX)) {
+                final int codePoint = Integer.parseInt(codeInHex, BASE_HEX);
+                sb.appendCodePoint(codePoint);
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            // sometimes integers are not integers, do things to stop that...eventually
+            return codesArraySpec;
         }
-        return sb.toString();
     }
 
     private static String getCodeSpec(final String codesArraySpec) {

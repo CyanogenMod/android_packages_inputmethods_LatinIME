@@ -45,6 +45,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Keyboard Building helper.
@@ -400,8 +401,10 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 R.styleable.Keyboard_GridRows_codesArray, 0);
         final int textsArrayId = gridRowAttr.getResourceId(
                 R.styleable.Keyboard_GridRows_textsArray, 0);
+        final int moreArrayId = gridRowAttr.getResourceId(
+                R.styleable.Keyboard_GridRows_moreArray, 0);
         gridRowAttr.recycle();
-        if (codesArrayId == 0 && textsArrayId == 0) {
+        if (codesArrayId == 0 && textsArrayId == 0 && moreArrayId == 0) {
             throw new XmlParseUtils.ParseException(
                     "Missing codesArray or textsArray attributes", parser);
         }
@@ -411,6 +414,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         }
         final String[] array = mResources.getStringArray(
                 codesArrayId != 0 ? codesArrayId : textsArrayId);
+        final String[] moreArray = mResources.getStringArray(moreArrayId);
         final int counts = array.length;
         final float keyWidth = gridRows.getKeyWidth(null, 0.0f);
         final int numColumns = (int)(mParams.mOccupiedWidth / keyWidth);
@@ -426,6 +430,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final int code;
                 final String outputText;
                 final int supportedMinSdkVersion;
+                MoreKeySpec[] moreKeysSpecArray;
                 if (codesArrayId != 0) {
                     final String codeArraySpec = array[i];
                     label = CodesArrayParser.parseLabel(codeArraySpec);
@@ -444,6 +449,8 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 if (Build.VERSION.SDK_INT < supportedMinSdkVersion) {
                     continue;
                 }
+                String[] moreKeys = MoreKeySpec.splitKeySpecsUnicode(moreArray[i]);
+
                 final int labelFlags = row.getDefaultKeyLabelFlags();
                 // TODO: Should be able to assign default keyActionFlags as well.
                 final int backgroundType = row.getDefaultBackgroundType();
@@ -451,9 +458,19 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final int y = row.getKeyY();
                 final int width = (int)keyWidth;
                 final int height = row.getRowHeight();
+                moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
+                if (moreKeys != null) {
+                    moreKeysSpecArray = new MoreKeySpec[moreKeys.length];
+                    for (int g = 0; g < moreKeys.length; g++) {
+                        moreKeysSpecArray[g] = new MoreKeySpec(moreKeys[g], false, Locale.getDefault());
+                    }
+                } else {
+                    moreKeysSpecArray = null;
+                }
+
                 final Key key = new Key(label, KeyboardIconsSet.ICON_UNDEFINED, code, outputText,
                         null /* hintLabel */, labelFlags, backgroundType, x, y, width, height,
-                        mParams.mHorizontalGap, mParams.mVerticalGap);
+                        mParams.mHorizontalGap, mParams.mVerticalGap, moreKeysSpecArray);
                 endKey(key);
                 row.advanceXPos(keyWidth);
             }

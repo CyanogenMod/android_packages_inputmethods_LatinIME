@@ -16,8 +16,10 @@
 
 package com.android.inputmethod.keyboard.internal;
 
+import android.text.Html;
 import android.text.TextUtils;
 
+import android.util.Log;
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.latin.Constants;
 import com.android.inputmethod.latin.define.DebugFlags;
@@ -71,7 +73,7 @@ public final class MoreKeySpec {
             final KeyboardParams params) {
         return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
-                params.mHorizontalGap, params.mVerticalGap);
+                params.mHorizontalGap, params.mVerticalGap, null);
     }
 
     @Override
@@ -166,6 +168,26 @@ public final class MoreKeySpec {
         }
         if (remain != null) {
             list.add(remain);
+        }
+        return list.toArray(new String[list.size()]);
+    }
+
+    /**
+     *
+     *
+     * @param text the text containing multiple key specifications.
+     * @return an array of key specification text. Null if the specified <code>text</code> is empty
+     * or has no key specifications.
+     */
+    public static String[] splitKeySpecsUnicode(final String text) {
+        if (TextUtils.isEmpty(text)) {
+            return null;
+        }
+        ArrayList<String> list = new ArrayList<String>();
+        String[] split = splitKeySpecs(text);
+        for (String s : split) {
+            Log.v("BIRD", CodesArrayParser.parseLabel(s));
+            list.add(CodesArrayParser.parseLabel(s));
         }
         return list.toArray(new String[list.size()]);
     }

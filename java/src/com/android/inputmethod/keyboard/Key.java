@@ -197,7 +197,7 @@ public class Key implements Comparable<Key> {
     public Key(final String label, final int iconId, final int code, final String outputText,
             final String hintLabel, final int labelFlags, final int backgroundType, final int x,
             final int y, final int width, final int height, final int horizontalGap,
-            final int verticalGap) {
+            final int verticalGap, MoreKeySpec[] moreKeys) {
         mHeight = height - verticalGap;
         mWidth = width - horizontalGap;
         mHintLabel = hintLabel;
@@ -205,7 +205,7 @@ public class Key implements Comparable<Key> {
         mBackgroundType = backgroundType;
         // TODO: Pass keyActionFlags as an argument.
         mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
-        mMoreKeys = null;
+        mMoreKeys = moreKeys;
         mMoreKeysColumnAndFlags = 0;
         mLabel = label;
         mOptionalAttributes = OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED,
@@ -924,7 +924,7 @@ public class Key implements Comparable<Key> {
                 final int height) {
             super(null /* label */, ICON_UNDEFINED, CODE_UNSPECIFIED, null /* outputText */,
                     null /* hintLabel */, 0 /* labelFlags */, BACKGROUND_TYPE_EMPTY, x, y, width,
-                    height, params.mHorizontalGap, params.mVerticalGap);
+                    height, params.mHorizontalGap, params.mVerticalGap, null);
         }
     }
 }
