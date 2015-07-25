@@ -591,6 +591,7 @@
         name="emoji_objects"
         format="string"
     >
+        <item>1f32e</item>
         <item>1f530</item>
         <item>1f484</item>
         <item>1f45e</item>
