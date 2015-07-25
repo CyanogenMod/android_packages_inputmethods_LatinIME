@@ -253,6 +253,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         sListener = listener;
     }
 
+    public static KeyboardActionListener getKeyboardActionListener() {
+        return sListener;
+    }
+
     public static void setKeyDetector(final KeyDetector keyDetector) {
         final Keyboard keyboard = keyDetector.getKeyboard();
         if (keyboard == null) {
@@ -282,7 +286,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private PointerTracker(final int id) {
+    public PointerTracker(final int id) {
         mPointerId = id;
         mBatchInputArbiter = new BatchInputArbiter(id, sGestureStrokeRecognitionParams);
         mGestureStrokeDrawingPoints = new GestureStrokeDrawingPoints(sGestureStrokeDrawingParams);

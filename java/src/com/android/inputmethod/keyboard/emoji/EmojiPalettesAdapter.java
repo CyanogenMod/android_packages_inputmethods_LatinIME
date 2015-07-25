@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.keyboard.Keyboard;
+import com.android.inputmethod.keyboard.KeyboardActionListener;
 import com.android.inputmethod.keyboard.KeyboardView;
 import com.android.inputmethod.latin.R;
 
@@ -37,11 +38,13 @@ final class EmojiPalettesAdapter extends PagerAdapter {
     private final SparseArray<EmojiPageKeyboardView> mActiveKeyboardViews = new SparseArray<>();
     private final EmojiCategory mEmojiCategory;
     private int mActivePosition = 0;
+    private KeyboardActionListener mKeyboardActionListener;
 
     public EmojiPalettesAdapter(final EmojiCategory emojiCategory,
-            final EmojiPageKeyboardView.OnKeyEventListener listener) {
+            final EmojiPageKeyboardView.OnKeyEventListener listener, KeyboardActionListener kal) {
         mEmojiCategory = emojiCategory;
         mListener = listener;
+        mKeyboardActionListener = kal;
         mRecentsKeyboard = mEmojiCategory.getKeyboard(EmojiCategory.ID_RECENTS, 0);
     }
 

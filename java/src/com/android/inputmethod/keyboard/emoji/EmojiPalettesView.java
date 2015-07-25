@@ -48,6 +48,7 @@ import com.android.inputmethod.keyboard.internal.KeyVisualAttributes;
 import com.android.inputmethod.keyboard.internal.KeyboardIconsSet;
 import com.android.inputmethod.latin.AudioAndHapticFeedbackManager;
 import com.android.inputmethod.latin.Constants;
+import com.android.inputmethod.latin.LatinIME;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.SubtypeSwitcher;
 import com.android.inputmethod.latin.utils.ResourceUtils;
@@ -179,7 +180,7 @@ public final class EmojiPalettesView extends LinearLayout implements OnTabChange
             tabWidget.setRightStripDrawable(mCategoryIndicatorBackgroundResId);
         }
 
-        mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, this);
+        mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, this, mKeyboardActionListener);
 
         mEmojiPager = (ViewPager)findViewById(R.id.emoji_keyboard_pager);
         mEmojiPager.setAdapter(mEmojiPalettesAdapter);

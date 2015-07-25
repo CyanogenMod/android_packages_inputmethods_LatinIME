@@ -33,6 +33,8 @@ import com.android.inputmethod.latin.Constants;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.utils.CoordinateUtils;
 
+import static com.android.inputmethod.latin.Constants.NOT_A_COORDINATE;
+
 /**
  * A view that renders a virtual {@link MoreKeysKeyboard}. It handles rendering of keys and
  * detecting key presses and touch movements.
@@ -195,8 +197,8 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
     protected void onKeyInput(final Key key, final int x, final int y) {
         final int code = key.getCode();
         if (code == Constants.CODE_OUTPUT_TEXT) {
-            mListener.onTextInput(mCurrentKey.getOutputText());
-        } else if (code != Constants.CODE_UNSPECIFIED) {
+            mListener.onTextInput(key.getOutputText());
+        } else {
             if (getKeyboard().hasProximityCharsCorrection(code)) {
                 mListener.onCodeInput(code, x, y, false /* isKeyRepeat */);
             } else {
