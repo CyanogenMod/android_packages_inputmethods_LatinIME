@@ -105,7 +105,7 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_gestureRecognitionSpeedThreshold
  * @attr ref R.styleable#MainKeyboardView_suppressKeyPreviewAfterBatchInputDuration
  */
-public final class MainKeyboardView extends KeyboardView implements PointerTracker.DrawingProxy,
+public class MainKeyboardView extends KeyboardView implements PointerTracker.DrawingProxy,
         MoreKeysPanel.Controller, DrawingHandler.Callbacks, TimerHandler.Callbacks {
     private static final String TAG = MainKeyboardView.class.getSimpleName();
 
@@ -598,6 +598,12 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         return moreKeysKeyboardView;
     }
 
+    Key mForcedKey = null;
+
+    public void forceKey(Key key) {
+        mForcedKey = key;
+    }
+
     // Implements {@link TimerHandler.Callbacks} method.
     /**
      * Called when a key is long pressed.
@@ -605,10 +611,13 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
      */
     @Override
     public void onLongPress(final PointerTracker tracker) {
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingMoreKeysPanel() && mForcedKey == null) {
             return;
         }
-        final Key key = tracker.getKey();
+        Key key = tracker.getKey();
+        if (mForcedKey != null) {
+            key = mForcedKey;
+        }
         if (key == null) {
             return;
         }

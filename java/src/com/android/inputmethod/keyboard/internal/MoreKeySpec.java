@@ -71,7 +71,7 @@ public final class MoreKeySpec {
             final KeyboardParams params) {
         return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
-                params.mHorizontalGap, params.mVerticalGap);
+                params.mHorizontalGap, params.mVerticalGap, null);
     }
 
     @Override
