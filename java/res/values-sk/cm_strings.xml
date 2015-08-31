@@ -15,5 +15,5 @@
      limitations under the License.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="subtype_no_language_bepo">الأبجدية (Bépo)</string>
+  <string name="subtype_no_language_bepo">Abeceda (Bépo)</string>
 </resources>
