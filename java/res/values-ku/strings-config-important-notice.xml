@@ -19,6 +19,5 @@
 */
 -->
 <resources>
-  <integer name="config_important_notice_version">0</integer>
   <string name="use_personalized_dicts_summary">فێربوون لە پەیوەندییەکانت و دراوە نووسراوەکان بۆ باشترکردنی پێشنیارەکان</string>
 </resources>

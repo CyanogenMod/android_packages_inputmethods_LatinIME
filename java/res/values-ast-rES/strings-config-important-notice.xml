@@ -19,6 +19,5 @@
 */
 -->
 <resources>
-  <integer name="config_important_notice_version">0</integer>
   <string name="use_personalized_dicts_summary">Deprendi de les tos comunicaciones y datos p\'ameyorar suxerencies</string>
 </resources>
