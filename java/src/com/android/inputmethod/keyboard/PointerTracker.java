@@ -636,9 +636,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key key = getKeyOn(x, y);
         mBogusMoveEventDetector.onActualDownEvent(x, y);
         if (key != null && key.isModifier()) {
-            // Before processing a down event of modifier key, all pointers already being
-            // tracked should be released.
-            sPointerTrackerQueue.releaseAllPointers(eventTime);
+            if (sInGesture) {
+                // Make sure not to interrupt an active gesture
+                return;
+            } else {
+                // Before processing a down event of modifier key, all pointers
+                // already being tracked should be released.
+                sPointerTrackerQueue.releaseAllPointers(eventTime);
+            }
         }
         sPointerTrackerQueue.add(this);
         onDownEventInternal(x, y, eventTime);
