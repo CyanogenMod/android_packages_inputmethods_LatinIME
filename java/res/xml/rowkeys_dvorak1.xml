@@ -25,35 +25,34 @@
         latin:keyboardLayout="@xml/keys_dvorak_123" />
     <Key
         latin:keySpec="p"
-        latin:keyHintLabel="4"
-        latin:additionalMoreKeys="4" />
+        latin:keyHintLabel="#"
+        latin:additionalMoreKeys="#" />
     <Key
         latin:keySpec="y"
-        latin:keyHintLabel="5"
-        latin:additionalMoreKeys="5"
+        latin:keyHintLabel="&amp;"
+        latin:additionalMoreKeys="&amp;"
         latin:moreKeys="!text/morekeys_y" />
     <Key
         latin:keySpec="f"
-        latin:keyHintLabel="6"
-        latin:additionalMoreKeys="6" />
+        latin:keyHintLabel="*"
+        latin:additionalMoreKeys="*" />
     <Key
         latin:keySpec="g"
-        latin:keyHintLabel="7"
-        latin:additionalMoreKeys="7"
+        latin:keyHintLabel="-"
+        latin:additionalMoreKeys="-"
         latin:moreKeys="!text/morekeys_g" />
     <Key
         latin:keySpec="c"
-        latin:keyHintLabel="8"
-        latin:additionalMoreKeys="8"
-        latin:moreKeys="!text/morekeys_c" />
+        latin:keyHintLabel="+"
+        latin:additionalMoreKeys="+" />
     <Key
         latin:keySpec="r"
-        latin:keyHintLabel="9"
-        latin:additionalMoreKeys="9"
+        latin:keyHintLabel="("
+        latin:additionalMoreKeys="("
         latin:moreKeys="!text/morekeys_r" />
     <Key
         latin:keySpec="l"
-        latin:keyHintLabel="0"
-        latin:additionalMoreKeys="0"
+        latin:keyHintLabel=")"
+        latin:additionalMoreKeys=")"
         latin:moreKeys="!text/morekeys_l" />
 </merge>
