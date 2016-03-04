@@ -19,12 +19,20 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. [CHAR LIMIT=7] -->
   <string name="label_go_key">بڕۆ</string>
+  <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_next_key">دواتر</string>
+  <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_previous_key">پێشوو</string>
+  <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_done_key">ئه‌نجام درا</string>
+  <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_send_key">ناردن</string>
+  <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_search_key">گه‌ڕان</string>
+  <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_pause_key">وه‌ستان</string>
+  <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
   <string name="label_wait_key">چاوەڕێ</string>
 </resources>

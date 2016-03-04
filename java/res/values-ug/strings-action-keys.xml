@@ -19,5 +19,13 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. [CHAR LIMIT=7] -->
+  <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+  <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+  <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+  <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+  <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+  <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_pause_key">ۋاقىتلىق توختا</string>
+  <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
 </resources>

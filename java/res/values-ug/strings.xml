@@ -19,92 +19,389 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Title for Latin keyboard input options dialog [CHAR LIMIT=25] -->
   <string name="english_ime_input_options">كىرگۈزۈش تاللانما</string>
+  <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
   <string name="use_contacts_for_spellchecking_option_title">ئالاقەداش ئىسمىنى ئىزدەش</string>
+  <!-- Description for the spell checker option to turn on/off contact names lookup. [CHAR LIMIT=65] -->
   <string name="use_contacts_for_spellchecking_option_summary">ئىملا تەكشۈرگۈچ ئالاقەداش تىزىمىڭىزدىكى تۈرلەرنى ئىشلىتىدۇ</string>
+  <!-- Option to provide vibrate/haptic feedback on keypress -->
   <string name="vibrate_on_keypress">خەت بېسىلسا تىترەت</string>
+  <!-- Option to play back sound on keypress in soft keyboard -->
   <string name="sound_on_keypress">خەت بېسىش ئاۋازى</string>
+  <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
   <string name="popup_on_keypress">ھەرپ بېسىلسا قاڭقىش كۆزنىكىنى كۆرسەت</string>
+  <!-- Settings screen title for preferences [CHAR LIMIT=33]-->
+  <!-- Settings screen title for accounts and privacy preferences [CHAR LIMIT=33]-->
+  <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
+  <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
+  <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
+  <!-- Settings screen title for advanced settings [CHAR LIMIT=33] -->
+  <!-- Settings screen title for keyboard theme settings [CHAR LIMIT=33] -->
+  <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
+  <!-- Option title for enabling cloud sync feature [CHAR LIMIT=33]-->
+  <!-- Option summary when cloud sync feature is enabled  [CHAR LIMIT=65] -->
+  <!-- Option summary when cloud sync feature is disabled  [CHAR LIMIT=65] -->
+  <!-- Option title for starting the sync cycle now. [CHAR LIMIT=33]-->
+  <!-- Option title for letting user delete synced google keyboard data from Google servers.  [CHAR LIMIT=35] -->
+  <!-- Option summary for letting user delete synced google keyboard data from Google servers. [CHAR LIMIT=65] -->
+  <!-- Text for confirmation dialog box asking user to confirm deletion of cloud data. [CHAR LIMIT=65] -->
+  <!-- Option to confirm deleting of user data from cloud [CHAR LIMIT=20] -->
+  <!-- Option to cancel the deletion of user data from cloud [CHAR LIMIT=20] -->
   <string name="cloud_sync_cancel">ۋاز كەچ</string>
+  <!-- Option to agree to terms and conditions for enabling cloud sync feature. -->
+  <!-- Text to tell the user to add a Google account to the device to enable the cloud sync feature. [CHAR LIMIT=65]-->
+  <!-- Text to tell the user that sync feature is disabled because they have Google Apps for Business account(s) on their device. [CHAR LIMIT=80]-->
+  <!-- Option name for including other IMEs in the language switch list [CHAR LIMIT=30] -->
   <string name="include_other_imes_in_language_switch_list">باشقا كىرگۈزگۈچكە ئالماشتۇر</string>
+  <!-- Option summary for including other IMEs in the language switch list [CHAR LIMIT=65] -->
   <string name="include_other_imes_in_language_switch_list_summary">تىل ئالماشتۇرۇش كۇنۇپكىسىنى باشقا كىرگۈزگۈچكە ئالماشتۇرۇش ئۈچۈنمۇ ئىشلەتكىلى بولىدۇ</string>
+  <!-- Option to show language switch key [CHAR LIMIT=30] -->
   <string name="show_language_switch_key">تىل ئالماشتۇرۇش كۇنۇپكىسى</string>
+  <!-- Option summary for showing language switch key [CHAR LIMIT=65] -->
   <string name="show_language_switch_key_summary">كۆپ تىل كىرگۈزۈش قوزغىتىلغاندا كۆرسىتىدۇ</string>
+  <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
   <string name="key_preview_popup_dismiss_delay">قاڭقىش كۆزنىكىنى تاقاش مۆھلىتى</string>
+  <!-- Description for delay for dismissing a popup on keypress: no delay [CHAR LIMIT=15] -->
   <string name="key_preview_popup_dismiss_no_delay">كېچىكتۈرۈش يوق</string>
+  <!-- Description for delay for dismissing a popup on screen: default value of the delay [CHAR LIMIT=15] -->
   <string name="key_preview_popup_dismiss_default_delay">كۆڭۈلدىكى</string>
+  <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
+  <!-- The text that represents the current settings value is the system default [CHAR LIMIT=25] -->
   <string name="settings_system_default">سىستېما كۆڭۈلدىكى</string>
+  <!-- Option name for enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=25] -->
   <string name="use_contacts_dict">تەۋسىيە ئالاقەداش ئاتى</string>
+  <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=65] -->
   <string name="use_contacts_dict_summary">ئالاقەداشلارنىڭ ئاتىدىن پايدىلىنىپ تەۋسىيە ۋە تۈزىتىش تەمىنلەيدۇ</string>
+  <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
+  <!-- Option to enable sending usage statistics -->
+  <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
   <string name="use_double_space_period">بوشلۇق قوش چېكىلسە چېكىت كىرگۈزىدۇ</string>
+  <!-- Description for option enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=65] -->
   <string name="use_double_space_period_summary">بوشلۇق قوش چېكىلسە بوشلۇق ئەگەشكەن چېكىت قىستۇرىدۇ</string>
+  <!-- Option to enable auto capitalization of sentences -->
   <string name="auto_cap">ئۆزلۈكىدىن باش ھەرپنى چوڭ يېزىش</string>
+  <!-- Description for option to enable auto capitalization of sentences -->
   <string name="auto_cap_summary">ھەر بىر جۈملىنىڭ بېشىدىكى بىرىنچى سۆزنىڭ باش ھەرىپىنى چوڭ ھەرپكە ئۆزگەرتىدۇ</string>
+  <!-- Option to edit personal dictionary. [CHAR_LIMIT=30]-->
+  <!-- Option to configure dictionaries -->
   <string name="configure_dictionaries_title">قىستۇرما لۇغەتلەر</string>
+  <!-- Name of the main dictionary, as opposed to auxiliary dictionaries (medical/entertainment/sports...) -->
   <string name="main_dictionary">ئاساسىي لۇغەت</string>
+  <!-- Option to enable showing suggestions -->
   <string name="prefs_show_suggestions">تۇزىتىش تەۋسىيەسىنى كۆرسەت</string>
+  <!-- Description for show suggestions -->
   <string name="prefs_show_suggestions_summary">خەت كىرگۈزۈۋاتقاندا تەۋسىيە سۆزنى كۆرسەت</string>
+  <!-- Option to block potentially offensive words to be shown [CHAR_LIMIT=30] -->
   <string name="prefs_block_potentially_offensive_title">مەدەنىيەتسىز سۆزلەرنى توسىدۇ</string>
+  <!-- Summary for option to block potentially offensive words to be shown [CHAR_LIMIT=80 (two lines) or 40 (fits on one line, preferable)] -->
   <string name="prefs_block_potentially_offensive_summary">مەدەنىيەتسىز سۆزلەرنى تەۋسىيە قىلمايدۇ</string>
+  <!-- Option to decide the auto correction threshold score -->
+  <!-- Option to enable auto correction [CHAR LIMIT=20]-->
   <string name="auto_correction">ئۆزلۈكىدىن تۈزەت</string>
+  <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
   <string name="auto_correction_summary">بوشلۇق ۋە تىنىش بەلگىسى بېسىلسا ئىملاسى خاتا سۆزلەرنى ئۆزلۈكىدىن تۈزىتىدۇ</string>
+  <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
   <string name="auto_correction_threshold_mode_off">تاقاق</string>
+  <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
   <string name="auto_correction_threshold_mode_modest">مۇۋاپىق</string>
+  <!-- Option to suggest auto correction suggestions aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
   <string name="auto_correction_threshold_mode_aggressive">كىچىك ئۆزگەرتىش</string>
+  <!-- Option to suggest auto correction suggestions very aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
   <string name="auto_correction_threshold_mode_very_aggressive">چوڭ ئۆزگەرتىش</string>
+  <!-- Option to enable using next word suggestions. After the user types a space, with this option on, the keyboard will try to predict the next word. -->
   <string name="bigram_prediction">باغلىنىشلىق سۆز ئالدىن مۆلچەرى</string>
+  <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
   <string name="bigram_prediction_summary">ئالدىنقى سۆزگە ئاساسەن كېيىنكى سۆزنى ئالدىن مۆلچەرلەيدۇ</string>
+  <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
   <string name="gesture_input">قول ئىشارىتىدە كىرگۈزۈشنى قوزغىتىش</string>
+  <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
   <string name="gesture_input_summary">ھەرپنى قول ئىشارىتى سىزغاندەك سىزىپ سۆز كىرگۈزىدۇ</string>
+  <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
   <string name="gesture_preview_trail">قول ئىشارىتى ئىزىنى كۆرسەت</string>
+  <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
   <string name="gesture_floating_preview_text">ھەرىكەتچان لەيلىمە ئالدىن كۆزىتىش</string>
+  <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->
   <string name="gesture_floating_preview_text_summary">قول ئىشارىتىدە كىرگۈزۈۋاتقاندا تەۋسىيە سۆزنى كۆرسىتىدۇ</string>
+  <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
+  <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.[CHAR LIMIT=65]-->
+  <!-- Preferences item for enabling speech input -->
   <string name="voice_input">تاۋۇش كىرگۈزۈش كۇنۇپكىسى</string>
+  <!-- The summary text to describe the reason why the "Voice input key" option is disabled. [CHAR LIMIT=100] -->
+  <!-- Title for configuring input method settings [CHAR LIMIT=35] -->
   <string name="configure_input_method">كىرگۈزگۈچ سەپلىمىسى</string>
+  <!-- Title for input language selection screen -->
+  <!-- Title for the 'Help & feedback' settings fragment which shows a help page and has a button
+         for submitting feedback. [CHAR LIMIT=35] -->
+  <!-- Preference for input language selection -->
+  <!-- Add to dictionary hint -->
   <string name="hint_add_to_dictionary">\u2190 قايتا چېكىلسە ساقلايدۇ</string>
+  <!-- Add to dictionary hint -->
+  <!-- Inform the user that a particular language has an available dictionary -->
   <string name="has_dictionary">لۇغەت بار</string>
+  <!-- Title of the item to change the keyboard theme [CHAR LIMIT=20]-->
   <string name="keyboard_layout">ھەرپتاختا ئۆرنەك</string>
+  <!-- Title of the preference item for switching accounts [CHAR LIMIT=30] -->
+  <!-- Summary of the preference item for switching accounts when no accounts
+         are selected [CHAR LIMIT=65] -->
+  <!-- Summary of the preference item for switching accounts when an account
+         is selected [CHAR LIMIT=65] -->
+  <!-- Positive text for selecting an account -->
+  <!-- Negative text for selecting an account -->
   <string name="account_select_cancel">ۋاز كەچ</string>
+  <!-- Text for signing out of an account -->
+  <!-- Title of the account picker dialog for selecting an account [CHAR LIMIT=40] -->
+  <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
+         (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
   <string name="subtype_en_GB">ئىنگلىزچە (ئەنگلىيە)</string>
+  <!-- Description for English (US) keyboard subtype [CHAR LIMIT=25]
+         (US) should be an abbreviation of United States to fit in the CHAR LIMIT. -->
   <string name="subtype_en_US">ئىنگلىزچە (ئا ق ش)</string>
+  <!-- Description for Spanish (US) keyboard subtype [CHAR LIMIT=25]
+         (US) should be an abbreviation of United States to fit in the CHAR LIMIT. -->
   <string name="subtype_es_US">ئىسپانچە (ئا ق ش)</string>
+  <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype [CHAR LIMIT=25] -->
+  <!-- Description for Serbian (Latin) keyboard subtype [CHAR LIMIT=25]
+         (Latin) can be an abbreviation to fit in the CHAR LIMIT. -->
+  <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
+         This should be identical to subtype_en_GB aside from the trailing (%s). -->
+  <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
+         This should be identical to subtype_en_US aside from the trailing (%s). -->
+  <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
+         This should be identical to subtype_es_US aside from the trailing (%s). -->
+  <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
+  <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
+  <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
+         (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
+  <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
+         (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
+  <!-- This string is displayed in a language list that allows to choose a language for
+suggestions in a software keyboard. This setting won't give suggestions in any particular
+language, hence "No language".
+As for the "alphabet" mention, it refers specifically to the Latin alphabet, as opposed to
+Cyrillic, Arabic, Hebrew or other scripts. This keyboard offers no suggestions, but it will
+be a QWERTY, or AZERTY, or any other disposition that only offers Latin characters, so
+you wouldn't be able to type, say, Arabic on it. Please translate it in a way that "alphabet"
+would be understood to mean specifically the Latin alphabet, rather than any other
+alphabet. [CHAR LIMIT=29] -->
   <string name="subtype_no_language">تىل يوق (ئېلىپبە)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_qwerty">ئېلىپبە (QWERTY)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the QWERTZ
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_qwertz">ئېلىپبە (QWERTY)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the AZERTY
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_azerty">ئېلىپبە (AZERTY)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the Dvorak
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_dvorak">ئېلىپبە (Dvorak)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the Colemak
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_colemak">ئېلىپبە (Colemak)</string>
+  <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY PC
+disposition that offers additional keys, but smaller keys compared to other common dispositions for
+mobile devices. [CHAR LIMIT=25] -->
   <string name="subtype_no_language_pcqwerty">ئېلىپبە (كومپيۇتېر)</string>
+  <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
   <string name="subtype_emoji">چىراي ئىپادە</string>
+  <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
+  <!-- The keyboard theme name, Holo White. This is marked as translatable="false" because this is a proper name of system-wide UI Theme. -->
+  <!-- The keyboard theme name, Holo Blue. This is marked as translatable="false" because this is a proper name of system-wide UI Theme.  -->
+  <!-- The keyboard theme name, Material Dark. This is marked as translatable="false" because this is a proper name of system-wide UI Theme.  -->
+  <!-- The keyboard theme name, Material Light. This is marked as translatable="false" because this is a proper name of system-wide UI Theme.  -->
+  <!-- Title of the preference settings for custom input styles (language and keyboard layout pairs) [CHAR LIMIT=35]-->
   <string name="custom_input_styles_title">ئىختىيارىي كىرگۈزۈش ئۇسلۇبى</string>
+  <!-- Title of the option menu to add a new style entry in the preference settings [CHAR LIMIT=16] -->
   <string name="add_style">ئۇسلۇب قوش</string>
+  <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the button to save a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the spinner for choosing a keyboard layout of custom style in the settings dialog [CHAR LIMIT=15] -->
   <string name="keyboard_layout_set">جايلاشتۇرۇش</string>
+  <!-- The message of the dialog to note that a custom input style needs to be enabled. [CHAR LIMIT=130] -->
   <string name="custom_input_style_note_message">"ئىختىيارىي كىرگۈزۈش ئۇسلۇبىڭىزنى ئىشلىتىشتىن ئىلگىرى قوزغىتىشىڭىز كېرەك. ئۇنى ھازىرلا قوزغىتامسىز؟"</string>
+  <!-- Title of the button to enable a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the button to postpone enabling a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Toast text to describe the same input style already exists [CHAR LIMIT=64]-->
+  <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
   <string name="prefs_keypress_vibration_duration_settings">ھەرپ بېسىلغاندا تىترىتىشنىڭ داۋاملىشىش ۋاقتى</string>
+  <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
   <string name="prefs_keypress_sound_volume_settings">ھەرپ بېسىلغاندىكى ئاۋاز كۈچلۈكلۈكى</string>
+  <!-- Title of the settings for key long press delay [CHAR LIMIT=35] -->
+  <!-- Title of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
+  <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
+  <!-- Title of the button to revert to the default value of the device in the settings dialog [CHAR LIMIT=15] -->
+  <!-- Title of the setup wizard welcome screen. [CHAR LIMT=40] -->
+  <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. [CHAR_LIMIT=64] -->
   <string name="setup_welcome_additional_description">قول ئىشارىتى بىلەن</string>
+  <!-- The label of the button that starts the setup wizard. [CHAR_LIMIT=64] -->
   <string name="setup_start_action">باشلاشتىن ئىلگىرى</string>
+  <!-- The label of the button that navigates the user to the next step of the setup wizard. [CHAR_LIMIT=64] -->
   <string name="setup_next_action">كېيىنكى قەدەم</string>
+  <!-- Title of the setup wizard. [CHAR LIMT=40] -->
+  <!-- Ordinal number of the 1st step in the setup wizard. [CHAR LIMIT=5] -->
+  <!-- Title of the 1st step in the setup wizard. [CHAR LIMIT=64] -->
+  <!-- Detailed instruction of the 1st step in the setup wizard. [CHAR LIMIT=120] -->
+  <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
+  <!-- The label of the button that triggers the Language & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
   <string name="setup_step1_action">تەڭشەكلەردە قوزغات</string>
+  <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
+  <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
+  <!-- Detailed instruction of the 2nd step in the setup wizard. [CHAR LIMIT=120] -->
+  <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. [CHAR_LIMIT=64] -->
   <string name="setup_step2_action">كىرگۈزگۈچ ئالماشتۇر</string>
+  <!-- Ordinal number of the 3rd step in the setup wizard. [CHAR LIMIT=5] -->
+  <!-- Title of the 3rd step in the setup wizard. [CHAR LIMIT=64] -->
   <string name="setup_step3_title">"مۇبارەك بولسۇن، ھەممىنى تەڭشەپ بولدىڭىز!"</string>
+  <!-- Detailed instruction of the 3rd step in the setup wizard. [CHAR LIMIT=120] -->
+  <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
   <string name="setup_step3_action">باشقا تىل سەپلىمىسى</string>
+  <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
   <string name="setup_finish_action">تاماملاندى</string>
+  <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
   <string name="show_setup_wizard_icon">ئەپ سىنبەلگىسىنى كۆرسەت</string>
+  <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
   <string name="show_setup_wizard_icon_summary">قوزغىغۇچتا ئەپ سىنبەلگىسىنى كۆرسەت</string>
+  <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
   <string name="app_name">لۇغەت تەمىنلىگۈچى</string>
+  <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
+  <!-- The dictionary provider Service name. Visible in Settings/Applications/Running services. -->
   <string name="dictionary_service_name">لۇغەت مۇلازىمىتى</string>
+  <!-- Downloadable dictionaries will get update information through the network. This describes the associated download. -->
   <string name="download_description">لۇغەت يېڭىلاش ئۇچۇرى</string>
+  <!-- Title and summary of the dictionary settings screen -->
+  <!-- Title for the prompt dialog which informs the user that a dictionary is available for the current language and asks to decide whether to download it over 3g -->
   <string name="dictionary_settings_summary">لۇغەت تەڭشەكلەر</string>
+  <!-- Name of the user dictionaries settings category -->
   <string name="user_dictionaries">ئىشلەتكۈچى لۇغەتلىرى</string>
+  <!-- Name for the "user dictionary" preference item when there is only one -->
   <string name="default_user_dict_pref_name">ئىشلەتكۈچى لۇغىتى</string>
+  <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
+  <!-- Message about some dictionary indicating it is downloading and should be available soon -->
   <string name="dictionary_downloading">نۆۋەتتە چۈشۈرۈۋاتقىنى</string>
+  <!-- Message about some dictionary indicating it is already installed -->
+  <!-- Message about some dictionary indicating the file is installed, but the dictionary is disabled -->
   <string name="dictionary_disabled">ئورنىتىلغان، چەكلەنگەن</string>
+  <!-- Message to display in the dictionaries setting screen when some error prevented us to list installed dictionaries [CHAR LIMIT=20] -->
   <string name="cannot_connect_to_dict_service">لۇغەت مۇلازىمىتىگە باغلىنىش كاشىلىسى</string>
+  <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available [CHAR LIMIT=20]-->
   <string name="no_dictionaries_available">ھېچقانداق لۇغەت يوق</string>
+  <!-- Title of the options to press to refresh the list (as in, check for updates now) [CHAR_LIMIT=50] -->
+  <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. [CHAR LIMIT=45] -->
   <string name="last_update">ئاخىرقى يېڭىلانغان</string>
+  <!-- Message to display in a dialog box while we are actively updating the word list [CHAR LIMIT=60] -->
   <string name="message_updating">يېڭىلانمىنى تەكشۈرۈۋاتىدۇ</string>
+  <!-- Message to display while the add-on dictionary list is updating [no space constraints on this, there is plenty of space but shorter is better because it's only on the screen for a second] -->
+  <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
+  <!-- Standard message to dismiss a dialog box -->
   <string name="cancel">ۋاز كەچ</string>
+  <!-- Title of the button in a dialog box. The button takes the user to the keyboard settings. [CHAR LIMIT=15] -->
+  <!-- Action to download and install a dictionary [CHAR_LIMIT=15] -->
+  <!-- Action to cancel the ongoing download of a dictionary file [CHAR_LIMIT=25] -->
+  <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
+  <!-- Message in the popup informing the user a dictionary is available for their language, and asking for a decision to download over their mobile data plan or not. The reason we ask for this is, the data is large and may be downloaded over a paid-per-megabyte connection but a dictionary is also essential to type comfortably, so we ask the user. This only pops in selected cases, when there is no dictionary at all currently, and the only available network seems to be metered. The "Language & input" part should be set to the actual name of the option (message ID 5292716747264442359 in the translation console). [CHAR_LIMIT=700] -->
   <string name="do_not_download_over_metered">Wi-Fi تورىغا باغلانغاندا چۈشۈرۈش</string>
+  <!-- The text of the "dictionary available" notification. -->
+  <!-- The small subtext in the "dictionary available" notification. -->
   <string name="dict_available_notification_description">بېسىلسا كۆرسىتىپ چۈشۈرىدۇ</string>
+  <!-- The text of the toast warning a download is starting automatically to enable suggestions for the selected language [CHAR LIMIT=100] -->
+  <!-- Version text [CHAR LIMIT=30]-->
+  <!-- User dictionary settings -->
+  <!-- User dictionary settings.  The summary of the listem item to go into the User dictionary settings screen. -->
+  <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
+  <!-- This resource is corresponding to  msgid="4056762757149923551" -->
+  <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. [CHAR LIMIT=25] -->
+  <!-- This resource is corresponding to msgid="4702613990174126482" -->
+  <!-- User dictionary settings. The title of the screen to add/edit a new word to the user dictionary; it describes the phrase that will be added to the user dictionary. [CHAR LIMIT=25] -->
+  <!-- This resource is corresponding to msgid="742580720124344291" -->
+  <!-- User dictionary settings. Text on the dialog button to pop more options for adding a word. [CHAR LIMIT=16] -->
+  <!-- This resource is corresponding to msgid="8848798370746019825" -->
+  <!-- User dictionary settings. Text on the dialog button mask advanced options. [CHAR LIMIT=15] -->
+  <!-- This resource is corresponding to msgid="2441785268726036101" -->
+  <!-- User dictionary settings. Text on the dialog button to confirm adding a word. [CHAR LIMIT=15] -->
+  <!-- This resource is corresponding to msgid="6225823625332416144" -->
+  <!-- User dictionary settings. Label to put before the word field (that's the word that will actually be added to the user dictionary when OK is pressed). [CHAR LIMIT=20] -->
+  <!-- This resource is corresponding to msgid="7868879174905963135" -->
+  <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). [CHAR LIMIT=20] -->
+  <!-- This resource is corresponding to msgid="660089258866063925" -->
+  <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
+  <!-- This resource is corresponding to msgid="5696358317061318532" -->
+  <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. [CHAR LIMIT=35] -->
+  <!-- This resource is corresponding to msgid="5725254076556821247" -->
+  <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. [CHAR LIMIT=35] -->
+  <!-- This resource is corresponding to msgid="7333763456561873445" -->
+  <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+  <!-- This resource is corresponding to msgid="8967476444840548674" -->
+  <!-- User dictionary settings. The title of the context menu item to edit the current word -->
+  <!-- This resource is corresponding to msgid="2210564879320004837" -->
+  <!-- User dictionary settings. The title of the context menu item to delete the current word -->
+  <!-- This resource is corresponding to msgid="9140703913776549054" -->
+  <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary  [CHAR LIMIT=200] -->
+  <!-- This resource is corresponding to msgid="8165273379942105271" -->
+  <!-- User dictionary settings. The list item to choose to insert a word into the user dictionary for all languages -->
+  <!-- This resource is corresponding to msgid="6742000040975959247" -->
+  <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one [CHAR LIMIT=30] -->
+  <!-- This resource is corresponding to msgid="7316375944684977910" -->
+  <!-- User dictionary settings. Label to delete an entry in the user dictionary [CHAR LIMIT=30]
+         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
+  <!-- This resource is corresponding to msgid="4219243412325163003" -->
+  <!-- User dictionary settings. Index of the user dictionary [CHAR LIMIT=30]
+         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
+  <!-- This resource is corresponding to msgid="5433275485499039199" -->
 </resources>
