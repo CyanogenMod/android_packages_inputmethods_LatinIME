@@ -23,38 +23,1319 @@
     TODO: Remove this file when TTS/TalkBack support these Emoji symbols.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Spoken description for Unicode code point U+00A9: "©" COPYRIGHT SIGN -->
   <string name="spoken_emoji_00A9">هێمای مافی لەبەرگرتنەوە</string>
+  <!-- Spoken description for Unicode code point U+00AE: "®" REGISTERED SIGN -->
   <string name="spoken_emoji_00AE">هێمای ناونووسیکراو</string>
+  <!-- Spoken description for Unicode code point U+203C: "‼" DOUBLE EXCLAMATION MARK -->
   <string name="spoken_emoji_203C">جووت هێمای سەرسووڕمان</string>
+  <!-- Spoken description for Unicode code point U+2049: "⁉" EXCLAMATION QUESTION MARK -->
   <string name="spoken_emoji_2049">هێمای سەرسووڕمان و پرسیار</string>
+  <!-- Spoken description for Unicode code point U+2122: "™" TRADE MARK SIGN -->
   <string name="spoken_emoji_2122">هێمای بازرگانی</string>
+  <!-- Spoken description for Unicode code point U+2139: "ℹ" INFORMATION SOURCE -->
   <string name="spoken_emoji_2139">سەرچاوەی زانیاری</string>
+  <!-- Spoken description for Unicode code point U+2194: "↔" LEFT RIGHT ARROW -->
   <string name="spoken_emoji_2194">تیری چەپ ڕاست</string>
+  <!-- Spoken description for Unicode code point U+2195: "↕" UP DOWN ARROW -->
   <string name="spoken_emoji_2195">تیری سەر خوار</string>
+  <!-- Spoken description for Unicode code point U+2196: "↖" NORTH WEST ARROW -->
   <string name="spoken_emoji_2196">تیری باکوور ڕۆژاوا</string>
+  <!-- Spoken description for Unicode code point U+2197: "↗" NORTH EAST ARROW -->
   <string name="spoken_emoji_2197">تیری باکوور ڕۆژهەڵات</string>
+  <!-- Spoken description for Unicode code point U+2198: "↘" SOUTH EAST ARROW -->
   <string name="spoken_emoji_2198">تیری باشوور ڕۆژهەڵات</string>
+  <!-- Spoken description for Unicode code point U+2199: "↙" SOUTH WEST ARROW -->
   <string name="spoken_emoji_2199">تیری باشوور ڕۆژاوا</string>
+  <!-- Spoken description for Unicode code point U+21A9: "↩" LEFTWARDS ARROW WITH HOOK -->
   <string name="spoken_emoji_21A9">تیری لای چەپ بە قولاپەوە</string>
+  <!-- Spoken description for Unicode code point U+21AA: "↪" RIGHTWARDS ARROW WITH HOOK -->
   <string name="spoken_emoji_21AA">تیری لای ڕاست بە قولاپەوە</string>
+  <!-- Spoken description for Unicode code point U+231A: "⌚" WATCH -->
   <string name="spoken_emoji_231A">کاتژمێری دەستی</string>
+  <!-- Spoken description for Unicode code point U+231B: "⌛" HOURGLASS -->
   <string name="spoken_emoji_231B">کاتژمێری خۆڵی</string>
+  <!-- Spoken description for Unicode code point U+2328: "⌨" KEYBOARD -->
+  <!-- Spoken description for Unicode code point U+23CF: "⏏" EJECT SYMBOL -->
+  <!-- Spoken description for Unicode code point U+23E9: "⏩" BLACK RIGHT-POINTING DOUBLE TRIANGLE -->
   <string name="spoken_emoji_23E9">ڕاست ڕەش- نیشانەکردنی دوبارە سێگۆشە</string>
+  <!-- Spoken description for Unicode code point U+23EA: "⏪" BLACK LEFT-POINTING DOUBLE TRIANGLE -->
   <string name="spoken_emoji_23EA">چەپ ڕەش- نیشانەکردنی سێگۆشەی دوبارە</string>
+  <!-- Spoken description for Unicode code point U+23EB: "⏫" BLACK UP-POINTING DOUBLE TRIANGLE -->
   <string name="spoken_emoji_23EB">بەرز ڕەش-نیشانەکردنی سێگۆشەی دوبارە</string>
+  <!-- Spoken description for Unicode code point U+23EC: "⏬" BLACK DOWN-POINTING DOUBLE TRIANGLE -->
   <string name="spoken_emoji_23EC">خوار ڕەش- نیشانەی سێگۆشەی دوبارە</string>
+  <!-- Spoken description for Unicode code point U+23ED: "⏭" BLACK RIGHT-POINTING DOUBLE TRIANGLE WITH VERTICAL BAR -->
+  <!-- Spoken description for Unicode code point U+23EE: "⏮" BLACK LEFT-POINTING DOUBLE TRIANGLE WITH VERTICAL BAR -->
+  <!-- Spoken description for Unicode code point U+23EF: "⏯" BLACK RIGHT-POINTING TRIANGLE WITH DOUBLE VERTICAL BAR -->
+  <!-- Spoken description for Unicode code point U+23F0: "⏰" ALARM CLOCK -->
   <string name="spoken_emoji_23F0">کاتژمێری بیرخەرەوە</string>
+  <!-- Spoken description for Unicode code point U+23F1: "⏱" STOPWATCH -->
+  <!-- Spoken description for Unicode code point U+23F2: "⏲" TIMER CLOCK -->
+  <!-- Spoken description for Unicode code point U+23F3: "⏳" HOURGLASS WITH FLOWING SAND -->
+  <!-- Spoken description for Unicode code point U+23F8: "⏸" DOUBLE VERTICAL BAR -->
+  <!-- Spoken description for Unicode code point U+23F9: "⏹" BLACK SQUARE FOR STOP -->
+  <!-- Spoken description for Unicode code point U+23FA: "⏺" BLACK CIRCLE FOR RECORD -->
+  <!-- Spoken description for Unicode code point U+24C2: "Ⓜ" CIRCLED LATIN CAPITAL LETTER M -->
+  <!-- Spoken description for Unicode code point U+25AA: "▪" BLACK SMALL SQUARE -->
+  <!-- Spoken description for Unicode code point U+25AB: "▫" WHITE SMALL SQUARE -->
+  <!-- Spoken description for Unicode code point U+25B6: "▶" BLACK RIGHT-POINTING TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+25C0: "◀" BLACK LEFT-POINTING TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+25FB: "◻" WHITE MEDIUM SQUARE -->
+  <!-- Spoken description for Unicode code point U+25FC: "◼" BLACK MEDIUM SQUARE -->
+  <!-- Spoken description for Unicode code point U+25FD: "◽" WHITE MEDIUM SMALL SQUARE -->
+  <!-- Spoken description for Unicode code point U+25FE: "◾" BLACK MEDIUM SMALL SQUARE -->
+  <!-- Spoken description for Unicode code point U+2600: "☀" BLACK SUN WITH RAYS -->
+  <!-- Spoken description for Unicode code point U+2601: "☁" CLOUD -->
+  <!-- Spoken description for Unicode code point U+2602: "☂" UMBRELLA -->
+  <!-- Spoken description for Unicode code point U+2603: "☃" SNOWMAN -->
+  <!-- Spoken description for Unicode code point U+2604: "☄" COMET -->
+  <!-- Spoken description for Unicode code point U+260E: "☎" BLACK TELEPHONE -->
+  <!-- Spoken description for Unicode code point U+2611: "☑" BALLOT BOX WITH CHECK -->
+  <!-- Spoken description for Unicode code point U+2614: "☔" UMBRELLA WITH RAIN DROPS -->
+  <!-- Spoken description for Unicode code point U+2615: "☕" HOT BEVERAGE -->
+  <!-- Spoken description for Unicode code point U+2618: "☘" SHAMROCK -->
+  <!-- Spoken description for Unicode code point U+261D: "☝" WHITE UP POINTING INDEX -->
+  <!-- Spoken description for Unicode code point U+2620: "☠" SKULL AND CROSSBONES -->
+  <!-- Spoken description for Unicode code point U+2622: "☢" RADIOACTIVE SIGN -->
+  <!-- Spoken description for Unicode code point U+2623: "☣" BIOHAZARD SIGN -->
+  <!-- Spoken description for Unicode code point U+2626: "☦" ORTHODOX CROSS -->
+  <!-- Spoken description for Unicode code point U+262A: "☪" STAR AND CRESCENT -->
+  <!-- Spoken description for Unicode code point U+262E: "☮" PEACE SYMBOL -->
+  <!-- Spoken description for Unicode code point U+262F: "☯" YIN YANG -->
+  <!-- Spoken description for Unicode code point U+2638: "☸" WHEEL OF DHARMA -->
+  <!-- Spoken description for Unicode code point U+2639: "☹" WHITE FROWNING FACE -->
+  <!-- Spoken description for Unicode code point U+263A: "☺" WHITE SMILING FACE -->
+  <!-- Spoken description for Unicode code point U+2648: "♈" ARIES -->
+  <!-- Spoken description for Unicode code point U+2649: "♉" TAURUS -->
+  <!-- Spoken description for Unicode code point U+264A: "♊" GEMINI -->
+  <!-- Spoken description for Unicode code point U+264B: "♋" CANCER -->
+  <!-- Spoken description for Unicode code point U+264C: "♌" LEO -->
+  <!-- Spoken description for Unicode code point U+264D: "♍" VIRGO -->
+  <!-- Spoken description for Unicode code point U+264E: "♎" LIBRA -->
+  <!-- Spoken description for Unicode code point U+264F: "♏" SCORPIUS -->
+  <!-- Spoken description for Unicode code point U+2650: "♐" SAGITTARIUS -->
+  <!-- Spoken description for Unicode code point U+2651: "♑" CAPRICORN -->
+  <!-- Spoken description for Unicode code point U+2652: "♒" AQUARIUS -->
+  <!-- Spoken description for Unicode code point U+2653: "♓" PISCES -->
+  <!-- Spoken description for Unicode code point U+2660: "♠" BLACK SPADE SUIT -->
+  <!-- Spoken description for Unicode code point U+2663: "♣" BLACK CLUB SUIT -->
+  <!-- Spoken description for Unicode code point U+2665: "♥" BLACK HEART SUIT -->
+  <!-- Spoken description for Unicode code point U+2666: "♦" BLACK DIAMOND SUIT -->
+  <!-- Spoken description for Unicode code point U+2668: "♨" HOT SPRINGS -->
+  <!-- Spoken description for Unicode code point U+267B: "♻" BLACK UNIVERSAL RECYCLING SYMBOL -->
+  <!-- Spoken description for Unicode code point U+267F: "♿" WHEELCHAIR SYMBOL -->
+  <!-- Spoken description for Unicode code point U+2692: "⚒" HAMMER AND PICK -->
+  <!-- Spoken description for Unicode code point U+2693: "⚓" ANCHOR -->
+  <!-- Spoken description for Unicode code point U+2694: "⚔" CROSSED SWORDS -->
+  <!-- Spoken description for Unicode code point U+2696: "⚖" SCALES -->
+  <!-- Spoken description for Unicode code point U+2697: "⚗" ALEMBIC -->
+  <!-- Spoken description for Unicode code point U+2699: "⚙" GEAR -->
+  <!-- Spoken description for Unicode code point U+269B: "⚛" ATOM SYMBOL -->
+  <!-- Spoken description for Unicode code point U+269C: "⚜" FLEUR-DE-LIS -->
+  <!-- Spoken description for Unicode code point U+26A0: "⚠" WARNING SIGN -->
+  <!-- Spoken description for Unicode code point U+26A1: "⚡" HIGH VOLTAGE SIGN -->
+  <!-- Spoken description for Unicode code point U+26AA: "⚪" MEDIUM WHITE CIRCLE -->
+  <!-- Spoken description for Unicode code point U+26AB: "⚫" MEDIUM BLACK CIRCLE -->
+  <!-- Spoken description for Unicode code point U+26B0: "⚰" COFFIN -->
+  <!-- Spoken description for Unicode code point U+26B1: "⚱" FUNERAL URN -->
+  <!-- Spoken description for Unicode code point U+26BD: "⚽" SOCCER BALL -->
+  <!-- Spoken description for Unicode code point U+26BE: "⚾" BASEBALL -->
+  <!-- Spoken description for Unicode code point U+26C4: "⛄" SNOWMAN WITHOUT SNOW -->
+  <!-- Spoken description for Unicode code point U+26C5: "⛅" SUN BEHIND CLOUD -->
+  <!-- Spoken description for Unicode code point U+26C8: "⛈" THUNDER CLOUD AND RAIN -->
+  <!-- Spoken description for Unicode code point U+26CE: "⛎" OPHIUCHUS -->
+  <!-- Spoken description for Unicode code point U+26CF: "⛏" PICK -->
+  <!-- Spoken description for Unicode code point U+26D1: "⛑" HELMET WITH WHITE CROSS -->
+  <!-- Spoken description for Unicode code point U+26D3: "⛓" CHAINS -->
+  <!-- Spoken description for Unicode code point U+26D4: "⛔" NO ENTRY -->
+  <!-- Spoken description for Unicode code point U+26E9: "⛩" SHINTO SHRINE -->
+  <!-- Spoken description for Unicode code point U+26EA: "⛪" CHURCH -->
+  <!-- Spoken description for Unicode code point U+26F0: "⛰" MOUNTAIN -->
+  <!-- Spoken description for Unicode code point U+26F1: "⛱" UMBRELLA ON GROUND -->
+  <!-- Spoken description for Unicode code point U+26F2: "⛲" FOUNTAIN -->
+  <!-- Spoken description for Unicode code point U+26F3: "⛳" FLAG IN HOLE -->
+  <!-- Spoken description for Unicode code point U+26F4: "⛴" FERRY -->
+  <!-- Spoken description for Unicode code point U+26F5: "⛵" SAILBOAT -->
+  <!-- Spoken description for Unicode code point U+26F7: "⛷" SKIER -->
+  <!-- Spoken description for Unicode code point U+26F8: "⛸" ICE SKATE -->
+  <!-- Spoken description for Unicode code point U+26F9: "⛹" PERSON WITH BALL -->
+  <!-- Spoken description for Unicode code point U+26FA: "⛺" TENT -->
+  <!-- Spoken description for Unicode code point U+26FD: "⛽" FUEL PUMP -->
+  <!-- Spoken description for Unicode code point U+2702: "✂" BLACK SCISSORS -->
+  <!-- Spoken description for Unicode code point U+2705: "✅" WHITE HEAVY CHECK MARK -->
+  <!-- Spoken description for Unicode code point U+2708: "✈" AIRPLANE -->
+  <!-- Spoken description for Unicode code point U+2709: "✉" ENVELOPE -->
+  <!-- Spoken description for Unicode code point U+270A: "✊" RAISED FIST -->
+  <!-- Spoken description for Unicode code point U+270B: "✋" RAISED HAND -->
+  <!-- Spoken description for Unicode code point U+270C: "✌" VICTORY HAND -->
+  <!-- Spoken description for Unicode code point U+270D: "✍" WRITING HAND -->
+  <!-- Spoken description for Unicode code point U+270F: "✏" PENCIL -->
+  <!-- Spoken description for Unicode code point U+2712: "✒" BLACK NIB -->
+  <!-- Spoken description for Unicode code point U+2714: "✔" HEAVY CHECK MARK -->
+  <!-- Spoken description for Unicode code point U+2716: "✖" HEAVY MULTIPLICATION X -->
+  <!-- Spoken description for Unicode code point U+271D: "✝" LATIN CROSS -->
+  <!-- Spoken description for Unicode code point U+2721: "✡" STAR OF DAVID -->
+  <!-- Spoken description for Unicode code point U+2728: "✨" SPARKLES -->
+  <!-- Spoken description for Unicode code point U+2733: "✳" EIGHT SPOKED ASTERISK -->
+  <!-- Spoken description for Unicode code point U+2734: "✴" EIGHT POINTED BLACK STAR -->
+  <!-- Spoken description for Unicode code point U+2744: "❄" SNOWFLAKE -->
+  <!-- Spoken description for Unicode code point U+2747: "❇" SPARKLE -->
+  <!-- Spoken description for Unicode code point U+274C: "❌" CROSS MARK -->
+  <!-- Spoken description for Unicode code point U+274E: "❎" NEGATIVE SQUARED CROSS MARK -->
+  <!-- Spoken description for Unicode code point U+2753: "❓" BLACK QUESTION MARK ORNAMENT -->
+  <!-- Spoken description for Unicode code point U+2754: "❔" WHITE QUESTION MARK ORNAMENT -->
+  <!-- Spoken description for Unicode code point U+2755: "❕" WHITE EXCLAMATION MARK ORNAMENT -->
+  <!-- Spoken description for Unicode code point U+2757: "❗" HEAVY EXCLAMATION MARK SYMBOL -->
+  <!-- Spoken description for Unicode code point U+2763: "❣" HEAVY HEART EXCLAMATION MARK ORNAMENT -->
+  <!-- Spoken description for Unicode code point U+2764: "❤" HEAVY BLACK HEART -->
+  <!-- Spoken description for Unicode code point U+2795: "➕" HEAVY PLUS SIGN -->
+  <!-- Spoken description for Unicode code point U+2796: "➖" HEAVY MINUS SIGN -->
+  <!-- Spoken description for Unicode code point U+2797: "➗" HEAVY DIVISION SIGN -->
+  <!-- Spoken description for Unicode code point U+27A1: "➡" BLACK RIGHTWARDS ARROW -->
+  <!-- Spoken description for Unicode code point U+27B0: "➰" CURLY LOOP -->
+  <!-- Spoken description for Unicode code point U+27BF: "➿" DOUBLE CURLY LOOP -->
+  <!-- Spoken description for Unicode code point U+2934: "⤴" ARROW POINTING RIGHTWARDS THEN CURVING UPWARDS -->
+  <!-- Spoken description for Unicode code point U+2935: "⤵" ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS -->
+  <!-- Spoken description for Unicode code point U+2B05: "⬅" LEFTWARDS BLACK ARROW -->
+  <!-- Spoken description for Unicode code point U+2B06: "⬆" UPWARDS BLACK ARROW -->
+  <!-- Spoken description for Unicode code point U+2B07: "⬇" DOWNWARDS BLACK ARROW -->
+  <!-- Spoken description for Unicode code point U+2B1B: "⬛" BLACK LARGE SQUARE -->
+  <!-- Spoken description for Unicode code point U+2B1C: "⬜" WHITE LARGE SQUARE -->
+  <!-- Spoken description for Unicode code point U+2B50: "⭐" WHITE MEDIUM STAR -->
+  <!-- Spoken description for Unicode code point U+2B55: "⭕" HEAVY LARGE CIRCLE -->
+  <!-- Spoken description for Unicode code point U+3030: "〰" WAVY DASH -->
+  <!-- Spoken description for Unicode code point U+303D: "〽" PART ALTERNATION MARK -->
+  <!-- Spoken description for Unicode code point U+3297: "㊗" CIRCLED IDEOGRAPH CONGRATULATION -->
+  <!-- Spoken description for Unicode code point U+3299: "㊙" CIRCLED IDEOGRAPH SECRET -->
+  <!-- Spoken description for Unicode code point U+1F004: "🀄" MAHJONG TILE RED DRAGON -->
+  <!-- Spoken description for Unicode code point U+1F0CF: "🃏" PLAYING CARD BLACK JOKER -->
+  <!-- Spoken description for Unicode code point U+1F170: "🅰" NEGATIVE SQUARED LATIN CAPITAL LETTER A -->
+  <!-- Spoken description for Unicode code point U+1F171: "🅱" NEGATIVE SQUARED LATIN CAPITAL LETTER B -->
+  <!-- Spoken description for Unicode code point U+1F17E: "🅾" NEGATIVE SQUARED LATIN CAPITAL LETTER O -->
+  <!-- Spoken description for Unicode code point U+1F17F: "🅿" NEGATIVE SQUARED LATIN CAPITAL LETTER P -->
+  <!-- Spoken description for Unicode code point U+1F18E: "🆎" NEGATIVE SQUARED AB -->
+  <!-- Spoken description for Unicode code point U+1F191: "🆑" SQUARED CL -->
+  <!-- Spoken description for Unicode code point U+1F192: "🆒" SQUARED COOL -->
+  <!-- Spoken description for Unicode code point U+1F193: "🆓" SQUARED FREE -->
+  <!-- Spoken description for Unicode code point U+1F194: "🆔" SQUARED ID -->
+  <!-- Spoken description for Unicode code point U+1F195: "🆕" SQUARED NEW -->
+  <!-- Spoken description for Unicode code point U+1F196: "🆖" SQUARED NG -->
+  <!-- Spoken description for Unicode code point U+1F197: "🆗" SQUARED OK -->
+  <!-- Spoken description for Unicode code point U+1F198: "🆘" SQUARED SOS -->
+  <!-- Spoken description for Unicode code point U+1F199: "🆙" SQUARED UP WITH EXCLAMATION MARK -->
+  <!-- Spoken description for Unicode code point U+1F19A: "🆚" SQUARED VS -->
+  <!-- Spoken description for Unicode code point U+1F201: "🈁" SQUARED KATAKANA KOKO -->
+  <!-- Spoken description for Unicode code point U+1F202: "🈂" SQUARED KATAKANA SA -->
+  <!-- Spoken description for Unicode code point U+1F21A: "🈚" SQUARED CJK UNIFIED IDEOGRAPH-7121 -->
+  <!-- Spoken description for Unicode code point U+1F22F: "🈯" SQUARED CJK UNIFIED IDEOGRAPH-6307 -->
+  <!-- Spoken description for Unicode code point U+1F232: "🈲" SQUARED CJK UNIFIED IDEOGRAPH-7981 -->
+  <!-- Spoken description for Unicode code point U+1F233: "🈳" SQUARED CJK UNIFIED IDEOGRAPH-7A7A -->
+  <!-- Spoken description for Unicode code point U+1F234: "🈴" SQUARED CJK UNIFIED IDEOGRAPH-5408 -->
+  <!-- Spoken description for Unicode code point U+1F235: "🈵" SQUARED CJK UNIFIED IDEOGRAPH-6E80 -->
+  <!-- Spoken description for Unicode code point U+1F236: "🈶" SQUARED CJK UNIFIED IDEOGRAPH-6709 -->
+  <!-- Spoken description for Unicode code point U+1F237: "🈷" SQUARED CJK UNIFIED IDEOGRAPH-6708 -->
+  <!-- Spoken description for Unicode code point U+1F238: "🈸" SQUARED CJK UNIFIED IDEOGRAPH-7533 -->
+  <!-- Spoken description for Unicode code point U+1F239: "🈹" SQUARED CJK UNIFIED IDEOGRAPH-5272 -->
+  <!-- Spoken description for Unicode code point U+1F23A: "🈺" SQUARED CJK UNIFIED IDEOGRAPH-55B6 -->
+  <!-- Spoken description for Unicode code point U+1F250: "🉐" CIRCLED IDEOGRAPH ADVANTAGE -->
+  <!-- Spoken description for Unicode code point U+1F251: "🉑" CIRCLED IDEOGRAPH ACCEPT -->
+  <!-- Spoken description for Unicode code point U+1F300: "🌀" CYCLONE -->
+  <!-- Spoken description for Unicode code point U+1F301: "🌁" FOGGY -->
+  <!-- Spoken description for Unicode code point U+1F302: "🌂" CLOSED UMBRELLA -->
+  <!-- Spoken description for Unicode code point U+1F303: "🌃" NIGHT WITH STARS -->
+  <!-- Spoken description for Unicode code point U+1F304: "🌄" SUNRISE OVER MOUNTAINS -->
+  <!-- Spoken description for Unicode code point U+1F305: "🌅" SUNRISE -->
+  <!-- Spoken description for Unicode code point U+1F306: "🌆" CITYSCAPE AT DUSK -->
+  <!-- Spoken description for Unicode code point U+1F307: "🌇" SUNSET OVER BUILDINGS -->
+  <!-- Spoken description for Unicode code point U+1F308: "🌈" RAINBOW -->
+  <!-- Spoken description for Unicode code point U+1F309: "🌉" BRIDGE AT NIGHT -->
+  <!-- Spoken description for Unicode code point U+1F30A: "🌊" WATER WAVE -->
+  <!-- Spoken description for Unicode code point U+1F30B: "🌋" VOLCANO -->
+  <!-- Spoken description for Unicode code point U+1F30C: "🌌" MILKY WAY -->
+  <!-- Spoken description for Unicode code point U+1F30D: "🌍" EARTH GLOBE EUROPE-AFRICA -->
+  <!-- Spoken description for Unicode code point U+1F30E: "🌎" EARTH GLOBE AMERICAS -->
+  <!-- Spoken description for Unicode code point U+1F30F: "🌏" EARTH GLOBE ASIA-AUSTRALIA -->
+  <!-- Spoken description for Unicode code point U+1F310: "🌐" GLOBE WITH MERIDIANS -->
+  <!-- Spoken description for Unicode code point U+1F311: "🌑" NEW MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F312: "🌒" WAXING CRESCENT MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F313: "🌓" FIRST QUARTER MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F314: "🌔" WAXING GIBBOUS MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F315: "🌕" FULL MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F316: "🌖" WANING GIBBOUS MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F317: "🌗" LAST QUARTER MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F318: "🌘" WANING CRESCENT MOON SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F319: "🌙" CRESCENT MOON -->
+  <!-- Spoken description for Unicode code point U+1F31A: "🌚" NEW MOON WITH FACE -->
+  <!-- Spoken description for Unicode code point U+1F31B: "🌛" FIRST QUARTER MOON WITH FACE -->
+  <!-- Spoken description for Unicode code point U+1F31C: "🌜" LAST QUARTER MOON WITH FACE -->
+  <!-- Spoken description for Unicode code point U+1F31D: "🌝" FULL MOON WITH FACE -->
+  <!-- Spoken description for Unicode code point U+1F31E: "🌞" SUN WITH FACE -->
+  <!-- Spoken description for Unicode code point U+1F31F: "🌟" GLOWING STAR -->
+  <!-- Spoken description for Unicode code point U+1F320: "🌠" SHOOTING STAR -->
+  <!-- Spoken description for Unicode code point U+1F321: "🌡" THERMOMETER -->
+  <!-- Spoken description for Unicode code point U+1F324: "🌤" WHITE SUN WITH SMALL CLOUD -->
+  <!-- Spoken description for Unicode code point U+1F325: "🌥" WHITE SUN BEHIND CLOUD -->
+  <!-- Spoken description for Unicode code point U+1F326: "🌦" WHITE SUN BEHIND CLOUD WITH RAIN -->
+  <!-- Spoken description for Unicode code point U+1F327: "🌧" CLOUD WITH RAIN -->
+  <!-- Spoken description for Unicode code point U+1F328: "🌨" CLOUD WITH SNOW -->
+  <!-- Spoken description for Unicode code point U+1F329: "🌩" CLOUD WITH LIGHTNING -->
+  <!-- Spoken description for Unicode code point U+1F32A: "🌪" CLOUD WITH TORNADO -->
+  <!-- Spoken description for Unicode code point U+1F32B: "🌫" FOG -->
+  <!-- Spoken description for Unicode code point U+1F32C: "🌬" WIND BLOWING FACE -->
+  <!-- Spoken description for Unicode code point U+1F32D: "🌭" HOT DOG -->
+  <!-- Spoken description for Unicode code point U+1F32E: "🌮" TACO -->
+  <!-- Spoken description for Unicode code point U+1F32F: "🌯" BURRITO -->
+  <!-- Spoken description for Unicode code point U+1F330: "🌰" CHESTNUT -->
+  <!-- Spoken description for Unicode code point U+1F331: "🌱" SEEDLING -->
+  <!-- Spoken description for Unicode code point U+1F332: "🌲" EVERGREEN TREE -->
+  <!-- Spoken description for Unicode code point U+1F333: "🌳" DECIDUOUS TREE -->
+  <!-- Spoken description for Unicode code point U+1F334: "🌴" PALM TREE -->
+  <!-- Spoken description for Unicode code point U+1F335: "🌵" CACTUS -->
+  <!-- Spoken description for Unicode code point U+1F336: "🌶" HOT PEPPER -->
+  <!-- Spoken description for Unicode code point U+1F337: "🌷" TULIP -->
+  <!-- Spoken description for Unicode code point U+1F338: "🌸" CHERRY BLOSSOM -->
+  <!-- Spoken description for Unicode code point U+1F339: "🌹" ROSE -->
+  <!-- Spoken description for Unicode code point U+1F33A: "🌺" HIBISCUS -->
+  <!-- Spoken description for Unicode code point U+1F33B: "🌻" SUNFLOWER -->
+  <!-- Spoken description for Unicode code point U+1F33C: "🌼" BLOSSOM -->
+  <!-- Spoken description for Unicode code point U+1F33D: "🌽" EAR OF MAIZE -->
+  <!-- Spoken description for Unicode code point U+1F33E: "🌾" EAR OF RICE -->
+  <!-- Spoken description for Unicode code point U+1F33F: "🌿" HERB -->
+  <!-- Spoken description for Unicode code point U+1F340: "🍀" FOUR LEAF CLOVER -->
+  <!-- Spoken description for Unicode code point U+1F341: "🍁" MAPLE LEAF -->
+  <!-- Spoken description for Unicode code point U+1F342: "🍂" FALLEN LEAF -->
+  <!-- Spoken description for Unicode code point U+1F343: "🍃" LEAF FLUTTERING IN WIND -->
+  <!-- Spoken description for Unicode code point U+1F344: "🍄" MUSHROOM -->
+  <!-- Spoken description for Unicode code point U+1F345: "🍅" TOMATO -->
+  <!-- Spoken description for Unicode code point U+1F346: "🍆" AUBERGINE -->
+  <!-- Spoken description for Unicode code point U+1F347: "🍇" GRAPES -->
+  <!-- Spoken description for Unicode code point U+1F348: "🍈" MELON -->
+  <!-- Spoken description for Unicode code point U+1F349: "🍉" WATERMELON -->
+  <!-- Spoken description for Unicode code point U+1F34A: "🍊" TANGERINE -->
+  <!-- Spoken description for Unicode code point U+1F34B: "🍋" LEMON -->
+  <!-- Spoken description for Unicode code point U+1F34C: "🍌" BANANA -->
+  <!-- Spoken description for Unicode code point U+1F34D: "🍍" PINEAPPLE -->
+  <!-- Spoken description for Unicode code point U+1F34E: "🍎" RED APPLE -->
+  <!-- Spoken description for Unicode code point U+1F34F: "🍏" GREEN APPLE -->
+  <!-- Spoken description for Unicode code point U+1F350: "🍐" PEAR -->
+  <!-- Spoken description for Unicode code point U+1F351: "🍑" PEACH -->
+  <!-- Spoken description for Unicode code point U+1F352: "🍒" CHERRIES -->
+  <!-- Spoken description for Unicode code point U+1F353: "🍓" STRAWBERRY -->
+  <!-- Spoken description for Unicode code point U+1F354: "🍔" HAMBURGER -->
+  <!-- Spoken description for Unicode code point U+1F355: "🍕" SLICE OF PIZZA -->
+  <!-- Spoken description for Unicode code point U+1F356: "🍖" MEAT ON BONE -->
+  <!-- Spoken description for Unicode code point U+1F357: "🍗" POULTRY LEG -->
+  <!-- Spoken description for Unicode code point U+1F358: "🍘" RICE CRACKER -->
+  <!-- Spoken description for Unicode code point U+1F359: "🍙" RICE BALL -->
+  <!-- Spoken description for Unicode code point U+1F35A: "🍚" COOKED RICE -->
+  <!-- Spoken description for Unicode code point U+1F35B: "🍛" CURRY AND RICE -->
+  <!-- Spoken description for Unicode code point U+1F35C: "🍜" STEAMING BOWL -->
+  <!-- Spoken description for Unicode code point U+1F35D: "🍝" SPAGHETTI -->
+  <!-- Spoken description for Unicode code point U+1F35E: "🍞" BREAD -->
+  <!-- Spoken description for Unicode code point U+1F35F: "🍟" FRENCH FRIES -->
+  <!-- Spoken description for Unicode code point U+1F360: "🍠" ROASTED SWEET POTATO -->
+  <!-- Spoken description for Unicode code point U+1F361: "🍡" DANGO -->
+  <!-- Spoken description for Unicode code point U+1F362: "🍢" ODEN -->
+  <!-- Spoken description for Unicode code point U+1F363: "🍣" SUSHI -->
+  <!-- Spoken description for Unicode code point U+1F364: "🍤" FRIED SHRIMP -->
+  <!-- Spoken description for Unicode code point U+1F365: "🍥" FISH CAKE WITH SWIRL DESIGN -->
+  <!-- Spoken description for Unicode code point U+1F366: "🍦" SOFT ICE CREAM -->
+  <!-- Spoken description for Unicode code point U+1F367: "🍧" SHAVED ICE -->
+  <!-- Spoken description for Unicode code point U+1F368: "🍨" ICE CREAM -->
+  <!-- Spoken description for Unicode code point U+1F369: "🍩" DOUGHNUT -->
+  <!-- Spoken description for Unicode code point U+1F36A: "🍪" COOKIE -->
+  <!-- Spoken description for Unicode code point U+1F36B: "🍫" CHOCOLATE BAR -->
+  <!-- Spoken description for Unicode code point U+1F36C: "🍬" CANDY -->
+  <!-- Spoken description for Unicode code point U+1F36D: "🍭" LOLLIPOP -->
+  <!-- Spoken description for Unicode code point U+1F36E: "🍮" CUSTARD -->
+  <!-- Spoken description for Unicode code point U+1F36F: "🍯" HONEY POT -->
+  <!-- Spoken description for Unicode code point U+1F370: "🍰" SHORTCAKE -->
+  <!-- Spoken description for Unicode code point U+1F371: "🍱" BENTO BOX -->
+  <!-- Spoken description for Unicode code point U+1F372: "🍲" POT OF FOOD -->
+  <!-- Spoken description for Unicode code point U+1F373: "🍳" COOKING -->
+  <!-- Spoken description for Unicode code point U+1F374: "🍴" FORK AND KNIFE -->
+  <!-- Spoken description for Unicode code point U+1F375: "🍵" TEACUP WITHOUT HANDLE -->
+  <!-- Spoken description for Unicode code point U+1F376: "🍶" SAKE BOTTLE AND CUP -->
+  <!-- Spoken description for Unicode code point U+1F377: "🍷" WINE GLASS -->
+  <!-- Spoken description for Unicode code point U+1F378: "🍸" COCKTAIL GLASS -->
+  <!-- Spoken description for Unicode code point U+1F379: "🍹" TROPICAL DRINK -->
+  <!-- Spoken description for Unicode code point U+1F37A: "🍺" BEER MUG -->
+  <!-- Spoken description for Unicode code point U+1F37B: "🍻" CLINKING BEER MUGS -->
+  <!-- Spoken description for Unicode code point U+1F37C: "🍼" BABY BOTTLE -->
+  <!-- Spoken description for Unicode code point U+1F37D: "🍽" FORK AND KNIFE WITH PLATE -->
+  <!-- Spoken description for Unicode code point U+1F37E: "🍾" BOTTLE WITH POPPING CORK -->
+  <!-- Spoken description for Unicode code point U+1F37F: "🍿" POPCORN -->
+  <!-- Spoken description for Unicode code point U+1F380: "🎀" RIBBON -->
+  <!-- Spoken description for Unicode code point U+1F381: "🎁" WRAPPED PRESENT -->
+  <!-- Spoken description for Unicode code point U+1F382: "🎂" BIRTHDAY CAKE -->
+  <!-- Spoken description for Unicode code point U+1F383: "🎃" JACK-O-LANTERN -->
+  <!-- Spoken description for Unicode code point U+1F384: "🎄" CHRISTMAS TREE -->
+  <!-- Spoken description for Unicode code point U+1F385: "🎅" FATHER CHRISTMAS -->
+  <!-- Spoken description for Unicode code point U+1F386: "🎆" FIREWORKS -->
+  <!-- Spoken description for Unicode code point U+1F387: "🎇" FIREWORK SPARKLER -->
+  <!-- Spoken description for Unicode code point U+1F388: "🎈" BALLOON -->
+  <!-- Spoken description for Unicode code point U+1F389: "🎉" PARTY POPPER -->
+  <!-- Spoken description for Unicode code point U+1F38A: "🎊" CONFETTI BALL -->
+  <!-- Spoken description for Unicode code point U+1F38B: "🎋" TANABATA TREE -->
+  <!-- Spoken description for Unicode code point U+1F38C: "🎌" CROSSED FLAGS -->
+  <!-- Spoken description for Unicode code point U+1F38D: "🎍" PINE DECORATION -->
+  <!-- Spoken description for Unicode code point U+1F38E: "🎎" JAPANESE DOLLS -->
+  <!-- Spoken description for Unicode code point U+1F38F: "🎏" CARP STREAMER -->
+  <!-- Spoken description for Unicode code point U+1F390: "🎐" WIND CHIME -->
+  <!-- Spoken description for Unicode code point U+1F391: "🎑" MOON VIEWING CEREMONY -->
+  <!-- Spoken description for Unicode code point U+1F392: "🎒" SCHOOL SATCHEL -->
+  <!-- Spoken description for Unicode code point U+1F393: "🎓" GRADUATION CAP -->
+  <!-- Spoken description for Unicode code point U+1F396: "🎖" MILITARY MEDAL -->
+  <!-- Spoken description for Unicode code point U+1F397: "🎗" REMINDER RIBBON -->
+  <!-- Spoken description for Unicode code point U+1F399: "🎙" STUDIO MICROPHONE -->
+  <!-- Spoken description for Unicode code point U+1F39A: "🎚" LEVEL SLIDER -->
+  <!-- Spoken description for Unicode code point U+1F39B: "🎛" CONTROL KNOBS -->
+  <!-- Spoken description for Unicode code point U+1F39E: "🎞" FILM FRAMES -->
+  <!-- Spoken description for Unicode code point U+1F39F: "🎟" ADMISSION TICKETS -->
+  <!-- Spoken description for Unicode code point U+1F3A0: "🎠" CAROUSEL HORSE -->
+  <!-- Spoken description for Unicode code point U+1F3A1: "🎡" FERRIS WHEEL -->
+  <!-- Spoken description for Unicode code point U+1F3A2: "🎢" ROLLER COASTER -->
+  <!-- Spoken description for Unicode code point U+1F3A3: "🎣" FISHING POLE AND FISH -->
+  <!-- Spoken description for Unicode code point U+1F3A4: "🎤" MICROPHONE -->
+  <!-- Spoken description for Unicode code point U+1F3A5: "🎥" MOVIE CAMERA -->
+  <!-- Spoken description for Unicode code point U+1F3A6: "🎦" CINEMA -->
+  <!-- Spoken description for Unicode code point U+1F3A7: "🎧" HEADPHONE -->
+  <!-- Spoken description for Unicode code point U+1F3A8: "🎨" ARTIST PALETTE -->
+  <!-- Spoken description for Unicode code point U+1F3A9: "🎩" TOP HAT -->
+  <!-- Spoken description for Unicode code point U+1F3AA: "🎪" CIRCUS TENT -->
+  <!-- Spoken description for Unicode code point U+1F3AB: "🎫" TICKET -->
+  <!-- Spoken description for Unicode code point U+1F3AC: "🎬" CLAPPER BOARD -->
+  <!-- Spoken description for Unicode code point U+1F3AD: "🎭" PERFORMING ARTS -->
+  <!-- Spoken description for Unicode code point U+1F3AE: "🎮" VIDEO GAME -->
+  <!-- Spoken description for Unicode code point U+1F3AF: "🎯" DIRECT HIT -->
+  <!-- Spoken description for Unicode code point U+1F3B0: "🎰" SLOT MACHINE -->
+  <!-- Spoken description for Unicode code point U+1F3B1: "🎱" BILLIARDS -->
+  <!-- Spoken description for Unicode code point U+1F3B2: "🎲" GAME DIE -->
+  <!-- Spoken description for Unicode code point U+1F3B3: "🎳" BOWLING -->
+  <!-- Spoken description for Unicode code point U+1F3B4: "🎴" FLOWER PLAYING CARDS -->
+  <!-- Spoken description for Unicode code point U+1F3B5: "🎵" MUSICAL NOTE -->
+  <!-- Spoken description for Unicode code point U+1F3B6: "🎶" MULTIPLE MUSICAL NOTES -->
+  <!-- Spoken description for Unicode code point U+1F3B7: "🎷" SAXOPHONE -->
+  <!-- Spoken description for Unicode code point U+1F3B8: "🎸" GUITAR -->
+  <!-- Spoken description for Unicode code point U+1F3B9: "🎹" MUSICAL KEYBOARD -->
+  <!-- Spoken description for Unicode code point U+1F3BA: "🎺" TRUMPET -->
+  <!-- Spoken description for Unicode code point U+1F3BB: "🎻" VIOLIN -->
+  <!-- Spoken description for Unicode code point U+1F3BC: "🎼" MUSICAL SCORE -->
+  <!-- Spoken description for Unicode code point U+1F3BD: "🎽" RUNNING SHIRT WITH SASH -->
+  <!-- Spoken description for Unicode code point U+1F3BE: "🎾" TENNIS RACQUET AND BALL -->
+  <!-- Spoken description for Unicode code point U+1F3BF: "🎿" SKI AND SKI BOOT -->
+  <!-- Spoken description for Unicode code point U+1F3C0: "🏀" BASKETBALL AND HOOP -->
+  <!-- Spoken description for Unicode code point U+1F3C1: "🏁" CHEQUERED FLAG -->
+  <!-- Spoken description for Unicode code point U+1F3C2: "🏂" SNOWBOARDER -->
+  <!-- Spoken description for Unicode code point U+1F3C3: "🏃" RUNNER -->
+  <!-- Spoken description for Unicode code point U+1F3C4: "🏄" SURFER -->
+  <!-- Spoken description for Unicode code point U+1F3C5: "🏅" SPORTS MEDAL -->
+  <!-- Spoken description for Unicode code point U+1F3C6: "🏆" TROPHY -->
+  <!-- Spoken description for Unicode code point U+1F3C7: "🏇" HORSE RACING -->
+  <!-- Spoken description for Unicode code point U+1F3C8: "🏈" AMERICAN FOOTBALL -->
+  <!-- Spoken description for Unicode code point U+1F3C9: "🏉" RUGBY FOOTBALL -->
+  <!-- Spoken description for Unicode code point U+1F3CA: "🏊" SWIMMER -->
+  <!-- Spoken description for Unicode code point U+1F3CB: "🏋" WEIGHT LIFTER -->
+  <!-- Spoken description for Unicode code point U+1F3CC: "🏌" GOLFER -->
+  <!-- Spoken description for Unicode code point U+1F3CD: "🏍" RACING MOTORCYCLE -->
+  <!-- Spoken description for Unicode code point U+1F3CE: "🏎" RACING CAR -->
+  <!-- Spoken description for Unicode code point U+1F3CF: "🏏" CRICKET BAT AND BALL -->
+  <!-- Spoken description for Unicode code point U+1F3D0: "🏐" VOLLEYBALL -->
+  <!-- Spoken description for Unicode code point U+1F3D1: "🏑" FIELD HOCKEY STICK AND BALL -->
+  <!-- Spoken description for Unicode code point U+1F3D2: "🏒" ICE HOCKEY STICK AND PUCK -->
+  <!-- Spoken description for Unicode code point U+1F3D3: "🏓" TABLE TENNIS PADDLE AND BALL -->
+  <!-- Spoken description for Unicode code point U+1F3D4: "🏔" SNOW CAPPED MOUNTAIN -->
+  <!-- Spoken description for Unicode code point U+1F3D5: "🏕" CAMPING -->
+  <!-- Spoken description for Unicode code point U+1F3D6: "🏖" BEACH WITH UMBRELLA -->
+  <!-- Spoken description for Unicode code point U+1F3D7: "🏗" BUILDING CONSTRUCTION -->
+  <!-- Spoken description for Unicode code point U+1F3D8: "🏘" HOUSE BUILDINGS -->
+  <!-- Spoken description for Unicode code point U+1F3D9: "🏙" CITYSCAPE -->
+  <!-- Spoken description for Unicode code point U+1F3DA: "🏚" DERELICT HOUSE BUILDING -->
+  <!-- Spoken description for Unicode code point U+1F3DB: "🏛" CLASSICAL BUILDING -->
+  <!-- Spoken description for Unicode code point U+1F3DC: "🏜" DESERT -->
+  <!-- Spoken description for Unicode code point U+1F3DD: "🏝" DESERT ISLAND -->
+  <!-- Spoken description for Unicode code point U+1F3DE: "🏞" NATIONAL PARK -->
+  <!-- Spoken description for Unicode code point U+1F3DF: "🏟" STADIUM -->
+  <!-- Spoken description for Unicode code point U+1F3E0: "🏠" HOUSE BUILDING -->
+  <!-- Spoken description for Unicode code point U+1F3E1: "🏡" HOUSE WITH GARDEN -->
+  <!-- Spoken description for Unicode code point U+1F3E2: "🏢" OFFICE BUILDING -->
+  <!-- Spoken description for Unicode code point U+1F3E3: "🏣" JAPANESE POST OFFICE -->
+  <!-- Spoken description for Unicode code point U+1F3E4: "🏤" EUROPEAN POST OFFICE -->
+  <!-- Spoken description for Unicode code point U+1F3E5: "🏥" HOSPITAL -->
+  <!-- Spoken description for Unicode code point U+1F3E6: "🏦" BANK -->
+  <!-- Spoken description for Unicode code point U+1F3E7: "🏧" AUTOMATED TELLER MACHINE -->
+  <!-- Spoken description for Unicode code point U+1F3E8: "🏨" HOTEL -->
+  <!-- Spoken description for Unicode code point U+1F3E9: "🏩" LOVE HOTEL -->
+  <!-- Spoken description for Unicode code point U+1F3EA: "🏪" CONVENIENCE STORE -->
+  <!-- Spoken description for Unicode code point U+1F3EB: "🏫" SCHOOL -->
+  <!-- Spoken description for Unicode code point U+1F3EC: "🏬" DEPARTMENT STORE -->
+  <!-- Spoken description for Unicode code point U+1F3ED: "🏭" FACTORY -->
+  <!-- Spoken description for Unicode code point U+1F3EE: "🏮" IZAKAYA LANTERN -->
+  <!-- Spoken description for Unicode code point U+1F3EF: "🏯" JAPANESE CASTLE -->
+  <!-- Spoken description for Unicode code point U+1F3F0: "🏰" EUROPEAN CASTLE -->
+  <!-- Spoken description for Unicode code point U+1F3F3: "🏳" WAVING WHITE FLAG -->
+  <!-- Spoken description for Unicode code point U+1F3F4: "🏴" WAVING BLACK FLAG -->
+  <!-- Spoken description for Unicode code point U+1F3F5: "🏵" ROSETTE -->
+  <!-- Spoken description for Unicode code point U+1F3F7: "🏷" LABEL -->
+  <!-- Spoken description for Unicode code point U+1F3F8: "🏸" BADMINTON RACQUET AND SHUTTLECOCK -->
+  <!-- Spoken description for Unicode code point U+1F3F9: "🏹" BOW AND ARROW -->
+  <!-- Spoken description for Unicode code point U+1F3FA: "🏺" AMPHORA -->
+  <!-- Spoken description for Unicode code point U+1F3FB: "🏻" EMOJI MODIFIER FITZPATRICK TYPE-1-2 -->
+  <!-- Spoken description for Unicode code point U+1F3FC: "🏼" EMOJI MODIFIER FITZPATRICK TYPE-3 -->
+  <!-- Spoken description for Unicode code point U+1F3FD: "🏽" EMOJI MODIFIER FITZPATRICK TYPE-4 -->
+  <!-- Spoken description for Unicode code point U+1F3FE: "🏾" EMOJI MODIFIER FITZPATRICK TYPE-5 -->
+  <!-- Spoken description for Unicode code point U+1F3FF: "🏿" EMOJI MODIFIER FITZPATRICK TYPE-6 -->
+  <!-- Spoken description for Unicode code point U+1F400: "🐀" RAT -->
+  <!-- Spoken description for Unicode code point U+1F401: "🐁" MOUSE -->
+  <!-- Spoken description for Unicode code point U+1F402: "🐂" OX -->
+  <!-- Spoken description for Unicode code point U+1F403: "🐃" WATER BUFFALO -->
+  <!-- Spoken description for Unicode code point U+1F404: "🐄" COW -->
+  <!-- Spoken description for Unicode code point U+1F405: "🐅" TIGER -->
+  <!-- Spoken description for Unicode code point U+1F406: "🐆" LEOPARD -->
+  <!-- Spoken description for Unicode code point U+1F407: "🐇" RABBIT -->
+  <!-- Spoken description for Unicode code point U+1F408: "🐈" CAT -->
+  <!-- Spoken description for Unicode code point U+1F409: "🐉" DRAGON -->
+  <!-- Spoken description for Unicode code point U+1F40A: "🐊" CROCODILE -->
+  <!-- Spoken description for Unicode code point U+1F40B: "🐋" WHALE -->
+  <!-- Spoken description for Unicode code point U+1F40C: "🐌" SNAIL -->
+  <!-- Spoken description for Unicode code point U+1F40D: "🐍" SNAKE -->
+  <!-- Spoken description for Unicode code point U+1F40E: "🐎" HORSE -->
   <string name="spoken_emoji_1F40E">ئەسپ</string>
+  <!-- Spoken description for Unicode code point U+1F40F: "🐏" RAM -->
+  <!-- Spoken description for Unicode code point U+1F410: "🐐" GOAT -->
   <string name="spoken_emoji_1F410">بزن</string>
+  <!-- Spoken description for Unicode code point U+1F411: "🐑" SHEEP -->
   <string name="spoken_emoji_1F411">کاوڕ</string>
+  <!-- Spoken description for Unicode code point U+1F412: "🐒" MONKEY -->
   <string name="spoken_emoji_1F412">مەیموون</string>
+  <!-- Spoken description for Unicode code point U+1F413: "🐓" ROOSTER -->
   <string name="spoken_emoji_1F413">کەڵەشێر</string>
+  <!-- Spoken description for Unicode code point U+1F414: "🐔" CHICKEN -->
   <string name="spoken_emoji_1F414">مریشک</string>
+  <!-- Spoken description for Unicode code point U+1F415: "🐕" DOG -->
   <string name="spoken_emoji_1F415">سەگ</string>
+  <!-- Spoken description for Unicode code point U+1F416: "🐖" PIG -->
   <string name="spoken_emoji_1F416">بەراز</string>
+  <!-- Spoken description for Unicode code point U+1F417: "🐗" BOAR -->
+  <!-- Spoken description for Unicode code point U+1F418: "🐘" ELEPHANT -->
   <string name="spoken_emoji_1F418">فیل</string>
+  <!-- Spoken description for Unicode code point U+1F419: "🐙" OCTOPUS -->
   <string name="spoken_emoji_1F419">ئەکتەبوس</string>
+  <!-- Spoken description for Unicode code point U+1F41A: "🐚" SPIRAL SHELL -->
+  <!-- Spoken description for Unicode code point U+1F41B: "🐛" BUG -->
   <string name="spoken_emoji_1F41B">مێروو</string>
+  <!-- Spoken description for Unicode code point U+1F41C: "🐜" ANT -->
   <string name="spoken_emoji_1F41C">مێرولە</string>
+  <!-- Spoken description for Unicode code point U+1F41D: "🐝" HONEYBEE -->
+  <!-- Spoken description for Unicode code point U+1F41E: "🐞" LADY BEETLE -->
+  <!-- Spoken description for Unicode code point U+1F41F: "🐟" FISH -->
   <string name="spoken_emoji_1F41F">ماسی</string>
+  <!-- Spoken description for Unicode code point U+1F420: "🐠" TROPICAL FISH -->
+  <!-- Spoken description for Unicode code point U+1F421: "🐡" BLOWFISH -->
+  <!-- Spoken description for Unicode code point U+1F422: "🐢" TURTLE -->
+  <!-- Spoken description for Unicode code point U+1F423: "🐣" HATCHING CHICK -->
+  <!-- Spoken description for Unicode code point U+1F424: "🐤" BABY CHICK -->
+  <!-- Spoken description for Unicode code point U+1F425: "🐥" FRONT-FACING BABY CHICK -->
+  <!-- Spoken description for Unicode code point U+1F426: "🐦" BIRD -->
+  <!-- Spoken description for Unicode code point U+1F427: "🐧" PENGUIN -->
+  <!-- Spoken description for Unicode code point U+1F428: "🐨" KOALA -->
+  <!-- Spoken description for Unicode code point U+1F429: "🐩" POODLE -->
+  <!-- Spoken description for Unicode code point U+1F42A: "🐪" DROMEDARY CAMEL -->
+  <!-- Spoken description for Unicode code point U+1F42B: "🐫" BACTRIAN CAMEL -->
+  <!-- Spoken description for Unicode code point U+1F42C: "🐬" DOLPHIN -->
+  <!-- Spoken description for Unicode code point U+1F42D: "🐭" MOUSE FACE -->
+  <!-- Spoken description for Unicode code point U+1F42E: "🐮" COW FACE -->
+  <!-- Spoken description for Unicode code point U+1F42F: "🐯" TIGER FACE -->
+  <!-- Spoken description for Unicode code point U+1F430: "🐰" RABBIT FACE -->
+  <!-- Spoken description for Unicode code point U+1F431: "🐱" CAT FACE -->
+  <!-- Spoken description for Unicode code point U+1F432: "🐲" DRAGON FACE -->
+  <!-- Spoken description for Unicode code point U+1F433: "🐳" SPOUTING WHALE -->
+  <!-- Spoken description for Unicode code point U+1F434: "🐴" HORSE FACE -->
+  <!-- Spoken description for Unicode code point U+1F435: "🐵" MONKEY FACE -->
+  <!-- Spoken description for Unicode code point U+1F436: "🐶" DOG FACE -->
+  <!-- Spoken description for Unicode code point U+1F437: "🐷" PIG FACE -->
+  <!-- Spoken description for Unicode code point U+1F438: "🐸" FROG FACE -->
+  <!-- Spoken description for Unicode code point U+1F439: "🐹" HAMSTER FACE -->
+  <!-- Spoken description for Unicode code point U+1F43A: "🐺" WOLF FACE -->
+  <!-- Spoken description for Unicode code point U+1F43B: "🐻" BEAR FACE -->
+  <!-- Spoken description for Unicode code point U+1F43C: "🐼" PANDA FACE -->
+  <!-- Spoken description for Unicode code point U+1F43D: "🐽" PIG NOSE -->
+  <!-- Spoken description for Unicode code point U+1F43E: "🐾" PAW PRINTS -->
+  <!-- Spoken description for Unicode code point U+1F43F: "🐿" CHIPMUNK -->
+  <!-- Spoken description for Unicode code point U+1F440: "👀" EYES -->
+  <!-- Spoken description for Unicode code point U+1F441: "👁" EYE -->
+  <!-- Spoken description for Unicode code point U+1F442: "👂" EAR -->
+  <!-- Spoken description for Unicode code point U+1F443: "👃" NOSE -->
+  <!-- Spoken description for Unicode code point U+1F444: "👄" MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F445: "👅" TONGUE -->
+  <!-- Spoken description for Unicode code point U+1F446: "👆" WHITE UP POINTING BACKHAND INDEX -->
+  <!-- Spoken description for Unicode code point U+1F447: "👇" WHITE DOWN POINTING BACKHAND INDEX -->
+  <!-- Spoken description for Unicode code point U+1F448: "👈" WHITE LEFT POINTING BACKHAND INDEX -->
+  <!-- Spoken description for Unicode code point U+1F449: "👉" WHITE RIGHT POINTING BACKHAND INDEX -->
+  <!-- Spoken description for Unicode code point U+1F44A: "👊" FISTED HAND SIGN -->
+  <!-- Spoken description for Unicode code point U+1F44B: "👋" WAVING HAND SIGN -->
+  <!-- Spoken description for Unicode code point U+1F44C: "👌" OK HAND SIGN -->
+  <!-- Spoken description for Unicode code point U+1F44D: "👍" THUMBS UP SIGN -->
+  <!-- Spoken description for Unicode code point U+1F44E: "👎" THUMBS DOWN SIGN -->
+  <!-- Spoken description for Unicode code point U+1F44F: "👏" CLAPPING HANDS SIGN -->
+  <!-- Spoken description for Unicode code point U+1F450: "👐" OPEN HANDS SIGN -->
+  <!-- Spoken description for Unicode code point U+1F451: "👑" CROWN -->
+  <!-- Spoken description for Unicode code point U+1F452: "👒" WOMANS HAT -->
+  <!-- Spoken description for Unicode code point U+1F453: "👓" EYEGLASSES -->
+  <!-- Spoken description for Unicode code point U+1F454: "👔" NECKTIE -->
+  <!-- Spoken description for Unicode code point U+1F455: "👕" T-SHIRT -->
+  <!-- Spoken description for Unicode code point U+1F456: "👖" JEANS -->
+  <!-- Spoken description for Unicode code point U+1F457: "👗" DRESS -->
+  <!-- Spoken description for Unicode code point U+1F458: "👘" KIMONO -->
+  <!-- Spoken description for Unicode code point U+1F459: "👙" BIKINI -->
+  <!-- Spoken description for Unicode code point U+1F45A: "👚" WOMANS CLOTHES -->
+  <!-- Spoken description for Unicode code point U+1F45B: "👛" PURSE -->
+  <!-- Spoken description for Unicode code point U+1F45C: "👜" HANDBAG -->
+  <!-- Spoken description for Unicode code point U+1F45D: "👝" POUCH -->
+  <!-- Spoken description for Unicode code point U+1F45E: "👞" MANS SHOE -->
+  <!-- Spoken description for Unicode code point U+1F45F: "👟" ATHLETIC SHOE -->
+  <!-- Spoken description for Unicode code point U+1F460: "👠" HIGH-HEELED SHOE -->
+  <!-- Spoken description for Unicode code point U+1F461: "👡" WOMANS SANDAL -->
+  <!-- Spoken description for Unicode code point U+1F462: "👢" WOMANS BOOTS -->
+  <!-- Spoken description for Unicode code point U+1F463: "👣" FOOTPRINTS -->
+  <!-- Spoken description for Unicode code point U+1F464: "👤" BUST IN SILHOUETTE -->
+  <!-- Spoken description for Unicode code point U+1F465: "👥" BUSTS IN SILHOUETTE -->
+  <!-- Spoken description for Unicode code point U+1F466: "👦" BOY -->
+  <!-- Spoken description for Unicode code point U+1F467: "👧" GIRL -->
+  <!-- Spoken description for Unicode code point U+1F468: "👨" MAN -->
+  <!-- Spoken description for Unicode code point U+1F469: "👩" WOMAN -->
+  <!-- Spoken description for Unicode code point U+1F46A: "👪" FAMILY -->
+  <!-- Spoken description for Unicode code point U+1F46B: "👫" MAN AND WOMAN HOLDING HANDS -->
+  <!-- Spoken description for Unicode code point U+1F46C: "👬" TWO MEN HOLDING HANDS -->
+  <!-- Spoken description for Unicode code point U+1F46D: "👭" TWO WOMEN HOLDING HANDS -->
+  <!-- Spoken description for Unicode code point U+1F46E: "👮" POLICE OFFICER -->
+  <!-- Spoken description for Unicode code point U+1F46F: "👯" WOMAN WITH BUNNY EARS -->
+  <!-- Spoken description for Unicode code point U+1F470: "👰" BRIDE WITH VEIL -->
+  <!-- Spoken description for Unicode code point U+1F471: "👱" PERSON WITH BLOND HAIR -->
+  <!-- Spoken description for Unicode code point U+1F472: "👲" MAN WITH GUA PI MAO -->
+  <!-- Spoken description for Unicode code point U+1F473: "👳" MAN WITH TURBAN -->
+  <!-- Spoken description for Unicode code point U+1F474: "👴" OLDER MAN -->
+  <!-- Spoken description for Unicode code point U+1F475: "👵" OLDER WOMAN -->
+  <!-- Spoken description for Unicode code point U+1F476: "👶" BABY -->
+  <!-- Spoken description for Unicode code point U+1F477: "👷" CONSTRUCTION WORKER -->
+  <!-- Spoken description for Unicode code point U+1F478: "👸" PRINCESS -->
+  <!-- Spoken description for Unicode code point U+1F479: "👹" JAPANESE OGRE -->
+  <!-- Spoken description for Unicode code point U+1F47A: "👺" JAPANESE GOBLIN -->
+  <!-- Spoken description for Unicode code point U+1F47B: "👻" GHOST -->
+  <!-- Spoken description for Unicode code point U+1F47C: "👼" BABY ANGEL -->
+  <!-- Spoken description for Unicode code point U+1F47D: "👽" EXTRATERRESTRIAL ALIEN -->
+  <!-- Spoken description for Unicode code point U+1F47E: "👾" ALIEN MONSTER -->
+  <!-- Spoken description for Unicode code point U+1F47F: "👿" IMP -->
+  <!-- Spoken description for Unicode code point U+1F480: "💀" SKULL -->
+  <!-- Spoken description for Unicode code point U+1F481: "💁" INFORMATION DESK PERSON -->
+  <!-- Spoken description for Unicode code point U+1F482: "💂" GUARDSMAN -->
+  <!-- Spoken description for Unicode code point U+1F483: "💃" DANCER -->
+  <!-- Spoken description for Unicode code point U+1F484: "💄" LIPSTICK -->
+  <!-- Spoken description for Unicode code point U+1F485: "💅" NAIL POLISH -->
+  <!-- Spoken description for Unicode code point U+1F486: "💆" FACE MASSAGE -->
+  <!-- Spoken description for Unicode code point U+1F487: "💇" HAIRCUT -->
+  <!-- Spoken description for Unicode code point U+1F488: "💈" BARBER POLE -->
+  <!-- Spoken description for Unicode code point U+1F489: "💉" SYRINGE -->
+  <!-- Spoken description for Unicode code point U+1F48A: "💊" PILL -->
+  <!-- Spoken description for Unicode code point U+1F48B: "💋" KISS MARK -->
+  <!-- Spoken description for Unicode code point U+1F48C: "💌" LOVE LETTER -->
+  <!-- Spoken description for Unicode code point U+1F48D: "💍" RING -->
+  <!-- Spoken description for Unicode code point U+1F48E: "💎" GEM STONE -->
+  <!-- Spoken description for Unicode code point U+1F48F: "💏" KISS -->
+  <!-- Spoken description for Unicode code point U+1F490: "💐" BOUQUET -->
+  <!-- Spoken description for Unicode code point U+1F491: "💑" COUPLE WITH HEART -->
+  <!-- Spoken description for Unicode code point U+1F492: "💒" WEDDING -->
+  <!-- Spoken description for Unicode code point U+1F493: "💓" BEATING HEART -->
+  <!-- Spoken description for Unicode code point U+1F494: "💔" BROKEN HEART -->
+  <!-- Spoken description for Unicode code point U+1F495: "💕" TWO HEARTS -->
+  <!-- Spoken description for Unicode code point U+1F496: "💖" SPARKLING HEART -->
+  <!-- Spoken description for Unicode code point U+1F497: "💗" GROWING HEART -->
+  <!-- Spoken description for Unicode code point U+1F498: "💘" HEART WITH ARROW -->
+  <!-- Spoken description for Unicode code point U+1F499: "💙" BLUE HEART -->
+  <!-- Spoken description for Unicode code point U+1F49A: "💚" GREEN HEART -->
+  <!-- Spoken description for Unicode code point U+1F49B: "💛" YELLOW HEART -->
+  <!-- Spoken description for Unicode code point U+1F49C: "💜" PURPLE HEART -->
+  <!-- Spoken description for Unicode code point U+1F49D: "💝" HEART WITH RIBBON -->
+  <!-- Spoken description for Unicode code point U+1F49E: "💞" REVOLVING HEARTS -->
+  <!-- Spoken description for Unicode code point U+1F49F: "💟" HEART DECORATION -->
+  <!-- Spoken description for Unicode code point U+1F4A0: "💠" DIAMOND SHAPE WITH A DOT INSIDE -->
+  <!-- Spoken description for Unicode code point U+1F4A1: "💡" ELECTRIC LIGHT BULB -->
+  <!-- Spoken description for Unicode code point U+1F4A2: "💢" ANGER SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4A3: "💣" BOMB -->
+  <!-- Spoken description for Unicode code point U+1F4A4: "💤" SLEEPING SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4A5: "💥" COLLISION SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4A6: "💦" SPLASHING SWEAT SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4A7: "💧" DROPLET -->
+  <!-- Spoken description for Unicode code point U+1F4A8: "💨" DASH SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4A9: "💩" PILE OF POO -->
+  <!-- Spoken description for Unicode code point U+1F4AA: "💪" FLEXED BICEPS -->
+  <!-- Spoken description for Unicode code point U+1F4AB: "💫" DIZZY SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4AC: "💬" SPEECH BALLOON -->
+  <!-- Spoken description for Unicode code point U+1F4AD: "💭" THOUGHT BALLOON -->
+  <!-- Spoken description for Unicode code point U+1F4AE: "💮" WHITE FLOWER -->
+  <!-- Spoken description for Unicode code point U+1F4AF: "💯" HUNDRED POINTS SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4B0: "💰" MONEY BAG -->
+  <!-- Spoken description for Unicode code point U+1F4B1: "💱" CURRENCY EXCHANGE -->
+  <!-- Spoken description for Unicode code point U+1F4B2: "💲" HEAVY DOLLAR SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4B3: "💳" CREDIT CARD -->
+  <!-- Spoken description for Unicode code point U+1F4B4: "💴" BANKNOTE WITH YEN SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4B5: "💵" BANKNOTE WITH DOLLAR SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4B6: "💶" BANKNOTE WITH EURO SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4B7: "💷" BANKNOTE WITH POUND SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4B8: "💸" MONEY WITH WINGS -->
+  <!-- Spoken description for Unicode code point U+1F4B9: "💹" CHART WITH UPWARDS TREND AND YEN SIGN -->
+  <!-- Spoken description for Unicode code point U+1F4BA: "💺" SEAT -->
+  <!-- Spoken description for Unicode code point U+1F4BB: "💻" PERSONAL COMPUTER -->
+  <!-- Spoken description for Unicode code point U+1F4BC: "💼" BRIEFCASE -->
+  <!-- Spoken description for Unicode code point U+1F4BD: "💽" MINIDISC -->
+  <!-- Spoken description for Unicode code point U+1F4BE: "💾" FLOPPY DISK -->
+  <!-- Spoken description for Unicode code point U+1F4BF: "💿" OPTICAL DISC -->
+  <!-- Spoken description for Unicode code point U+1F4C0: "📀" DVD -->
+  <!-- Spoken description for Unicode code point U+1F4C1: "📁" FILE FOLDER -->
+  <!-- Spoken description for Unicode code point U+1F4C2: "📂" OPEN FILE FOLDER -->
+  <!-- Spoken description for Unicode code point U+1F4C3: "📃" PAGE WITH CURL -->
+  <!-- Spoken description for Unicode code point U+1F4C4: "📄" PAGE FACING UP -->
+  <!-- Spoken description for Unicode code point U+1F4C5: "📅" CALENDAR -->
+  <!-- Spoken description for Unicode code point U+1F4C6: "📆" TEAR-OFF CALENDAR -->
+  <!-- Spoken description for Unicode code point U+1F4C7: "📇" CARD INDEX -->
+  <!-- Spoken description for Unicode code point U+1F4C8: "📈" CHART WITH UPWARDS TREND -->
+  <!-- Spoken description for Unicode code point U+1F4C9: "📉" CHART WITH DOWNWARDS TREND -->
+  <!-- Spoken description for Unicode code point U+1F4CA: "📊" BAR CHART -->
+  <!-- Spoken description for Unicode code point U+1F4CB: "📋" CLIPBOARD -->
+  <!-- Spoken description for Unicode code point U+1F4CC: "📌" PUSHPIN -->
+  <!-- Spoken description for Unicode code point U+1F4CD: "📍" ROUND PUSHPIN -->
+  <!-- Spoken description for Unicode code point U+1F4CE: "📎" PAPERCLIP -->
+  <!-- Spoken description for Unicode code point U+1F4CF: "📏" STRAIGHT RULER -->
+  <!-- Spoken description for Unicode code point U+1F4D0: "📐" TRIANGULAR RULER -->
+  <!-- Spoken description for Unicode code point U+1F4D1: "📑" BOOKMARK TABS -->
+  <!-- Spoken description for Unicode code point U+1F4D2: "📒" LEDGER -->
+  <!-- Spoken description for Unicode code point U+1F4D3: "📓" NOTEBOOK -->
+  <!-- Spoken description for Unicode code point U+1F4D4: "📔" NOTEBOOK WITH DECORATIVE COVER -->
+  <!-- Spoken description for Unicode code point U+1F4D5: "📕" CLOSED BOOK -->
+  <!-- Spoken description for Unicode code point U+1F4D6: "📖" OPEN BOOK -->
+  <!-- Spoken description for Unicode code point U+1F4D7: "📗" GREEN BOOK -->
+  <!-- Spoken description for Unicode code point U+1F4D8: "📘" BLUE BOOK -->
+  <!-- Spoken description for Unicode code point U+1F4D9: "📙" ORANGE BOOK -->
+  <!-- Spoken description for Unicode code point U+1F4DA: "📚" BOOKS -->
+  <!-- Spoken description for Unicode code point U+1F4DB: "📛" NAME BADGE -->
+  <!-- Spoken description for Unicode code point U+1F4DC: "📜" SCROLL -->
+  <!-- Spoken description for Unicode code point U+1F4DD: "📝" MEMO -->
+  <!-- Spoken description for Unicode code point U+1F4DE: "📞" TELEPHONE RECEIVER -->
+  <!-- Spoken description for Unicode code point U+1F4DF: "📟" PAGER -->
+  <!-- Spoken description for Unicode code point U+1F4E0: "📠" FAX MACHINE -->
+  <!-- Spoken description for Unicode code point U+1F4E1: "📡" SATELLITE ANTENNA -->
+  <!-- Spoken description for Unicode code point U+1F4E2: "📢" PUBLIC ADDRESS LOUDSPEAKER -->
+  <!-- Spoken description for Unicode code point U+1F4E3: "📣" CHEERING MEGAPHONE -->
+  <!-- Spoken description for Unicode code point U+1F4E4: "📤" OUTBOX TRAY -->
+  <!-- Spoken description for Unicode code point U+1F4E5: "📥" INBOX TRAY -->
+  <!-- Spoken description for Unicode code point U+1F4E6: "📦" PACKAGE -->
+  <!-- Spoken description for Unicode code point U+1F4E7: "📧" E-MAIL SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F4E8: "📨" INCOMING ENVELOPE -->
+  <!-- Spoken description for Unicode code point U+1F4E9: "📩" ENVELOPE WITH DOWNWARDS ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F4EA: "📪" CLOSED MAILBOX WITH LOWERED FLAG -->
+  <!-- Spoken description for Unicode code point U+1F4EB: "📫" CLOSED MAILBOX WITH RAISED FLAG -->
+  <!-- Spoken description for Unicode code point U+1F4EC: "📬" OPEN MAILBOX WITH RAISED FLAG -->
+  <!-- Spoken description for Unicode code point U+1F4ED: "📭" OPEN MAILBOX WITH LOWERED FLAG -->
+  <!-- Spoken description for Unicode code point U+1F4EE: "📮" POSTBOX -->
+  <!-- Spoken description for Unicode code point U+1F4EF: "📯" POSTAL HORN -->
+  <!-- Spoken description for Unicode code point U+1F4F0: "📰" NEWSPAPER -->
+  <!-- Spoken description for Unicode code point U+1F4F1: "📱" MOBILE PHONE -->
+  <!-- Spoken description for Unicode code point U+1F4F2: "📲" MOBILE PHONE WITH RIGHTWARDS ARROW AT LEFT -->
+  <!-- Spoken description for Unicode code point U+1F4F3: "📳" VIBRATION MODE -->
+  <!-- Spoken description for Unicode code point U+1F4F4: "📴" MOBILE PHONE OFF -->
+  <!-- Spoken description for Unicode code point U+1F4F5: "📵" NO MOBILE PHONES -->
+  <!-- Spoken description for Unicode code point U+1F4F6: "📶" ANTENNA WITH BARS -->
+  <!-- Spoken description for Unicode code point U+1F4F7: "📷" CAMERA -->
+  <!-- Spoken description for Unicode code point U+1F4F8: "📸" CAMERA WITH FLASH -->
+  <!-- Spoken description for Unicode code point U+1F4F9: "📹" VIDEO CAMERA -->
+  <!-- Spoken description for Unicode code point U+1F4FA: "📺" TELEVISION -->
+  <!-- Spoken description for Unicode code point U+1F4FB: "📻" RADIO -->
+  <!-- Spoken description for Unicode code point U+1F4FC: "📼" VIDEOCASSETTE -->
+  <!-- Spoken description for Unicode code point U+1F4FD: "📽" FILM PROJECTOR -->
+  <!-- Spoken description for Unicode code point U+1F4FF: "📿" PRAYER BEADS -->
+  <!-- Spoken description for Unicode code point U+1F500: "🔀" TWISTED RIGHTWARDS ARROWS -->
+  <!-- Spoken description for Unicode code point U+1F501: "🔁" CLOCKWISE RIGHTWARDS AND LEFTWARDS OPEN CIRCLE ARROWS -->
+  <!-- Spoken description for Unicode code point U+1F502: "🔂" CLOCKWISE RIGHTWARDS AND LEFTWARDS OPEN CIRCLE ARROWS WITH CIRCLED ONE OVERLAY -->
+  <!-- Spoken description for Unicode code point U+1F503: "🔃" CLOCKWISE DOWNWARDS AND UPWARDS OPEN CIRCLE ARROWS -->
+  <!-- Spoken description for Unicode code point U+1F504: "🔄" ANTICLOCKWISE DOWNWARDS AND UPWARDS OPEN CIRCLE ARROWS -->
+  <!-- Spoken description for Unicode code point U+1F505: "🔅" LOW BRIGHTNESS SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F506: "🔆" HIGH BRIGHTNESS SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F507: "🔇" SPEAKER WITH CANCELLATION STROKE -->
+  <!-- Spoken description for Unicode code point U+1F508: "🔈" SPEAKER -->
+  <!-- Spoken description for Unicode code point U+1F509: "🔉" SPEAKER WITH ONE SOUND WAVE -->
+  <!-- Spoken description for Unicode code point U+1F50A: "🔊" SPEAKER WITH THREE SOUND WAVES -->
+  <!-- Spoken description for Unicode code point U+1F50B: "🔋" BATTERY -->
+  <!-- Spoken description for Unicode code point U+1F50C: "🔌" ELECTRIC PLUG -->
+  <!-- Spoken description for Unicode code point U+1F50D: "🔍" LEFT-POINTING MAGNIFYING GLASS -->
+  <!-- Spoken description for Unicode code point U+1F50E: "🔎" RIGHT-POINTING MAGNIFYING GLASS -->
+  <!-- Spoken description for Unicode code point U+1F50F: "🔏" LOCK WITH INK PEN -->
+  <!-- Spoken description for Unicode code point U+1F510: "🔐" CLOSED LOCK WITH KEY -->
+  <!-- Spoken description for Unicode code point U+1F511: "🔑" KEY -->
+  <!-- Spoken description for Unicode code point U+1F512: "🔒" LOCK -->
+  <!-- Spoken description for Unicode code point U+1F513: "🔓" OPEN LOCK -->
+  <!-- Spoken description for Unicode code point U+1F514: "🔔" BELL -->
+  <!-- Spoken description for Unicode code point U+1F515: "🔕" BELL WITH CANCELLATION STROKE -->
+  <!-- Spoken description for Unicode code point U+1F516: "🔖" BOOKMARK -->
+  <!-- Spoken description for Unicode code point U+1F517: "🔗" LINK SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F518: "🔘" RADIO BUTTON -->
+  <!-- Spoken description for Unicode code point U+1F519: "🔙" BACK WITH LEFTWARDS ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F51A: "🔚" END WITH LEFTWARDS ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F51B: "🔛" ON WITH EXCLAMATION MARK WITH LEFT RIGHT ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F51C: "🔜" SOON WITH RIGHTWARDS ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F51D: "🔝" TOP WITH UPWARDS ARROW ABOVE -->
+  <!-- Spoken description for Unicode code point U+1F51E: "🔞" NO ONE UNDER EIGHTEEN SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F51F: "🔟" KEYCAP TEN -->
+  <!-- Spoken description for Unicode code point U+1F520: "🔠" INPUT SYMBOL FOR LATIN CAPITAL LETTERS -->
+  <!-- Spoken description for Unicode code point U+1F521: "🔡" INPUT SYMBOL FOR LATIN SMALL LETTERS -->
+  <!-- Spoken description for Unicode code point U+1F522: "🔢" INPUT SYMBOL FOR NUMBERS -->
+  <!-- Spoken description for Unicode code point U+1F523: "🔣" INPUT SYMBOL FOR SYMBOLS -->
+  <!-- Spoken description for Unicode code point U+1F524: "🔤" INPUT SYMBOL FOR LATIN LETTERS -->
+  <!-- Spoken description for Unicode code point U+1F525: "🔥" FIRE -->
+  <!-- Spoken description for Unicode code point U+1F526: "🔦" ELECTRIC TORCH -->
+  <!-- Spoken description for Unicode code point U+1F527: "🔧" WRENCH -->
+  <!-- Spoken description for Unicode code point U+1F528: "🔨" HAMMER -->
+  <!-- Spoken description for Unicode code point U+1F529: "🔩" NUT AND BOLT -->
+  <!-- Spoken description for Unicode code point U+1F52A: "🔪" HOCHO -->
+  <!-- Spoken description for Unicode code point U+1F52B: "🔫" PISTOL -->
+  <!-- Spoken description for Unicode code point U+1F52C: "🔬" MICROSCOPE -->
+  <!-- Spoken description for Unicode code point U+1F52D: "🔭" TELESCOPE -->
+  <!-- Spoken description for Unicode code point U+1F52E: "🔮" CRYSTAL BALL -->
+  <!-- Spoken description for Unicode code point U+1F52F: "🔯" SIX POINTED STAR WITH MIDDLE DOT -->
+  <!-- Spoken description for Unicode code point U+1F530: "🔰" JAPANESE SYMBOL FOR BEGINNER -->
+  <!-- Spoken description for Unicode code point U+1F531: "🔱" TRIDENT EMBLEM -->
+  <!-- Spoken description for Unicode code point U+1F532: "🔲" BLACK SQUARE BUTTON -->
+  <!-- Spoken description for Unicode code point U+1F533: "🔳" WHITE SQUARE BUTTON -->
+  <!-- Spoken description for Unicode code point U+1F534: "🔴" LARGE RED CIRCLE -->
+  <!-- Spoken description for Unicode code point U+1F535: "🔵" LARGE BLUE CIRCLE -->
+  <!-- Spoken description for Unicode code point U+1F536: "🔶" LARGE ORANGE DIAMOND -->
+  <!-- Spoken description for Unicode code point U+1F537: "🔷" LARGE BLUE DIAMOND -->
+  <!-- Spoken description for Unicode code point U+1F538: "🔸" SMALL ORANGE DIAMOND -->
+  <!-- Spoken description for Unicode code point U+1F539: "🔹" SMALL BLUE DIAMOND -->
+  <!-- Spoken description for Unicode code point U+1F53A: "🔺" UP-POINTING RED TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+1F53B: "🔻" DOWN-POINTING RED TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+1F53C: "🔼" UP-POINTING SMALL RED TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+1F53D: "🔽" DOWN-POINTING SMALL RED TRIANGLE -->
+  <!-- Spoken description for Unicode code point U+1F549: "🕉" OM SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F54A: "🕊" DOVE OF PEACE -->
+  <!-- Spoken description for Unicode code point U+1F54B: "🕋" KAABA -->
+  <!-- Spoken description for Unicode code point U+1F54C: "🕌" MOSQUE -->
+  <!-- Spoken description for Unicode code point U+1F54D: "🕍" SYNAGOGUE -->
+  <!-- Spoken description for Unicode code point U+1F54E: "🕎" MENORAH WITH NINE BRANCHES -->
+  <!-- Spoken description for Unicode code point U+1F550: "🕐" CLOCK FACE ONE OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F551: "🕑" CLOCK FACE TWO OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F552: "🕒" CLOCK FACE THREE OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F553: "🕓" CLOCK FACE FOUR OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F554: "🕔" CLOCK FACE FIVE OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F555: "🕕" CLOCK FACE SIX OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F556: "🕖" CLOCK FACE SEVEN OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F557: "🕗" CLOCK FACE EIGHT OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F558: "🕘" CLOCK FACE NINE OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F559: "🕙" CLOCK FACE TEN OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F55A: "🕚" CLOCK FACE ELEVEN OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F55B: "🕛" CLOCK FACE TWELVE OCLOCK -->
+  <!-- Spoken description for Unicode code point U+1F55C: "🕜" CLOCK FACE ONE-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F55D: "🕝" CLOCK FACE TWO-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F55E: "🕞" CLOCK FACE THREE-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F55F: "🕟" CLOCK FACE FOUR-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F560: "🕠" CLOCK FACE FIVE-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F561: "🕡" CLOCK FACE SIX-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F562: "🕢" CLOCK FACE SEVEN-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F563: "🕣" CLOCK FACE EIGHT-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F564: "🕤" CLOCK FACE NINE-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F565: "🕥" CLOCK FACE TEN-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F566: "🕦" CLOCK FACE ELEVEN-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F567: "🕧" CLOCK FACE TWELVE-THIRTY -->
+  <!-- Spoken description for Unicode code point U+1F56F: "🕯" CANDLE -->
+  <!-- Spoken description for Unicode code point U+1F570: "🕰" MANTELPIECE CLOCK -->
+  <!-- Spoken description for Unicode code point U+1F573: "🕳" HOLE -->
+  <!-- Spoken description for Unicode code point U+1F574: "🕴" MAN IN BUSINESS SUIT LEVITATING -->
+  <!-- Spoken description for Unicode code point U+1F575: "🕵" SLEUTH OR SPY -->
+  <!-- Spoken description for Unicode code point U+1F576: "🕶" DARK SUNGLASSES -->
+  <!-- Spoken description for Unicode code point U+1F577: "🕷" SPIDER -->
+  <!-- Spoken description for Unicode code point U+1F578: "🕸" SPIDER WEB -->
+  <!-- Spoken description for Unicode code point U+1F579: "🕹" JOYSTICK -->
+  <!-- Spoken description for Unicode code point U+1F587: "🖇" LINKED PAPERCLIPS -->
+  <!-- Spoken description for Unicode code point U+1F58A: "🖊" LOWER LEFT BALLPOINT PEN -->
+  <!-- Spoken description for Unicode code point U+1F58B: "🖋" LOWER LEFT FOUNTAIN PEN -->
+  <!-- Spoken description for Unicode code point U+1F58C: "🖌" LOWER LEFT PAINTBRUSH -->
+  <!-- Spoken description for Unicode code point U+1F58D: "🖍" LOWER LEFT CRAYON -->
+  <!-- Spoken description for Unicode code point U+1F590: "🖐" RAISED HAND WITH FINGERS SPLAYED -->
+  <!-- Spoken description for Unicode code point U+1F595: "🖕" REVERSED HAND WITH MIDDLE FINGER EXTENDED -->
+  <!-- Spoken description for Unicode code point U+1F596: "🖖" RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS -->
+  <!-- Spoken description for Unicode code point U+1F5A5: "🖥" DESKTOP COMPUTER -->
+  <!-- Spoken description for Unicode code point U+1F5A8: "🖨" PRINTER -->
+  <!-- Spoken description for Unicode code point U+1F5B1: "🖱" THREE BUTTON MOUSE -->
+  <!-- Spoken description for Unicode code point U+1F5B2: "🖲" TRACKBALL -->
+  <!-- Spoken description for Unicode code point U+1F5BC: "🖼" FRAME WITH PICTURE -->
+  <!-- Spoken description for Unicode code point U+1F5C2: "🗂" CARD INDEX DIVIDERS -->
+  <!-- Spoken description for Unicode code point U+1F5C3: "🗃" CARD FILE BOX -->
+  <!-- Spoken description for Unicode code point U+1F5C4: "🗄" FILE CABINET -->
+  <!-- Spoken description for Unicode code point U+1F5D1: "🗑" WASTEBASKET -->
+  <!-- Spoken description for Unicode code point U+1F5D2: "🗒" SPIRAL NOTE PAD -->
+  <!-- Spoken description for Unicode code point U+1F5D3: "🗓" SPIRAL CALENDAR PAD -->
+  <!-- Spoken description for Unicode code point U+1F5DC: "🗜" COMPRESSION -->
+  <!-- Spoken description for Unicode code point U+1F5DD: "🗝" OLD KEY -->
+  <!-- Spoken description for Unicode code point U+1F5DE: "🗞" ROLLED-UP NEWSPAPER -->
+  <!-- Spoken description for Unicode code point U+1F5E1: "🗡" DAGGER KNIFE -->
+  <!-- Spoken description for Unicode code point U+1F5E3: "🗣" SPEAKING HEAD IN SILHOUETTE -->
+  <!-- Spoken description for Unicode code point U+1F5EF: "🗯" RIGHT ANGER BUBBLE -->
+  <!-- Spoken description for Unicode code point U+1F5F3: "🗳" BALLOT BOX WITH BALLOT -->
+  <!-- Spoken description for Unicode code point U+1F5FA: "🗺" WORLD MAP -->
+  <!-- Spoken description for Unicode code point U+1F5FB: "🗻" MOUNT FUJI -->
+  <!-- Spoken description for Unicode code point U+1F5FC: "🗼" TOKYO TOWER -->
+  <!-- Spoken description for Unicode code point U+1F5FD: "🗽" STATUE OF LIBERTY -->
+  <!-- Spoken description for Unicode code point U+1F5FE: "🗾" SILHOUETTE OF JAPAN -->
+  <!-- Spoken description for Unicode code point U+1F5FF: "🗿" MOYAI -->
+  <!-- Spoken description for Unicode code point U+1F600: "😀" GRINNING FACE -->
+  <!-- Spoken description for Unicode code point U+1F601: "😁" GRINNING FACE WITH SMILING EYES -->
+  <!-- Spoken description for Unicode code point U+1F602: "😂" FACE WITH TEARS OF JOY -->
+  <!-- Spoken description for Unicode code point U+1F603: "😃" SMILING FACE WITH OPEN MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F604: "😄" SMILING FACE WITH OPEN MOUTH AND SMILING EYES -->
+  <!-- Spoken description for Unicode code point U+1F605: "😅" SMILING FACE WITH OPEN MOUTH AND COLD SWEAT -->
+  <!-- Spoken description for Unicode code point U+1F606: "😆" SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES -->
+  <!-- Spoken description for Unicode code point U+1F607: "😇" SMILING FACE WITH HALO -->
+  <!-- Spoken description for Unicode code point U+1F608: "😈" SMILING FACE WITH HORNS -->
+  <!-- Spoken description for Unicode code point U+1F609: "😉" WINKING FACE -->
+  <!-- Spoken description for Unicode code point U+1F60A: "😊" SMILING FACE WITH SMILING EYES -->
+  <!-- Spoken description for Unicode code point U+1F60B: "😋" FACE SAVOURING DELICIOUS FOOD -->
+  <!-- Spoken description for Unicode code point U+1F60C: "😌" RELIEVED FACE -->
+  <!-- Spoken description for Unicode code point U+1F60D: "😍" SMILING FACE WITH HEART-SHAPED EYES -->
+  <!-- Spoken description for Unicode code point U+1F60E: "😎" SMILING FACE WITH SUNGLASSES -->
+  <!-- Spoken description for Unicode code point U+1F60F: "😏" SMIRKING FACE -->
+  <!-- Spoken description for Unicode code point U+1F610: "😐" NEUTRAL FACE -->
+  <!-- Spoken description for Unicode code point U+1F611: "😑" EXPRESSIONLESS FACE -->
+  <!-- Spoken description for Unicode code point U+1F612: "😒" UNAMUSED FACE -->
+  <!-- Spoken description for Unicode code point U+1F613: "😓" FACE WITH COLD SWEAT -->
+  <!-- Spoken description for Unicode code point U+1F614: "😔" PENSIVE FACE -->
+  <!-- Spoken description for Unicode code point U+1F615: "😕" CONFUSED FACE -->
+  <!-- Spoken description for Unicode code point U+1F616: "😖" CONFOUNDED FACE -->
+  <!-- Spoken description for Unicode code point U+1F617: "😗" KISSING FACE -->
+  <!-- Spoken description for Unicode code point U+1F618: "😘" FACE THROWING A KISS -->
+  <!-- Spoken description for Unicode code point U+1F619: "😙" KISSING FACE WITH SMILING EYES -->
+  <!-- Spoken description for Unicode code point U+1F61A: "😚" KISSING FACE WITH CLOSED EYES -->
+  <!-- Spoken description for Unicode code point U+1F61B: "😛" FACE WITH STUCK-OUT TONGUE -->
+  <!-- Spoken description for Unicode code point U+1F61C: "😜" FACE WITH STUCK-OUT TONGUE AND WINKING EYE -->
+  <!-- Spoken description for Unicode code point U+1F61D: "😝" FACE WITH STUCK-OUT TONGUE AND TIGHTLY-CLOSED EYES -->
+  <!-- Spoken description for Unicode code point U+1F61E: "😞" DISAPPOINTED FACE -->
+  <!-- Spoken description for Unicode code point U+1F61F: "😟" WORRIED FACE -->
+  <!-- Spoken description for Unicode code point U+1F620: "😠" ANGRY FACE -->
+  <!-- Spoken description for Unicode code point U+1F621: "😡" POUTING FACE -->
+  <!-- Spoken description for Unicode code point U+1F622: "😢" CRYING FACE -->
+  <!-- Spoken description for Unicode code point U+1F623: "😣" PERSEVERING FACE -->
+  <!-- Spoken description for Unicode code point U+1F624: "😤" FACE WITH LOOK OF TRIUMPH -->
+  <!-- Spoken description for Unicode code point U+1F625: "😥" DISAPPOINTED BUT RELIEVED FACE -->
+  <!-- Spoken description for Unicode code point U+1F626: "😦" FROWNING FACE WITH OPEN MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F627: "😧" ANGUISHED FACE -->
+  <!-- Spoken description for Unicode code point U+1F628: "😨" FEARFUL FACE -->
+  <!-- Spoken description for Unicode code point U+1F629: "😩" WEARY FACE -->
+  <!-- Spoken description for Unicode code point U+1F62A: "😪" SLEEPY FACE -->
+  <!-- Spoken description for Unicode code point U+1F62B: "😫" TIRED FACE -->
+  <!-- Spoken description for Unicode code point U+1F62C: "😬" GRIMACING FACE -->
+  <!-- Spoken description for Unicode code point U+1F62D: "😭" LOUDLY CRYING FACE -->
+  <!-- Spoken description for Unicode code point U+1F62E: "😮" FACE WITH OPEN MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F62F: "😯" HUSHED FACE -->
+  <!-- Spoken description for Unicode code point U+1F630: "😰" FACE WITH OPEN MOUTH AND COLD SWEAT -->
+  <!-- Spoken description for Unicode code point U+1F631: "😱" FACE SCREAMING IN FEAR -->
+  <!-- Spoken description for Unicode code point U+1F632: "😲" ASTONISHED FACE -->
+  <!-- Spoken description for Unicode code point U+1F633: "😳" FLUSHED FACE -->
+  <!-- Spoken description for Unicode code point U+1F634: "😴" SLEEPING FACE -->
+  <!-- Spoken description for Unicode code point U+1F635: "😵" DIZZY FACE -->
+  <!-- Spoken description for Unicode code point U+1F636: "😶" FACE WITHOUT MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F637: "😷" FACE WITH MEDICAL MASK -->
+  <!-- Spoken description for Unicode code point U+1F638: "😸" GRINNING CAT FACE WITH SMILING EYES -->
+  <!-- Spoken description for Unicode code point U+1F639: "😹" CAT FACE WITH TEARS OF JOY -->
+  <!-- Spoken description for Unicode code point U+1F63A: "😺" SMILING CAT FACE WITH OPEN MOUTH -->
+  <!-- Spoken description for Unicode code point U+1F63B: "😻" SMILING CAT FACE WITH HEART-SHAPED EYES -->
+  <!-- Spoken description for Unicode code point U+1F63C: "😼" CAT FACE WITH WRY SMILE -->
+  <!-- Spoken description for Unicode code point U+1F63D: "😽" KISSING CAT FACE WITH CLOSED EYES -->
+  <!-- Spoken description for Unicode code point U+1F63E: "😾" POUTING CAT FACE -->
+  <!-- Spoken description for Unicode code point U+1F63F: "😿" CRYING CAT FACE -->
+  <!-- Spoken description for Unicode code point U+1F640: "🙀" WEARY CAT FACE -->
+  <!-- Spoken description for Unicode code point U+1F641: "🙁" SLIGHTLY FROWNING FACE -->
+  <!-- Spoken description for Unicode code point U+1F642: "🙂" SLIGHTLY SMILING FACE -->
+  <!-- Spoken description for Unicode code point U+1F643: "🙃" UPSIDE-DOWN FACE -->
+  <!-- Spoken description for Unicode code point U+1F644: "🙄" FACE WITH ROLLING EYES -->
+  <!-- Spoken description for Unicode code point U+1F645: "🙅" FACE WITH NO GOOD GESTURE -->
+  <!-- Spoken description for Unicode code point U+1F646: "🙆" FACE WITH OK GESTURE -->
+  <!-- Spoken description for Unicode code point U+1F647: "🙇" PERSON BOWING DEEPLY -->
+  <!-- Spoken description for Unicode code point U+1F648: "🙈" SEE-NO-EVIL MONKEY -->
+  <!-- Spoken description for Unicode code point U+1F649: "🙉" HEAR-NO-EVIL MONKEY -->
+  <!-- Spoken description for Unicode code point U+1F64A: "🙊" SPEAK-NO-EVIL MONKEY -->
+  <!-- Spoken description for Unicode code point U+1F64B: "🙋" HAPPY PERSON RAISING ONE HAND -->
+  <!-- Spoken description for Unicode code point U+1F64C: "🙌" PERSON RAISING BOTH HANDS IN CELEBRATION -->
+  <!-- Spoken description for Unicode code point U+1F64D: "🙍" PERSON FROWNING -->
+  <!-- Spoken description for Unicode code point U+1F64E: "🙎" PERSON WITH POUTING FACE -->
+  <!-- Spoken description for Unicode code point U+1F64F: "🙏" PERSON WITH FOLDED HANDS -->
+  <!-- Spoken description for Unicode code point U+1F680: "🚀" ROCKET -->
+  <!-- Spoken description for Unicode code point U+1F681: "🚁" HELICOPTER -->
+  <!-- Spoken description for Unicode code point U+1F682: "🚂" STEAM LOCOMOTIVE -->
+  <!-- Spoken description for Unicode code point U+1F683: "🚃" RAILWAY CAR -->
+  <!-- Spoken description for Unicode code point U+1F684: "🚄" HIGH-SPEED TRAIN -->
+  <!-- Spoken description for Unicode code point U+1F685: "🚅" HIGH-SPEED TRAIN WITH BULLET NOSE -->
+  <!-- Spoken description for Unicode code point U+1F686: "🚆" TRAIN -->
+  <!-- Spoken description for Unicode code point U+1F687: "🚇" METRO -->
+  <!-- Spoken description for Unicode code point U+1F688: "🚈" LIGHT RAIL -->
+  <!-- Spoken description for Unicode code point U+1F689: "🚉" STATION -->
+  <!-- Spoken description for Unicode code point U+1F68A: "🚊" TRAM -->
+  <!-- Spoken description for Unicode code point U+1F68B: "🚋" TRAM CAR -->
+  <!-- Spoken description for Unicode code point U+1F68C: "🚌" BUS -->
+  <!-- Spoken description for Unicode code point U+1F68D: "🚍" ONCOMING BUS -->
+  <!-- Spoken description for Unicode code point U+1F68E: "🚎" TROLLEYBUS -->
+  <!-- Spoken description for Unicode code point U+1F68F: "🚏" BUS STOP -->
+  <!-- Spoken description for Unicode code point U+1F690: "🚐" MINIBUS -->
+  <!-- Spoken description for Unicode code point U+1F691: "🚑" AMBULANCE -->
+  <!-- Spoken description for Unicode code point U+1F692: "🚒" FIRE ENGINE -->
+  <!-- Spoken description for Unicode code point U+1F693: "🚓" POLICE CAR -->
+  <!-- Spoken description for Unicode code point U+1F694: "🚔" ONCOMING POLICE CAR -->
+  <!-- Spoken description for Unicode code point U+1F695: "🚕" TAXI -->
+  <!-- Spoken description for Unicode code point U+1F696: "🚖" ONCOMING TAXI -->
+  <!-- Spoken description for Unicode code point U+1F697: "🚗" AUTOMOBILE -->
+  <!-- Spoken description for Unicode code point U+1F698: "🚘" ONCOMING AUTOMOBILE -->
+  <!-- Spoken description for Unicode code point U+1F699: "🚙" RECREATIONAL VEHICLE -->
+  <!-- Spoken description for Unicode code point U+1F69A: "🚚" DELIVERY TRUCK -->
+  <!-- Spoken description for Unicode code point U+1F69B: "🚛" ARTICULATED LORRY -->
+  <!-- Spoken description for Unicode code point U+1F69C: "🚜" TRACTOR -->
+  <!-- Spoken description for Unicode code point U+1F69D: "🚝" MONORAIL -->
+  <!-- Spoken description for Unicode code point U+1F69E: "🚞" MOUNTAIN RAILWAY -->
+  <!-- Spoken description for Unicode code point U+1F69F: "🚟" SUSPENSION RAILWAY -->
+  <!-- Spoken description for Unicode code point U+1F6A0: "🚠" MOUNTAIN CABLEWAY -->
+  <!-- Spoken description for Unicode code point U+1F6A1: "🚡" AERIAL TRAMWAY -->
+  <!-- Spoken description for Unicode code point U+1F6A2: "🚢" SHIP -->
+  <!-- Spoken description for Unicode code point U+1F6A3: "🚣" ROWBOAT -->
+  <!-- Spoken description for Unicode code point U+1F6A4: "🚤" SPEEDBOAT -->
+  <!-- Spoken description for Unicode code point U+1F6A5: "🚥" HORIZONTAL TRAFFIC LIGHT -->
+  <!-- Spoken description for Unicode code point U+1F6A6: "🚦" VERTICAL TRAFFIC LIGHT -->
+  <!-- Spoken description for Unicode code point U+1F6A7: "🚧" CONSTRUCTION SIGN -->
+  <!-- Spoken description for Unicode code point U+1F6A8: "🚨" POLICE CARS REVOLVING LIGHT -->
+  <!-- Spoken description for Unicode code point U+1F6A9: "🚩" TRIANGULAR FLAG ON POST -->
+  <!-- Spoken description for Unicode code point U+1F6AA: "🚪" DOOR -->
+  <!-- Spoken description for Unicode code point U+1F6AB: "🚫" NO ENTRY SIGN -->
+  <!-- Spoken description for Unicode code point U+1F6AC: "🚬" SMOKING SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6AD: "🚭" NO SMOKING SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6AE: "🚮" PUT LITTER IN ITS PLACE SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6AF: "🚯" DO NOT LITTER SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6B0: "🚰" POTABLE WATER SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6B1: "🚱" NON-POTABLE WATER SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6B2: "🚲" BICYCLE -->
+  <!-- Spoken description for Unicode code point U+1F6B3: "🚳" NO BICYCLES -->
+  <!-- Spoken description for Unicode code point U+1F6B4: "🚴" BICYCLIST -->
+  <!-- Spoken description for Unicode code point U+1F6B5: "🚵" MOUNTAIN BICYCLIST -->
+  <!-- Spoken description for Unicode code point U+1F6B6: "🚶" PEDESTRIAN -->
+  <!-- Spoken description for Unicode code point U+1F6B7: "🚷" NO PEDESTRIANS -->
+  <!-- Spoken description for Unicode code point U+1F6B8: "🚸" CHILDREN CROSSING -->
+  <!-- Spoken description for Unicode code point U+1F6B9: "🚹" MENS SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6BA: "🚺" WOMENS SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6BB: "🚻" RESTROOM -->
+  <!-- Spoken description for Unicode code point U+1F6BC: "🚼" BABY SYMBOL -->
+  <!-- Spoken description for Unicode code point U+1F6BD: "🚽" TOILET -->
+  <!-- Spoken description for Unicode code point U+1F6BE: "🚾" WATER CLOSET -->
+  <!-- Spoken description for Unicode code point U+1F6BF: "🚿" SHOWER -->
+  <!-- Spoken description for Unicode code point U+1F6C0: "🛀" BATH -->
+  <!-- Spoken description for Unicode code point U+1F6C1: "🛁" BATHTUB -->
+  <!-- Spoken description for Unicode code point U+1F6C2: "🛂" PASSPORT CONTROL -->
+  <!-- Spoken description for Unicode code point U+1F6C3: "🛃" CUSTOMS -->
+  <!-- Spoken description for Unicode code point U+1F6C4: "🛄" BAGGAGE CLAIM -->
+  <!-- Spoken description for Unicode code point U+1F6C5: "🛅" LEFT LUGGAGE -->
+  <!-- Spoken description for Unicode code point U+1F6CB: "🛋" COUCH AND LAMP -->
+  <!-- Spoken description for Unicode code point U+1F6CC: "🛌" SLEEPING ACCOMMODATION -->
+  <!-- Spoken description for Unicode code point U+1F6CD: "🛍" SHOPPING BAGS -->
+  <!-- Spoken description for Unicode code point U+1F6CE: "🛎" BELLHOP BELL -->
+  <!-- Spoken description for Unicode code point U+1F6CF: "🛏" BED -->
+  <!-- Spoken description for Unicode code point U+1F6D0: "🛐" PLACE OF WORSHIP -->
+  <!-- Spoken description for Unicode code point U+1F6E0: "🛠" HAMMER AND WRENCH -->
+  <!-- Spoken description for Unicode code point U+1F6E1: "🛡" SHIELD -->
+  <!-- Spoken description for Unicode code point U+1F6E2: "🛢" OIL DRUM -->
+  <!-- Spoken description for Unicode code point U+1F6E3: "🛣" MOTORWAY -->
+  <!-- Spoken description for Unicode code point U+1F6E4: "🛤" RAILWAY TRACK -->
+  <!-- Spoken description for Unicode code point U+1F6E5: "🛥" MOTOR BOAT -->
+  <!-- Spoken description for Unicode code point U+1F6E9: "🛩" SMALL AIRPLANE -->
+  <!-- Spoken description for Unicode code point U+1F6EB: "🛫" AIRPLANE DEPARTURE -->
+  <!-- Spoken description for Unicode code point U+1F6EC: "🛬" AIRPLANE ARRIVING -->
+  <!-- Spoken description for Unicode code point U+1F6F0: "🛰" SATELLITE -->
+  <!-- Spoken description for Unicode code point U+1F6F3: "🛳" PASSENGER SHIP -->
+  <!-- Spoken description for Unicode code point U+1F910: "🤐" ZIPPER-MOUTH FACE -->
+  <!-- Spoken description for Unicode code point U+1F911: "🤑" MONEY-MOUTH FACE -->
+  <!-- Spoken description for Unicode code point U+1F912: "🤒" FACE WITH THERMOMETER -->
+  <!-- Spoken description for Unicode code point U+1F913: "🤓" NERD FACE -->
+  <!-- Spoken description for Unicode code point U+1F914: "🤔" THINKING FACE -->
+  <!-- Spoken description for Unicode code point U+1F915: "🤕" FACE WITH HEAD-BANDAGE -->
+  <!-- Spoken description for Unicode code point U+1F916: "🤖" ROBOT FACE -->
+  <!-- Spoken description for Unicode code point U+1F917: "🤗" HUGGING FACE -->
+  <!-- Spoken description for Unicode code point U+1F918: "🤘" SIGN OF THE HORNS -->
+  <!-- Spoken description for Unicode code point U+1F980: "🦀" CRAB -->
+  <!-- Spoken description for Unicode code point U+1F981: "🦁" LION FACE -->
+  <!-- Spoken description for Unicode code point U+1F982: "🦂" SCORPION -->
+  <!-- Spoken description for Unicode code point U+1F983: "🦃" TURKEY -->
+  <!-- Spoken description for Unicode code point U+1F984: "🦄" UNICORN FACE -->
+  <!-- Spoken description for Unicode code point U+1F9C0: "🧀" CHEESE WEDGE -->
+  <!-- Spoken description for Unicode code point sequence U+0023 U+20E3: "#⃣" KEYCAP NUMBER SIGN -->
+  <!-- Spoken description for Unicode code point sequence U+002A U+20E3: "*⃣" KEYCAP ASTERISK -->
+  <!-- Spoken description for Unicode code point sequence U+0030 U+20E3: "0⃣" KEYCAP DIGIT ZERO -->
+  <!-- Spoken description for Unicode code point sequence U+0031 U+20E3: "1⃣" KEYCAP DIGIT ONE -->
+  <!-- Spoken description for Unicode code point sequence U+0032 U+20E3: "2⃣" KEYCAP DIGIT TWO -->
+  <!-- Spoken description for Unicode code point sequence U+0033 U+20E3: "3⃣" KEYCAP DIGIT THREE -->
+  <!-- Spoken description for Unicode code point sequence U+0034 U+20E3: "4⃣" KEYCAP DIGIT FOUR -->
+  <!-- Spoken description for Unicode code point sequence U+0035 U+20E3: "5⃣" KEYCAP DIGIT FIVE -->
+  <!-- Spoken description for Unicode code point sequence U+0036 U+20E3: "6⃣" KEYCAP DIGIT SIX -->
+  <!-- Spoken description for Unicode code point sequence U+0037 U+20E3: "7⃣" KEYCAP DIGIT SEVEN -->
+  <!-- Spoken description for Unicode code point sequence U+0038 U+20E3: "8⃣" KEYCAP DIGIT EIGHT -->
+  <!-- Spoken description for Unicode code point sequence U+0039 U+20E3: "9⃣" KEYCAP DIGIT NINE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1E8: "🇦🇨" FLAG FOR ASCENSION ISLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1E9: "🇦🇩" FLAG FOR ANDORRA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1EA: "🇦🇪" FLAG FOR UNITED ARAB EMIRATES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1EB: "🇦🇫" FLAG FOR AFGHANISTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1EC: "🇦🇬" FLAG FOR ANTIGUA & BARBUDA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1EE: "🇦🇮" FLAG FOR ANGUILLA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F1: "🇦🇱" FLAG FOR ALBANIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F2: "🇦🇲" FLAG FOR ARMENIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F4: "🇦🇴" FLAG FOR ANGOLA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F6: "🇦🇶" FLAG FOR ANTARCTICA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F7: "🇦🇷" FLAG FOR ARGENTINA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F8: "🇦🇸" FLAG FOR AMERICAN SAMOA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1F9: "🇦🇹" FLAG FOR AUSTRIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1FA: "🇦🇺" FLAG FOR AUSTRALIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1FC: "🇦🇼" FLAG FOR ARUBA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1FD: "🇦🇽" FLAG FOR ÅLAND ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E6 U+1F1FF: "🇦🇿" FLAG FOR AZERBAIJAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1E6: "🇧🇦" FLAG FOR BOSNIA & HERZEGOVINA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1E7: "🇧🇧" FLAG FOR BARBADOS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1E9: "🇧🇩" FLAG FOR BANGLADESH -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1EA: "🇧🇪" FLAG FOR BELGIUM -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1EB: "🇧🇫" FLAG FOR BURKINA FASO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1EC: "🇧🇬" FLAG FOR BULGARIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1ED: "🇧🇭" FLAG FOR BAHRAIN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1EE: "🇧🇮" FLAG FOR BURUNDI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1EF: "🇧🇯" FLAG FOR BENIN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F1: "🇧🇱" FLAG FOR ST. BARTHÉLEMY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F2: "🇧🇲" FLAG FOR BERMUDA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F3: "🇧🇳" FLAG FOR BRUNEI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F4: "🇧🇴" FLAG FOR BOLIVIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F6: "🇧🇶" FLAG FOR CARIBBEAN NETHERLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F7: "🇧🇷" FLAG FOR BRAZIL -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F8: "🇧🇸" FLAG FOR BAHAMAS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1F9: "🇧🇹" FLAG FOR BHUTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1FB: "🇧🇻" FLAG FOR BOUVET ISLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1FC: "🇧🇼" FLAG FOR BOTSWANA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1FE: "🇧🇾" FLAG FOR BELARUS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E7 U+1F1FF: "🇧🇿" FLAG FOR BELIZE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1E6: "🇨🇦" FLAG FOR CANADA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1E8: "🇨🇨" FLAG FOR COCOS ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1E9: "🇨🇩" FLAG FOR CONGO - KINSHASA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1EB: "🇨🇫" FLAG FOR CENTRAL AFRICAN REPUBLIC -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1EC: "🇨🇬" FLAG FOR CONGO - BRAZZAVILLE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1ED: "🇨🇭" FLAG FOR SWITZERLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1EE: "🇨🇮" FLAG FOR CÔTE D'IVOIRE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F0: "🇨🇰" FLAG FOR COOK ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F1: "🇨🇱" FLAG FOR CHILE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F2: "🇨🇲" FLAG FOR CAMEROON -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F3: "🇨🇳" FLAG FOR CHINA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F4: "🇨🇴" FLAG FOR COLOMBIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F5: "🇨🇵" FLAG FOR CLIPPERTON ISLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1F7: "🇨🇷" FLAG FOR COSTA RICA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FA: "🇨🇺" FLAG FOR CUBA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FB: "🇨🇻" FLAG FOR CAPE VERDE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FC: "🇨🇼" FLAG FOR CURAÇAO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FD: "🇨🇽" FLAG FOR CHRISTMAS ISLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FE: "🇨🇾" FLAG FOR CYPRUS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FF: "🇨🇿" FLAG FOR CZECH REPUBLIC -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EA: "🇩🇪" FLAG FOR GERMANY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EC: "🇩🇬" FLAG FOR DIEGO GARCIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EF: "🇩🇯" FLAG FOR DJIBOUTI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1F0: "🇩🇰" FLAG FOR DENMARK -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1F2: "🇩🇲" FLAG FOR DOMINICA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1F4: "🇩🇴" FLAG FOR DOMINICAN REPUBLIC -->
+  <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1FF: "🇩🇿" FLAG FOR ALGERIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1E6: "🇪🇦" FLAG FOR CEUTA & MELILLA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1E8: "🇪🇨" FLAG FOR ECUADOR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1EA: "🇪🇪" FLAG FOR ESTONIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1EC: "🇪🇬" FLAG FOR EGYPT -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1ED: "🇪🇭" FLAG FOR WESTERN SAHARA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1F7: "🇪🇷" FLAG FOR ERITREA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1F8: "🇪🇸" FLAG FOR SPAIN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1F9: "🇪🇹" FLAG FOR ETHIOPIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EA U+1F1FA: "🇪🇺" FLAG FOR EUROPEAN UNION -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1EE: "🇫🇮" FLAG FOR FINLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1EF: "🇫🇯" FLAG FOR FIJI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1F0: "🇫🇰" FLAG FOR FALKLAND ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1F2: "🇫🇲" FLAG FOR MICRONESIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1F4: "🇫🇴" FLAG FOR FAROE ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EB U+1F1F7: "🇫🇷" FLAG FOR FRANCE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1E6: "🇬🇦" FLAG FOR GABON -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1E7: "🇬🇧" FLAG FOR UNITED KINGDOM -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1E9: "🇬🇩" FLAG FOR GRENADA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1EA: "🇬🇪" FLAG FOR GEORGIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1EB: "🇬🇫" FLAG FOR FRENCH GUIANA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1EC: "🇬🇬" FLAG FOR GUERNSEY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1ED: "🇬🇭" FLAG FOR GHANA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1EE: "🇬🇮" FLAG FOR GIBRALTAR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F1: "🇬🇱" FLAG FOR GREENLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F2: "🇬🇲" FLAG FOR GAMBIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F3: "🇬🇳" FLAG FOR GUINEA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F5: "🇬🇵" FLAG FOR GUADELOUPE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F6: "🇬🇶" FLAG FOR EQUATORIAL GUINEA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F7: "🇬🇷" FLAG FOR GREECE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F8: "🇬🇸" FLAG FOR SOUTH GEORGIA & SOUTH SANDWICH ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1F9: "🇬🇹" FLAG FOR GUATEMALA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1FA: "🇬🇺" FLAG FOR GUAM -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1FC: "🇬🇼" FLAG FOR GUINEA-BISSAU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EC U+1F1FE: "🇬🇾" FLAG FOR GUYANA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1F0: "🇭🇰" FLAG FOR HONG KONG -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1F2: "🇭🇲" FLAG FOR HEARD & MCDONALD ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1F3: "🇭🇳" FLAG FOR HONDURAS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1F7: "🇭🇷" FLAG FOR CROATIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1F9: "🇭🇹" FLAG FOR HAITI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1ED U+1F1FA: "🇭🇺" FLAG FOR HUNGARY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1E8: "🇮🇨" FLAG FOR CANARY ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1E9: "🇮🇩" FLAG FOR INDONESIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1EA: "🇮🇪" FLAG FOR IRELAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F1: "🇮🇱" FLAG FOR ISRAEL -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F2: "🇮🇲" FLAG FOR ISLE OF MAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F3: "🇮🇳" FLAG FOR INDIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F4: "🇮🇴" FLAG FOR BRITISH INDIAN OCEAN TERRITORY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F6: "🇮🇶" FLAG FOR IRAQ -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F7: "🇮🇷" FLAG FOR IRAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F8: "🇮🇸" FLAG FOR ICELAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EE U+1F1F9: "🇮🇹" FLAG FOR ITALY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EF U+1F1EA: "🇯🇪" FLAG FOR JERSEY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EF U+1F1F2: "🇯🇲" FLAG FOR JAMAICA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EF U+1F1F4: "🇯🇴" FLAG FOR JORDAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1EF U+1F1F5: "🇯🇵" FLAG FOR JAPAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1EA: "🇰🇪" FLAG FOR KENYA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1EC: "🇰🇬" FLAG FOR KYRGYZSTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1ED: "🇰🇭" FLAG FOR CAMBODIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1EE: "🇰🇮" FLAG FOR KIRIBATI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1F2: "🇰🇲" FLAG FOR COMOROS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1F3: "🇰🇳" FLAG FOR ST. KITTS & NEVIS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1F5: "🇰🇵" FLAG FOR NORTH KOREA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1F7: "🇰🇷" FLAG FOR SOUTH KOREA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1FC: "🇰🇼" FLAG FOR KUWAIT -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1FE: "🇰🇾" FLAG FOR CAYMAN ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F0 U+1F1FF: "🇰🇿" FLAG FOR KAZAKHSTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1E6: "🇱🇦" FLAG FOR LAOS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1E7: "🇱🇧" FLAG FOR LEBANON -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1E8: "🇱🇨" FLAG FOR ST. LUCIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1EE: "🇱🇮" FLAG FOR LIECHTENSTEIN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1F0: "🇱🇰" FLAG FOR SRI LANKA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1F7: "🇱🇷" FLAG FOR LIBERIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1F8: "🇱🇸" FLAG FOR LESOTHO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1F9: "🇱🇹" FLAG FOR LITHUANIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1FA: "🇱🇺" FLAG FOR LUXEMBOURG -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1FB: "🇱🇻" FLAG FOR LATVIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F1 U+1F1FE: "🇱🇾" FLAG FOR LIBYA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1E6: "🇲🇦" FLAG FOR MOROCCO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1E8: "🇲🇨" FLAG FOR MONACO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1E9: "🇲🇩" FLAG FOR MOLDOVA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1EA: "🇲🇪" FLAG FOR MONTENEGRO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1EB: "🇲🇫" FLAG FOR ST. MARTIN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1EC: "🇲🇬" FLAG FOR MADAGASCAR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1ED: "🇲🇭" FLAG FOR MARSHALL ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F0: "🇲🇰" FLAG FOR MACEDONIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F1: "🇲🇱" FLAG FOR MALI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F2: "🇲🇲" FLAG FOR MYANMAR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F3: "🇲🇳" FLAG FOR MONGOLIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F4: "🇲🇴" FLAG FOR MACAU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F5: "🇲🇵" FLAG FOR NORTHERN MARIANA ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F6: "🇲🇶" FLAG FOR MARTINIQUE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F7: "🇲🇷" FLAG FOR MAURITANIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F8: "🇲🇸" FLAG FOR MONTSERRAT -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1F9: "🇲🇹" FLAG FOR MALTA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FA: "🇲🇺" FLAG FOR MAURITIUS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FB: "🇲🇻" FLAG FOR MALDIVES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FC: "🇲🇼" FLAG FOR MALAWI -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FD: "🇲🇽" FLAG FOR MEXICO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FE: "🇲🇾" FLAG FOR MALAYSIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F2 U+1F1FF: "🇲🇿" FLAG FOR MOZAMBIQUE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1E6: "🇳🇦" FLAG FOR NAMIBIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1E8: "🇳🇨" FLAG FOR NEW CALEDONIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1EA: "🇳🇪" FLAG FOR NIGER -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1EB: "🇳🇫" FLAG FOR NORFOLK ISLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1EC: "🇳🇬" FLAG FOR NIGERIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1EE: "🇳🇮" FLAG FOR NICARAGUA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1F1: "🇳🇱" FLAG FOR NETHERLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1F4: "🇳🇴" FLAG FOR NORWAY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1F5: "🇳🇵" FLAG FOR NEPAL -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1F7: "🇳🇷" FLAG FOR NAURU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1FA: "🇳🇺" FLAG FOR NIUE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F3 U+1F1FF: "🇳🇿" FLAG FOR NEW ZEALAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F4 U+1F1F2: "🇴🇲" FLAG FOR OMAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1E6: "🇵🇦" FLAG FOR PANAMA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1EA: "🇵🇪" FLAG FOR PERU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1EB: "🇵🇫" FLAG FOR FRENCH POLYNESIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1EC: "🇵🇬" FLAG FOR PAPUA NEW GUINEA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1ED: "🇵🇭" FLAG FOR PHILIPPINES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F0: "🇵🇰" FLAG FOR PAKISTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F1: "🇵🇱" FLAG FOR POLAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F2: "🇵🇲" FLAG FOR ST. PIERRE & MIQUELON -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F3: "🇵🇳" FLAG FOR PITCAIRN ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F7: "🇵🇷" FLAG FOR PUERTO RICO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F8: "🇵🇸" FLAG FOR PALESTINIAN TERRITORIES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1F9: "🇵🇹" FLAG FOR PORTUGAL -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1FC: "🇵🇼" FLAG FOR PALAU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F5 U+1F1FE: "🇵🇾" FLAG FOR PARAGUAY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F6 U+1F1E6: "🇶🇦" FLAG FOR QATAR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F7 U+1F1EA: "🇷🇪" FLAG FOR RÉUNION -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F7 U+1F1F4: "🇷🇴" FLAG FOR ROMANIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F7 U+1F1F8: "🇷🇸" FLAG FOR SERBIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F7 U+1F1FA: "🇷🇺" FLAG FOR RUSSIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F7 U+1F1FC: "🇷🇼" FLAG FOR RWANDA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1E6: "🇸🇦" FLAG FOR SAUDI ARABIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1E7: "🇸🇧" FLAG FOR SOLOMON ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1E8: "🇸🇨" FLAG FOR SEYCHELLES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1E9: "🇸🇩" FLAG FOR SUDAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1EA: "🇸🇪" FLAG FOR SWEDEN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1EC: "🇸🇬" FLAG FOR SINGAPORE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1ED: "🇸🇭" FLAG FOR ST. HELENA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1EE: "🇸🇮" FLAG FOR SLOVENIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1EF: "🇸🇯" FLAG FOR SVALBARD & JAN MAYEN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F0: "🇸🇰" FLAG FOR SLOVAKIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F1: "🇸🇱" FLAG FOR SIERRA LEONE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F2: "🇸🇲" FLAG FOR SAN MARINO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F3: "🇸🇳" FLAG FOR SENEGAL -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F4: "🇸🇴" FLAG FOR SOMALIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F7: "🇸🇷" FLAG FOR SURINAME -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F8: "🇸🇸" FLAG FOR SOUTH SUDAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1F9: "🇸🇹" FLAG FOR SÃO TOMÉ & PRÍNCIPE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1FB: "🇸🇻" FLAG FOR EL SALVADOR -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1FD: "🇸🇽" FLAG FOR SINT MAARTEN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1FE: "🇸🇾" FLAG FOR SYRIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F8 U+1F1FF: "🇸🇿" FLAG FOR SWAZILAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1E6: "🇹🇦" FLAG FOR TRISTAN DA CUNHA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1E8: "🇹🇨" FLAG FOR TURKS & CAICOS ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1E9: "🇹🇩" FLAG FOR CHAD -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1EB: "🇹🇫" FLAG FOR FRENCH SOUTHERN TERRITORIES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1EC: "🇹🇬" FLAG FOR TOGO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1ED: "🇹🇭" FLAG FOR THAILAND -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1EF: "🇹🇯" FLAG FOR TAJIKISTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F0: "🇹🇰" FLAG FOR TOKELAU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F1: "🇹🇱" FLAG FOR TIMOR-LESTE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F2: "🇹🇲" FLAG FOR TURKMENISTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F3: "🇹🇳" FLAG FOR TUNISIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F4: "🇹🇴" FLAG FOR TONGA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F7: "🇹🇷" FLAG FOR TURKEY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1F9: "🇹🇹" FLAG FOR TRINIDAD & TOBAGO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1FB: "🇹🇻" FLAG FOR TUVALU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1FC: "🇹🇼" FLAG FOR TAIWAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1F9 U+1F1FF: "🇹🇿" FLAG FOR TANZANIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1E6: "🇺🇦" FLAG FOR UKRAINE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1EC: "🇺🇬" FLAG FOR UGANDA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1F2: "🇺🇲" FLAG FOR U.S. OUTLYING ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1F8: "🇺🇸" FLAG FOR UNITED STATES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1FE: "🇺🇾" FLAG FOR URUGUAY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FA U+1F1FF: "🇺🇿" FLAG FOR UZBEKISTAN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1E6: "🇻🇦" FLAG FOR VATICAN CITY -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1E8: "🇻🇨" FLAG FOR ST. VINCENT & GRENADINES -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1EA: "🇻🇪" FLAG FOR VENEZUELA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1EC: "🇻🇬" FLAG FOR BRITISH VIRGIN ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1EE: "🇻🇮" FLAG FOR U.S. VIRGIN ISLANDS -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1F3: "🇻🇳" FLAG FOR VIETNAM -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FB U+1F1FA: "🇻🇺" FLAG FOR VANUATU -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FC U+1F1EB: "🇼🇫" FLAG FOR WALLIS & FUTUNA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FC U+1F1F8: "🇼🇸" FLAG FOR SAMOA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FD U+1F1F0: "🇽🇰" FLAG FOR KOSOVO -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FE U+1F1EA: "🇾🇪" FLAG FOR YEMEN -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FE U+1F1F9: "🇾🇹" FLAG FOR MAYOTTE -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FF U+1F1E6: "🇿🇦" FLAG FOR SOUTH AFRICA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FF U+1F1F2: "🇿🇲" FLAG FOR ZAMBIA -->
+  <!-- Spoken description for Unicode code point sequence U+1F1FF U+1F1FC: "🇿🇼" FLAG FOR ZIMBABWE -->
 </resources>

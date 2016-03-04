@@ -19,64 +19,139 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Spoken description to let the user know that when typing in a password, they can plug in a headset in to hear spoken descriptions of the keys they type. [CHAR LIMIT=NONE] -->
   <string name="spoken_use_headphones">Coneuta un auricular pa escuchar les contraseñes en voz alta.</string>
+  <!-- Spoken description for the currently entered text -->
   <string name="spoken_current_text_is">El testu actual ye %s</string>
+  <!-- Spoken description when there is no text entered -->
   <string name="spoken_no_text_entered">Nun s\'introduxo testu</string>
+  <!-- Spoken description to let the user know what auto-correction will be performed when a key is pressed. An auto-correction replaces a single word with one or more words. -->
   <string name="spoken_auto_correct"><xliff:g id="KEY_NAME" example="Space">%1$s</xliff:g> corrixe <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> a <xliff:g id="CORRECTED_WORD">%3$s</xliff:g></string>
+  <!-- Spoken description used during obscured (e.g. password) entry to let the user know that auto-correction will be performed when a key is pressed. -->
   <string name="spoken_auto_correct_obscured"><xliff:g id="KEY_NAME" example="Space">%1$s</xliff:g> fai correición-auto</string>
+  <!-- Spoken description of a suggestion when nothing is specified and the field is blank. -->
+  <!-- Spoken description for unknown keyboard keys. -->
   <string name="spoken_description_unknown">Caráuter desconocíu</string>
+  <!-- Spoken description for the "Shift" keyboard key when "Shift" is off. -->
   <string name="spoken_description_shift">Mayús</string>
+  <!-- Spoken description for the "Shift" keyboard key in symbols mode. -->
   <string name="spoken_description_symbols_shift">Más símbolos</string>
+  <!-- Spoken description for the "Shift" keyboard key when "Shift" is on. -->
   <string name="spoken_description_shift_shifted">Mayús</string>
+  <!-- Spoken description for the "Shift" keyboard key in 2nd symbols (a.k.a. symbols shift) mode. -->
   <string name="spoken_description_symbols_shift_shifted">Símbolos</string>
+  <!-- Spoken description for the "Shift" keyboard key when "Caps lock" is on. -->
   <string name="spoken_description_caps_lock">Mayús</string>
+  <!-- Spoken description for the "Delete" keyboard key. -->
   <string name="spoken_description_delete">Desaniciar</string>
+  <!-- Spoken description for the "To Symbol" keyboard key. -->
   <string name="spoken_description_to_symbol">Símbolos</string>
+  <!-- Spoken description for the "To Alpha" keyboard key. -->
   <string name="spoken_description_to_alpha">Lletres</string>
+  <!-- Spoken description for the "To Numbers" keyboard key. -->
   <string name="spoken_description_to_numeric">Númberos</string>
+  <!-- Spoken description for the "Settings" keyboard key. -->
   <string name="spoken_description_settings">Axustes</string>
+  <!-- Spoken description for the "Tab" keyboard key. -->
   <string name="spoken_description_tab">Tab</string>
+  <!-- Spoken description for the "Space" keyboard key. -->
   <string name="spoken_description_space">Barra espaciadora</string>
+  <!-- Spoken description for the "Mic" keyboard key. -->
   <string name="spoken_description_mic">Entrada de voz</string>
+  <!-- Spoken description for the "Emoji" keyboard key. -->
   <string name="spoken_description_emoji">Emoji</string>
+  <!-- Spoken description for the "Return" keyboard key. -->
   <string name="spoken_description_return">Intro</string>
+  <!-- Spoken description for the "Search" keyboard key. -->
   <string name="spoken_description_search">Guetar</string>
+  <!-- Spoken description for the "U+2022" (BULLET) keyboard key. -->
   <string name="spoken_description_dot">Puntu</string>
+  <!-- Spoken description for the "Switch language" keyboard key. -->
   <string name="spoken_description_language_switch">Cambiar llingua</string>
+  <!-- Spoken description for the "Next" action keyboard key. -->
   <string name="spoken_description_action_next">Siguiente</string>
+  <!-- Spoken description for the "Previous" action keyboard key. -->
   <string name="spoken_description_action_previous">Anterior</string>
+  <!-- Spoken feedback after turning "Shift" mode on. -->
   <string name="spoken_description_shiftmode_on">Mayúscules habilitaes</string>
+  <!-- Spoken feedback after turning "Caps lock" mode on. -->
   <string name="spoken_description_shiftmode_locked">Bloquéu de mayúscules habilitáu</string>
+  <!-- Spoken feedback after changing to the symbols keyboard. -->
   <string name="spoken_description_mode_symbol">Mou de símbolos</string>
+  <!-- Spoken feedback after changing to the 2nd symbols (a.k.a. symbols shift) keyboard. -->
   <string name="spoken_description_mode_symbol_shift">Mou más símbolos</string>
+  <!-- Spoken feedback after changing to the alphanumeric keyboard. -->
   <string name="spoken_description_mode_alpha">Mou de lletres</string>
+  <!-- Spoken feedback after changing to the phone dialer keyboard. -->
   <string name="spoken_description_mode_phone">Mou de teléfonu</string>
+  <!-- Spoken feedback after changing to the shifted phone dialer (symbols) keyboard. -->
   <string name="spoken_description_mode_phone_shift">Mou de símbolos de teléfonu</string>
+  <!-- Spoken feedback when the keyboard is hidden. -->
   <string name="announce_keyboard_hidden">Tecláu tapecíu</string>
+  <!-- Spoken feedback when the keyboard mode changes. -->
   <string name="announce_keyboard_mode">Amosando tecláu <xliff:g id="KEYBOARD_MODE" example="email">%s</xliff:g></string>
+  <!-- Description of the keyboard mode for entering dates. -->
   <string name="keyboard_mode_date">data</string>
+  <!-- Description of the keyboard mode for entering dates and times. -->
   <string name="keyboard_mode_date_time">data y hora</string>
+  <!-- Description of the keyboard mode for entering email addresses. -->
   <string name="keyboard_mode_email">corréu-e</string>
+  <!-- Description of the keyboard mode for entering text messages. -->
   <string name="keyboard_mode_im">mensaxes</string>
+  <!-- Description of the keyboard mode for entering numbers. -->
   <string name="keyboard_mode_number">númberu</string>
+  <!-- Description of the keyboard mode for entering phone numbers. -->
   <string name="keyboard_mode_phone">teléfonu</string>
+  <!-- Description of the keyboard mode for entering generic text. -->
   <string name="keyboard_mode_text">testu</string>
+  <!-- Description of the keyboard mode for entering times. -->
   <string name="keyboard_mode_time">hora</string>
+  <!-- Description of the keyboard mode for entering URLs. -->
   <string name="keyboard_mode_url">URL</string>
+  <!-- Description of the emoji category icon of Recents. -->
   <string name="spoken_descrption_emoji_category_recents">Recientes</string>
+  <!-- Description of the emoji category icon of People. -->
   <string name="spoken_descrption_emoji_category_people">Persones</string>
+  <!-- Description of the emoji category icon of Objects. -->
   <string name="spoken_descrption_emoji_category_objects">Oxetos</string>
+  <!-- Description of the emoji category icon of Nature. -->
   <string name="spoken_descrption_emoji_category_nature">Natura</string>
+  <!-- Description of the emoji category icon of Places. -->
   <string name="spoken_descrption_emoji_category_places">Llugares</string>
+  <!-- Description of the emoji category icon of Symbols. -->
   <string name="spoken_descrption_emoji_category_symbols">Símbolos</string>
+  <!-- Description of the emoji category icon of Flags. -->
+  <!-- Description of the emoji category icon of Smiley & People. -->
+  <!-- Description of the emoji category icon of Animals & Nature. -->
+  <!-- Description of the emoji category icon of Food & Drink. -->
+  <!-- Description of the emoji category icon of Travel & Places. -->
+  <!-- Description of the emoji category icon of Activity. -->
+  <!-- Description of the emoji category icon of Emoticons. -->
   <string name="spoken_descrption_emoji_category_emoticons">Fustaxes</string>
+  <!-- Description of an upper case letter of LOWER_LETTER. -->
   <string name="spoken_description_upper_case">Mayúscula <xliff:g id="LOWER_LETTER" example="A, E, ligature">%s</xliff:g></string>
+  <!-- Spoken description for Unicode code point U+0049: "I" LATIN CAPITAL LETTER I
+         Note that depending on locale, the lower-case of this letter is U+0069 or U+0131. -->
   <string name="spoken_letter_0049">Mayúscula I</string>
+  <!-- Spoken description for Unicode code point U+0130: "İ" LATIN CAPITAL LETTER I WITH DOT ABOVE
+         Note that depending on locale, the lower-case of this letter is U+0069 or U+0131. -->
   <string name="spoken_letter_0130">Mayúscula I, puntu arriba</string>
+  <!-- Spoken description for unknown symbol code point. -->
   <string name="spoken_symbol_unknown">Símbolu desconocíu</string>
+  <!-- Spoken description for unknown emoji code point. -->
   <string name="spoken_emoji_unknown">Emoji desconocíu</string>
+  <!-- Spoken description for emoticons ":-!". -->
+  <!-- Spoken description for emoticons ":-$". -->
+  <!-- Spoken description for emoticons "B-)". -->
+  <!-- Spoken description for emoticons ":O". -->
+  <!-- Spoken description for emoticons ":-*". -->
+  <!-- Spoken description for emoticons ":-[". -->
+  <!-- Spoken descriptions when opening a more keys keyboard that has alternative characters. -->
   <string name="spoken_open_more_keys_keyboard">Caráuteres alternativos disponibles</string>
+  <!-- Spoken descriptions when closing a more keys keyboard that has alternative characters. -->
   <string name="spoken_close_more_keys_keyboard">Caráuteres alternativos descartaos</string>
+  <!-- Spoken descriptions when opening a more suggestions panel that has alternative suggested words. -->
   <string name="spoken_open_more_suggestions">Suxerencies alternatives disponibles</string>
+  <!-- Spoken descriptions when closing a more suggestions panel that has alternative suggested words. -->
   <string name="spoken_close_more_suggestions">Suxerencies alternatives descartaes</string>
 </resources>

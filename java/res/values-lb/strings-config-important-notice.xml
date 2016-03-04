@@ -19,5 +19,6 @@
 */
 -->
 <resources>
+  <!-- Description for option enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=68] -->
   <string name="use_personalized_dicts_summary">Aus de getippten Texter léieren an d\'Daten auswäerte fir d\'Virschléi ze verbesseren</string>
 </resources>
