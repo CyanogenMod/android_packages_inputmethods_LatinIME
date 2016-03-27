@@ -25,5 +25,4 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Bépo
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-  <string name="subtype_no_language_bepo">Alfabet (Bépo)</string>
 </resources>
