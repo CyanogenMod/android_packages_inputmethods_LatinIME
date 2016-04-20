@@ -19,12 +19,20 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. [CHAR LIMIT=7] -->
   <string name="label_go_key">Lass</string>
+  <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_next_key">Weider</string>
+  <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_previous_key">Zréck</string>
+  <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_done_key">Fäerdeg</string>
+  <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_send_key">Schécken</string>
+  <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_search_key">Sichen</string>
+  <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <string name="label_pause_key">Paus</string>
+  <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
   <string name="label_wait_key">Waart</string>
 </resources>
