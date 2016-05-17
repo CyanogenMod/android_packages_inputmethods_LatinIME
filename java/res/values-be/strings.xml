@@ -31,6 +31,7 @@
   <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
   <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
   <!-- Settings screen title for advanced settings [CHAR LIMIT=33] -->
+  <string name="settings_screen_advanced">Падрабязьней</string>
   <!-- Settings screen title for keyboard theme settings [CHAR LIMIT=33] -->
   <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
   <!-- Option title for enabling cloud sync feature [CHAR LIMIT=33]-->
@@ -260,6 +261,7 @@ mobile devices. [CHAR LIMIT=25] -->
   <!-- Message to display in the dictionaries setting screen when some error prevented us to list installed dictionaries [CHAR LIMIT=20] -->
   <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available [CHAR LIMIT=20]-->
   <!-- Title of the options to press to refresh the list (as in, check for updates now) [CHAR_LIMIT=50] -->
+  <string name="check_for_updates_now">Абнавіць</string>
   <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. [CHAR LIMIT=45] -->
   <!-- Message to display in a dialog box while we are actively updating the word list [CHAR LIMIT=60] -->
   <!-- Message to display while the add-on dictionary list is updating [no space constraints on this, there is plenty of space but shorter is better because it's only on the screen for a second] -->
