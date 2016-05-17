@@ -32,10 +32,12 @@
   <!-- Spoken description for the "Shift" keyboard key in 2nd symbols (a.k.a. symbols shift) mode. -->
   <!-- Spoken description for the "Shift" keyboard key when "Caps lock" is on. -->
   <!-- Spoken description for the "Delete" keyboard key. -->
+  <string name="spoken_description_delete">Выдалiць</string>
   <!-- Spoken description for the "To Symbol" keyboard key. -->
   <!-- Spoken description for the "To Alpha" keyboard key. -->
   <!-- Spoken description for the "To Numbers" keyboard key. -->
   <!-- Spoken description for the "Settings" keyboard key. -->
+  <string name="spoken_description_settings">Налады</string>
   <!-- Spoken description for the "Tab" keyboard key. -->
   <!-- Spoken description for the "Space" keyboard key. -->
   <!-- Spoken description for the "Mic" keyboard key. -->
@@ -65,6 +67,7 @@
   <!-- Description of the keyboard mode for entering times. -->
   <!-- Description of the keyboard mode for entering URLs. -->
   <!-- Description of the emoji category icon of Recents. -->
+  <string name="spoken_descrption_emoji_category_recents">Апошнія</string>
   <!-- Description of the emoji category icon of People. -->
   <!-- Description of the emoji category icon of Objects. -->
   <!-- Description of the emoji category icon of Nature. -->
