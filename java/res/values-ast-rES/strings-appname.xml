@@ -19,8 +19,16 @@
 */
 -->
 <resources>
+  <!-- Application name for opensource Android keyboard. AOSP(Android Open Source Project) should not be translated.
+         This resource should be copied from msgid="8250992613616792321" -->
   <string name="english_ime_name">Tecláu Android (AOSP)</string>
+  <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
+         This resource should be copied from msgid="511950477199948048" -->
   <string name="spell_checker_service_name">Correutor ortográficu Android (AOSP)</string>
+  <!-- Title for Android Keyboard settings screen. AOSP(Android Open Source Project) should not be translated.
+         This resource should be copied from msgid="423615877174850267" -->
   <string name="english_ime_settings">Axustes tecláu Android (AOSP)</string>
+  <!-- Title for the spell checking service settings screen. AOSP(Android Open Source Project) should not be translated.
+         This resource should be copied from msgid="2970535894327288421" -->
   <string name="android_spell_checker_settings">Axustes correutor ortográficu Android (AOSP)</string>
 </resources>
