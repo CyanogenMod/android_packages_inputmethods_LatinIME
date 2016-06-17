@@ -30,6 +30,7 @@
   <!-- Spoken description used during obscured (e.g. password) entry to let the user know that auto-correction will be performed when a key is pressed. -->
   <string name="spoken_auto_correct_obscured"><xliff:g id="KEY_NAME" example="Space">%1$s</xliff:g> fai correición-auto</string>
   <!-- Spoken description of a suggestion when nothing is specified and the field is blank. -->
+  <string name="spoken_empty_suggestion">Ensin suxerencies</string>
   <!-- Spoken description for unknown keyboard keys. -->
   <string name="spoken_description_unknown">Caráuter desconocíu</string>
   <!-- Spoken description for the "Shift" keyboard key when "Shift" is off. -->
@@ -121,11 +122,17 @@
   <!-- Description of the emoji category icon of Symbols. -->
   <string name="spoken_descrption_emoji_category_symbols">Símbolos</string>
   <!-- Description of the emoji category icon of Flags. -->
+  <string name="spoken_descrption_emoji_category_flags">Banderes</string>
   <!-- Description of the emoji category icon of Smiley & People. -->
+  <string name="spoken_descrption_emoji_category_eight_smiley_people">Sorrises y xente</string>
   <!-- Description of the emoji category icon of Animals & Nature. -->
+  <string name="spoken_descrption_emoji_category_eight_animals_nature">Animales y ñatura</string>
   <!-- Description of the emoji category icon of Food & Drink. -->
+  <string name="spoken_descrption_emoji_category_eight_food_drink">Xinta y bébores</string>
   <!-- Description of the emoji category icon of Travel & Places. -->
+  <string name="spoken_descrption_emoji_category_eight_travel_places">Viaxes y llugares</string>
   <!-- Description of the emoji category icon of Activity. -->
+  <string name="spoken_descrption_emoji_category_eight_activity">Actividaes</string>
   <!-- Description of the emoji category icon of Emoticons. -->
   <string name="spoken_descrption_emoji_category_emoticons">Fustaxes</string>
   <!-- Description of an upper case letter of LOWER_LETTER. -->
@@ -141,11 +148,17 @@
   <!-- Spoken description for unknown emoji code point. -->
   <string name="spoken_emoji_unknown">Emoji desconocíu</string>
   <!-- Spoken description for emoticons ":-!". -->
+  <string name="spoken_emoticon_3A_2D_21_20">Cara aburrida</string>
   <!-- Spoken description for emoticons ":-$". -->
+  <string name="spoken_emoticon_3A_2D_24_20">Cara avergoñada</string>
   <!-- Spoken description for emoticons "B-)". -->
+  <string name="spoken_emoticon_42_2D_29_20">Cara con gafes de sol</string>
   <!-- Spoken description for emoticons ":O". -->
+  <string name="spoken_emoticon_3A_4F_20">Cara clisada</string>
   <!-- Spoken description for emoticons ":-*". -->
+  <string name="spoken_emoticon_3A_2D_2A_20">Cara besando</string>
   <!-- Spoken description for emoticons ":-[". -->
+  <string name="spoken_emoticon_3A_2D_5B_20">Cara ceñuda</string>
   <!-- Spoken descriptions when opening a more keys keyboard that has alternative characters. -->
   <string name="spoken_open_more_keys_keyboard">Caráuteres alternativos disponibles</string>
   <!-- Spoken descriptions when closing a more keys keyboard that has alternative characters. -->
