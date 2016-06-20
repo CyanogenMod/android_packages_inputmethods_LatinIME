@@ -824,6 +824,7 @@
   <!-- Spoken description for Unicode code point U+1F3F4: "🏴" WAVING BLACK FLAG -->
   <!-- Spoken description for Unicode code point U+1F3F5: "🏵" ROSETTE -->
   <!-- Spoken description for Unicode code point U+1F3F7: "🏷" LABEL -->
+  <string name="spoken_emoji_1F3F7">Etiqueta</string>
   <!-- Spoken description for Unicode code point U+1F3F8: "🏸" BADMINTON RACQUET AND SHUTTLECOCK -->
   <!-- Spoken description for Unicode code point U+1F3F9: "🏹" BOW AND ARROW -->
   <string name="spoken_emoji_1F3F9">Arcu y flecha</string>
@@ -844,6 +845,7 @@
   <!-- Spoken description for Unicode code point U+1F404: "🐄" COW -->
   <string name="spoken_emoji_1F404">Cow</string>
   <!-- Spoken description for Unicode code point U+1F405: "🐅" TIGER -->
+  <string name="spoken_emoji_1F405">Tigre</string>
   <!-- Spoken description for Unicode code point U+1F406: "🐆" LEOPARD -->
   <string name="spoken_emoji_1F406">Leopard</string>
   <!-- Spoken description for Unicode code point U+1F407: "🐇" RABBIT -->
@@ -1338,6 +1340,7 @@
   <!-- Spoken description for Unicode code point U+1F4FC: "📼" VIDEOCASSETTE -->
   <string name="spoken_emoji_1F4FC">Videocassette</string>
   <!-- Spoken description for Unicode code point U+1F4FD: "📽" FILM PROJECTOR -->
+  <string name="spoken_emoji_1F4FD">Proyeutor</string>
   <!-- Spoken description for Unicode code point U+1F4FF: "📿" PRAYER BEADS -->
   <!-- Spoken description for Unicode code point U+1F500: "🔀" TWISTED RIGHTWARDS ARROWS -->
   <string name="spoken_emoji_1F500">Twisted rightwards arrows</string>
@@ -1464,6 +1467,7 @@
   <!-- Spoken description for Unicode code point U+1F53D: "🔽" DOWN-POINTING SMALL RED TRIANGLE -->
   <string name="spoken_emoji_1F53D">Down-pointing small red triangle</string>
   <!-- Spoken description for Unicode code point U+1F549: "🕉" OM SYMBOL -->
+  <string name="spoken_emoji_1F549">Símbolu d\'Om</string>
   <!-- Spoken description for Unicode code point U+1F54A: "🕊" DOVE OF PEACE -->
   <!-- Spoken description for Unicode code point U+1F54B: "🕋" KAABA -->
   <!-- Spoken description for Unicode code point U+1F54C: "🕌" MOSQUE -->
@@ -1524,6 +1528,7 @@
   <!-- Spoken description for Unicode code point U+1F574: "🕴" MAN IN BUSINESS SUIT LEVITATING -->
   <!-- Spoken description for Unicode code point U+1F575: "🕵" SLEUTH OR SPY -->
   <!-- Spoken description for Unicode code point U+1F576: "🕶" DARK SUNGLASSES -->
+  <string name="spoken_emoji_1F576">Gafes de sol prietes</string>
   <!-- Spoken description for Unicode code point U+1F577: "🕷" SPIDER -->
   <string name="spoken_emoji_1F577">Araña</string>
   <!-- Spoken description for Unicode code point U+1F578: "🕸" SPIDER WEB -->
@@ -1545,6 +1550,7 @@
   <string name="spoken_emoji_1F5B1">Mur de tres botones</string>
   <!-- Spoken description for Unicode code point U+1F5B2: "🖲" TRACKBALL -->
   <!-- Spoken description for Unicode code point U+1F5BC: "🖼" FRAME WITH PICTURE -->
+  <string name="spoken_emoji_1F5BC">Marcu con semeya</string>
   <!-- Spoken description for Unicode code point U+1F5C2: "🗂" CARD INDEX DIVIDERS -->
   <!-- Spoken description for Unicode code point U+1F5C3: "🗃" CARD FILE BOX -->
   <!-- Spoken description for Unicode code point U+1F5C4: "🗄" FILE CABINET -->
@@ -1561,6 +1567,7 @@
   <!-- Spoken description for Unicode code point U+1F5EF: "🗯" RIGHT ANGER BUBBLE -->
   <!-- Spoken description for Unicode code point U+1F5F3: "🗳" BALLOT BOX WITH BALLOT -->
   <!-- Spoken description for Unicode code point U+1F5FA: "🗺" WORLD MAP -->
+  <string name="spoken_emoji_1F5FA">Mapa mundial</string>
   <!-- Spoken description for Unicode code point U+1F5FB: "🗻" MOUNT FUJI -->
   <string name="spoken_emoji_1F5FB">Mount fuji</string>
   <!-- Spoken description for Unicode code point U+1F5FC: "🗼" TOKYO TOWER -->
@@ -1893,13 +1900,17 @@
   <!-- Spoken description for Unicode code point U+1F912: "🤒" FACE WITH THERMOMETER -->
   <!-- Spoken description for Unicode code point U+1F913: "🤓" NERD FACE -->
   <!-- Spoken description for Unicode code point U+1F914: "🤔" THINKING FACE -->
+  <string name="spoken_emoji_1F914">Cara pensatible</string>
   <!-- Spoken description for Unicode code point U+1F915: "🤕" FACE WITH HEAD-BANDAGE -->
   <!-- Spoken description for Unicode code point U+1F916: "🤖" ROBOT FACE -->
+  <string name="spoken_emoji_1F916">Cara de robó</string>
   <!-- Spoken description for Unicode code point U+1F917: "🤗" HUGGING FACE -->
   <!-- Spoken description for Unicode code point U+1F918: "🤘" SIGN OF THE HORNS -->
   <!-- Spoken description for Unicode code point U+1F980: "🦀" CRAB -->
   <!-- Spoken description for Unicode code point U+1F981: "🦁" LION FACE -->
+  <string name="spoken_emoji_1F981">Cara de lleón</string>
   <!-- Spoken description for Unicode code point U+1F982: "🦂" SCORPION -->
+  <string name="spoken_emoji_1F982">Allacrán</string>
   <!-- Spoken description for Unicode code point U+1F983: "🦃" TURKEY -->
   <!-- Spoken description for Unicode code point U+1F984: "🦄" UNICORN FACE -->
   <string name="spoken_emoji_1F984">Cara d\'unicorniu</string>
@@ -1980,7 +1991,9 @@
   <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FD: "🇨🇽" FLAG FOR CHRISTMAS ISLAND -->
   <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FE: "🇨🇾" FLAG FOR CYPRUS -->
   <!-- Spoken description for Unicode code point sequence U+1F1E8 U+1F1FF: "🇨🇿" FLAG FOR CZECH REPUBLIC -->
+  <string name="spoken_emoji_1F1E8_1F1FF">Bandera de Chequia</string>
   <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EA: "🇩🇪" FLAG FOR GERMANY -->
+  <string name="spoken_emoji_1F1E9_1F1EA">Bandera d\'Alemaña</string>
   <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EC: "🇩🇬" FLAG FOR DIEGO GARCIA -->
   <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1EF: "🇩🇯" FLAG FOR DJIBOUTI -->
   <!-- Spoken description for Unicode code point sequence U+1F1E9 U+1F1F0: "🇩🇰" FLAG FOR DENMARK -->
