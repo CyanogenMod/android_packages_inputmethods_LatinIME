@@ -93,9 +93,10 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
         final SwitchPreference suggestionsEnabledPreference = (SwitchPreference) findPreference(
                 Settings.PREF_SHOW_SUGGESTIONS);
-        if (suggestionsEnabledPreference != null) {
-            suggestionsEnabledPreference.setChecked(
-                    Settings.getInstance().getCurrent().isSuggestionsEnabledPerUserSettings());
+        final SettingsValues currentSettings = Settings.getInstance().getCurrent();
+        if (suggestionsEnabledPreference != null && currentSettings != null) {
+                suggestionsEnabledPreference.setChecked(
+                         currentSettings.isSuggestionsEnabledPerUserSettings());
         }
     }
 
