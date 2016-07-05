@@ -51,6 +51,7 @@
         android:key="show_suggestions"
         android:summary="@string/prefs_show_suggestions_summary"
         android:title="@string/prefs_show_suggestions"
+        android:defaultValue="@bool/config_show_suggestions_default"
         android:persistent="true" />
     <CheckBoxPreference
         android:key="pref_key_use_personalized_dicts"
