@@ -90,13 +90,6 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
         mUseContactsPreference = (SwitchPreference) findPreference(Settings.PREF_KEY_USE_CONTACTS_DICT);
         turnOffUseContactsIfNoPermission();
-
-        final SwitchPreference suggestionsEnabledPreference = (SwitchPreference) findPreference(
-                Settings.PREF_SHOW_SUGGESTIONS);
-        if (suggestionsEnabledPreference != null) {
-            suggestionsEnabledPreference.setChecked(
-                    Settings.getInstance().getCurrent().isSuggestionsEnabledPerUserSettings());
-        }
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {
