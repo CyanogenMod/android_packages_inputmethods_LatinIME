@@ -41,6 +41,8 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
     private static final String TAG = ContactsBinaryDictionary.class.getSimpleName();
     private static final String NAME = "contacts";
 
+    private static final int FREQUENCY_FOR_CONTACTS = 40;
+
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_DUMP = false;
 
@@ -100,8 +102,8 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
                 Log.d(TAG, "loadAccountVocabulary: " + word);
             }
             runGCIfRequiredLocked(true /* mindsBlockByGC */);
-            addUnigramLocked(word, ContactsDictionaryConstants.FREQUENCY_FOR_CONTACTS,
-                    false /* isNotAWord */, false /* isPossiblyOffensive */,
+            addUnigramLocked(word, FREQUENCY_FOR_CONTACTS, null /* shortcut */,
+                    0 /* shortcutFreq */, false /* isNotAWord */, false /* isPossiblyOffensive */,
                     BinaryDictionary.NOT_A_VALID_TIMESTAMP);
         }
     }
@@ -151,8 +153,8 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
                         Log.d(TAG, "addName " + name + ", " + word + ", "  + ngramContext);
                     }
                     runGCIfRequiredLocked(true /* mindsBlockByGC */);
-                    addUnigramLocked(word,
-                            ContactsDictionaryConstants.FREQUENCY_FOR_CONTACTS, false /* isNotAWord */,
+                    addUnigramLocked(word, FREQUENCY_FOR_CONTACTS,
+                            null /* shortcut */, 0 /* shortcutFreq */, false /* isNotAWord */,
                             false /* isPossiblyOffensive */,
                             BinaryDictionary.NOT_A_VALID_TIMESTAMP);
                     if (ngramContext.isValid() && mUseFirstLastBigrams) {
