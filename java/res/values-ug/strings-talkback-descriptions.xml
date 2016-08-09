@@ -25,6 +25,7 @@
   <!-- Spoken description to let the user know what auto-correction will be performed when a key is pressed. An auto-correction replaces a single word with one or more words. -->
   <!-- Spoken description used during obscured (e.g. password) entry to let the user know that auto-correction will be performed when a key is pressed. -->
   <!-- Spoken description of a suggestion when nothing is specified and the field is blank. -->
+  <string name="spoken_empty_suggestion">تەكلىپ يوق</string>
   <!-- Spoken description for unknown keyboard keys. -->
   <!-- Spoken description for the "Shift" keyboard key when "Shift" is off. -->
   <!-- Spoken description for the "Shift" keyboard key in symbols mode. -->
