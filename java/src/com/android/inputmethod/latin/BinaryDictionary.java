@@ -412,11 +412,9 @@ public final class BinaryDictionary extends Dictionary {
                 outFlags[FORMAT_WORD_PROPERTY_IS_NOT_A_WORD_INDEX],
                 outFlags[FORMAT_WORD_PROPERTY_IS_POSSIBLY_OFFENSIVE_INDEX],
                 outFlags[FORMAT_WORD_PROPERTY_HAS_NGRAMS_INDEX],
-                outFlags[FORMAT_WORD_PROPERTY_HAS_SHORTCUTS_INDEX],
                 outFlags[FORMAT_WORD_PROPERTY_IS_BEGINNING_OF_SENTENCE_INDEX], outProbabilityInfo,
                 outNgramPrevWordsArray, outNgramPrevWordIsBeginningOfSentenceArray,
-                outNgramTargets, outNgramProbabilityInfo, outShortcutTargets,
-                outShortcutProbabilities);
+                outNgramTargets, outNgramProbabilityInfo);
     }
 
     public static class GetNextWordPropertyResult {
@@ -444,19 +442,16 @@ public final class BinaryDictionary extends Dictionary {
     }
 
     // Add a unigram entry to binary dictionary with unigram attributes in native code.
-    public boolean addUnigramEntry(final String word, final int probability,
-                                   final String shortcutTarget, final int shortcutProbability,
-                                   final boolean isBeginningOfSentence, final boolean isNotAWord,
-                                   final boolean isPossiblyOffensive, final int timestamp) {
+    public boolean addUnigramEntry(
+            final String word, final int probability, final boolean isBeginningOfSentence,
+            final boolean isNotAWord, final boolean isPossiblyOffensive, final int timestamp) {
         if (word == null || (word.isEmpty() && !isBeginningOfSentence)) {
             return false;
         }
         final int[] codePoints = StringUtils.toCodePointArray(word);
-        final int[] shortcutTargetCodePoints = (shortcutTarget != null) ?
-                StringUtils.toCodePointArray(shortcutTarget) : null;
-        if (!addUnigramEntryNative(mNativeDict, codePoints, probability, shortcutTargetCodePoints,
-                shortcutProbability, isBeginningOfSentence, isNotAWord, isPossiblyOffensive,
-                timestamp)) {
+        if (!addUnigramEntryNative(mNativeDict, codePoints, probability,
+                null /* shortcutTargetCodePoints */, 0 /* shortcutProbability */,
+                isBeginningOfSentence, isNotAWord, isPossiblyOffensive, timestamp)) {
             return false;
         }
         mHasUpdated = true;
