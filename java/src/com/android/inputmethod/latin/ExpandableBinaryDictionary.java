@@ -294,23 +294,19 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /**
      * Adds unigram information of a word to the dictionary. May overwrite an existing entry.
      */
-    // Add a unigram entry to binary dictionary with unigram attributes in native code.
     public void addUnigramEntry(final String word, final int frequency,
-                                final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
-                                final boolean isPossiblyOffensive, final int timestamp) {
+            final boolean isNotAWord, final boolean isPossiblyOffensive, final int timestamp) {
         updateDictionaryWithWriteLock(new Runnable() {
             @Override
             public void run() {
-                addUnigramLocked(word, frequency, shortcutTarget, shortcutFreq,
-                        isNotAWord, isPossiblyOffensive, timestamp);
+                addUnigramLocked(word, frequency, isNotAWord, isPossiblyOffensive, timestamp);
             }
         });
     }
 
     protected void addUnigramLocked(final String word, final int frequency,
-                                    final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
-                                    final boolean isPossiblyOffensive, final int timestamp) {
-        if (!mBinaryDictionary.addUnigramEntry(word, frequency, shortcutTarget, shortcutFreq,
+            final boolean isNotAWord, final boolean isPossiblyOffensive, final int timestamp) {
+        if (!mBinaryDictionary.addUnigramEntry(word, frequency,
                 false /* isBeginningOfSentence */, isNotAWord, isPossiblyOffensive, timestamp)) {
             Log.e(TAG, "Cannot add unigram entry. word: " + word);
         }
