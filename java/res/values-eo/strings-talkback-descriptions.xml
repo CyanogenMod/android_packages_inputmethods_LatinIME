@@ -36,6 +36,7 @@
   <!-- Spoken description for the "To Alpha" keyboard key. -->
   <!-- Spoken description for the "To Numbers" keyboard key. -->
   <!-- Spoken description for the "Settings" keyboard key. -->
+  <string name="spoken_description_settings">Agordoj</string>
   <!-- Spoken description for the "Tab" keyboard key. -->
   <!-- Spoken description for the "Space" keyboard key. -->
   <!-- Spoken description for the "Mic" keyboard key. -->
