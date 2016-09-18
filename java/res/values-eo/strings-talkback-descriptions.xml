@@ -32,10 +32,13 @@
   <!-- Spoken description for the "Shift" keyboard key in 2nd symbols (a.k.a. symbols shift) mode. -->
   <!-- Spoken description for the "Shift" keyboard key when "Caps lock" is on. -->
   <!-- Spoken description for the "Delete" keyboard key. -->
+  <string name="spoken_description_delete">Forigi</string>
   <!-- Spoken description for the "To Symbol" keyboard key. -->
   <!-- Spoken description for the "To Alpha" keyboard key. -->
+  <string name="spoken_description_to_alpha">Literoj</string>
   <!-- Spoken description for the "To Numbers" keyboard key. -->
   <!-- Spoken description for the "Settings" keyboard key. -->
+  <string name="spoken_description_settings">Agordoj</string>
   <!-- Spoken description for the "Tab" keyboard key. -->
   <!-- Spoken description for the "Space" keyboard key. -->
   <!-- Spoken description for the "Mic" keyboard key. -->
@@ -71,6 +74,7 @@
   <!-- Description of the emoji category icon of Places. -->
   <!-- Description of the emoji category icon of Symbols. -->
   <!-- Description of the emoji category icon of Flags. -->
+  <string name="spoken_descrption_emoji_category_flags">Flagoj</string>
   <!-- Description of the emoji category icon of Smiley & People. -->
   <!-- Description of the emoji category icon of Animals & Nature. -->
   <!-- Description of the emoji category icon of Food & Drink. -->
