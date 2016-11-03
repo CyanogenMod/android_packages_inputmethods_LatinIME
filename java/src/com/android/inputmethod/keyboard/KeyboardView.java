@@ -355,12 +355,8 @@ public class KeyboardView extends View {
         if (key.needsToKeepBackgroundAspectRatio(mDefaultKeyLabelFlags)
                 // HACK: To disable expanding normal/functional key background.
                 && !key.hasCustomActionLabel()) {
-            final int intrinsicWidth = background.getIntrinsicWidth();
-            final int intrinsicHeight = background.getIntrinsicHeight();
-            final float minScale = Math.min(
-                    keyWidth / (float)intrinsicWidth, keyHeight / (float)intrinsicHeight);
-            bgWidth = (int)(intrinsicWidth * minScale);
-            bgHeight = (int)(intrinsicHeight * minScale);
+            bgWidth = background.getIntrinsicWidth();
+            bgHeight = background.getIntrinsicHeight();
             bgX = (keyWidth - bgWidth) / 2;
             bgY = (keyHeight - bgHeight) / 2;
         } else {
@@ -370,10 +366,7 @@ public class KeyboardView extends View {
             bgX = -padding.left;
             bgY = -padding.top;
         }
-        final Rect bounds = background.getBounds();
-        if (bgWidth != bounds.right || bgHeight != bounds.bottom) {
-            background.setBounds(0, 0, bgWidth, bgHeight);
-        }
+        background.setBounds(0, 0, bgWidth, bgHeight);
         canvas.translate(bgX, bgY);
         background.draw(canvas);
         canvas.translate(-bgX, -bgY);
