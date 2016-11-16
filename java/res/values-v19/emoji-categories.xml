@@ -428,6 +428,8 @@
         <item>1f508</item>
         <item>1f509</item>
         <item>1f50a</item>
+        <item>1f5a4</item>
+        <item>1f6d1</item>
     </array>
     <array
         name="emoji_faces"
@@ -563,6 +565,20 @@
         <item>1f49b</item>
         <item>1f49c</item>
         <item>1f493</item>
+        <!--item>1F920</item-->
+        <!--item>1F921</item-->
+        <!--item>1F922</item-->
+        <item>1F923</item>
+        <item>1F924</item>
+        <!--item>1F925</item-->
+        <item>1F926</item>
+        <!--item>1F927</item-->
+        <item>1F930</item>
+        <item>1F933</item>
+        <item>1F934</item>
+        <item>1F935</item>
+        <item>1F936</item>
+        <item>1F937</item>
         <item>1f494</item>
         <item>1f495</item>
         <item>1f496</item>
@@ -586,6 +602,12 @@
         <item>1f44b</item>
         <item>1f44f</item>
         <item>1f450</item>
+        <item>1F919</item>
+        <item>1F91A</item>
+        <item>1F91B</item>
+        <item>1F91C</item>
+        <item>1F91D</item>
+        <item>1F91E</item>
     </array>
     <array
         name="emoji_objects"
@@ -753,6 +775,18 @@
         <item>1f3ba</item>
         <item>1f3b8</item>
         <item>303d</item>
+        <item>1F940</item>
+        <item>1F941</item>
+        <item>1F942</item>
+        <item>1F943</item>
+        <item>1F944</item>
+        <item>1F945</item>
+        <item>1F946</item>
+        <item>1F947</item>
+        <item>1F948</item>
+        <item>1F949</item>
+        <item>1F94A</item>
+        <item>1F94B</item>
     </array>
     <array
         name="emoji_places"
@@ -1124,21 +1158,14 @@
         name="emoji_emoticons"
         format="string"
     >
-        <item>=-O</item>
-        <item>:-P</item>
-        <item>;-)</item>
-        <item>:-(</item>
-        <item>:-)</item>
-        <item>:-!</item>
-        <item>:-$</item>
-        <item>B-)</item>
-        <item>:O</item>
-        <item>:-*</item>
-        <item>:-D</item>
-        <item>:\'(</item>
-        <item>:-\\</item>
-        <item>O:-)</item>
-        <item>:-[</item>
+        <item>(╯°□</item>
+        <item>°）╯</item>
+        <item>︵ ┻━┻</item>
+        <item>¯\\_(</item>
+        <item>ツ)_/¯</item>
+        <item>┬─┬﻿︵ </item>
+        <item>/(.□.</item>
+        <item> \\</item>
     </array>
     <array
         name="emoji_eight_symbols"
@@ -1429,6 +1456,19 @@
         <item>1f577</item>
         <item>1f578</item>
         <item>1f982</item>
+        <item>1f985</item>
+        <item>1f986</item>
+        <item>1f987</item>
+        <item>1f988</item>
+        <item>1f989</item>
+        <item>1f98A</item>
+        <item>1f98B</item>
+        <item>1f98C</item>
+        <item>1f98D</item>
+        <item>1f98E</item>
+        <item>1f98F</item>
+        <item>1f990</item>
+        <item>1f991</item>
         <item>1f490</item>
         <item>1f338</item>
         <item>1f4ae</item>
@@ -2005,6 +2045,21 @@
         <item>1f374</item>
         <item>1f373</item>
         <item>1f3fa</item>
+        <item>1F950</item>
+        <item>1F951</item>
+        <item>1F952</item>
+        <item>1F953</item>
+        <item>1F954</item>
+        <item>1F955</item>
+        <item>1F956</item>
+        <item>1F957</item>
+        <item>1F958</item>
+        <item>1F959</item>
+        <item>1F95A</item>
+        <item>1F95B</item>
+        <item>1F95C</item>
+        <item>1F95D</item>
+        <item>1F95E</item>
     </array>
     <array
         name="emoji_eight_objects"
@@ -2239,6 +2294,13 @@
         <item>1f0cf</item>
         <item>1f004</item>
         <item>1f3b4</item>
+        <item>1F938</item>
+        <item>1F939</item>
+        <item>1F93A</item>
+        <!--item>1F93B</item-->
+        <item>1F93C</item>
+        <item>1F93D</item>
+        <item>1F93E</item>
     </array>
     <array
         name="emoji_eight_travel_places"
