@@ -233,7 +233,7 @@ mobile devices. [CHAR LIMIT=25] -->
   <!-- Title of the 1st step in the setup wizard. [CHAR LIMIT=64] -->
   <!-- Detailed instruction of the 1st step in the setup wizard. [CHAR LIMIT=120] -->
   <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
-  <!-- The label of the button that triggers the Language & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
+  <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
   <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
   <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
   <!-- Detailed instruction of the 2nd step in the setup wizard. [CHAR LIMIT=120] -->
@@ -269,7 +269,7 @@ mobile devices. [CHAR LIMIT=25] -->
   <!-- Action to download and install a dictionary [CHAR_LIMIT=15] -->
   <!-- Action to cancel the ongoing download of a dictionary file [CHAR_LIMIT=25] -->
   <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
-  <!-- Message in the popup informing the user a dictionary is available for their language, and asking for a decision to download over their mobile data plan or not. The reason we ask for this is, the data is large and may be downloaded over a paid-per-megabyte connection but a dictionary is also essential to type comfortably, so we ask the user. This only pops in selected cases, when there is no dictionary at all currently, and the only available network seems to be metered. The "Language & input" part should be set to the actual name of the option (message ID 5292716747264442359 in the translation console). [CHAR_LIMIT=700] -->
+  <!-- Message in the popup informing the user a dictionary is available for their language, and asking for a decision to download over their mobile data plan or not. The reason we ask for this is, the data is large and may be downloaded over a paid-per-megabyte connection but a dictionary is also essential to type comfortably, so we ask the user. This only pops in selected cases, when there is no dictionary at all currently, and the only available network seems to be metered. The "Languages & input" part should be set to the actual name of the option (message ID 5292716747264442359 in the translation console). [CHAR_LIMIT=700] -->
   <!-- The text of the "dictionary available" notification. -->
   <!-- The small subtext in the "dictionary available" notification. -->
   <!-- The text of the toast warning a download is starting automatically to enable suggestions for the selected language [CHAR LIMIT=100] -->
