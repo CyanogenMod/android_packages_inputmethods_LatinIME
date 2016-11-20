@@ -335,7 +335,7 @@ mobile devices. [CHAR LIMIT=25] -->
   <string name="setup_step1_instruction">"Wiel w.e.g. \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" an dengen Astellunge fir \"Sprooch an Agab\" aus, fir datt d'App op dengem Apparat ka lafen."</string>
   <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
   <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ass schonn an dengen Astellunge fir \"Sprooch an Agab\" aktivéiert, also ass dëse Schrëtt fäerdeg. Weider bei den nächsten!"</string>
-  <!-- The label of the button that triggers the Language & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
+  <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
   <string name="setup_step1_action">An den Astellungen aktivéieren</string>
   <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
   <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
@@ -406,7 +406,7 @@ mobile devices. [CHAR LIMIT=25] -->
   <string name="cancel_download_dict">Ofbriechen</string>
   <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
   <string name="delete_dict">Läschen</string>
-  <!-- Message in the popup informing the user a dictionary is available for their language, and asking for a decision to download over their mobile data plan or not. The reason we ask for this is, the data is large and may be downloaded over a paid-per-megabyte connection but a dictionary is also essential to type comfortably, so we ask the user. This only pops in selected cases, when there is no dictionary at all currently, and the only available network seems to be metered. The "Language & input" part should be set to the actual name of the option (message ID 5292716747264442359 in the translation console). [CHAR_LIMIT=700] -->
+  <!-- Message in the popup informing the user a dictionary is available for their language, and asking for a decision to download over their mobile data plan or not. The reason we ask for this is, the data is large and may be downloaded over a paid-per-megabyte connection but a dictionary is also essential to type comfortably, so we ask the user. This only pops in selected cases, when there is no dictionary at all currently, and the only available network seems to be metered. The "Languages & input" part should be set to the actual name of the option (message ID 5292716747264442359 in the translation console). [CHAR_LIMIT=700] -->
   <string name="should_download_over_metered_prompt">Fir déi op dengem Apparat ausgewielte Sprooch ass en Dictionnaire disponibel.&lt;br/&gt;
 Mir recommandéieren den Dictionnaire fir <xliff:g id="language" example="English">%1$s</xliff:g> &lt;b&gt;erofzeluede&lt;/b&gt; fir Text méi einfach kënnen anzeginn.&lt;br/&gt;
 &lt;br/&gt;
