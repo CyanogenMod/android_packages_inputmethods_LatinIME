@@ -24,9 +24,7 @@
   <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
-  <string name="label_send_key">Sendi</string>
   <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
-  <string name="label_search_key">Serĉi</string>
   <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
   <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
 </resources>
