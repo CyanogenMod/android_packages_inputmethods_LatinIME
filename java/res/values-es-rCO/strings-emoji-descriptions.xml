@@ -101,7 +101,6 @@
   <!-- Spoken description for Unicode code point U+2702: "✂" BLACK SCISSORS -->
   <!-- Spoken description for Unicode code point U+2705: "✅" WHITE HEAVY CHECK MARK -->
   <!-- Spoken description for Unicode code point U+2708: "✈" AIRPLANE -->
-  <string name="spoken_emoji_2708">Aviadilo</string>
   <!-- Spoken description for Unicode code point U+2709: "✉" ENVELOPE -->
   <!-- Spoken description for Unicode code point U+270A: "✊" RAISED FIST -->
   <!-- Spoken description for Unicode code point U+270B: "✋" RAISED HAND -->
@@ -182,11 +181,9 @@
   <!-- Spoken description for Unicode code point U+1F306: "🌆" CITYSCAPE AT DUSK -->
   <!-- Spoken description for Unicode code point U+1F307: "🌇" SUNSET OVER BUILDINGS -->
   <!-- Spoken description for Unicode code point U+1F308: "🌈" RAINBOW -->
-  <string name="spoken_emoji_1F308">Ĉielarko</string>
   <!-- Spoken description for Unicode code point U+1F309: "🌉" BRIDGE AT NIGHT -->
   <!-- Spoken description for Unicode code point U+1F30A: "🌊" WATER WAVE -->
   <!-- Spoken description for Unicode code point U+1F30B: "🌋" VOLCANO -->
-  <string name="spoken_emoji_1F30B">Vulkano</string>
   <!-- Spoken description for Unicode code point U+1F30C: "🌌" MILKY WAY -->
   <!-- Spoken description for Unicode code point U+1F30D: "🌍" EARTH GLOBE EUROPE-AFRICA -->
   <!-- Spoken description for Unicode code point U+1F30E: "🌎" EARTH GLOBE AMERICAS -->
@@ -214,7 +211,6 @@
   <!-- Spoken description for Unicode code point U+1F333: "🌳" DECIDUOUS TREE -->
   <!-- Spoken description for Unicode code point U+1F334: "🌴" PALM TREE -->
   <!-- Spoken description for Unicode code point U+1F335: "🌵" CACTUS -->
-  <string name="spoken_emoji_1F335">Kakto</string>
   <!-- Spoken description for Unicode code point U+1F337: "🌷" TULIP -->
   <!-- Spoken description for Unicode code point U+1F338: "🌸" CHERRY BLOSSOM -->
   <!-- Spoken description for Unicode code point U+1F339: "🌹" ROSE -->
@@ -230,7 +226,6 @@
   <!-- Spoken description for Unicode code point U+1F343: "🍃" LEAF FLUTTERING IN WIND -->
   <!-- Spoken description for Unicode code point U+1F344: "🍄" MUSHROOM -->
   <!-- Spoken description for Unicode code point U+1F345: "🍅" TOMATO -->
-  <string name="spoken_emoji_1F345">Tomato</string>
   <!-- Spoken description for Unicode code point U+1F346: "🍆" AUBERGINE -->
   <!-- Spoken description for Unicode code point U+1F347: "🍇" GRAPES -->
   <!-- Spoken description for Unicode code point U+1F348: "🍈" MELON -->
@@ -238,20 +233,13 @@
   <!-- Spoken description for Unicode code point U+1F34A: "🍊" TANGERINE -->
   <!-- Spoken description for Unicode code point U+1F34B: "🍋" LEMON -->
   <!-- Spoken description for Unicode code point U+1F34C: "🍌" BANANA -->
-  <string name="spoken_emoji_1F34C">Banano</string>
   <!-- Spoken description for Unicode code point U+1F34D: "🍍" PINEAPPLE -->
   <!-- Spoken description for Unicode code point U+1F34E: "🍎" RED APPLE -->
-  <string name="spoken_emoji_1F34E">Ruĝa pomo</string>
   <!-- Spoken description for Unicode code point U+1F34F: "🍏" GREEN APPLE -->
-  <string name="spoken_emoji_1F34F">Verda pomo</string>
   <!-- Spoken description for Unicode code point U+1F350: "🍐" PEAR -->
-  <string name="spoken_emoji_1F350">Piro</string>
   <!-- Spoken description for Unicode code point U+1F351: "🍑" PEACH -->
-  <string name="spoken_emoji_1F351">Persiko</string>
   <!-- Spoken description for Unicode code point U+1F352: "🍒" CHERRIES -->
-  <string name="spoken_emoji_1F352">Ĉerizoj</string>
   <!-- Spoken description for Unicode code point U+1F353: "🍓" STRAWBERRY -->
-  <string name="spoken_emoji_1F353">Frago</string>
   <!-- Spoken description for Unicode code point U+1F354: "🍔" HAMBURGER -->
   <!-- Spoken description for Unicode code point U+1F355: "🍕" SLICE OF PIZZA -->
   <!-- Spoken description for Unicode code point U+1F356: "🍖" MEAT ON BONE -->
@@ -263,13 +251,11 @@
   <!-- Spoken description for Unicode code point U+1F35C: "🍜" STEAMING BOWL -->
   <!-- Spoken description for Unicode code point U+1F35D: "🍝" SPAGHETTI -->
   <!-- Spoken description for Unicode code point U+1F35E: "🍞" BREAD -->
-  <string name="spoken_emoji_1F35E">Pano</string>
   <!-- Spoken description for Unicode code point U+1F35F: "🍟" FRENCH FRIES -->
   <!-- Spoken description for Unicode code point U+1F360: "🍠" ROASTED SWEET POTATO -->
   <!-- Spoken description for Unicode code point U+1F361: "🍡" DANGO -->
   <!-- Spoken description for Unicode code point U+1F362: "🍢" ODEN -->
   <!-- Spoken description for Unicode code point U+1F363: "🍣" SUSHI -->
-  <string name="spoken_emoji_1F363">Suŝio</string>
   <!-- Spoken description for Unicode code point U+1F364: "🍤" FRIED SHRIMP -->
   <!-- Spoken description for Unicode code point U+1F365: "🍥" FISH CAKE WITH SWIRL DESIGN -->
   <!-- Spoken description for Unicode code point U+1F366: "🍦" SOFT ICE CREAM -->
@@ -366,11 +352,9 @@
   <!-- Spoken description for Unicode code point U+1F3E6: "🏦" BANK -->
   <!-- Spoken description for Unicode code point U+1F3E7: "🏧" AUTOMATED TELLER MACHINE -->
   <!-- Spoken description for Unicode code point U+1F3E8: "🏨" HOTEL -->
-  <string name="spoken_emoji_1F3E8">Hotelo</string>
   <!-- Spoken description for Unicode code point U+1F3E9: "🏩" LOVE HOTEL -->
   <!-- Spoken description for Unicode code point U+1F3EA: "🏪" CONVENIENCE STORE -->
   <!-- Spoken description for Unicode code point U+1F3EB: "🏫" SCHOOL -->
-  <string name="spoken_emoji_1F3EB">Lernejo</string>
   <!-- Spoken description for Unicode code point U+1F3EC: "🏬" DEPARTMENT STORE -->
   <!-- Spoken description for Unicode code point U+1F3ED: "🏭" FACTORY -->
   <!-- Spoken description for Unicode code point U+1F3EE: "🏮" IZAKAYA LANTERN -->
@@ -381,45 +365,29 @@
   <!-- Spoken description for Unicode code point U+1F402: "🐂" OX -->
   <!-- Spoken description for Unicode code point U+1F403: "🐃" WATER BUFFALO -->
   <!-- Spoken description for Unicode code point U+1F404: "🐄" COW -->
-  <string name="spoken_emoji_1F404">Bovo</string>
   <!-- Spoken description for Unicode code point U+1F406: "🐆" LEOPARD -->
-  <string name="spoken_emoji_1F406">Leopardo</string>
   <!-- Spoken description for Unicode code point U+1F407: "🐇" RABBIT -->
-  <string name="spoken_emoji_1F407">Kuniklo</string>
   <!-- Spoken description for Unicode code point U+1F408: "🐈" CAT -->
-  <string name="spoken_emoji_1F408">Kato</string>
   <!-- Spoken description for Unicode code point U+1F409: "🐉" DRAGON -->
-  <string name="spoken_emoji_1F409">Drako</string>
   <!-- Spoken description for Unicode code point U+1F40A: "🐊" CROCODILE -->
-  <string name="spoken_emoji_1F40A">Krokodilo</string>
   <!-- Spoken description for Unicode code point U+1F40B: "🐋" WHALE -->
-  <string name="spoken_emoji_1F40B">Baleno</string>
   <!-- Spoken description for Unicode code point U+1F40C: "🐌" SNAIL -->
   <!-- Spoken description for Unicode code point U+1F40D: "🐍" SNAKE -->
-  <string name="spoken_emoji_1F40D">Serpento</string>
   <!-- Spoken description for Unicode code point U+1F40E: "🐎" HORSE -->
-  <string name="spoken_emoji_1F40E">Ĉevalo</string>
   <!-- Spoken description for Unicode code point U+1F40F: "🐏" RAM -->
   <!-- Spoken description for Unicode code point U+1F410: "🐐" GOAT -->
-  <string name="spoken_emoji_1F410">Kapro</string>
   <!-- Spoken description for Unicode code point U+1F411: "🐑" SHEEP -->
-  <string name="spoken_emoji_1F411">Ŝafo</string>
   <!-- Spoken description for Unicode code point U+1F412: "🐒" MONKEY -->
-  <string name="spoken_emoji_1F412">Simio</string>
   <!-- Spoken description for Unicode code point U+1F413: "🐓" ROOSTER -->
   <!-- Spoken description for Unicode code point U+1F414: "🐔" CHICKEN -->
   <!-- Spoken description for Unicode code point U+1F415: "🐕" DOG -->
-  <string name="spoken_emoji_1F415">Hundo</string>
   <!-- Spoken description for Unicode code point U+1F416: "🐖" PIG -->
-  <string name="spoken_emoji_1F416">Porko</string>
   <!-- Spoken description for Unicode code point U+1F417: "🐗" BOAR -->
   <!-- Spoken description for Unicode code point U+1F418: "🐘" ELEPHANT -->
-  <string name="spoken_emoji_1F418">Elefanto</string>
   <!-- Spoken description for Unicode code point U+1F419: "🐙" OCTOPUS -->
   <!-- Spoken description for Unicode code point U+1F41A: "🐚" SPIRAL SHELL -->
   <!-- Spoken description for Unicode code point U+1F41B: "🐛" BUG -->
   <!-- Spoken description for Unicode code point U+1F41C: "🐜" ANT -->
-  <string name="spoken_emoji_1F41C">Formiko</string>
   <!-- Spoken description for Unicode code point U+1F41D: "🐝" HONEYBEE -->
   <!-- Spoken description for Unicode code point U+1F41E: "🐞" LADY BEETLE -->
   <!-- Spoken description for Unicode code point U+1F41F: "🐟" FISH -->
@@ -430,15 +398,12 @@
   <!-- Spoken description for Unicode code point U+1F424: "🐤" BABY CHICK -->
   <!-- Spoken description for Unicode code point U+1F425: "🐥" FRONT-FACING BABY CHICK -->
   <!-- Spoken description for Unicode code point U+1F426: "🐦" BIRD -->
-  <string name="spoken_emoji_1F426">Birdo</string>
   <!-- Spoken description for Unicode code point U+1F427: "🐧" PENGUIN -->
-  <string name="spoken_emoji_1F427">Pingveno</string>
   <!-- Spoken description for Unicode code point U+1F428: "🐨" KOALA -->
   <!-- Spoken description for Unicode code point U+1F429: "🐩" POODLE -->
   <!-- Spoken description for Unicode code point U+1F42A: "🐪" DROMEDARY CAMEL -->
   <!-- Spoken description for Unicode code point U+1F42B: "🐫" BACTRIAN CAMEL -->
   <!-- Spoken description for Unicode code point U+1F42C: "🐬" DOLPHIN -->
-  <string name="spoken_emoji_1F42C">Delfeno</string>
   <!-- Spoken description for Unicode code point U+1F42D: "🐭" MOUSE FACE -->
   <!-- Spoken description for Unicode code point U+1F42E: "🐮" COW FACE -->
   <!-- Spoken description for Unicode code point U+1F42F: "🐯" TIGER FACE -->
@@ -458,15 +423,10 @@
   <!-- Spoken description for Unicode code point U+1F43D: "🐽" PIG NOSE -->
   <!-- Spoken description for Unicode code point U+1F43E: "🐾" PAW PRINTS -->
   <!-- Spoken description for Unicode code point U+1F440: "👀" EYES -->
-  <string name="spoken_emoji_1F440">Okuloj</string>
   <!-- Spoken description for Unicode code point U+1F442: "👂" EAR -->
-  <string name="spoken_emoji_1F442">Orelo</string>
   <!-- Spoken description for Unicode code point U+1F443: "👃" NOSE -->
-  <string name="spoken_emoji_1F443">Nazo</string>
   <!-- Spoken description for Unicode code point U+1F444: "👄" MOUTH -->
-  <string name="spoken_emoji_1F444">Buŝo</string>
   <!-- Spoken description for Unicode code point U+1F445: "👅" TONGUE -->
-  <string name="spoken_emoji_1F445">Lango</string>
   <!-- Spoken description for Unicode code point U+1F446: "👆" WHITE UP POINTING BACKHAND INDEX -->
   <!-- Spoken description for Unicode code point U+1F447: "👇" WHITE DOWN POINTING BACKHAND INDEX -->
   <!-- Spoken description for Unicode code point U+1F448: "👈" WHITE LEFT POINTING BACKHAND INDEX -->
@@ -479,7 +439,6 @@
   <!-- Spoken description for Unicode code point U+1F44F: "👏" CLAPPING HANDS SIGN -->
   <!-- Spoken description for Unicode code point U+1F450: "👐" OPEN HANDS SIGN -->
   <!-- Spoken description for Unicode code point U+1F451: "👑" CROWN -->
-  <string name="spoken_emoji_1F451">Krono</string>
   <!-- Spoken description for Unicode code point U+1F452: "👒" WOMANS HAT -->
   <!-- Spoken description for Unicode code point U+1F453: "👓" EYEGLASSES -->
   <!-- Spoken description for Unicode code point U+1F454: "👔" NECKTIE -->
@@ -488,7 +447,6 @@
   <!-- Spoken description for Unicode code point U+1F457: "👗" DRESS -->
   <!-- Spoken description for Unicode code point U+1F458: "👘" KIMONO -->
   <!-- Spoken description for Unicode code point U+1F459: "👙" BIKINI -->
-  <string name="spoken_emoji_1F459">Bikino</string>
   <!-- Spoken description for Unicode code point U+1F45A: "👚" WOMANS CLOTHES -->
   <!-- Spoken description for Unicode code point U+1F45B: "👛" PURSE -->
   <!-- Spoken description for Unicode code point U+1F45C: "👜" HANDBAG -->
@@ -502,20 +460,14 @@
   <!-- Spoken description for Unicode code point U+1F464: "👤" BUST IN SILHOUETTE -->
   <!-- Spoken description for Unicode code point U+1F465: "👥" BUSTS IN SILHOUETTE -->
   <!-- Spoken description for Unicode code point U+1F466: "👦" BOY -->
-  <string name="spoken_emoji_1F466">Knabo</string>
   <!-- Spoken description for Unicode code point U+1F467: "👧" GIRL -->
-  <string name="spoken_emoji_1F467">Knabino</string>
   <!-- Spoken description for Unicode code point U+1F468: "👨" MAN -->
-  <string name="spoken_emoji_1F468">Viro</string>
   <!-- Spoken description for Unicode code point U+1F469: "👩" WOMAN -->
-  <string name="spoken_emoji_1F469">Virino</string>
   <!-- Spoken description for Unicode code point U+1F46A: "👪" FAMILY -->
-  <string name="spoken_emoji_1F46A">Familio</string>
   <!-- Spoken description for Unicode code point U+1F46B: "👫" MAN AND WOMAN HOLDING HANDS -->
   <!-- Spoken description for Unicode code point U+1F46C: "👬" TWO MEN HOLDING HANDS -->
   <!-- Spoken description for Unicode code point U+1F46D: "👭" TWO WOMEN HOLDING HANDS -->
   <!-- Spoken description for Unicode code point U+1F46E: "👮" POLICE OFFICER -->
-  <string name="spoken_emoji_1F46E">Policisto</string>
   <!-- Spoken description for Unicode code point U+1F46F: "👯" WOMAN WITH BUNNY EARS -->
   <!-- Spoken description for Unicode code point U+1F470: "👰" BRIDE WITH VEIL -->
   <!-- Spoken description for Unicode code point U+1F471: "👱" PERSON WITH BLOND HAIR -->
@@ -524,20 +476,16 @@
   <!-- Spoken description for Unicode code point U+1F474: "👴" OLDER MAN -->
   <!-- Spoken description for Unicode code point U+1F475: "👵" OLDER WOMAN -->
   <!-- Spoken description for Unicode code point U+1F476: "👶" BABY -->
-  <string name="spoken_emoji_1F476">Bebo</string>
   <!-- Spoken description for Unicode code point U+1F477: "👷" CONSTRUCTION WORKER -->
   <!-- Spoken description for Unicode code point U+1F478: "👸" PRINCESS -->
-  <string name="spoken_emoji_1F478">Princino</string>
   <!-- Spoken description for Unicode code point U+1F479: "👹" JAPANESE OGRE -->
   <!-- Spoken description for Unicode code point U+1F47A: "👺" JAPANESE GOBLIN -->
   <!-- Spoken description for Unicode code point U+1F47B: "👻" GHOST -->
-  <string name="spoken_emoji_1F47B">Fantomo</string>
   <!-- Spoken description for Unicode code point U+1F47C: "👼" BABY ANGEL -->
   <!-- Spoken description for Unicode code point U+1F47D: "👽" EXTRATERRESTRIAL ALIEN -->
   <!-- Spoken description for Unicode code point U+1F47E: "👾" ALIEN MONSTER -->
   <!-- Spoken description for Unicode code point U+1F47F: "👿" IMP -->
   <!-- Spoken description for Unicode code point U+1F480: "💀" SKULL -->
-  <string name="spoken_emoji_1F480">Kranio</string>
   <!-- Spoken description for Unicode code point U+1F481: "💁" INFORMATION DESK PERSON -->
   <!-- Spoken description for Unicode code point U+1F482: "💂" GUARDSMAN -->
   <!-- Spoken description for Unicode code point U+1F483: "💃" DANCER -->
@@ -548,7 +496,6 @@
   <!-- Spoken description for Unicode code point U+1F488: "💈" BARBER POLE -->
   <!-- Spoken description for Unicode code point U+1F489: "💉" SYRINGE -->
   <!-- Spoken description for Unicode code point U+1F48A: "💊" PILL -->
-  <string name="spoken_emoji_1F48A">Pilolo</string>
   <!-- Spoken description for Unicode code point U+1F48B: "💋" KISS MARK -->
   <!-- Spoken description for Unicode code point U+1F48C: "💌" LOVE LETTER -->
   <!-- Spoken description for Unicode code point U+1F48D: "💍" RING -->
@@ -560,16 +507,12 @@
   <!-- Spoken description for Unicode code point U+1F493: "💓" BEATING HEART -->
   <!-- Spoken description for Unicode code point U+1F494: "💔" BROKEN HEART -->
   <!-- Spoken description for Unicode code point U+1F495: "💕" TWO HEARTS -->
-  <string name="spoken_emoji_1F495">Du koroj</string>
   <!-- Spoken description for Unicode code point U+1F496: "💖" SPARKLING HEART -->
   <!-- Spoken description for Unicode code point U+1F497: "💗" GROWING HEART -->
   <!-- Spoken description for Unicode code point U+1F498: "💘" HEART WITH ARROW -->
   <!-- Spoken description for Unicode code point U+1F499: "💙" BLUE HEART -->
-  <string name="spoken_emoji_1F499">Blua koro</string>
   <!-- Spoken description for Unicode code point U+1F49A: "💚" GREEN HEART -->
-  <string name="spoken_emoji_1F49A">Verda koro</string>
   <!-- Spoken description for Unicode code point U+1F49B: "💛" YELLOW HEART -->
-  <string name="spoken_emoji_1F49B">Flava koro</string>
   <!-- Spoken description for Unicode code point U+1F49C: "💜" PURPLE HEART -->
   <!-- Spoken description for Unicode code point U+1F49D: "💝" HEART WITH RIBBON -->
   <!-- Spoken description for Unicode code point U+1F49E: "💞" REVOLVING HEARTS -->
@@ -578,7 +521,6 @@
   <!-- Spoken description for Unicode code point U+1F4A1: "💡" ELECTRIC LIGHT BULB -->
   <!-- Spoken description for Unicode code point U+1F4A2: "💢" ANGER SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F4A3: "💣" BOMB -->
-  <string name="spoken_emoji_1F4A3">Bombo</string>
   <!-- Spoken description for Unicode code point U+1F4A4: "💤" SLEEPING SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F4A5: "💥" COLLISION SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F4A6: "💦" SPLASHING SWEAT SYMBOL -->
@@ -634,7 +576,6 @@
   <!-- Spoken description for Unicode code point U+1F4D8: "📘" BLUE BOOK -->
   <!-- Spoken description for Unicode code point U+1F4D9: "📙" ORANGE BOOK -->
   <!-- Spoken description for Unicode code point U+1F4DA: "📚" BOOKS -->
-  <string name="spoken_emoji_1F4DA">Libroj</string>
   <!-- Spoken description for Unicode code point U+1F4DB: "📛" NAME BADGE -->
   <!-- Spoken description for Unicode code point U+1F4DC: "📜" SCROLL -->
   <!-- Spoken description for Unicode code point U+1F4DD: "📝" MEMO -->
@@ -842,7 +783,6 @@
   <!-- Spoken description for Unicode code point U+1F684: "🚄" HIGH-SPEED TRAIN -->
   <!-- Spoken description for Unicode code point U+1F685: "🚅" HIGH-SPEED TRAIN WITH BULLET NOSE -->
   <!-- Spoken description for Unicode code point U+1F686: "🚆" TRAIN -->
-  <string name="spoken_emoji_1F686">Trajno</string>
   <!-- Spoken description for Unicode code point U+1F687: "🚇" METRO -->
   <!-- Spoken description for Unicode code point U+1F688: "🚈" LIGHT RAIL -->
   <!-- Spoken description for Unicode code point U+1F689: "🚉" STATION -->
@@ -858,7 +798,6 @@
   <!-- Spoken description for Unicode code point U+1F693: "🚓" POLICE CAR -->
   <!-- Spoken description for Unicode code point U+1F694: "🚔" ONCOMING POLICE CAR -->
   <!-- Spoken description for Unicode code point U+1F695: "🚕" TAXI -->
-  <string name="spoken_emoji_1F695">Taksio</string>
   <!-- Spoken description for Unicode code point U+1F696: "🚖" ONCOMING TAXI -->
   <!-- Spoken description for Unicode code point U+1F697: "🚗" AUTOMOBILE -->
   <!-- Spoken description for Unicode code point U+1F698: "🚘" ONCOMING AUTOMOBILE -->
@@ -872,7 +811,6 @@
   <!-- Spoken description for Unicode code point U+1F6A0: "🚠" MOUNTAIN CABLEWAY -->
   <!-- Spoken description for Unicode code point U+1F6A1: "🚡" AERIAL TRAMWAY -->
   <!-- Spoken description for Unicode code point U+1F6A2: "🚢" SHIP -->
-  <string name="spoken_emoji_1F6A2">Ŝipo</string>
   <!-- Spoken description for Unicode code point U+1F6A3: "🚣" ROWBOAT -->
   <!-- Spoken description for Unicode code point U+1F6A4: "🚤" SPEEDBOAT -->
   <!-- Spoken description for Unicode code point U+1F6A5: "🚥" HORIZONTAL TRAFFIC LIGHT -->
@@ -881,7 +819,6 @@
   <!-- Spoken description for Unicode code point U+1F6A8: "🚨" POLICE CARS REVOLVING LIGHT -->
   <!-- Spoken description for Unicode code point U+1F6A9: "🚩" TRIANGULAR FLAG ON POST -->
   <!-- Spoken description for Unicode code point U+1F6AA: "🚪" DOOR -->
-  <string name="spoken_emoji_1F6AA">Pordo</string>
   <!-- Spoken description for Unicode code point U+1F6AB: "🚫" NO ENTRY SIGN -->
   <!-- Spoken description for Unicode code point U+1F6AC: "🚬" SMOKING SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F6AD: "🚭" NO SMOKING SYMBOL -->
@@ -890,7 +827,6 @@
   <!-- Spoken description for Unicode code point U+1F6B0: "🚰" POTABLE WATER SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F6B1: "🚱" NON-POTABLE WATER SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F6B2: "🚲" BICYCLE -->
-  <string name="spoken_emoji_1F6B2">Biciklo</string>
   <!-- Spoken description for Unicode code point U+1F6B3: "🚳" NO BICYCLES -->
   <!-- Spoken description for Unicode code point U+1F6B4: "🚴" BICYCLIST -->
   <!-- Spoken description for Unicode code point U+1F6B5: "🚵" MOUNTAIN BICYCLIST -->
@@ -902,7 +838,6 @@
   <!-- Spoken description for Unicode code point U+1F6BB: "🚻" RESTROOM -->
   <!-- Spoken description for Unicode code point U+1F6BC: "🚼" BABY SYMBOL -->
   <!-- Spoken description for Unicode code point U+1F6BD: "🚽" TOILET -->
-  <string name="spoken_emoji_1F6BD">Necesejo</string>
   <!-- Spoken description for Unicode code point U+1F6BE: "🚾" WATER CLOSET -->
   <!-- Spoken description for Unicode code point U+1F6BF: "🚿" SHOWER -->
   <!-- Spoken description for Unicode code point U+1F6C0: "🛀" BATH -->
